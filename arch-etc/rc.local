@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# /etc/rc.local: Local multi-user startup script.
+#
+
+#运行级别较高，改显卡运行模式降低显卡运作频率
+# 通过如下命令可以查看当前显卡电源管理模式：$ cat/sys/class/drm/card0/device/power_profile, 默认的是“default”，也就是最大性能模式，我们可以把它更改为 auto,low,mid,high 等模式
+
+echo low > /sys/class/drm/card0/device/power_profile
+# 屏幕亮度 0--10
+
+echo 4 > /sys/class/drm/card0/device/backlight/acpi_video1/brightness
+

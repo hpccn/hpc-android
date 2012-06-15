@@ -1,0 +1,81 @@
+
+ARCHLINUX INSTALLATION NOTE
+https://wiki.archlinux.org/index.php/Beginners'_Guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+
+https://wiki.archlinux.org/index.php/Yaourt_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
+
+安装过程无压力，基本系统的安装最多花费10分钟，如果操作再快一点，PC再给力一点后果就不堪设想了:)（主要花费在base和base-devel的安装上）安装之后系统的更新和各种软件的安装是最耗时间的，也遇到里不少问题，记录如下：
+
+#1:
+
+pacman -Syy
+
+pacman -Syu
+
+在这一步遇到了无法完成更新的错误
+
+错误输出：
+
+error: failed to commit transaction (conflicting files)
+filesystem: /etc/mtab exists in filesystem
+initscripts: /etc/profile.d/locale.sh exists in filesystem
+Errors occurred, no packages were upgraded.
+解决方案：
+
+pacman -S filesystem --force
+
+mv /etc/profile.d/locale.sh /etc/profile.d/locale.sh.old
+
+#2:
+
+pacman -S xorg-server xorg-xinit xorg-utils xorg-server-utils
+
+pacman -S gnome gdm dbus
+
+这里忘记了安装dbus，导致最后GUI没进去 :)
+
+#3:
+
+pacman -S wqy-zenhei
+
+pacman -S vim chromium git
+
+pacman -S ibus ibus-pinyin
+
+暂时就用到这些软件，相比ubuntu那个超复杂的.bashrc文件，我还是慢慢从arch带的这个0行文件开始逐行添加吧！
+
+执行pacman -Syu时出错了
+
+error: failed to commit transaction (conflicting files)
+initscripts: /etc/profile.d/locale.sh exists in filesystem
+Errors occurred, no packages were upgraded.
+
+mv /etc/profile.dlocale.sh /etc/profile.d/locale.sh.old
+
+
+///////////////
+
+startx 后黑屏
+需要启动dbus
+vim /etc/rc.conf 
+DAEMONS={dbus}
+
+
+archlinux没有ifconfig命令
+ifconfig,route在net-tools中，nslookup,dig在dnsutils中，ftp,telnet等在inetutils中,ip命令在iproute2中。
+pacman -S net-tools dnsutils inetutils iproute2
+
+
+Xfce环境
+Xfce环境下同样使用GNOME的软件包，但是需要xfapplet插件，其作用是允许GNOME里的的那些小程序显示在xfce4面板上：
+
+# pacman -S gnome-network-manager xfce4-xfapplet-plugin
+
+
+
+Fluxbox以及其它窗口管理器
+你需要高色彩的主题来运行nm-applet：
+
+# pacman -S gnome-network-manager hicolor-icon-theme
+
+

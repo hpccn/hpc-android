@@ -1,0 +1,133 @@
+archlinux 软件安装 
+
+
+安装完 archlinux 后，下面是安装的各种软件。
+
+系统：
+acpid # 监测 acpi 事件，用于电源管理
+alsa-utils # 声卡驱动
+bash-completion # 命令自动补全
+blueman # 蓝牙管理
+conky # 桌面显示系统状态
+cpufrequtils # 自动调节 cpu 频率
+e4rat # 加速启动
+gcalctool # 计算器
+gksu # 图形界面 root 权限
+gmrun # "运行"对话框
+gtk-engine-murrine
+gtk-engines
+gvfs-smb # 访问 windows 共享
+laptop-mode-tools # 笔记本电源管理相关
+lxappearance # 设置主题
+ntfs-3g # 访问 ntfs 分区
+samba # 设置共享
+thunar-archive-plugin # thunar 用于压缩解压缩的插件
+thunar-volman # 管理 usb 自动挂载等
+thunar # 文件管理器
+tilda # 终端嵌入
+monaco-linux-font # 终端等宽字体
+ttf-liberation # 英文字体
+ttf-arphic-ukai # 中文字体
+ttf-arphic-uming # 中文字体
+tumbler # 生成缩略图
+virtualbox virtualbox-additions # 虚拟机
+wireshark-gtk # 网络抓包
+xarchiver # 图形界面压缩解压缩
+xf86-input-synaptics # 触摸板
+xfce4-power-manager # 电源管理
+xscreensaver # 屏保
+zip unzip unrar p7zip # 压缩软件
+
+文档相关：
+eclipse # java 开发
+evince # 查看 pdf
+ibus-pinyin # 输入法
+libreoffice # office 软件
+medit # 文本编辑
+vim # 终端文本编辑
+
+多媒体：
+deadbeef # 听歌
+gimp # 编辑图片
+gstreamer0.10-plugins # 解码器
+mirage # 看图
+mplayer2
+smplayer # 看视频
+scrot # 截图
+
+网络：
+filezilla # ftp 软件
+firefox # 浏览器
+flashplugin # flash 插件
+gecko-mediaplayer # firefox 中播放流媒体
+openssh # ssh 登录
+transmission-gtk # bt 下载
+wicd-gtk # 网络管理
+xchat # irc 聊天
+
+yaourt 安装：
+compiz-boxmenu #桌面右键菜单
+deadbeef-plugins-mpris # 使得 deadbeef 可以使用 osdlyrics 软件显示歌词
+freetype2-ubuntu fontconfig-ubuntu libxft-ubuntu cairo-ubuntu # 改善字体显示效果
+notify-osd # 桌面通知
+osd-lyrics-git # 歌词显示
+
+
+xfce 下常用的软件以及配置.
+
+1. chm阅读 ????chmsee
+作为一个苦逼的码农,要忍受各种chm文件的蹂躏,这个时候还是指望的老牌的chmsee.
+
+2. pdf阅读 ????epdfview
+这个是 arch 的 wiki 推荐的免费轻量的PDF阅读软件, 没办法, 我就是对轻量没有抵抗力.
+
+3. 屏幕截图 ????xfce4-screenshooter
+可以全屏,按窗口,按区域截图,支持命令行启动,截图迅速,非常推荐.
+print 键绑定到 xfce4-screenshooter -f (桌面截取)
+Ctrl+Alt+a 组合键绑定到 xfce4-screenshooter -r (区域截取,快捷键兼容企鹅默认)
+
+4. 文件管理器 ????thunar + thunar-volman + gvfs
+thunar 是轻量的文件管理系统, thunar-volman 是移动存储设备的操作的管理器, gvfs(这货应该是gnome下的)可以实现 usb设备(U盘) 等的自动加载.
+
+5. 压缩包管理GUI ????xarchiver
+不多说了,一个字"简单"
+
+6. 声卡驱动以及工具包 ????alsa-utils 和 alsa-lib
+wiki 里提到的 alsamixer 就在 alsa-utils 里
+配置快捷键分别绑定到 amixer set Master 5%+ (音量增大5%), amixer set Master 5%- (音量降低5%) 上
+
+7. 计算器 ????galculator
+简单可用…我比较偏向linux命令行下操作的 自己就用PHP做了个简单的计算工具.
+
+8. 图片查看 ????ristretto
+简单好用, 界面友好
+
+
+archlinux中fcitx随X的配置
+
+fcitx，中文输入法，现在中文输入工具已经有不少非常好用的，偶还是偏好fcitx，设置很简单，修改.fcitx/config文件。
+1. 随X启动，编辑～/.xinitrc，在启动桌面环境之前加入
+exportXMODIFIERS="@im=fcitx"
+ exportGTK_IM_MODULE="fcitx" 
+exportQT_IM_MODULE="fcitx"
+fcitx &
+ 
+2. 解决英文环境下无法激活。修改/etc/gtk-2.0/gtk.immodules，按照下面修改这一段
+"/usr/lib/gtk-2.0/2.10.0/immodules/im-xim.so"
+ "xim" "X Input Method" "gtk20" "/usr/share/locale" "en:ko:ja:th:zh"
+
+
+slim 自动启动xfce4
+#vim ~/.xinitrc
+
+exec xfce4-session
+------------------
+#vim /etc/initab
+
+找到id:3:initdefault: 注释之(在前面加个#)
+
+找到#id:5:initdefault: 打开(把前面的#去掉)
+
+找到 #x:5:respawn: /usr/bin/slim >& /dev/null 打开
+
+

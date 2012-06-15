@@ -75,31 +75,31 @@ osd-lyrics-git # 歌词显示
 
 xfce 下常用的软件以及配置.
 
-1. chm阅读 ????chmsee
+1. chm阅读 chmsee
 作为一个苦逼的码农,要忍受各种chm文件的蹂躏,这个时候还是指望的老牌的chmsee.
 
-2. pdf阅读 ????epdfview
+2. pdf阅读 epdfview
 这个是 arch 的 wiki 推荐的免费轻量的PDF阅读软件, 没办法, 我就是对轻量没有抵抗力.
 
-3. 屏幕截图 ????xfce4-screenshooter
+3. 屏幕截图 xfce4-screenshooter
 可以全屏,按窗口,按区域截图,支持命令行启动,截图迅速,非常推荐.
 print 键绑定到 xfce4-screenshooter -f (桌面截取)
 Ctrl+Alt+a 组合键绑定到 xfce4-screenshooter -r (区域截取,快捷键兼容企鹅默认)
 
-4. 文件管理器 ????thunar + thunar-volman + gvfs
+4. 文件管理器 thunar + thunar-volman + gvfs
 thunar 是轻量的文件管理系统, thunar-volman 是移动存储设备的操作的管理器, gvfs(这货应该是gnome下的)可以实现 usb设备(U盘) 等的自动加载.
 
-5. 压缩包管理GUI ????xarchiver
+5. 压缩包管理GUI xarchiver
 不多说了,一个字"简单"
 
-6. 声卡驱动以及工具包 ????alsa-utils 和 alsa-lib
+6. 声卡驱动以及工具包 alsa-utils 和 alsa-lib
 wiki 里提到的 alsamixer 就在 alsa-utils 里
 配置快捷键分别绑定到 amixer set Master 5%+ (音量增大5%), amixer set Master 5%- (音量降低5%) 上
 
-7. 计算器 ????galculator
+7. 计算器 galculator
 简单可用…我比较偏向linux命令行下操作的 自己就用PHP做了个简单的计算工具.
 
-8. 图片查看 ????ristretto
+8. 图片查看 ristretto
 简单好用, 界面友好
 
 

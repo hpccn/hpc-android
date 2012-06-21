@@ -1,0 +1,48 @@
+8 个优秀的 Linux 图形图像及色彩工具
+
+对艺术家、摄影师、动画师和设计师而言，Linux是一个有潜力的平台。廉价的硬件，优秀的免费软件，任何有才华的人都能在上面创作专业水平的计算机图形。开源社区提供了丰富的开源图形工具，但要慧眼识珠并非易事。这里介绍的优秀图形工具覆盖了色彩管理工具、图像处理、图形转换器和优化器，以及工作流应用程序。
+
+1. 硬件色彩分析器LPROF
+
+LPROF 是一个用于创建设备兼容，如相机、扫描仪、显示器的ICC兼容型材的颜色分析器。这些配置提供跨设备的色彩一致性。他们可以用在颜色配置文件识别软件，如GIMP与Scribus。
+
+
+
+2. 从高端照相机导入Raw数据的工具 UFRaw
+
+UFRaw是一个原始图像处理工具。它用来处理数码相机中的原始格式图片，生成常见的图片格式。它既可独立使用，也可作为 GIMP 的插件。命令行模式允许你对图片进行批量处理。它还支持色彩管理，允许用户直接应用预设的色彩配置。
+
+
+
+3. 摄影工作流工具 Darktable
+
+darktable 是一个数字摄影暗房软件：它在数据库管理您的数码底片并允许您通过可缩放lighttable查看。它还使您能够开发原始图像(raw)和加强。
+
+
+
+4. 通用矢量图形翻译器 UniConvertor
+
+UniConvertor 是一个支持多平台的通用矢量图形翻译器，这是一个命令行工具，使用 sK1 对象模型来进行格式转换。
+
+UniConvetor 用于 Inkscape 和 Scribus 项目用来导入 CorelDraw 文件。
+
+5. 跨平台无损图片优化工具 Trimage
+
+Trimage 是一个跨平台的 GUI 和命令行的工具，用来对图片进行无损的体积优化。
+
+
+
+6. ICC色彩管理系统 Argyll
+
+ArgyllCMS 是兼容的ICC色彩管理系统。它支持扫描仪，数码相机和电影录像机，校准和分析的显示器和RGB和CMYK打印机准确的ICC配置文件的创建。支持光谱样本数据，允许光源观察员类型，荧光增白剂纸张添加剂补偿的选择。
+
+7. 批量图像处理工具 Converseen
+
+Converseen 是一个批量的图片转换和缩略图生成工具，支持超过100种图像格式，包括：DPX, EXR, GIF, JPEG, JPEG-2000, PDF, PhotoCD, PNG, Postscript, SVG, and TIFF
+
+
+
+8. Java的图像处理和分析库 ImageJ
+
+ImageJ是一个基于java的公共的图像处理软件，它是由National Institutes of Health开发的。可运行于Microsoft Windows，Mac OS，Mac OS X，Linux，和Sharp Zaurus PDA等多种平台。其基于java的特点， 使得它编写的程序能以applet等方式分发。
+

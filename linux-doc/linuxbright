@@ -1,0 +1,24 @@
+Xfce4 下设置开机屏幕亮度
+
+
+
+首先要写一个调节屏幕亮度的脚本，只有一句：
+
+echo 3 > /sys/class/backlight/acpi_video1/brightness
+里面的“3”可以替换为1-10中任意数字，越大越亮。
+
+
+把这个脚本保存起来，比如保存为~/brightness
+
+把这个脚本移动到/usr/local/sbin/brightness，并增加运行的权限
+
+chmod +x /usr/local/sbin/brightrness
+接着，配置允许不输入密码就sudo运行这个脚本，运行visudo，增加下面这行：
+
+# User privilege specification
+hpc        ALL=NOPASSWD: /usr/local/sbin/brightness
+将上面的hpc替换为用户名。
+
+最后，打开Applications  > Xfce Settings  > Session and startup，将
+
+sudo /usr/local/sbin/brightness

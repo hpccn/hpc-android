@@ -9,6 +9,6 @@ public class BitmapAlphaActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+        System.out.println("" + System.currentTimeMillis());
     }
 }

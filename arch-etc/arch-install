@@ -3,7 +3,8 @@ ARCHLINUX INSTALLATION NOTE
 https://wiki.archlinux.org/index.php/Beginners'_Guide_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
 
 https://wiki.archlinux.org/index.php/Yaourt_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)
-
+无线网卡配制
+https://wiki.archlinux.org/index.php/Wicd_%28%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87%29
 安装过程无压力，基本系统的安装最多花费10分钟，如果操作再快一点，PC再给力一点后果就不堪设想了:)（主要花费在base和base-devel的安装上）安装之后系统的更新和各种软件的安装是最耗时间的，也遇到里不少问题，记录如下：
 
 #1:
@@ -78,4 +79,10 @@ Fluxbox以及其它窗口管理器
 
 # pacman -S gnome-network-manager hicolor-icon-theme
 
+运行32位软件
+Archlinux 坚守 KISS 原则，不像 Ubuntu 直接安装个 ia32-lib 就能直接在 64位系统上运行 32 位程序。不过其实 Archlinux 想要做到这点也不是太难，方法如下。
+
+        编辑  /etc/pacman.conf  把其中的 [multilip] 软件仓库打开（即去掉 [multilip] 的源注释），然后执行 sudo pacman -Sy
+
+ sudo pacman -S lib32-libstdc++5 lib32-libx11 lib32-ncurses lib32-zlib
 

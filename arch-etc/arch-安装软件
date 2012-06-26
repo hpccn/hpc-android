@@ -106,28 +106,17 @@ wiki 里提到的 alsamixer 就在 alsa-utils 里
 archlinux中fcitx随X的配置
 
 fcitx，中文输入法，现在中文输入工具已经有不少非常好用的，偶还是偏好fcitx，设置很简单，修改.fcitx/config文件。
-1. 随X启动，编辑～/.xinitrc，在启动桌面环境之前加入
-exportXMODIFIERS="@im=fcitx"
- exportGTK_IM_MODULE="fcitx" 
-exportQT_IM_MODULE="fcitx"
-fcitx &
- 
-2. 解决英文环境下无法激活。修改/etc/gtk-2.0/gtk.immodules，按照下面修改这一段
-"/usr/lib/gtk-2.0/2.10.0/immodules/im-xim.so"
- "xim" "X Input Method" "gtk20" "/usr/share/locale" "en:ko:ja:th:zh"
-
+编辑～/.profile，在启动桌面环境之前加入
+#setup XIM environment
+ export GTK_IM_MODULE=xim
+ export QT_IM_MODULE=xim
+ export XMODIFIERS="@im=fcitx"
 
 slim 自动启动xfce4
-#vim ~/.xinitrc
-
+1. 编辑 /etc/inittab，改为 runlevel 5，并选择启动 slim
+2. 编辑 /etc/rc.conf，把 slim 加到 daemon 里
+3. 编辑 ~/.xinitrc
+增加
 exec xfce4-session
-------------------
-#vim /etc/initab
-
-找到id:3:initdefault: 注释之(在前面加个#)
-
-找到#id:5:initdefault: 打开(把前面的#去掉)
-
-找到 #x:5:respawn: /usr/bin/slim >& /dev/null 打开
 
 

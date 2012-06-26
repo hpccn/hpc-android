@@ -1,0 +1,35 @@
+在 Debian 中为 Intel PRO/Wireless 5100 AGN 无线网卡安装驱动
+      前几天电脑的分区表出现了问题，开机后一直从硬盘启动不了，也无法从可引导光盘启动，后来实在没有办法，送到了客服中心，原来是隐藏分区的问题，最后将分区表清除了以后问题才得到解决。回来后把 Windows 7 安装上，配置好，就该安装 Debian 了。
+      我的原则是保持最少安装，不需要的包绝不要安装上去，所以我是从基本系统开始安装的，分区情况如下：
+      /boot                     200 MB
+      /tmp                      2.6 GB
+      /var                        24 GB
+      /home                    50 GB
+      /                             48 GB
+      swap                       2 GB   
+     第一要安装的就是X window system，现在不同于以前了，直接安装 xorg 和 xorg-dev两个包就可以将整个的X装入系统了：
+     apt-get install xorg
+     apt-get install xorg-dev
+    安装linux-headers：
+     apt-get install linux-headers-`uname -r`
+     安装FVWM：
+     apt-get install libstroke0
+     apt-get install fvwm fvwm-icons wm-icons
+     启动X，startx
+
+     配置无线网卡：
+    1.       apt-get install firmware-iwlwifi wireless-tools wpasupplicant
+    2.       sudo ifconfig wlan0 up
+    3.       sudo iwlist scan
+    4.       将下列内容添加到/etc/network/interfaces中
+              auto wlan0
+              iface wlan0 inet dhcp
+              wpa-ssid "xxxx"
+              wpa-psk  "xxxxxxxxx"
+    5.        reboot
+    现在就应该能够搜索到无线网了。
+
+    声卡驱动的安装
+      sudo apt-get install alsa-base alsa-utils
+      reboot    
+    现在就能够听到声音了，可以用alsamixer来调节音量的大小。

@@ -1,0 +1,105 @@
+pacman -Sy abc                  #和源同步后安装名为abc的包 
+pacman -S   abc                  #从本地数据库中得到abc的信息，下载安装abc包 
+pacman -Sf abc                  #强制安装包abc 
+pacman -Ss abc                  #搜索有关abc信息的包 
+pacman -Si abc                  #从数据库中搜索包abc的信息 
+pacman -Q                         # 列出已经安装的软件包 
+pacman -Q abc                  # 检查 abc 软件包是否已经安装 
+pacman -Qi abc                  #列出已安装的包abc的详细信息 
+pacman -Ql abc                 # 列出abc软件包的所有文件 
+pacman -Qo /path/to/abc # 列出abc文件所属的软件包 
+pacman -Syu                      #同步源，并更新系统 
+pacman -Sy                        #仅同步源 
+pacman -Su                        #更新系统 
+pacman -R   abc                  #删除abc包 
+pacman -Rd abc               #强制删除被依赖的包 
+pacman -Rc abc                  #删除abc包和依赖abc的包 
+pacman -Rsc abc                #删除abc包和abc依赖的包 
+pacman -Sc                       #清理/var/cache/pacman/pkg目录下的旧包 
+pacman -Scc                      #清除所有下载的包和数据库 
+pacman -U   abc                  #安装下载的abs包，或新编译的abc包 
+pacman -Sd abc                  #忽略依赖性问题，安装包abc 
+pacman -Su --ignore foo      #升级时不升级包foo 
+pacman -Sg abc                  #查询abc这个包组包含的软件包
+
+
+
+archlinux+xfce4
+2012-04-11 3:19
+http://blog.xgarden.net/?p=207
+ 
+ 
+1.  用以前的2010.05版本的archlinx光盘安装。
+    本地有无线WIFI,选择wireless-tools + iwlwifi-5000-ucode 这2个无线网络需要的包.
+2.  快速配置并且整个系统更新到最新状态。
+2.0 修改rc.conf
+2.1 选择mirrors.163.com作为更新源
+    vi /etc/pacman.d/mirrolist
+2.2 启用无线连接
+    ifconfig wlan0 up
+    iwlist wlan0 scanning
+    iwconfig wlan0 essid 你的无线路由器网络的名字 key s:密码
+    dhcpcd wlan0
+2.3 更新系统
+    pacman -Syu
+3.  安装软件
+3.1 替换vi  vi太不好用了，还是用增强版的vim
+    pacman -Rs vi
+    pacman -S vim
+    ln -s /usr/bin/vim /usr/bin/vi
+3.2 安装图形界面
+    pacman -S xorg  -> 默认都安装了
+    pacman -S xfce4 -> 除了1,2,7外全部安装.
+    1) exo  2) garcon  3) gtk-xfce-engine  4) terminal  5) thunar  6) tumbler  7) xfce4-appfinder  
+    8) xfce4-mixer 9) xfce4-panel  10) xfce4-session  11) xfce4-settings  12) xfce-utils  13) xfconf  
+    14) xfdesktop  15) xfwm4 16) xfwm4-themes
+3.3 使用slim来进行登陆管理
+    pacman -S slim 
+3.4 利用wicd进行网络管理
+    pacman -S wicd wicd-gtk 
+3.5 声音驱动
+    pacman -S pulseaudio alsa-utils
+    绑定音量增大、减少快捷键.
+3.6 输入法+字体
+    pacman -S ibus ibus-sunpinyin wqy-bitmapfont wqy-zenhei
+3.7 节能和通讯
+    pacman -S cpufrequtils acpid gamin dbus
+3.8 多媒体
+    pacman -S gstreamer0.10-bad gstreamer0.10-ffmpeg gstreamer0.10-good gstreamer0.10-ugly gstreamer0.10-base-plugins
+    pacman -S totem -> 电影播放器
+3.9 文件管理
+    pacman -S gvfs-afc thunar-volman -> 移动硬盘等的自动挂载
+    pacman -S xarchiver thunar-archive-plugin -> 压缩/解压缩
+3.10 浏览器
+    pacman -S chromium
+3.11 按照需要安装xfce4的plugin.
+    pacman -S xfce4-power-manager xfce4-battery-plugin
+    其他的按照需要进行.
+4  配置系统
+4.1 组别添加
+    将当前用户添加到这些组中 lp wheel games video audio optical storage scanner power users
+4.2 rc.conf
+    LOCALE="zh_CN.UTF-8"
+    DAEMON_LOCALE="no"
+    HARDWARECLOCK="UTC"
+    TIMEZONE="Asia/Shanghai"
+
+    MODULES=(acpi-cpufreq cpufreq_ondemand cpufreq_powersave vboxdrv)
+
+    HOSTNAME="Laptop"
+
+    DAEMONS=(syslog-ng @network acpid crond dbus @cpufreq slim wicd)
+4.3 用户的.xinitrc
+    #!/bin/sh
+    #
+    # ~/.xinitrc
+    # Executed by startx (run your window manager from here)
+
+    if [ -d /etc/X11/xinit/xinitrc.d ]; then
+      for f in /etc/X11/xinit/xinitrc.d/*; do
+        [ -x "$f" ] && . "$f"
+      done
+      unset f
+    fi
+    exec ck-launch-session dbus-launch --exit-with-session startxfce4
+ 

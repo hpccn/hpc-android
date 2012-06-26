@@ -40,7 +40,7 @@ zip unzip unrar p7zip # 压缩软件
 
 文档相关：
 eclipse # java 开发
-evince # 查看 pdf
+evince, xpdf # 查看 pdf
 ibus-pinyin # 输入法
 libreoffice # office 软件
 medit # 文本编辑

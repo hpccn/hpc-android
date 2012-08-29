@@ -2,7 +2,7 @@ archlinux 软件安装
 
 
 安装完 archlinux 后，下面是安装的各种软件。
-
+gvfs  回收站
 系统：
 acpid # 监测 acpi 事件，用于电源管理
 alsa-utils # 声卡驱动
@@ -51,6 +51,7 @@ deadbeef # 听歌
 gimp # 编辑图片
 gstreamer0.10-plugins # 解码器
 mirage # 看图
+geeqie 看图
 mplayer2
 smplayer # 看视频
 scrot # 截图

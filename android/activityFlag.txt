@@ -1,0 +1,55 @@
+Android启动模式对activity行为的影响
+ 
+其实除了启动模式，还有intent的Flag和activity在manifest中定义的其它属性也会影响activity的行为。
+首先，我们必须要理解如下几个概念。
+一、task（任务）：这里面提到的任务与Android系统是个多任务的系统中的任务是不同的。后者更倾向于多进程和多线程来说的，而这里的任务与application（应用程序）和activity（活动）有关系。Activity就不用说了，大家都知道这是与用户交互的界面，是Android四大组件之一。容易引起困惑的是application，此应用程序是在Manifest中定义的，由多个activity组成的。而任务呢，也是涵盖多个activity，而这些activity可以分属不同的application。从activity的角度说，任务就是activity的集合，共同完成一项工作。这些activity排列在一个栈中，这就有了下面的概念，Back栈。
+二、Back stack（后退栈）：activity按照打开的顺序排列，形成的栈，通常我们也可以说是任务栈。如果用户长时间离开task（比如30分钟），系统会清理这个栈中除了根activity以外的所有activity，当用户再次回来的时候，只有根activity在栈中。
+其次，我把上述三个方面的内容罗列出来，方面大家查阅：
+一、四大启动模式：在manifest中定义的launchMode属性，由于对activity的启动行为影响重大，这里单独提出来说明。
+android:launchMode=[“standard” | “singleTop” | “singleTask” | “singleInstance”]
+默认值是“standard”。
+见之前的翻译：http://blog.csdn.net/lincyang/article/details/6826021
+一个Activity是“standard”或“singleTop”启动模式，可以被实例化多次。
+一旦有一个新的intent给“standard”activity，一个响应这个intent的新的实例就会被创建。每个实例会处理单独的intent。相似的，一个“singleTop”activity的实例可能也会被创建去处理新的intent。然而，如果目标task已经存在一个此activity的实例在栈顶，这个实例会收到这个新intent（在onNewIntent中回调）；新的实例就不会被创建了。在其他情况，举个例子，如果一个已存在的“singleTop”activity实例在目标task 中，但没有在栈顶，或者它在栈顶却没有在目标task中，一个新的实例就会被创建并且推进栈中。
+ 
+ “singleTask”和“singleInstance”模式只在一个方面有区别：“singleTask” activity允许其他activity成为task中的一部分 ，并且它通常在task栈的根部，其它activity（必须是“standard”和“singleTop”模式的activity）可以加载到这个栈上。另一方面，“singleInstance”模式的activity不允许任何其它activity加载到这个task栈上。它是这个task中唯一的activity。如果它启动另一个activity，那个activity会被指引到不同的task中，这个行为就像在intent中用FLAG_ACTIVITY_NEW_TASK标记一样。（linc注：通常来说，manifest中用“singleTask”启动模式和在intent中用FLAG_ACTIVITY_NEW_TASK标记的行为是一样的）。
+二、Intent中activity相关的6个Flag比较重要：
+ 
+FLAG_ACTIVITY_NEW_TASK
+FLAG_ACTIVITY_SINGLE_TOP
+FLAG_ACTIVITY_CLEAR_TASK
+FLAG_ACTIVITY_CLEAR_TOP
+FLAG_ACTIVITY_NO_HISTORY
+FLAG_ACTIVITY_REORDER_TO_FRONT
+ 
+1、  FLAG_ACTIVITY_NEW_TASK
+与启动模式中的“singleTask”行为相同。
+2、  FLAG_ACTIVITY_SINGLE_TOP
+与启动模式中的“singleTop”行为相同。
+3、  FLAG_ACTIVITY_CLEAR_TASK
+必须要与FLAG_ACTIVITY_NEW_TASK配合使用，这个activity新启动一个栈，原来栈被清空，栈中的activity也被销毁。
+4、  FLAG_ACTIVITY_CLEAR_TOP
+A B C D四个activity在一个栈中，用此flag启动B，原来的B被唤出来，CD被clear。不能与FLAG_ACTIVITY_SINGLE_TOP同用。可以和FLAG_ACTIVITY_NEW_TASK同用。
+5、  FLAG_ACTIVITY_NO_HISTORY
+当离开activity并不可见时，此activity会从栈中移除并不留下记录。
+6、  FLAG_ACTIVITY_REORDER_TO_FRONT
+重新排列栈中activity的顺序。如：栈中有A B C D四个activity，用此flag启动B，原来的B被唤起到栈顶。重新排序后顺序：A C D B
+ 
+三、Activity的其他属性：
+android:allowTaskReparenting=["true" | "false"]
+android:alwaysRetainTaskState=["true" | "false"]
+android:clearTaskOnLaunch=["true" | "false"]
+android:finishOnTaskLaunch=["true" | "false"]
+android:noHistory=["true" | "false"]
+android:taskAffinity="string"
+ 
+这些属性都是在Manifest中定义的，下面分别来介绍一下。
+1、  先来说说 taskAffinity属性：task的亲属关系，设置的字符串应该是另一个task名，通常情况下是一个application的名称。拥有相同taskAffinity的activity同属于一个task，从用户角度来看是属于同一个应用程序（application）。一个task的亲属关系取决于task的根activity。
+它是个很重要的属性，它会配合其他属性和flag共同影响activity的行为。首先它与“singleTask”模式或FLAG_ACTIVITY_NEW_TASK Flag配合，启动后此activity会属于另一个task，task名就是taskAffinity的设置值。其次，它会和allowTaskReparenting属性配合使用，详见allowTaskReparenting。
+默认情况下，一个application中的所有activity同属于一个亲属关系。如果想让activity不属于任一个task，那么把taskAffinity的值设为空吧。如果你不设它，那么系统会为你默认为所属application的名称，也就是在manifest中的package名。
+ 
+2、  allowTaskReparenting：与字面理解相同，本属性允许activity重新指定Task。默认值是false。通常情况下我们不设置此属性，activity在生命周期中只属于一个Task。而设置成true后，需要与taskAffinity属性配合使用，当原来的task转到后台，亲属task转到前台，那么此时activity就会属于当前的task。
+3、  alwaysRetainTaskState：总是保留task的状态。默认值是false。此时会遵循系统的清理栈的行为。如果设置为true，系统会保留栈中所有activity及其状态，当用户再次回来的时候，发现一切如初。
+4、  clearTaskOnLaunch：当再次启动task时，系统会清理掉除了根activity以外的所有activity。默认值是false。
+5、  finishOnTaskLaunch：这个属性与上面的clearTaskOnLaunch很像，不过它是指单个activity的，而不是整个栈。当设置为true时，task重启后，这个activity就不显示了。默认值为false。优先级高于allowTaskReparenting。
+6、  noHistory：如果设置true，当离开activity并不可见时，此activity会从栈中移除并不留下记录。默认值为false。与上面FLAG_ACTIVITY_NO_HISTORY行为相同。

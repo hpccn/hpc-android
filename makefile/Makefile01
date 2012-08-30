@@ -1,0 +1,23 @@
+SRCS = $(wildcard *.c)
+
+OBJS = $(SRCS:.c = .o)
+
+CC = gcc
+
+#INCLUDES = -I/×××
+
+#LIBS = -L/×××
+
+CCFLAGS = -g #-Wall -O0
+
+my_app : $(OBJS)
+
+	$(CC) $^ -o $@ $(INCLUDES) $(LIBS) #%.o  %.c
+
+	$(CC) -c $< $(CCFLAGS)
+
+.PHONY:clean
+clean:
+
+	rm *.o
+

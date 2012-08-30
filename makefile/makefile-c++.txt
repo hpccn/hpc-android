@@ -1,0 +1,34 @@
+TARGET = 
+PREFIX_BIN =
+
+CC = gcc
+CXX = g++
+INCLUDES = 
+LIBS = 
+CFLAGS = -Wall -Werror
+LINKFLAGS =
+
+C_SOURCES = $(wildcard *.c)
+C_OBJS = $(patsubst %.c, %.o, $(C_SOURCES))
+CPP_SOURCES = $(wildcard *.cpp)
+CPP_OBJS = $(patsubst %.cpp, %.o, $(CPP_SOURCES))
+
+.c.o:
+       $(CC) -c -o $*.o $(CFLAGS) $(INCLUDES) $*.c
+.cpp.o:
+       $(CXX) -c -o $*.o $(CFLAGS) $(INCLUDES) $*.cpp
+
+compile: $(CPP_OBJS) $(C_OBJS)
+       $(CXX) $(LINKFLAGS) -o $(TARGET) $^ $(LIBS)
+
+.PHONY: clean
+clean:
+       rm -f $(CPP_OBJS) $(C_OBJS)
+       rm -f $(TARGET)
+install: $(TARGET)
+       cp $(TARGET) $(PREFIX_BIN)
+
+uninstall:
+       rm -f $(PREFIX)/$(PREFIX_BIN)
+
+rebuild: clean compile 

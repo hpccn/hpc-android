@@ -1,0 +1,81 @@
+
+最简单的通用Makefile
+Makefile有三个非常有用的变量.分别是$@,$^,$<代表的意义分别是:
+
+	$@--目标文件,
+	$^--所有的依赖文件,
+	$<--第一个依赖文件.
+
+         所谓通用，就是很多情况都适用的Makefile，在这个Makefile中你不用去理会哪个文件的编译又要与哪些头文件相关这些东东，它自己会自动帮你相关起来，你只要把你的源代码放在一起，它就自动帮你编译好了。我自己都在用，觉得很好用，因此介绍一下呵呵^_^
+
+1. 通用的c项目
+
+
+TARGET = //目标，即生成的可执行文件的名字，如test
+PREFIX_BIN = //执行sudo make install后你的可执行文件放的位置，如/usr/bin
+
+CC = gcc
+INCLUDES = //你要包含的头文件所在的地方
+LIBS = //你要用到的库函数所在的地方
+CFLAGS =-Wall -Werror
+LINKFLAGS = //没用过，我一般留空。
+
+C_SOURCES = $(wildcard *.c) /*源文件，即你写的那些.c文件所在的地方，这里为与Makefile在同一层，如果你要在Makefile同一层中的src文件夹中，即变成这样：C_SOURCES = $(wildcard ./src/*.c)。注意，这里所有的当前目录是以Makefile所在的目录为当前目录的。*/
+C_OBJS = $(patsubst %.c, %.o, $(C_SOURCES))
+
+.c.o:
+       $(CC) -c -o $*.o $(CFLAGS) $(INCLUDES) $*.c
+
+compile: $(C_OBJS)
+       $(CC)     $(LINKFLAGS) -o $(TARGET) $^ $(LIBS)
+
+clean:
+       rm -f $(C_OBJS)
+       rm -f $(TARGET)
+
+install: $(TARGET)
+       cp $(TARGET) $(PREFIX_BIN)
+
+uninstall:
+       rm -f $(PREFIX_BIN)/$(TARGET)
+
+rebuild: clean compile 
+
+
+后面的C++项目与C项目基本相同，就不多说了呵呵^_^
+2. 通用的c++项目
+
+TARGET = 
+PREFIX_BIN =
+
+CC = gcc
+CXX = g++
+INCLUDES = 
+LIBS = 
+CFLAGS = -Wall -Werror
+LINKFLAGS =
+
+C_SOURCES = $(wildcard *.c)
+C_OBJS = $(patsubst %.c, %.o, $(C_SOURCES))
+CPP_SOURCES = $(wildcard *.cpp)
+CPP_OBJS = $(patsubst %.cpp, %.o, $(CPP_SOURCES))
+
+.c.o:
+       $(CC) -c -o $*.o $(CFLAGS) $(INCLUDES) $*.c
+.cpp.o:
+       $(CXX) -c -o $*.o $(CFLAGS) $(INCLUDES) $*.cpp
+
+compile: $(CPP_OBJS) $(C_OBJS)
+       $(CXX) $(LINKFLAGS) -o $(TARGET) $^ $(LIBS)
+
+clean:
+       rm -f $(CPP_OBJS) $(C_OBJS)
+       rm -f $(TARGET)
+
+install: $(TARGET)
+       cp $(TARGET) $(PREFIX_BIN)
+
+uninstall:
+       rm -f $(PREFIX)/$(PREFIX_BIN)
+
+rebuild: clean compile 

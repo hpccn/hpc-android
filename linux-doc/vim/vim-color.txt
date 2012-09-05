@@ -1,0 +1,20 @@
+desert 比较好
+vim 配色方案的使用方法
+在你主目录下建一个.vim目录，再在.vim中建一个colors目录。命令如下： 
+$mkdir -p ~/.vim/colors 
+把你的配色文件（如blue.vim)放在其中 
+在你的.vimrc文件中添加如下一行： 
+:colorscheme your_color_filename(eg :colorscheme blue)
+
+查看有多少配色方案：
+$ ls /usr/share/vim/vim73/colors
+ 发现有以下文件
+blue.vim      delek.vim    evening.vim  murphy.vim     README.txt  slate.vim
+darkblue.vim  desert.vim   koehler.vim  pablo.vim      ron.vim     torte.vim
+default.vim   elflord.vim  morning.vim  peachpuff.vim  shine.vim   zellner.vim
+ 在~目录新建文件
+$ vi .vimrc
+ 输入以下内容
+:set nu
+:colorscheme desert
+ 第一行是显示行号，第二行更改配色方案为desert，退出VIM，再打开，发现有行号，颜色也好看多了

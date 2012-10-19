@@ -1,0 +1,10 @@
+Java调用C和C++函数时的JNI使用区别 
+
+
+你的例子是否是书上/网上抄来的 
+jbyte *arr = env-> GetByteArrayElements(jarr, 0); 
+只有C++是才用 
+在C中的写法应该是 
+jbyte * arr = (*env)-> GetByteArrayElements(env,jarr, NULL); 
+--------------------------------------------------------------- 
+在C的定义中,env是一个两级指针,而在C++的定义中,env是个一级指针

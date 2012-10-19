@@ -1,0 +1,457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 3.6  (Linux)">
+	<META NAME="CREATED" CONTENT="20121019;11101300">
+	<META NAME="CHANGED" CONTENT="20121019;11104400">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { margin: 0.79in }
+		P { margin-bottom: 0.08in }
+		H2 { margin-bottom: 0.08in }
+		H2.western { font-family: "Times New Roman", serif }
+		H2.cjk { font-family: "WenQuanYi Zen Hei"; so-language: zh-CN; font-style: normal }
+		H2.ctl { font-family: "DejaVu Sans" }
+		H3 { margin-bottom: 0.08in }
+		H3.western { font-family: "Times New Roman", serif }
+		H3.cjk { font-family: "WenQuanYi Zen Hei"; so-language: zh-CN; font-style: normal }
+		H3.ctl { font-family: "DejaVu Sans" }
+		TD P { margin-bottom: 0in }
+		A:link { so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+<H2 CLASS="western"><FONT FACE="Arial"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><SPAN LANG="zh-CN">攻略之四――</SPAN></FONT><FONT FACE="Arial"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><SPAN LANG="zh-CN">操作数组</SPAN></FONT></H2>
+<P ALIGN=RIGHT STYLE="text-indent: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+ 
+</P>
+<P STYLE="text-indent: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">语言中的数组一般有两种，基本数据类型的数组和引用类型的数组。同样在</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中也有此两种类型的数组，他们的操作方法是不完全一样的。以下是</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">数组的基本步骤。</SPAN></FONT></FONT></P>
+<H3 CLASS="western" STYLE="margin-left: 0.45in; text-indent: -0.45in; margin-top: 0.18in; margin-bottom: 0.18in; border: none; padding: 0in; line-height: 0.45in"><A NAME="t1"></A>
+<FONT FACE="WenQuanYi Zen Hei"><SPAN LANG="zh-CN"><FONT FACE="Times New Roman"><FONT SIZE=5><SPAN LANG="en-US">一、</SPAN></FONT></FONT><SPAN STYLE="font-variant: normal"><FONT FACE="Times New Roman"><SPAN LANG="en-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></FONT></SPAN><FONT SIZE=5>基本数据类型的数组</FONT></SPAN></FONT></H3>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中基本数据类型一般就是</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">byte</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">、</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">short</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">、</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">int</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">、</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">long</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">、</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">float</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">、</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">double</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">、</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">char</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">、</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">boolean</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">等</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">8</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">种基本数据类型，基本数据类型的数组就是这些基本数据类型的一维数组！如：</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;<FONT FACE="Times New Roman"><SPAN LANG="en-US">byte[]
+barray&nbsp;&nbsp;&nbsp;boolean[] bolarray&nbsp;&nbsp;&nbsp;float[]
+farray&nbsp;&nbsp;&nbsp;int[] iarray</SPAN></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">以下是一个基本数据类型数组的例子：</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">public class
+IntArray{</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">private
+native int operate(int[] a1 ,int[] a2);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">static
+{</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">System.loadLibrary(&quot;IntArray&quot;);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">public
+static void main(String[] args) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">IntArray&nbsp;&nbsp;instance
+= new IntArray();</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int[]
+a = new int[10];</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">for
+(int i = 0; i &lt; a.length; i++) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">a[i]
+= i;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int[]
+b = new int[20];</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">for
+(int i = 0; i &lt; b.length; i++) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">b[i]
+= i;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int
+result = instance.operate(a,b);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">System.out.println(&quot;The
+result is &quot; + result );</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">}</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">以下是</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中的实现：</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;</P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">#include &lt;jni.h&gt;</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">#include &quot;IntArray.h&quot;</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">JNIEXPORT jint
+JNICALL Java_IntArray_operate (JNIEnv *env, jobject obj, jintArray
+arr1 , jintArray arr2){</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">jint
+*a1;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">jint
+i , result=0 ;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">jint
+a2[10] ; //len];</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">a1
+= (*env)-&gt;GetIntArrayElements(env, arr1, NULL);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">if
+(a1 == NULL) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+0;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">(*env)-&gt;GetIntArrayRegion(env,
+arr2, 0, 10, a2);&nbsp;&nbsp;&nbsp;//a2[]</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">for(
+i = 0 ; i &lt; 10 ; i++) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">result
++= a2[i]*a1[i];&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+result ;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">}</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">以上例子对两个数组的前十位进行操作，返回数组相应位乘积的和！在</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中使用</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">语言得到这两个输入数组，然后进行运算。主要演示</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">GetIntArrayElements</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">和</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">GetIntArrayRegion</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">函数。</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">（很多人都在网上问如何将</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">int</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">转换为一个</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">byte</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">数组。其实只要你对</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的基本知识：</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">1.</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">基本数据类型的长度；</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">2.</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">移位操作；</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">3.</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">数据的</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">downcast</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">等</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">3</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">个基本知识了解了就可以了！下面是一个简单的方法：</FONT></SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000"><FONT FACE="Arial Narrow">public static byte[]
+int2byte(int n ){</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">byte[]
+b = new byte[4];</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">b[0]&nbsp;&nbsp;&nbsp;=
+(byte)(n&gt;&gt;24);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">b[1]&nbsp;&nbsp;&nbsp;=
+(byte)(n&gt;&gt;16);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">b[2]&nbsp;&nbsp;&nbsp;=
+(byte)(n&gt;&gt;8);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">b[3]&nbsp;&nbsp;&nbsp;=
+(byte)(n);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+b;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000"><FONT FACE="Arial Narrow">}</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">这段代码很简单吧！用到以上</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">3</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">个简单的知识点！其实你可以在</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">IO</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">包中发现很多这样的代码！移位很简单却经常被忽略的知识。下面是一段</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">HashMap</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的代码：</FONT></SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">static
+final int MAXIMUM_CAPACITY = 1 &lt;&lt; 30;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int
+capacity = 1;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">while
+(capacity &lt; initialCapacity)</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">capacity
+&lt;&lt;= 1;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">static
+int hash(Object x) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int
+h = x.hashCode();</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">h
++= ~(h &lt;&lt; 9);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">h
+^=&nbsp;&nbsp;(h &gt;&gt;&gt; 14);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">h
++=&nbsp;&nbsp;(h &lt;&lt; 4);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">h
+^=&nbsp;&nbsp;(h &gt;&gt;&gt; 10);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+h;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">这三段代码都在干什么啊？又为什么这样干啊？每一句时候你都能理解啊？是否又能应用道你的程序呢！？</SPAN></FONT></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">不管怎么样谦虚地向别人学习，提高自己是不会有错的！研究</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">JDK</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">吧！我会有一篇专门的文章介绍其它很优秀的开源项目的研究！！</FONT></SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">）</SPAN></FONT></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;</P>
+<H3 CLASS="western" STYLE="margin-left: 0.45in; text-indent: -0.45in; margin-top: 0.18in; margin-bottom: 0.18in; border: none; padding: 0in; line-height: 0.45in"><A NAME="t2"></A>
+<FONT FACE="WenQuanYi Zen Hei"><SPAN LANG="zh-CN"><FONT FACE="Times New Roman"><FONT SIZE=5><SPAN LANG="en-US">二、</SPAN></FONT></FONT><SPAN STYLE="font-variant: normal"><FONT FACE="Times New Roman"><SPAN LANG="en-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></FONT></SPAN><FONT SIZE=5>引用类型数组――对象数组</FONT></SPAN></FONT></H3>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#ff0000">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">在</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中引用的意义和</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">、</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C++</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的指针的意义是极其相似的。但是，</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的引用与</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">、</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C++</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的指针相比，其功能太弱了！它们之间最大的区别在于</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的引用是不可以计算的，从而没有</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">、</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C++</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的指针的那些强大的功能！俗话说“成也萧何，败也萧何”，</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">、</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C++</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">中的指针赋予其强大的功能，但是也导致了</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">、</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C++</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">的复杂性，导致了程序员极其头痛的内存泄漏的问题、安全性问题……</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言中完全取消了指针的复杂性，从而大幅度减少语言的复杂性。人们常说</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言其实是</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言的一个变体，即</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java=C++--</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">，这就是说</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言在</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言的基础上，加了一些其它的</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言没有的东西（面向对象……），再在其</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">C++</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">基础上减少了一些过于复杂的东西（如指针…</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">..</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">）。很不幸的事实就是在国外</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">使用已经相当普及，而在国内却是</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Delphi</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">、</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">VB</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">等的天下――差距啊！从</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言发展这十多年的势头来看，</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">确实迎合了时代的需求，确实有其优越的一面！读者们研究</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">吧、研究</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">的源代码吧、研究</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">的优秀的开源项目吧……在掌握了</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">的</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">OO</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">理念后，你想跳出</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">语言的束缚，进入</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">OO</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">的世界，用</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">OO</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">的方法考虑问题也不会太远的！毕竟这个时代是</FONT></SPAN></FONT></FONT><FONT COLOR="#ff0000"><FONT FACE="Times New Roman"><SPAN LANG="en-US">OO</SPAN></FONT></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN"><FONT COLOR="#ff0000">的时代！！！</FONT></SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">大家知道</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">String</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">在</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中为一个对象，因此</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">String</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">的数组当然是对象数组了。但是在</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中数组（不管是基本数据类型的数组还是对象的数组）的数组都是对象的数组。绕了个大圈，简单地说</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">java</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中的数组是一个特殊的对象。在</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中基本数据类型的数组也是对象。</SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">下面是一个基本数据类型数组的数组，即二维数组。主要演示，创建基本数据类型的数组，依次基本类型的数组为对象创建对象数组。即创建一个指定行和列的二维数组。</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">class ObjectArray {</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">private
+static native int[][] initInt2DArray(int row , int col);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">public
+static void main(String[] args) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int[][]
+i2arr = initInt2DArray(3,8);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">for
+(int i = 0; i &lt; 3; i++) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">for
+(int j = 0; j &lt; 8; j++) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">System.out.print(&quot;
+&quot; + i2arr[i][j]);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">System.out.println();</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">static
+{</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">System.loadLibrary(&quot;ObjectArray&quot;);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">}</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</P>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">以下是</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">中本地方法的实现：</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">#include &lt;jni.h&gt;</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">#include
+&quot;ObjectArray.h&quot;</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">JNIEXPORT
+jobjectArray JNICALL Java_ObjectArray_initInt2DArray (JNIEnv *env,
+jclass cls, jint row , jint col){</FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">jobjectArray
+result;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int
+i;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">jclass
+intArrCls = (*env)-&gt;FindClass(env, &quot;[I&quot;);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">if
+(intArrCls == NULL) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+NULL;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">result
+= (*env)-&gt;NewObjectArray(env, row, intArrCls,NULL);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">if
+(result == NULL) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+NULL;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;</FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">for
+(i = 0; i &lt; row; i++) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">jint
+tmp[256];</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">int
+j;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">jintArray
+iarr = (*env)-&gt;NewIntArray(env, col);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">if
+(iarr == NULL) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+NULL;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">for
+(j = 0; j &lt; col; j++) {</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">tmp[j]
+= i + j;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">(*env)-&gt;SetIntArrayRegion(env,
+iarr, 0, col, tmp);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">(*env)-&gt;SetObjectArrayElement(env,
+result, i, iarr);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">(*env)-&gt;DeleteLocalRef(env,
+iarr);</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">}</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="Arial Narrow"><SPAN LANG="en-US">return
+result;</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+<FONT COLOR="#0000ff"><FONT FACE="Arial Narrow">}</FONT></FONT></P>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">很简单吧！没有什么复杂的！只是一些</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">JVM</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">提供的函数罢了！不过这些函数允许你干任何你想干的事件！</SPAN></FONT></FONT></P>
+<H3 CLASS="western" STYLE="margin-left: 0.45in; text-indent: -0.45in; margin-top: 0.18in; margin-bottom: 0.18in; border: none; padding: 0in; line-height: 0.45in"><A NAME="t3"></A>
+<FONT FACE="WenQuanYi Zen Hei"><SPAN LANG="zh-CN"><FONT FACE="Times New Roman"><FONT SIZE=5><SPAN LANG="en-US">三、</SPAN></FONT></FONT><SPAN STYLE="font-variant: normal"><FONT FACE="Times New Roman"><SPAN LANG="en-US">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</SPAN></FONT></SPAN><FONT SIZE=5>数组操作方法的总结和注意点</FONT></SPAN></FONT></H3>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">下表是一个常用的数组相关的函数及其描述以及出现的版本。</SPAN></FONT></FONT></P>
+<P STYLE="margin-left: 0.29in; text-indent: 0.16in; margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;</P>
+<CENTER>
+	<TABLE CELLPADDING=0 CELLSPACING=0>
+		<TR VALIGN=TOP>
+			<TD WIDTH=189 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman"><SPAN LANG="en-US">JNI</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">函数</SPAN></FONT></FONT></P>
+			</TD>
+			<TD WIDTH=286 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">描述</SPAN></FONT></FONT></P>
+			</TD>
+			<TD WIDTH=93 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">版本</SPAN></FONT></FONT></P>
+			</TD>
+		</TR>
+		<TR VALIGN=TOP>
+			<TD WIDTH=189 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">Get&lt;Type&gt;ArrayRegion</FONT></P>
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">Set&lt;Type&gt;ArrayRegion</FONT></P>
+			</TD>
+			<TD WIDTH=286 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">将原始数据类型的数组中的内容拷贝道一个预先分配好内存的缓存中。</SPAN></FONT></FONT></P>
+			</TD>
+			<TD WIDTH=93 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">JDK1.1</FONT></P>
+			</TD>
+		</TR>
+		<TR VALIGN=TOP>
+			<TD WIDTH=189 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">Get&lt;Type&gt;ArrayElements</FONT></P>
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">Release&lt;Type&gt;ArrayElements</FONT></P>
+			</TD>
+			<TD WIDTH=286 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">得到一个指向原始数据类型的内容的指针。该方法可能返回该数组内容的拷贝。因此一般需要释放这些资源。</SPAN></FONT></FONT></P>
+			</TD>
+			<TD WIDTH=93 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in">&nbsp;</P>
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">JDK1.1</FONT></P>
+			</TD>
+		</TR>
+		<TR VALIGN=TOP>
+			<TD WIDTH=189 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">GetArrayLength</FONT></P>
+			</TD>
+			<TD WIDTH=286 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">返回数组中元素的个数。该数组既可以是原始数据类型的也可以是对象的。</SPAN></FONT></FONT></P>
+			</TD>
+			<TD WIDTH=93 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">JDK1.1</FONT></P>
+			</TD>
+		</TR>
+		<TR VALIGN=TOP>
+			<TD WIDTH=189 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">New&lt;Type&gt;Array</FONT></P>
+			</TD>
+			<TD WIDTH=286 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">创建一个指定长度的原始数据类型的数组。</SPAN></FONT></FONT></P>
+			</TD>
+			<TD WIDTH=93 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">JDK1.1</FONT></P>
+			</TD>
+		</TR>
+		<TR VALIGN=TOP>
+			<TD WIDTH=189 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">GetPrimitiveArrayCritical</FONT></P>
+				<P STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">ReleasePrimitiveArrayCritical</FONT></P>
+			</TD>
+			<TD WIDTH=286 STYLE="border: none; padding: 0in">
+				<P STYLE="border: none; padding: 0in"><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">得到或者释放指向原始数据类型内容的指针。该方法可能使垃圾回收不能执行。该方法可能返回数组的拷贝，因此必须释放此资源。</SPAN></FONT></FONT></P>
+			</TD>
+			<TD WIDTH=93 STYLE="border: none; padding: 0in">
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in">&nbsp;</P>
+				<P ALIGN=CENTER STYLE="border: none; padding: 0in"><FONT FACE="Times New Roman">Java2
+				SDK1.2</FONT></P>
+			</TD>
+		</TR>
+	</TABLE>
+</CENTER>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">上面提供了如此多的函数，那么在实际使用时，又是如何选择呢！下面是一般选择的步骤：</SPAN></FONT></FONT></P>
+<P ALIGN=CENTER STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in; text-decoration: none">
+<FONT COLOR="#7b010a"><IMG SRC="04_01.jpg" NAME="图形1" ALIGN=BOTTOM BORDER=0></FONT></P>
+<P STYLE="margin-bottom: 0in; border: none; padding: 0in; line-height: 0.26in">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">在对象数组部分的例子很简单。在学习了如何操作</SPAN></FONT></FONT><FONT FACE="Times New Roman"><SPAN LANG="en-US">Java</SPAN></FONT><FONT FACE="WenQuanYi Zen Hei"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN LANG="zh-CN">对象及其方法、属性后就可以创建任何的引用类型的数组了！请关注后续文章！</SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

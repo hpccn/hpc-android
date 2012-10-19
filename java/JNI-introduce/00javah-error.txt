@@ -1,0 +1,66 @@
+Javah 常见错误记录
+测试文件：hello-jni/src/com/example/hellojni/HelloJni.java
+
+/**
+ * 该文件来自 Android NDK Sample - HelloJni， 为了便于说明问题，我作了一些修改。
+ */
+package com.example.hellojni;
+
+public class HelloJni
+{
+    public native String  stringFromJNI();
+
+    public native String  unimplementedStringFromJNI();
+
+    static {
+        System.loadLibrary("hello-jni");
+    }
+}
+错误一
+
+david@xmomx:hellojni$ javac HelloJni.java 
+david@xmomx:hellojni$ ls
+Hello.class  Hello.h  Hello.java  HelloJni.class  HelloJni.java
+david@xmomx:hellojni$ javah -jni HelloJni
+error: cannot access HelloJni
+bad class file: ./HelloJni.class
+class file contains wrong class: com.example.hellojni.HelloJni
+Please remove or make sure it appears in the correct subdirectory of the classpath.
+com.sun.tools.javac.util.Abort
+	at com.sun.tools.javac.comp.Check.completionError(Check.java:164)
+	at com.sun.tools.javadoc.DocEnv.loadClass(DocEnv.java:149)
+	at com.sun.tools.javadoc.RootDocImpl.<init>(RootDocImpl.java:77)
+	at com.sun.tools.javadoc.JavadocTool.getRootDocImpl(JavadocTool.java:159)
+	at com.sun.tools.javadoc.Start.parseAndExecute(Start.java:330)
+	at com.sun.tools.javadoc.Start.begin(Start.java:128)
+	at com.sun.tools.javadoc.Main.execute(Main.java:66)
+	at com.sun.tools.javah.Main.main(Main.java:147)
+javadoc: error - fatal error
+2 errors
+错误原因，没有在正确的路径下执行 javah 命令，应该在源码根目录下执行。
+
+错误二:
+
+david@xmomx:hellojni$ cd ../../../
+david@xmomx:src$ ls
+com
+david@xmomx:src$ javah -jni HelloJni
+error: cannot access HelloJni
+class file for HelloJni not found
+javadoc: error - Class HelloJni not found.
+Error: No classes were specified on the command line.  Try -help.
+错误原因：Classes 参数要使用完整类名，也就是说要加上包名
+
+错误四：
+
+david@xmomx:src$ javah -jni com/example/hellojni/HelloJni
+javadoc: error - Illegal package name: "com/example/hellojni/HelloJni"
+1 error
+错误原因：完整类名格式错误
+
+david@xmomx:src$ javah -jni com.example.hellojni.HelloJni
+OK，编译通过。
+
+如果还有错误，说是类找不到还是什么的，请尝试添加 -classpath . 参数。如下：
+
+david@xmomx:src$ javah -jni -classpath . com.example.hellojni.HelloJni

@@ -1,0 +1,105 @@
+利用java反射遍历类以及父类的方法
+
+现有每多个javabean，但是每个bean中都有不同的属性，并且都是通过get和set方法来修改和获取值。如果调试一步一步去猜内部结构，想用一个方法可以获取不同对像中各个属性的值，怎么办呢？可以利用JAVA的反射机制。
+
+1.此为小引
+
+//运用反射机制遍历单个对像中每个属性值
+    public static void Reflect_Object(Object o,String classPath){
+        try {
+            Class userClass = Class.forName(classPath);//加载类
+               Method[] methods = userClass.getDeclaredMethods();//获得类的方法集合       
+               //遍历方法集合
+               for(int i =0 ;i<methods.length;i++){
+                  //获取所有getXX()的返回值
+                  //methods[i].getName()方法返回方法名
+                  if(methods[i].getName().startsWith("get")){
+                      Object object = methods[i].invoke(o, null);
+                      System.out.println(" "+methods[i].getName()+"="+object);
+                  }
+               }
+               System.out.println("====");
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+    }
+
+ 
+
+ 
+
+2.若遍历的bean有父类，则方法1则取不到父类中各个属性的值，故本类为扩充，不仅可以取到bean中每个属性的值，连父类的属性值也可以一并获得。
+
+   
+    @SuppressWarnings("unchecked")
+    public static void Reflect_Object(Object o,String classPath){
+        try {            
+            Class _class = Class.forName(classPath);// 加载类
+//            Method[] methods = _class.getDeclaredMethods();// 获得类的方法集合
+            recursive(o,_class);
+            // 遍历方法集合
+//            for (int i = 0; i < methods.length; i++) {
+//                // 获取所有getXX()的返回值
+//                if (methods[i].getName().startsWith("get")) {// 方法返回方法名
+//                    methods[i].setAccessible(true);//允许private被访问(以避免private getXX())
+//                    Object object = methods[i].invoke(o, null);
+//                    System.out.println(" " + methods[i].getName() + "=" + object);
+//                }
+//            }
+            // 遍历父类方法集合
+//            if (_class.getGenericSuperclass() != null) {
+//                Class superClass = _class.getSuperclass();// 父类
+//                Method[] superMethods = superClass.getDeclaredMethods();//父类方法
+//                for (int j = 0; j < superMethods.length; j++) {
+//                    // 获取所有getXX()的返回值 Method method :
+//                    if (superMethods[j].getName().startsWith("get")) {// 方法返回方法名
+//                        methods[j].setAccessible(true);//允许private被访问
+//                        Object object = superMethods[j].invoke(o, null);
+//                        System.out.println(" " + superMethods[j].getName()+ "=" + object);
+//                    }
+//                }
+//                Field[] fields = superClass.getDeclaredFields();//父类变量
+//                for(Field field : fields) {
+//                    System.out.println(field);
+//                }
+//            }
+            System.out.println("====");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    
+    //递归遍历类及父类的属性值
+    @SuppressWarnings("unchecked")
+    public static Class recursive(Object o,Class _class){
+        if(_class==null)
+         return null;
+         else{
+            Method[] methods = _class.getDeclaredMethods();// 获得类的方法集合
+            // 遍历方法集合
+            for (int i = 0; i < methods.length; i++) {
+                // 获取所有getXX()的返回值
+                if (methods[i].getName().startsWith("get")) {// 方法返回方法名
+                    methods[i].setAccessible(true);//允许private被访问(以避免private getXX())
+                    Object object;
+                    try {
+                        object = methods[i].invoke(o, null);
+                        System.out.println(" " + methods[i].getName() + "=" + object);
+                    } catch (IllegalArgumentException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (IllegalAccessException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    } catch (InvocationTargetException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+            }
+            System.out.println("===="+_class.getName());
+            return recursive(o,_class.getSuperclass());
+         }
+    }

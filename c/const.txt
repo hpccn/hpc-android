@@ -1,0 +1,56 @@
+基本解释
+    const是一个C语言的关键字，它限定一个变量不允许被改变。使用const在一定程度上可以提高程序的健壮性，另外，在观看别人代码的时候，清晰理解const所起的作用，对理解对方的程序也有一些帮助。
+    虽然这听起来很简单，但实际上，const的使用也是c语言中一个比较微妙的地方，微妙在何处呢？请看下面几个问题。
+    问题：const变量 & 常量
+    为什么我象下面的例子一样用一个const变量来初始化数组，ANSI C的编译器会报告一个错误呢？
+    const int n = 5；
+    int a[n]；
+    答案与分析：
+    1）这个问题讨论的是“常量”与“只读变量”的区别。常量肯定是只读的，例如5， “abc”，等，肯定是只读的，因为程序中根本没有地方存放它的值，当然也就不能够去修改它。而“只读变量”则是在内存中开辟一个地方来存放它的值，只不过这个值由编译器限定不允许被修改。C语言关键字const就是用来限定一个变量不允许被改变的修饰符（Qualifier）。上述代码中变量n被修饰为只读变量，可惜再怎么修饰也不是常量。而ANSI C规定数组定义时维度必须是“常量”，“只读变量”也是不可以的。
+    2）注意：在ANSI C中，这种写法是错误的，因为数组的大小应该是个常量，而const int n，n只是一个变量（常量 ！= 不可变的变量，但在标准C++中，这样定义的是一个常量，这种写法是对的），实际上，根据编译过程及内存分配来看，这种用法本来就应该是合理的，只是ANSI C对数组的规定限制了它。
+    3）那么，在ANSI C 语言中用什么来定义常量呢？答案是enum类型和#define宏，这两个都可以用来定义常量。
+    问题：const变量 & const 限定的内容
+    下面的代码编译器会报一个错误，请问，哪一个语句是错误的呢？
+ typedef char * pStr;
+　　char string[4] = "abc";
+　　const char *p1 = string;
+　　const pStr p2 = string;
+　　p1++;
+　　p2++;
+
+    答案与分析：
+    问题出在p2++上。
+    1）const使用的基本形式： const char m；
+    限定m不可变。
+    2）替换1式中的m， const char *pm；
+    限定*pm不可变，当然pm是可变的，因此问题中p1++是对的。
+    3）替换1式char， const newType m；
+    限定m不可变，问题中的charptr就是一种新类型，因此问题中p2不可变，p2++是错误的。
+    问题：const变量 & 字符串常量
+    请问下面的代码有什么问题？
+     char *p = "i'm hungry！"；
+    p[0]= 'I'；
+    答案与分析：
+    上面的代码可能会造成内存的非法写操作。分析如下， “i'm hungry”实质上是字符串常量，而常量往往被编译器放在只读的内存区，不可写。p初始指向这个只读的内存区，而p[0] = 'I'则企图去写这个地方，编译器当然不会答应。
+    问题：const变量 & 字符串常量2
+    请问char a[3] = "abc" 合法吗？使用它有什么隐患？
+    答案与分析：
+    在标准C中这是合法的，但是它的生存环境非常狭小；它定义一个大小为3的数组，初始化为“abc”，，注意，它没有通常的字符串终止符'\0'，因此这个数组只是看起来像C语言中的字符串，实质上却不是，因此所有对字符串进行处理的函数，比如strcpy、printf等，都不能够被使用在这个假字符串上。
+    问题：const & 指针
+    类型声明中const用来修饰一个常量，有如下两种写法，那么，请问，下面分别用const限定不可变的内容是什么？
+     1）const在前面
+    const int nValue； //nValue是const
+    const char *pContent； //*pContent是const， pContent可变
+    const （char *） pContent；//pContent是const，*pContent可变
+    char* const pContent； //pContent是const，*pContent可变
+    const char* const pContent； //pContent和*pContent都是const
+    2）const在后面，与上面的声明对等
+    int const nValue； // nValue是const
+    char const * pContent；// *pContent是const， pContent可变
+    （char *） const pContent；//pContent是const，*pContent可变
+    char* const pContent；// pContent是const，*pContent可变
+    char const* const pContent；// pContent和*pContent都是const
+    答案与分析：
+    const和指针一起使用是C语言中一个很常见的困惑之处，在实际开发中，特别是在看别人代码的时候，常常会因为这样而不好判断作者的意图，下面讲一下我的判断原则：
+    沿着*号划一条线，const和谁在一边，那么谁就是const，即const限定的元素就是它。你可以根据这个规则来看上面声明的实际意义，相信定会一目了然。
+    另外，需要注意：对于const （char *） ； 因为char *是一个整体，相当于一个类型（如 char），因此，这是限定指针是const.

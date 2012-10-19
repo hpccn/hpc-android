@@ -1,0 +1,87 @@
+建立一个简单的JNI程序
+
+
+       本篇和大家简单地建立一个Java调用C++代码的程序！关于细节请关注本博客下周的文章。
+一、编写一个包含本地方法的类NativeHello.java
+
+// NativeHello.java
+
+public class NativeHello {
+
+         public native void HelloWorld(String str);
+
+         static {
+
+                   System.loadLibrary("hello");
+
+         }
+
+}
+
+ 
+二、编译此文件
+
+javac NativeHello.java
+
+ 
+三、生成头文件
+
+javah NativeHello
+
+ 
+
+此时在我的c盘根目录下有以下三个文件：
+
+NativeHello.java
+
+NativeHello.class
+
+NativeHello.h
+
+ 
+四、在VC++中建立一个DLL
+
+       打开你的VC++ 6.0工具，新建一个工程，选择“Win32 Dynamic-Link Library”，取名为hello（以后生成的dll文件名就为hello，在NativeHello的静态方法中加载的就是此名称的动态链接库），同时该链接库存放在c盘的子目录“hello”文件夹中。见下图：
+
+ 
+
+       上面的操作完成后，点击“确定”按钮，会完成设置，同时跳出下面的窗口：
+
+ 
+
+ 
+
+       我们选择“一个空的DLL工程(E)”。点击“完成”按钮即可。下面就就进入了VC++ 6.0 的工作区了。单击工具栏上红色的“新建”，创建一个Text1文本。
+
+ 
+
+选择“文件”菜单，将此文本保存致c盘的根目录中，名称为“hello.cpp”。接着添加源文件、头文件。进行此操作必须将操作必须将工作区视图变为“File View”。添加源文件的方法为：在“文件视图”中右击“Source Files”，选择“添加文件到目录(F)…”选择你刚才保存到c盘根目录的“hello.cpp”即可。添加头文件就是将通过javah命令得到的HativeHello.h假如当前工程。最后必须将你的JDK安装目录下include目录中的jni.h文件包含到工程中。（在我机器上该文件位于jdk1.6.0 include 目录中）
+
+       以下是在“文件视图”中的所有必须的文件。将NativeHello.h头文件中的方法拷贝到hello.cpp文件中，按照下图中hello.cpp文件的内容写入代码！点击工具栏的图示红色的“Build”按钮，就完成了。（假如VC工具没有报错，你就很幸运了！完成！）
+
+ 
+
+       接着打开你的hello文件夹，到其Debug子目录下，将名为hello.dll的文件拷贝到和NativeHello类同一个目录。
+
+ 
+
+ 
+五、调试刚才的本地方法
+
+       在与NativeHello类和hello.dll相同的目录中建立以下的java程序，编译运行它。是不是在你的运行平台上有"I am loading the native method !"这句话啊！！恭喜恭喜！成功了！
+
+// Hello.java
+
+public class Hello {
+
+       public static void main(String[] args){
+
+              new NativeHello().HelloWorld("I am loading the native method !");
+
+       }
+
+}
+
+       以上是建立一个简单的JNI程序的过程。讲了过程，没有讲原因，下周详细分析！分析Java和C、++语言互操作的方方面面。（这方面也是相当简单的！希望大家在本博客的指到下很快精通JNI！）
+
+       谢谢！

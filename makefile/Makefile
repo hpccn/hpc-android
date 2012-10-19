@@ -1,7 +1,7 @@
 # EXECUTABLE为目标的可执行文件名，LIBS为需要连接的程序包列表，可以根据具体的项目对其进行修改。
 #
 EXECUTABLE := example
-DEBUG = #-DDEBUG  # 是否Debug版
+DEBUG = #-DDEBUG -D_DEBUG # 是否Debug版, -D参数和-U参数，-D将宏定义传递给程序，-U取消程序中的宏定义。
 LIBS := #xxx
 # Now alter any implicit rules’ variables if you like, e.g.:
 # 修改隐含规则中宏。

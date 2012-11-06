@@ -1,0 +1,47 @@
+在 ArchLinux 中安裝 Openssh
+安裝完 ArchLinux 後除了在本機登入外，有時用遠端登入還是比較方便，所以安裝了 openssh 服務。
+安裝方式：
+# pacman -Sy openssh
+
+有關 pacman 的用法
+# pacman -h
+usage:  pacman <operation> [...]
+options:
+    pacman {-h --help}
+    pacman {-V --version}
+    pacman {-A --add}     [options] <file>
+    pacman {-Q --query}   [options] [package]
+    pacman {-R --remove}  [options] <package>
+    pacman {-S --sync}    [options] [package]
+    pacman {-U --upgrade} [options] <file>
+
+修改設定檔
+# vi /etc/rc.conf
+找到下面這一行
+DAEMONS=(syslog-ng network netfs crond)
+在後面的括號中加入 sshd
+改成像
+DAEMONS=(syslog-ng network netfs sshd crond)
+
+啟動 sshd 服務
+# /etc/rc.d/sshd start
+
+不過這時候，系統還是不能遠端登入，因為安全的因素，所以系統拒絕從遠端連線
+# vi /etc/hosts.deny
+#
+# /etc/hosts.deny
+#
+
+ALL: ALL: DENY
+
+# End of file
+
+修改 /etc/hosts.allow 加入可以連線的範圍
+# vi /etc/hosts.allow
+#
+# /etc/hosts.allow
+#
+sshd: 192.168.1.7: ALLOW
+# End of file
+
+這樣就可以從遠端登入了！

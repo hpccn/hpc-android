@@ -1,0 +1,42 @@
+
+
+ArchLinux使用wicd连接无线网络
+
+1.首先安装wicd
+
+pacman －S wicd
+
+wicd依赖dbus，python和gtk2，如果系统中没有的话就会自动安装.
+
+2.还可能需要下面的东东
+
+pacman -S dhclient wpa_supplicant hicolor-icon-theme
+
+3.配置网络
+
+为了避免和其他网络管理工具冲突，首先关闭netowrk，dhcpd，networkmanager这些守护进程
+
+/etc/rc.d/network stop
+
+/etc/rc.d/dhcpd stop
+
+/etc/rc.d/networkmanager stop
+
+再编辑rc.conf文件，把其中关于网络的设置注释掉，守护进程里面也把nework，dhcpd，networkmanager等网络方面的守护进程去掉，加上wicd和dbus（如果有hal就不用家dbus了，hal会自动启动dbus）
+
+把自己的用户加到network组和dbus组里面去（不加会导致wicd启动错误）
+
+gpasswd -a hpc network
+
+gpasswd -a hpc dbus
+
+(hpc是我的用户名)
+
+4.最后可以启动wicd的图形客户端了
+
+wicd-client
+
+(注意：我安装wicd时候ethtool在一个澳大利亚源上是损坏的，怎么装都装不上，把那个源注释掉就OK了
+
+如果没有问题的话wicd就成功启动了，界面很友好，无线有线很方便设置，也很方便切换，设置可以“一旦有线连接就自动切换”这样的人性化的设计，真的很好～
+

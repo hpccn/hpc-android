@@ -1,0 +1,12 @@
+ArchLinux 預設好像是沒有聲音的，要安裝 alsa-utils 程式，並將使用者加入 optical 和 audio 群組，使用者才能使用聲音。
+# pacman -S alsa-utils
+
+修改 /etc/rc.conf，在 DAEMONS 後面加入 alsa
+# vi /etc/rc.conf
+DAEMONS=(syslog-ng network netfs sshd crond gdm alsa)
+
+將使用者加入 optical 和 audio 群組
+# gpasswd -a user1 optical
+正在將使用者“user1”加入到“optical”群組中
+# gpasswd -a user1 audio
+正在將使用者“user1”加入到“audio”群組中

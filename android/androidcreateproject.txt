@@ -1,0 +1,93 @@
+android 牛人必修 ant 编译android工程
+最近比较懒，博客一直都没更新，上次有人问ant 来编译android 工程，这里我就完整的整理了一下。如果你嫌弃IDE太慢或者觉得手动编译更Cool，不用IDE你可以学到更多。也是成为牛人的必修课啊！
+
+一，准备ant
+
+ant 官网可下载
+http://ant.apache.org/
+ant 环境配置： 
+1。解压ant的包到本地目录。 
+2。在环境变量中设置ANT_HOME，值为你的安装目录。 
+3。把ANT_HOME/bin加到你系统环境的path。
+
+更多的介绍可以去google相信有很多
+
+二，详细步骤和说明，这里我们要知道一些Android命令。
+
+前提条件已配置好android sdk 环境，所以可以在任意目录下执行android 命令，不然则要切换到 android-sdk\tools目录下
+
+我这里已经配置好了，所以无论我在什么路径下了。
+1.创建一个android项目 
+参数说明：
+-k /--package 为命名空间（包名）-a /--name 工程名 
+-p /--path 项目 -t 为目标平台的版本编号
+
+C:\Documents and Settings\Administrator>android create project -k com.android.Ta
+nk -a Tank -t 4  -p F:\tank
+
+ 
+
+列出不同版本平台的对应id编号 android.bat list targets /android list
+C:\Documents and Settings\Administrator>android.bat list targets
+
+ 
+
+对已经存在的android工程,我们可以update下（修改平台的版本）,这样会自动添加build.xml 等ant 的配置文件
+C:\Documents and Settings\Administrator>android update project --name Tank -t 11
+  -p F:\tank
+
+编译：直接ant 是不会有文件输出的，所以后面一定要带上参数
+ant 参数如下：
+
+    * debug：带调试用签名的构建
+    * release：构建应用程序，生成的apk必须签名才可以发布
+    * install：安装调试构建的包到运行着的模拟器或者设备；
+    * reinstall
+    * uninstall
+
+开始执行编译：
+
+E:\MyLiB\Android\AndroidAnt\MyBoardCastReciver>ant debug
+Buildfile: E:\MyLiB\Android\AndroidAnt\MyBoardCastReciver\build.xml
+    [setup] Android SDK Tools Revision 7
+    [setup] Project Target: Android 2.2
+    [setup] API level: 8
+    [setup]
+    [setup] ------------------
+    [setup] Resolving library dependencies:
+    [setup] ------------------
+    [setup] Ordered libraries:
+    [setup] ------------------
+    [setup]
+    [setup] WARNING: No minSdkVersion value set. Application will install on all
+ Android versions.
+    [setup]
+    [setup] Importing rules file: tools\ant\ant_rules_r3.xml
+    [javac]****警告：编码 ascii 的不可映射字符********
+
+
+出现“警告：编码 ascii 的不可映射字符”错误
+
+编译乱码解决办法：
+查看输出提示：
+[setup] Importing rules file: tools\ant\ant_rules_r3.xml
+找到sdk目录下的<sdkpath>\tools\ant\ant_rules_r3.xml
+打开找到节点：
+ <javac encoding="ascii" target="1.5" debug="true" extdirs="" ....>
+把ascii改为gbk即可。
+
+
+启动相应模拟器：emulator -avd avdName
+E:\MyLiB\Android\AndroidAnt\Toast>emulator -avd tank
+
+列出已有avd 的列表
+E:\MyLiB\Android\AndroidAnt\Toast\bin>adb devices
+List of devices attached
+emulator-5554   device
+
+安装到指定avd 
+E:\MyLiB\Android\AndroidAnt\Toast\bin>adb -s emulator-5554 install Toast-debug.a
+pk
+
+
+ok ，ant 编译android 并手动安装apk文件就写到这里了。是不是也很COOL!

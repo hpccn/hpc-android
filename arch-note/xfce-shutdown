@@ -2,3 +2,15 @@ xfce下普通用户无法用面板里的重启核关机
 chmod wr /etc/sudoers
 在/etc/sudoers下添加
 你的名字 ALL=NOPASSWD:ALL
+
+
+一直在用xfce4.8，前几天升级到了xfce4.10.
+看起来一切都好
+除了关机用的动作按钮，现在只有注销是可用的。重启，关机都成灰色被禁用了。
+很是奇怪。
+Google半天未找到解决办法，尝试修改.xinitrc发现KO了。
+原来的.xinitrc为
+
+exec ck-launch-session dbus-launch --exit-with-session startxfce4
+
+现在直接修改为exec startxfce4

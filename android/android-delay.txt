@@ -1,0 +1,223 @@
+android几种定时器机制及区别
+
+---------------------------------------------------------------------
+Timer
+
+Android 的 Timer 类可以用来计划需要循环执行的任务，Timer 的问题是它需要用 WakeLock 让 CPU 保持唤醒状态，这样会大量消耗手机电量，大大减短手机待机时间。而一旦待机，任务可能就不会执行了。
+
+Timer实现不是很准确，时间上是有误差的。
+
+AlarmManager
+
+AlarmManager 是 Android 系统封装的用于管理 RTC 的模块，RTC (Real Time Clock) 是一个独立的硬件时钟，可以在 CPU 休眠时正常运行，在预设的时间到达时，通过中断唤醒 CPU。
+
+这意味着，如果我们用 AlarmManager 来定时执行任务，CPU 可以正常的休眠，只有在需要运行任务时醒来一段很短的时间。
+
+这种实现通常要选择RTC_WAKEUP才能达到这样的效果，这是需要注意的！
+---------------------------------------------------------------------
+
+
+
+在android中，经常用到的定时器主要有以下几种实现： 
+一、采用Handler与线程的sleep(long )方法 
+二、采用Handler的postDelayed(Runnable, long) 方法 
+三、采用Handler与timer及TimerTask结合的方法。 
+下面逐一介绍： 
+一、采用Handle与线程的sleep(long )方法 
+Handler主要用来处理接受到的消息。这只是最主要的方法，当然Handler里还有其他的方法供实现，有兴趣的可以去查API，这里不过多解释。 
+1.定义一个Handler类，用于处理接受到的Message. 
+Handler handler = new Handler() { 
+public void handleMessage(Message msg) { 
+//要做的事情 
+super.handleMessage(msg); 
+} 
+}; 
+2.新建一个实现Runnable接口的线程类。如下： 
+public class MyThread implements Runnable{ 
+@Override 
+public void run() { 
+// TODO Auto-generated method stub 
+while (true) { 
+try { 
+Thread.sleep(10000);//线程暂停10秒，单位毫秒 
+Message message=new Message(); 
+message.what=1; 
+handler.sendMessage(message);//发送消息 
+} catch (InterruptedException e) { 
+// TODO Auto-generated catch block 
+e.printStackTrace(); 
+} 
+} 
+} 
+} 
+3.在需要启动线程的地方加入下面语句： 
+new Thread(new MyThread()).start(); 
+4.启动线程后，线程每10s发送一次消息。 
+二、采用Handler的postDelayed(Runnable, long) 方法 
+这个实现比较简单一些： 
+1. Handler handler=new Handler(); 
+Runnable runnable=new Runnable(){ 
+@Override 
+public void run() { 
+// TODO Auto-generated method stub 
+//要做的事情 
+handler.postDelayed(this, 2000); 
+} 
+}; 
+2.启动计时器： 
+handler.postDelayed(runnable, 2000);//每两秒执行一次runnable. 
+3.停止计时器： 
+handler.removeCallbacks(runnable); 
+三、采用Handler与timer及TimerTask结合的方法。 
+1.定义定时器、定时器任务及Handler句柄 
+private final Timer timer = new Timer(); 
+private TimerTask task; 
+Handler handler = new Handler() { 
+@Override 
+public void handleMessage(Message msg) { 
+// TODO Auto-generated method stub 
+//要做的事情 
+super.handleMessage(msg); 
+} 
+
+}; 
+2.初始化计时器任务。 
+task = new TimerTask() { 
+@Override 
+public void run() { 
+// TODO Auto-generated method stub 
+Message message = new Message(); 
+message.what = 1; 
+handler.sendMessage(message); 
+} 
+}; 
+3.启动定时器 
+timer.schedule(task, 2000, 2000); 
+简要说一下上面三步提到的一些内容。 
+1.定时器任务（TimerTask）顾名思义，就是说当定时器到达指定的时间时要做的工作，这里是想Handler发送一个消息，由Handler类进行处理。 
+2. java.util.Timer.schedule(TimerTask task, long delay):这个方法是说，dalay/1000秒后执行task.只执行一次。 
+java.util.Timer.schedule(TimerTask task, long delay, long period)：这个方法是说，delay/1000秒后执行task,然后进过period/1000秒再次执行task，这个用于循环任务，执行无数次，当然，你可以用timer.cancel();取消计时器的执行。 
+
+////////////////////////////////////////////////////// 
+
+然后是有关 Java.util.Timer 和 AlarmService的 
+
+
+
+在Android上常用的定时器有两种，一种是Java.util.Timer，一种就是系统的AlarmService了。 
+
+
+实验1：使用Java.util.Timer。 
+在onStart()创创建Timer，每5秒更新一次计数器，并启动。 
+Java代码 
+mTimer = new Timer();          
+mTimer.schedule(new TimerTask() {              
+            @Override  
+            public void run() {   
+                ++mCount;   
+                mHandler.sendEmptyMessage(0);                  
+
+            }   
+        }, 5*1000, 5*1000);   
+
+mTimer = new Timer();                
+mTimer.schedule(new TimerTask() {                        
+                        @Override 
+                        public void run() { 
+                                ++mCount; 
+                                mHandler.sendEmptyMessage(0);                                
+                        } 
+                }, 5*1000, 5*1000);        
+
+当连接USB线进行调试时，会发现一切工作正常，每5秒更新一次界面，即使是按下电源键，仍然会5秒触发一次。 
+当拔掉USB线，按下电源键关闭屏幕后，过一段时间再打开，发现定时器明显没有继续计数，停留在了关闭电源键时的数字。 
+
+实验2：使用AlarmService： 
+2.1通过AlarmService每个5秒发送一个广播，setRepeating时的类型为AlarmManager.ELAPSED_REALTIME。 
+Java代码 
+AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);   
+am.setRepeating(AlarmManager.ELAPSED_REALTIME, firstTime, 5*1000, sender);  
+
+AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE); 
+am.setRepeating(AlarmManager.ELAPSED_REALTIME, firstTime, 5*1000, sender); 
+
+拔掉USB线，按下电源键，过一段时间再次打开屏幕，发现定时器没有继续计数。 
+2.2setRepeating是的类型设置为AlarmManager.ELAPSED_REALTIME_WAKEUP 
+Java代码 
+AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);   
+am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, 5*1000, sender);  
+
+AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE); 
+am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, firstTime, 5*1000, sender); 
+
+拔掉USB线，按下电源键，过一点时间再次打开屏幕，发现定时器一直在计数。 
+
+如此看来，使用WAKEUP才能保证自己想要的定时器一直工作，但是肯定会引起耗电量的增加。 
+
+/////////////////////////////////////// 
+
+最后是有关schedule和scheduleAtFixedRate区别 
+
+schedule和scheduleAtFixedRate 区别： 
+
+（1） 2个参数的schedule在制定任务计划时，如果指定的计划执行时间scheduledExecutionTime<= systemCurrentTime，则task会被立即执行。scheduledExecutionTime不会因为某一个task的过度执行而改变。 
+（2） 3个参数的schedule在制定反复执行一个task的计划时，每一次执行这个task的计划执行时间随着前一次的实际执行时间而变，也就是 scheduledExecutionTime(第n+1次)=realExecutionTime(第n次)+periodTime。也就是说如果第n 次执行task时，由于某种原因这次执行时间过长，执行完后的systemCurrentTime>= scheduledExecutionTime(第n+1次)，则此时不做时隔等待，立即执行第n+1次task，而接下来的第n+2次task的 scheduledExecutionTime(第n+2次)就随着变成了realExecutionTime(第n+1次)+periodTime。说白了，这个方法更注重保持间隔时间的稳定。 
+（3）3个参数的scheduleAtFixedRate在制定反复执行一个task的计划时，每一次执行这个task的计划执行时间在最初就被定下来了，也就是scheduledExecutionTime(第n次)=firstExecuteTime +n*periodTime；如果第n次执行task时，由于某种原因这次执行时间过长，执行完后的systemCurrentTime>= scheduledExecutionTime(第n+1次)，则此时不做period间隔等待，立即执行第n+1次task，而接下来的第n+2次的 task的scheduledExecutionTime(第n+2次)依然还是firstExecuteTime+（n+2)*periodTime这在第一次执行task就定下来了。说白了，这个方法更注重保持执行频率的稳定。 
+
+Timer的实例： 
+
+package com.hemes.timer; 
+
+import java.util.*; 
+
+public class doTask extends TimerTask { 
+
+    // true时使用后台进程线程。只要剩下的程序记叙运行，后台进程线程就会执行。 
+    Timer myTimer; 
+
+    public void start(int delay, int hour) { 
+    myTimer = new Timer(); 
+        myTimer.schedule(this, delay * 1000, hour*1000*60*60); //利用timer.schedule方法 
+       
+        //public void schedule(TimerTask task,long time,long period) 
+        //task被安排在延迟time后执行，执行后将每隔period(毫秒)反复执行。由于规定的时间间隔并不能保证与时钟精准的同不步，所以该方 
+    } 
+   
+    public void start(Date time, int hour) { 
+    myTimer = new Timer(); 
+        myTimer.schedule(this, time, hour*1000*60*60); //利用timer.schedule方法 
+       
+        //public void schedule(TimerTask task,Date time,long period) 
+        //task被安排在time指定的时间执行，执行后将每隔period(毫秒)反复执行。由于规定的时间间隔并不能保证与时钟精准的同不步，所以该方 
+    } 
+   
+    public void run() { 
+    //执行任务(sql) 
+        System.out.println("do Task..."); 
+    } 
+   
+    public void end(){ 
+        myTimer.cancel(); 
+        //终止Timer的功能执行，但不会对正在执行的任务有影响。当执行cancel方法后将不能再用其分配任务。 
+    } 
+   
+    //测试 
+    public static void main(String args[]) { 
+   
+        doTask myTask1 = new doTask(); 
+       
+        //Get the Date corresponding to 11:30:00 pm today. 
+        Calendar calendar = Calendar.getInstance(); 
+        calendar.set(Calendar.HOUR_OF_DAY, 23); 
+        calendar.set(Calendar.MINUTE, 30); 
+        calendar.set(Calendar.SECOND, 0); 
+        Date time = calendar.getTime(); 
+
+        myTask1.start(time,24); 
+       
+       
+      
+        //myTask1.end();//线程结束 
+      
+    } 
+} 

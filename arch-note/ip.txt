@@ -1,0 +1,45 @@
+Archlinux 设置IP地址、网关、DNS
+
+
+说明：
+系统：Archlinux
+IP地址：192.168.21.170
+子网掩码：255.255.255.0
+网关：192.168.21.2
+DNS：8.8.8.8
+8.8.4.4
+操作：
+1、设置IP地址、网关
+nano /etc/rc.conf #编辑配置文件
+interface=eth0 #网卡名称
+address=192.168.21.170 #IP地址
+netmask=255.255.255.0 #子网掩码
+broadcast=192.168.21.255 #这个是广播地址，根据IP地址和子网掩码计算得到
+gateway=192.168.21.2 #网关
+
+HOSTNAME="myhost" #修改主机名称，可以默认不做修改
+LOCALE="zh_CN.UTF-8" #默认语言LOCALE="en_US.UTF-8"修改为中文，可以默认不做修改
+ctrl+o #保存
+ctrl+x #退出
+2、设置DNS
+nano /etc/resolv.conf #编辑配置文件
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+ctrl+o #保存
+ctrl+x #退出
+/etc/rc.d/network restart #重启网络
+现在Archlinux已经可以上网了
+#########################################################
+扩展阅读：更改系统编码
+nano /etc/locale.gen #编辑文件,取消下面每一行前面的注释
+zh_CN.GB18030 GB18030
+zh_CN.GBK GBK
+zh_CN.UTF-8 UTF-8
+zh_CN.GB2312
+ctrl+o #保存
+ctrl+x #退出
+修改root密码
+默认安装下root密码为空
+passwd root #修改密码
+输入两次新密码，修改成功。
+#########################################################

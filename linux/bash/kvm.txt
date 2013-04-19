@@ -1,0 +1,60 @@
+KVM中安装Windows XP Guest并使用virtio  
+
+1、下载最新的virto for win驱动
+
+有两个：
+virtio-win-xxxx.vfd
+virtio-win-xxx.iso
+
+2012.2.23更新：
+
+我猛然发现vfd已经不提供下载了，于是把最新版本共享出来：
+
+http://hotfile.com/dl/147534533/7d6548d/virtio-win-1.1.16.vfd.html
+
+前者是windows安装时候加驱动用的（软盘镜像），后者是装好了再加驱动（光盘镜像）
+本文主要叙述安装时候加载驱动的办法。（硬盘驱动在安装时候加载，网卡可以装好了再加载）
+
+2、创建镜像
+
+1	/usr/local/kvm/bin/qemu-img create -f qcow2 winxp.img 10G
+3、安装 && 加载virto光盘驱动
+
+1	sudo qemu-system-x86_64 -m 512 -boot d -drive file=pathX/winxp.img,cache=writeback,if=virtio,boot=on -fda pathX/virtio-win-1.1.11-0.vfd -cdrom /media/disk/虚拟镜像/OS/windows_xp_professional_with_service_pack_3.iso
+图1:此时按F8可安装SCSI驱动
+到了出现选择SCSI驱动时候（如图1），猛击F6，会到图2的界面：
+
+图2:按S
+
+按S后如图3所示，
+
+图3:选择正确的驱动
+
+选择第一个就OK了，看来还支持2003哦！
+选择好后完成后继续Enter，剩下的就和普通安装一样了，Enjoy！
+
+4、安装网卡驱动
+安装好XP，能正常启动以后，我们添加如下启动参数，将网卡改为virtio，同时加载那张驱动光盘。
+
+1	sudo qemu-system-x86_64 -m 512 -drive file=pathX/winxp.img,cache=writeback,if=virtio,boot=on -net nic,model=virtio -cdrom pathX/virtio-win-1.1.11-0.iso
+启动完毕会提示新驱动，在光盘中找就OK了！
+至此，硬盘和网卡的virtio全部搞定！
+
+以后启动用这个命令就可以了。
+
+1	qemu-system-x86_64 -m 512 -drive file=pathX/winxp.img,cache=writeback,if=virtio,boot=on -net nic,model=virtio
+5、关于DHCP
+启动后可以果断发现：virtio后dhcp没法分配到IP。。。。
+看这里的说明：http://www.spinics.net/lists/kvm/msg37660.html
+桥接可以解决问题。
+
+关于桥接，请参考《KVM虚拟化多个网卡桥接配置》
+
+1	sudo /usr/local/kvm/bin/qemu-system-x86_64 -m 512 -drive file=pathX/winxp.img,cache=writeback,if=virtio,boot=on -net nic,model=virtio,name=k1,macaddr=00:11:22:33:66:55 -net tap,vlan=0,name=k1,ifname=tap0,script=no,downscript=no
+参考文献：
+
+http://www.linux-kvm.org/page/WindowsGuestDrivers/viostor/installation#Non-System_disk_installation_procedure
+
+http://blog.chinaunix.net/u/249/showart_2221629.html
+
+http://www.heboliang.cn/archive/kvm-windows.html

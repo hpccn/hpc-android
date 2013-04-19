@@ -1,0 +1,20 @@
+# permissions for IDE CD devices
+SUBSYSTEMS=="ide", KERNEL=="hd[a-z]", ATTR{removable}=="1", ATTRS{media}=="cdrom*", GROUP="optical"
+
+# permissions for SCSI CD devices
+SUBSYSTEMS=="scsi", KERNEL=="s[rg][0-9]*", ATTRS{type}=="5", GROUP="optical"
+
+
+# permissions for usb disk devices
+KERNEL=="[sh]d[b-z]", NAME="%k", SYMLINK+="usbhd-%k", GROUP="users", OPTIONS="last_rule"   
+
+ACTION=="add", KERNEL=="[sh]d[b-z][0-9]", SYMLINK+="usbhd-%k", GROUP="users", NAME="%k"   
+
+ACTION=="add", KERNEL=="[sh]d[b-z][0-9]", RUN+="/bin/mkdir -p /media/usbhd-%k"   
+ACTION=="add", KERNEL=="[sh]d[b-z][0-9]", PROGRAM=="/lib/udev/vol_id -t %N",  RUN+="/bin/mount  -o rw,utf8=true,codepage=936,noauto,flush,quiet,nodev,nosuid,noexec,noatime,dmask=000,fmask=111 /dev/%k /media/usbhd-%k", OPTIONS="last_rule"   
+# ACTION=="add", KERNEL=="sd[b-z][0-9]", PROGRAM=="/lib/udev/vol_id -t %N", RESULT=="vfat", RUN+="/bin/mount -t vfat -o rw,utf8=true,codepage=936,noauto,flush,quiet,nodev,nosuid,noexec,noatime,dmask=000,fmask=111 /dev/%k /media/usbhd-%k", OPTIONS="last_rule"   
+
+ACTION=="add", KERNEL=="[sh]d[b-z][0-9]", RUN+="/bin/mount -t auto -o rw,locale=zh_CN.UTF-8,noauto,sync,dirsync,noexec,nodev,noatime /dev/%k /media/usbhd-%k", OPTIONS="last_rule"   
+
+ACTION=="remove", KERNEL=="[sh]d[b-z][0-9]", RUN+="/bin/umount -l /media/usbhd-%k"   
+ACTION=="remove", KERNEL=="sd[b-z][0-9]", RUN+="/bin/rm -rf /media/usbhd-%k", OPTIONS="last_rule" 

@@ -1,0 +1,88 @@
+Linux常用配置文件
+
+linux脚本 
+配置文件一览表 文件位置及名称,作用
+　　/etc/rc.d/rc.sysinit
+　　系统启动时的公用服务配置
+　　/etc/rc.d/rc.local
+　　系统启动时的本地服务配置
+　　/etc/bashrc、/etc/profile
+　　bash shell的公用配置
+　　/home/username/.bashrc
+　　各用户私人bash shell配置
+　　/etc/securetty
+　　终端安全设置
+　　/etc/hosts
+　　主机名与ip地址的对应文件
+　　/etc/resolv.conf
+　　dns服务器配置
+　　/etc/squid.conf或/etc/squid/squid.conf
+　　squid代理服务器软件配置
+　　/etc/smb.conf或/etc/samba/smb.conf
+　　基于smb的网上邻居配置
+　　/etc/dhcpd.conf
+　　linux下的dhcp服务器配置文件
+　　/etc/filesystems
+　　系统支持的文件系统列表
+　　/etc/fstab
+　　当前系统中已激活分区的信息
+　　/etc/host.conf
+　　指定系统搜索dns记录的配置文件
+　　/etc/lilo.conf
+　　启动程序lilo的配置文件
+    /etc/grub.conf
+    启动程序grub的配置文件，->/boot/grub/grub.conf
+    /etc/syslog.conf
+    系统日志文件配置文件
+    /etc/sysctl.conf
+
+    /etc/init.d   ->/etc/rc.d/init.d   系统服务的脚本文件
+　　L i n u x 系统启用许多服务进程, 如sendmail、ssh 等,每个服务的脚本文件都存放在init.d 目录下。
+　　/etc/rc.d/rc?.d      系统的运行级别
+　　Linux 的运行级别分成0～6：
+　　级别 0：停止系统运行；
+　　级别 1：进入单用户模式；
+　　级别 2：进入无网络服务的多用户模式；
+　　级别3或级别4：进入控制台登录的多用户模式；
+　　级别5：进入图形化登录的多用户模式,是系统正常启动的模式；
+　　级别6：重启系统。
+　　在/etc/rc.d 下有rc0.d ～ rc6.d 级别相关的目录，放置特定运行级的各个启动服务的脚本文件。
+　　网络配置文件—— /etc/sysconfig
+　　其中：/ e t c /sysconfig/network 显示主机基本网络信息，用于系统启动；
+　　/etc/sysconfig/network-script/ 此目录下是系统启动初始化网络的信息；
+　　/etc/sysconfig/network-script/ifcfg-eth0网络配置信息；
+　　5.服务进程xinetd 的配置文件—— /etc/xinetd.conf
+　　在使用telnet、vsftp 等服务时,需启动xinetd 进程,它的配置文件是xinetd.conf。/etc/xinetd.d 目录下保存xinetd 要处理的特定服务程序的文件。
+　　● 常用的系统文件
+　　1./etc/inittab 系统主启动控制文件；
+　　2./etc/fstab 文件系统表文件(定义分区和磁盘的挂载位置)；
+　　3./etc/password 用户账号信息；
+　　4./etc/shadow 用户密码管理文件；
+　　5./etc/group 用户组账号信息；
+　　6./etc/services 网络服务的数据文件；
+　　7./etc/hosts 主机地址的设置文件；
+　　8./etc/csh.cshrc csh 用户登陆的环境文件；
+　　9./etc/bashrc bash 用户的登陆的环境文件；
+　　10./etc/profile 系统最主要的Shell设置文件。
+    启动引导程序配置文件
+    LILO /etc/lilo.conf
+    GRUB /boot/grub/grub.conf
+    系统启动文件核脚本主启动控制文件 /etc/inittab
+    SysV启动脚本的位置 /etc/rc.d/init.d
+    SysV启动脚本链接的位置 /etc/rc.d/rc[0-6].d
+    本地启动脚本 /etc/rc.d/rc.local 
+ 
+    网络配置文件建立网络接口的脚本 
+    /etc/sysconfig/network
+    /etc/sysconfig/network-scripts
+    保存解析DNS服务的文件 /etc/resolv.conf
+    DHCP客户端的配置文件 /etc/dhclient.conf
+  
+    文件系统表 /etc/fstab
+    软驱装配点 /floppy、/mnt/floppy或/media/floppy
+    光驱装配点 /cdrom、/mnt/cdrom或/media/cdrom
+    shell配置文件
+    bash系统非登录配置文件 /etc/bashrc
+    bash系统登录文件 /etc/profile
+    bash用户非登录配置文件 ~/.bashrc
+    bash用户登录配置文件 ~/.bash_profile

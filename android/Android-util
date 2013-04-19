@@ -1,0 +1,527 @@
+
+
+Android实用代码片段
+     
+	
+	
+
+          有时候，需要一些小的功能，找到以后，就把它贴到了博客下面，作为留言，查找起来很不方便，所以就整理一下，方便自己和他人。
+
+         一、  获取系统版本号：
+1	PackageInfo info = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
+2	int versionCode=nfo.versionCode
+3	string versionName=info.versionNam
+
+              二、获取系统信息：
+
+01	<span>String archiveFilePath="sdcard/download/Law.apk";//安装包路径
+02	PackageManager pm = getPackageManager();
+03	PackageInfo info = pm.getPackageArchiveInfo(archiveFilePath, PackageManager.GET_ACTIVITIES);
+04	if(info != null){
+05	ApplicationInfo appInfo = info.applicationInfo;
+06	String appName = pm.getApplicationLabel(appInfo).toString();
+07	String packageName = appInfo.packageName; //得到安装包名称
+08	String version=info.versionName; //得到版本信息
+09	Toast.makeText(test4.this, "packageName:"+packageName+";version:"+version, Toast.LENGTH_LONG).show();
+10	Drawable icon = pm.getApplicationIcon(appInfo);//得到图标信息
+11	TextView tv = (TextView)findViewById(R.id.tv); //显示图标
+12	tv.setBackgroundDrawable(icon);</span>
+
+        三、获取安装路径和已安装程序列表
+
+1	<span>(1)android中获取当前程序路径
+2	getApplicationContext().getFilesDir().getAbsolutePath()
+3	(2)android取已安装的程序列表
+4	List<PackageInfo> packageInfoList = getPackageManager().getInstalledPackages(0);</span>
+
+       四、获取图片、应用名、包名
+
+01	<span>PackageManager pManager = MessageSendActivity.this.getPackageManager();
+02	List<PackageInfo> appList = Utils.getAllApps(MessageSendActivity.this);
+03	     for(int i=0;i<appList.size();i++) {
+04	         PackageInfo pinfo = appList.get(i);
+05	         ShareItemInfo shareItem = new ShareItemInfo();
+06	         //set Icon
+07	         shareItem.setIcon(pManager.getApplicationIcon(pinfo.applicationInfo));
+08	         //set Application Name shareItem.setLabel(pManager.getApplicationLabel(pinfo.applicationInfo).toString());
+09	        //set Package Name shareItem.setPackageName(pinfo.applicationInfo.packageName);
+10	}</span>
+         五、解决listview上 Item上有按钮时 item本身不能点击的问题：
+
+1	<span>1. 在item试图上面添加代码： android:descendantFocusability="blocksDescendants"
+2	2.在listview里 添加代码 android:focusable="true"</span>
+         六、不让文本框输入中文：
+
+1	<span>在xml文件里面</span>
+1	<span>android:digits="1234567890qwertyuiopasdfghjklzxcvbnm`-=[]\;,./~!@#$%^*()_+}{:?&<>"'"
+2	这样就不会输入中文了。</span>
+        
+         七、获取屏幕宽高
+
+1	<span>DisplayMetrics displayMetrics = new DisplayMetrics();
+2	this.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+3	int height = displayMetrics.heightPixels;
+4	int width = displayMetrics.widthPixels;</span>
+         八、将TabWidget显示在屏幕下方
+
+1	<span>设置TabWidget的属性 android:layout_alignParentBottom="true"</span>
+为了让tabHost显示在下方，要将RadioGroup的layout_gravity设置为bottom，再将FrameLayout的 layout_weight设置为1，这样就可以将RadioGroup撑到最下方。style="@style/main_tab_bottom"里面定义了样式文件      
+
+         九、获取线程ID和线程名称：
+
+1	<span>Log.v("@@@@@@@@@@",Thread.currentThread().getId()+" "+Thread.currentThread().getName());</span>
+
+        十、android中调用其它android应用
+
+1	<span>ComponentName comp = new ComponentName("com.Test","com.login.Main");
+2	 intent = new Intent();
+3	 intent.setComponent(comp);
+4	 intent.setAction("android.intent.action.VIEW");
+5	 startActivity(intent);</span>
+         十一、禁止软键盘弹出
+
+1	<span>EditText有焦点（focusable为true）阻止输入法弹出 editText.setInputType(InputType.TYPE_NULL); // 关闭软键盘
+2	当EidtText无焦点（focusable=false）时阻止输入法弹出
+3	 
+4	InputMethodManager imm = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
+5	imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);</span>
+【Android】EditText标签调用键盘
+在xml文件中EditText标签有一个属性android:editable="false"和android:numeric="integer"
+
+android:numeric="integer"表示只允许输入数字，此属性可以限制用户只能输入数字内容。
+android:editable表示是否可以输入内容TRUE表示可以输入，false表示不允许输入内容;
+当为android:editable="false"时，点击输入框，虚拟键盘是显示不出来的，不过当设置了 android:editable=""属性时，不管是false还是true，在其后加入android:numeric="integer"属性时，是可以输入数字内容了;这里没搞明白是怎么回事，也许是numeric把前面的属性覆盖掉了。
+当android:editable="false"时，在java类里如果再规定EditText.setEnabled(true)时，虚拟键盘还是不会显示的。
+
+       十二、模拟器的各种规格与分辨率对照：
+1	单位：像素
+2	WVGA854: 854*480
+3	WVGA800: 800*480
+4	HVGA: 480*320
+5	QVGA: 320*240
+6	WQVGA432：432*240
+7	WQVGA400：400*240
+    
+          十三、调用Android其他Context的Activity
+1	Context c = createPackageContext("chroya.demo", Context.CONTEXT_INCLUDE_CODE | Context.CONTEXT_IGNORE_SECURITY);
+2	//载入这个类
+3	Class clazz = c.getClassLoader().loadClass("chroya.demo.Main");
+4	//新建一个实例
+5	Object owner = clazz.newInstance();
+6	//获取print方法，传入参数并执行
+7	Object obj = clazz.getMethod("print", String.class).invoke(owner, "Hello");
+这个方法有两个参数：
+1、packageName  包名，要得到Context的包名
+2、 flags  标志位，有CONTEXT_INCLUDE_CODE和CONTEXT_IGNORE_SECURITY两个选项。 CONTEXT_INCLUDE_CODE的意思是包括代码，也就是说可以执行这个包里面的代码。CONTEXT_IGNORE_SECURITY的意思 是忽略安全警告，如果不加这个标志的话，有些功能是用不了的，会出现安全警告。
+ 
+           十四、android4.0Dialog风格小技巧
+
+4.0上如果还用Theme.Dialog，只能说很土，跟整体UI风格差别很大
+
+请使用android:theme="@android:style/Theme.Holo.DialogWhenLarge"
+
+   
+         十五、程序中安装apk
+     
+1	Intent intent = new Intent();          
+2	       intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+3	    intent.setAction(android.content.Intent.ACTION_VIEW);
+4	    intent.setDataAndType(Uri.fromFile(“APK”),"application/vnd.android.package-archive");
+5	    startActivity(intent);
+
+其中“apk”为你要安装的那个文件。
+
+         十六、获取设备型号、SDK版本及系统版本
+
+1	String device_model = Build.MODEL; // 设备型号 
+2	String version_sdk = Build.VERSION.SDK; // 设备SDK版本 
+3	String version_release = Build.VERSION.RELEASE; // 设备的系统版本
+
+            十七、图片分析功能
+
+1	public void SharePhoto(String photoUri,final Activity activity) { 
+2	    Intent shareIntent = new Intent(Intent.ACTION_SEND); 
+3	    File file = new File(photoUri); 
+4	    shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file)); 
+5	    shareIntent.setType("image/jpeg"); 
+6	    StartActivity(Intent.createChooser(shareIntent, activity.getTitle())); 
+7	}
+
+
+         十八、linux关机命令
+
+在Windows下，按着电源键4秒强制关机，在Linux下强烈不建议这么做。Windows由于是单用户、“假多”任务的情况，所以即使你的计算机关机，也不会对别人造成影响。不过在Linux中，由于每个程序都是在后台执行的，因此，在你看不到的屏幕背后可能有很多人同时在你的主机上工作。而且，若不正常关机可能会造成文件系统的损毁。所以，正常情况下，要关机时需要注意下面几件事情：
+
+(1)查看系统的使用状态。
+
+要看目前有谁在线，可以用who命令。要看网络的联机状态，可以用netstat-a命令。要看后台执行那个的程序可以执行ps-aux命令。
+
+(2)通知在线用户的关机时刻
+
+这个时候可以使用shutdown命令
+
+01	Shutdown命令：
+02	语法：shutdown[-t秒][-arkhncfF]时间 警告消息
+03	-t:后面加描述表示过几秒之后关机。
+04	-k:不是真的关机，仅仅发出警告消息。
+05	-r:将系统服务停掉之后重启。
+06	-h:将系统服务停掉之后立即关机。
+07	-f:关机并开机之后，强制跳过fsck的磁盘检查。
+08	-F:系统重启之后，强制进行fsck的磁盘检查。
+09	-c:取消已经进行的shutdown命令内容。
+10	 
+11	另外，重启关机命令有reboot、halt、poweroff。其实在默认情况下，都完成一样的工作。
+12	halt先调用shutdown，而shutdown最后调用halt。不过，shutdown可以根据目前已经启动的服务来逐次关闭服务后才关机；而halt能够在不理会目前系统情况下，进行硬件关机的特殊功能。
+13	 
+14	除了这些，还有一个关机命令是init 0
+15	init是切换执行等级的命令。Linux共有7种执行等级，比较重要的是下面4种等级：
+16	run level 0:关机
+17	run level 3：纯命令行模式
+18	run level 5：含有图形界面模式
+19	run level 6：重启
+
+          十九、让自己的应用不被kill掉
+可以在frameworks\base\services\java\com\android\server\am\ActivityManagerService.java这个类的forceStopPackage中加一个条件：
+01	public void forceStopPackage(final String packageName) {
+02	        if (checkCallingPermission(android.Manifest.permission.FORCE_STOP_PACKAGES)
+03	                != PackageManager.PERMISSION_GRANTED) {
+04	            String msg = "Permission Denial: forceStopPackage() from pid="
+05	                    + Binder.getCallingPid()
+06	                    + ", uid=" + Binder.getCallingUid()
+07	                    + " requires " + android.Manifest.permission.FORCE_STOP_PACKAGES;
+08	            Slog.w(TAG, msg);
+09	            throw new SecurityException(msg);
+10	        }       
+11	        long callingId = Binder.clearCallingIdentity();
+12	        try {
+13	            IPackageManager pm = ActivityThread.getPackageManager();
+14	            int pkgUid = -1;
+15	            synchronized(this) {
+16	                try {
+17	                    pkgUid = pm.getPackageUid(packageName);
+18	                } catch (RemoteException e) {
+19	                }
+20	                if (pkgUid == -1) {
+21	                    Slog.w(TAG, "Invalid packageName: " + packageName);
+22	                    return;
+23	                }
+24	                //begin:加入一个判断条件
+25	                if (packageName.equals("你的进程名")) {
+26	                    return;
+27	                }
+28	                //end: 加入一个判断条件                                forceStopPackageLocked(packageName, pkgUid);
+29	            }
+30	        } finally {
+31	            Binder.restoreCallingIdentity(callingId);
+32	        }
+33	    }
+
+这样的话在任务管理器里可以保证KISS不掉的；
+还有在这个方法上还有个方法clearApplicationUserData中保证如果是该进程就不让调用forceStopPackage（）方法。
+另：其他方法：
+
+    1，首先在你的service的onDestory方法里面写上启动你自己的代码，为什么要写这个？因为如果用户是在设置->应用程序->正在运行服务这里面杀掉你service的话会调用到onDestory方法的，这里就可以启动了，
+    2:监听屏幕关闭广播，屏幕已关闭，就启动服务。
+    3：监听屏幕解锁广播，一样的道理，这样，基本上，你的service就达到永不停止了。对用户来说有点变态，但很多软件都这样。
+
+     二十、EditText获取焦点：
+1	EditText.requestFoucus（）
+    二十一、获取手机屏幕分辨率
+1	DisplayMetrics  dm = new DisplayMereics();
+2	 
+3	        getWindowManager().getDefaultDisplay().getMetrics(dm);
+4	 
+5	        float width = dm.widthPixels * dm.density;
+6	 
+7	        float height = dm.heightPixels * dm.density
+    在这里问什么要乘以  dm.density   了，是因为通过dm.widthPixels的到的结果始终是320，不是真实的屏幕分辨率，所以要乘以dm.density得到真实的分辨率。
+     二十二、在Activity里面播放背景音乐
+1	public void onCreate(Bundle savedInstanceState) {
+2	             super.onCreate(savedInstanceState);
+3	             setContentView(R.layout.mainlay);
+4	             mediaPlayer = MediaPlayer.create(this, R.raw.mu);
+5	             mediaPlayer.setLooping(true);
+6	             mediaPlayer.start();
+7	 
+8	                   }
+
+
+      二十三、让程序的界面不随机器的重力感应而翻转
+
+                 第一种方法，在manifast文件里面
+
+1	<activity
+2	  android:screenOrientation="portrait">
+3	  </activity>
+
+                  第二种，在代码里面
+
+1	setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+    二十四、使activity全屏显示
+
+1	requestWindowFeature(Window.FEATURE_NO_TITLE);
+2	        getWindow().setFlags(WindowManager.LayoutParams. FLAG_FULLSCREEN ,     
+3	                WindowManager.LayoutParams. FLAG_FULLSCREEN);
+
+        二十五、在RelativeLayout中使selector要注意点
+
+         关于selector的使用方法，可以参考http://blog.csdn.net/aomandeshangxiao/article/details/6759576这篇文章，今天，遇到在RelativeLayout中添加background为selector后没有反应的问题，寻摸了很长时间，一直没有找到原因，其实只要加上一句代码就完全可以解决：
+
+1	<span>RelativeLayout 里面加上android:clickable="true"</span>
+
+这样，RelativLayout就会出现在selector里面定义的效果。
+
+
+   二十六、显示或隐藏虚拟键盘
+
+1	显示：
+2	InputMethodManager imm = (InputMethodManager)(getSystemService(Context.INPUT_METHOD_SERVICE));
+3	imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+4	 
+5	隐藏：
+6	InputMethodManager imm = (InputMethodManager)(getSystemService(Context.INPUT_METHOD_SERVICE));
+7	imm.hideSoftInputFromWindow(m_edit.getWindowToken(), 0);
+
+   二十七、退出程序时清除通知中信息  
+
+1	NotificationManager nm = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
+2	nm.cancelAll();
+
+     二十八、创建快捷方式
+
+1	Intent intent=new Intent();
+2	//设置快捷方式的图标
+3	intent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, Intent.ShortcutIconResource.fromContext(this, R.drawable.img));
+4	//设置快捷方法的名称
+5	intent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "点击启动哥的程序");            //设置点击快键图标的响应操作
+1	intent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(this,MainActivity.class));
+2	//传递Intent对象给系统
+3	setResult(RESULT_OK, intent);
+4	finish();
+
+ 
+
+   二十九、获取文件中的类名：
+
+查看源码
+打印?
+1	String path = context.getPackageManager().getApplicationInfo(
+2	                                        context.getPackageName(), 0).sourceDir;
+3	                        DexFile dexfile = new DexFile(path);
+4	                        Enumeration<String> entries = dexfile.entries();
+5	                        while (entries.hasMoreElements()) {
+6	                                String name = (String) entries.nextElement();
+7	                                ......
+8	                        }
+
+
+
+
+三十. TextView中的getTextSize返回值是以像素(px)为单位的，
+
+         而setTextSize()是以sp为单位的.
+
+        所以如果直接用返回的值来设置会出错,解决办法是：
+
+        用setTextSize()的另外一种形式，可以指定单位：
+[java] view plaincopy
+
+    TypedValue.COMPLEX_UNIT_PX : Pixels    
+    TypedValue.COMPLEX_UNIT_SP : Scaled Pixels    
+    TypedValue.COMPLEX_UNIT_DIP : Device Independent Pixels  
+
+三十一. 在继承自View时,绘制bitmap时,需要将图片放到新建的drawable-xdpi
+
+中,否则容易出现绘制大小发生改变
+
+
+三十二. 在文字中加下划线: textView.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG); 
+
+
+三十三. scrollView是继承自frameLayout,所以在使用LayoutParams时需要用frameLayout的
+
+ 
+三十四、android阴影字体设置
+
+ 
+[html] view plaincopy
+
+    <TextView  android:id="@+id/tvText1"   
+     android:layout_width="wrap_content"   
+     android:layout_height="wrap_content"   
+     android:text="text1"   
+     android:textSize="30sp"   
+     android:textStyle="bold"   
+     android:textColor="#FFFFFF"   
+     android:shadowColor="#ff0000ff"  
+     android:shadowDx="5"  
+     android:shadowDy="5"       
+     android:shadowRadius="10"/>  
+
+
+ 
+
+android:shadowColor 阴影颜色
+
+android:shadowDx 阴影的水平偏移量
+
+android:shadowDy 阴影的垂直偏移量
+
+android:shadowRadius 阴影的范围
+
+ 
+
+为了统一风格和代码的复用，通常可以把这个样式抽取放入到style.xml文件中
+[html] view plaincopy
+
+    <?xml version="1.0" encoding="utf-8"?>  
+    <resources>  
+        <style name="textstyle">         
+            <item name="android:shadowColor">#ff0000ff</item>  
+            <item name="android:shadowRadius">10</item>  
+            <item name="android:shadowDx">5</item>  
+            <item name="android:shadowDy">5</item>       
+        </style>  
+    </resources>  
+
+[html] view plaincopy
+
+    <TextView  
+            style="@style/textstyle"  
+            android:layout_width="fill_parent"  
+            android:layout_height="wrap_content"  
+            android:text="字体样式"  
+            android:textSize="30sp"  
+            android:textStyle="bold" />  
+
+ 
+ 三十五、android实现手机震动功能
+
+[java] view plaincopy
+
+    import android.app.Activity;  
+    import android.app.Service;  
+    import android.os.Vibrator;  
+      
+    public class TipHelper {   
+        public static void Vibrate(final Activity activity, long milliseconds) {  
+            Vibrator vib = (Vibrator) activity.getSystemService(Service.VIBRATOR_SERVICE);  
+            vib.vibrate(milliseconds);  
+        }  
+        public static void Vibrate(final Activity activity, long[] pattern,boolean isRepeat) {  
+            Vibrator vib = (Vibrator) activity.getSystemService(Service.VIBRATOR_SERVICE);  
+            vib.vibrate(pattern, isRepeat ? 1 : -1);  
+        }  
+    }  
+
+
+还需要在AndroidManifest.xml 中添加震动权限：
+
+[html] view plaincopy
+
+    <uses-permission android:name="android.permission.VIBRATE" />  
+
+通过上面操作，我们可以使用TipHelper所定义的函数了。两个Vibrate函数的参数简单介绍如下：
+
+final Activity activity  ：调用该方法的Activity实例
+
+long milliseconds ：震动的时长，单位是毫秒
+
+long[] pattern   ：自定义震动模式 。数组中数字的含义依次是[静止时长，震动时长，静止时长，震动时长。。。]时长的单位是毫秒
+
+boolean isRepeat ： 是否反复震动，如果是true，反复震动，如果是false，只震动一次
+三十六、常用的正则表达式
+
+       ^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$　　　　//email地址 
+       ^[a-zA-z]+://(\w+(-\w+)*)(\.(\w+(-\w+)*))*(\?\S*)?$　　//url
+       ^(d{2}|d{4})-((0([1-9]{1}))|(1[1|2]))-(([0-2]([1-9]{1}))|(3[0|1]))$ //年-月-日
+       ^((0([1-9]{1}))|(1[1|2]))/(([0-2]([1-9]{1}))|(3[0|1]))/(d{2}|d{4})$  //月/日/年
+       ^([w-.]+)@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.)|(([w-]+.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(]?)$   //Emil
+       ^((\+?[0-9]{2,4}\-[0-9]{3,4}\-)|([0-9]{3,4}\-))?([0-9]{7,8})(\-[0-9]+)?$     //电话号码
+       ^(d{1,2}|1dd|2[0-4]d|25[0-5]).(d{1,2}|1dd|2[0-4]d|25[0-5]).(d{1,2}|1dd|2[0-4]d|25[0-5]).(d{1,2}|1dd|2[0-4]d|25[0-5])$   //IP地址
+
+       (^\s*)|(\s*$)   // 首尾空格
+
+       ^[a-zA-Z][a-zA-Z0-9_]{4,15}$  // 帐号是否合法(字母开头，允许5-16字节，允许字母数字下划线)
+
+       ^[1-9]*[1-9][0-9]*$  //  腾讯QQ号
+
+
+三十七、输入框不挤压activity布局：
+
+在manifest文件activity下 加：
+
+[html] view plaincopy
+
+    android:windowSoftInputMode="adjustPan"  
+
+
+三十八、listview中item中button可点击：
+
+[html] view plaincopy
+
+    android:descendantFocusability="blocksDescendants"  
+
+
+三十九、获取移动设备的IP地址：
+
+[java] view plaincopy
+
+    public class Tools {  
+        public static String getLocalIpAddress() {    
+            try {    
+                for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {    
+                    NetworkInterface intf = en.nextElement();    
+                    for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {    
+                        InetAddress inetAddress = enumIpAddr.nextElement();    
+                        if (!inetAddress.isLoopbackAddress()) {    
+                            return inetAddress.getHostAddress().toString();    
+                        }    
+                    }    
+                }    
+            } catch (SocketException ex) {    
+                Log.e("出错啦", ex.toString());    
+            }    
+            return null;    
+        }    
+    }  
+    然后  
+            WifiManager wm = (WifiManager)getSystemService(WIFI_SERVICE);  
+            WifiInfo wi = wm.getConnectionInfo();  
+            System.out.println("IP地址是："+Tools.getLocalIpAddress());  
+            System.out.println("SSID："+wi.getSSID());  
+    最后记得加两个权限  
+        <uses-permission android:name="android.permission.INTERNET"/>  
+        <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>  
+
+
+四十、高仿小米launcher跨屏拖动item（GridView长按item进行拖动
+
+        触发长按事件后浮动原理：
+
+     
+[java] view plaincopy
+
+    windowParams = new WindowManager.LayoutParams();  
+    　　windowParams.gravity = Gravity.TOP | Gravity.LEFT;  
+    　　windowParams.x = x - itemWidth / 2;  
+    　　windowParams.y = y - itemHeight / 2;  
+    　　windowParams.height = WindowManager.LayoutParams.WRAP_CONTENT;  
+    　　windowParams.width = WindowManager.LayoutParams.WRAP_CONTENT;  
+    　　ImageView iv = new ImageView(getContext());  
+    　　iv.setImageBitmap(bm);  
+    　　windowManager = (WindowManager) getContext().getSystemService(  
+    　　Context.WINDOW_SERVICE);// "window"  
+    　　windowManager.addView(iv, windowParams);  
+
+      拖动效果：
+
+[java] view plaincopy
+
+    if (dragImageView != null) {  
+    　　windowParams.alpha = 0.6f;  
+    　　windowParams.x = x - itemWidth / 2;  
+    　　windowParams.y = y - itemHeight / 2;  
+    　　windowManager.updateViewLayout(dragImageView, windowParams);  
+    　　}  

@@ -1,0 +1,22 @@
+读取相机里面的照片
+检测数码相机：
+
+host:~$ gphoto2 --auto-detect
+Model Port
+--------------------------------------------------
+Canon PowerShot G2 usb:
+
+文件列表：
+
+host:~$ gphoto2 --list-files
+
+下载所有文件
+
+host:~$ gphoto2 --get-all-files
+
+下载部份文件，比如你要下载文件列表时第7到第13个文件：
+
+host:~$ gphoto2 --get-file 7-13
+
+
+另外GPHOTO2还有一个图形前端：gtkam。这里不再聱述。可以参见：

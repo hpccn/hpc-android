@@ -1,0 +1,39 @@
+
+
+Archlinux支付宝控件的安装无效的解决办法
+
+
+执行安装后，释放的动态库位置在：~/.mozilla/plugins/libaliedit32.so
+怎么得到这个控件文件的呢？其实只要修改它的安装文件：aliedit.sh ,把文件那句
+1
+	
+ rm -rf $TMP_DIR
+
+注释掉，然后运行安装，即可在~/.aliedit/install 下面找到真正的安装文件和动态库。 :mrgreen:
+
+看了http://www.songzi.org/blog/article.asp?id=1019 这篇文章之后，发现很可能是这个原因，于是查看下库的依赖关系：
+1
+2
+	
+[admin@HuangYe lib]$ ldd libaliedit32.so | grep "not found"
+    libpng12.so.0 => not found
+
+果然是由于找不到 libpng12 这个库文件 ，导致控件无法生效。
+解决办法是做个符号链接：
+1
+	
+ln -s /usr/lib/libpng.so /usr/lib/libpng12.so.0
+
+关于ldd:
+
+摘自：http://blog.csdn.net/bekars/archive/2006/02/16/600701.aspx
+
+    1、首先ldd不是一个可执行程序，而只是一个shell脚本
+
+    2、ldd能够显示可执行模块的dependency，其原理是通过设置一系列的环境变量，如下：LD_TRACE_LOADED_OBJECTS、LD_WARN、LD_BIND_NOW、LD_LIBRARY_VERSION、LD_VERBOSE等。当LD_TRACE_LOADED_OBJECTS环境变量不为空时，任何可执行程序在运行时，它都会只显示模块的dependency，而程序并不真正执行。要不你可以在shell终端测试一下，如下：
+    (1) export LD_TRACE_LOADED_OBJECTS=1
+    (2) 再执行任何的程序，如ls等，看看程序的运行结果
+
+    3、ldd显示可执行模块的dependency的工作原理，其实质是通过ld-linux.so（elf动态库的装载器）来实现的。我们知道，ld-linux.so模块会先于executable模块程序工作，并获得控制权，因此当上述的那些环境变量被设置时，ld-linux.so选择了显示可执行模块的dependency。
+
+    4、实际上可以直接执行ld-linux.so模块，如：/lib/ld-linux.so.2 –list program（这相当于ldd program）

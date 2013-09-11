@@ -1,0 +1,91 @@
+
+ArchLinux无线网络配置
+ 
+我的电脑：联想的旭日系列，很早以前的型号。装上archlinux的基础系统后，不能直接连互联网，需要自己进行一些设置。对于老手肯定没有什么问题，不过对于一个新手可能是一个很大的问题。。。。
+
+一，无线网卡驱动的安装
+
+无线网卡的型号各种各样，我自己的电脑是BCM4311的，不同型号的网卡大家可以通过下面的实例自己进行举一反三。
+
+下载驱动
+我的B43的驱动是以中间件(firmware)的形式提供的，下面是下载地址：
+http://downloads.openwrt.org/sources/broadcom-wl-4.80.53.0.tar.bz2
+然后，执行操作：
+引用
+# tar xvjf broadcom-wl-4.80.53.0.tar.bz2
+# cd broadcom-wl-4.80.53.0/kmod
+# b43-fwcutter -w /lib/firmware wl_apsta.o (如果没有b43-fwcutter命令，那就安装一个b43-fwcutter包)
+
+
+重启系统，看看系统是否能自动加载驱动
+引用
+# dmesg | grep b43
+
+
+二，系统启动脚本的配置
+
+编辑文件/etc/rc.conf
+
+引用
+lo="lo 127.0.0.1"
+wlan0="dhcp"
+interface=wlan0
+
+其实，我对于上面的设置对于无线网络的启动是否具有决定性作用也不太确定。。。。
+
+然后，重启系统，不出问题就可以看到电脑的无线网卡已经启动了，可以使用命令：
+引用
+iwconfig
+
+
+三，连接无线路由
+
+相信大家的无线路由都是有加密的，通常的加密方式都是WPA的，其他的加密方式，例如WEP在路由验证上比较简单，大家可以自己GOOGLE。这里重点说明在WPA验证方式下，如何来连接无线路由。
+
+首先，看看自己能不能检索到自己的无线路由
+引用
+iwlist wlan0 scan
+
+
+在看到自己的无线路由后，我们一步一步使用WPA的验证来连接路由
+
+备份WPA-PSK原协议
+引用
+cp /etc/wpa_supplicant.conf  /etc/wpa_supplicant.conf.orig
+
+
+生成自己的配置文件
+引用
+wpa_passphrase yourssid yourpassphrase > /etc/wpa_supplicant.conf
+
+说明：yourssid就是路由的名字,例如：TP-LINK_XXXXXX；yourpassphrase是你的密码
+
+编辑
+vi /etc/wpa_supplicant.conf
+最顶部加入
+ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
+
+完成WPA-PSK设定
+引用
+wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
+
+上面的命令会创建一个WPA验证的守护进程，用来在无线网卡加密验证的时候起作用。
+
+启动网线网卡
+引用
+ifconfig wlan0 up    #注，是wlan0还是ath0ifconfig查看
+iwconfig wlan0 essid yourssid
+dhcpcd wlan0
+
+
+如果没有问题，你现在应该可以上网了。
+
+注意：对于以上的操作我们都是使用命令完成的，所以在系统重启之后，就没有了效果，所以可以将以上的一部分操作写在启动脚本中，从而在每次系统重启后可以自动连接无线路由
+
+在/etc/rc.local这个脚本中写入如下内容：
+引用
+wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
+dhcpcd wlan0
+
+
+PS：对于安装archlinux操作系统后，如果没有ifconfig,iwconfig,iwlist,wpa_supplicant这些命令可以到archlinux的官网下载net-tools和wireless-tools这两个包来解决。 

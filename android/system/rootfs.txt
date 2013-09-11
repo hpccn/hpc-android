@@ -1,0 +1,22 @@
+改变data分区大小的办法
+
+2个方法，
+1，就是改rootfs.img ，如果你还没有data.img文件，就是你的android是全新的还没运行过，可以这么做：
+    把rootfs.img 复制到随便一个目录里，然后开linux console, 然后在这个目录下建立一个子目录叫da1
+    a, sudo mount -o loop,rw   ./rootfs.img  ./da1
+    b, gedit ./da1/init
+    c, 搜索 dd那一行，最后面的数字可能是2048，改成512 ，然后存盘，
+    e, sudo umount ./da1
+    f, 把rootfs.img复制到你的卡上，替换原来的文件
+    g, 启动android,这样创建的data.img就是512M了
+
+2, 如果你已经有了data.img
+
+   a, 复制data.img到当前目录下
+   b, mkdir da1
+   c, mkdir da2
+   d, dd if=/dev/zero of=data2.img bs=1048576 count=256 ,  这个命令创建一个256M的data2.img
+   e, mount data.img到da1,data2.img到da2
+   f, cp -auxv ./da1/* ./da2/
+   g, umount ./da2
+   h, 用data2.img替换data.img就可以了。

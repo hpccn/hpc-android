@@ -1,0 +1,254 @@
+git 常用命令
+
+
+[基本仓库]： 拥有 GIT 仓库的人需要的命令——也就是所有人，因为 git 的每个工作拷贝都是一个仓库。
+之后，[个人开发者 (独立工作)]： 任何需要进行 commit 的人都需要的命令，即使是一个人工作的情况。
+如果你和其他人一起工作，你还需要列在[个人开发者 (参与者)]小节的命令。
+扮演[集成者]角色的人还需要学习这一节中的命令。
+[仓库管理]命令是给哪些负责维护 GIT 仓库的系统管理员的。
+基本仓库
+所有人都可以用这些命令来维护 git 仓库。
+git-init(1) 或 git-clone(1) : 创建一个新仓库。
+git-fsck(1) : 检查仓库的错误。
+git-gc(1) 进行日常维护工作，如 repack 或 prune。
+实例：
+检查健康状况并去除无用的内容 (译注：cruft 不知如此翻译是否妥当，git-gc 基本是这个含义)。
+$ git fsck (1)
+$ git count-objects (2)
+$ git gc (3)
+不加–full参数的情况下，这个命令一般会以非常低廉的代价确保仓库在一个不错的健康状态之中。
+统计有多少松散的对象，没有 repack 的对象消耗了多少硬盘空间。
+在本地仓库进行 repack，并进行其他日常维护工作。
+将一个小项目 repack 进入一个单独的 pack。
+$ git gc (1)
+将所有可以从 refs 访问到的对象都打包添加进一个 pack，然后删除其他 pack。
+个人开发者 (独立工作)
+独立工作的个人开发者不需要和其他人交换补丁，在单一的仓库中独自工作，通常会用到这些命令。
+git-show-branch(1): 查看当前的分支位置。
+git-log(1)：查看发生了些什么。
+git-checkout(1) 和 git-branch(1)：在分支间切换。
+git-add(1)：管理索引文件。
+git-diff(1)和git-status(1)：查看正在改动些什么。
+git-commit(1)：向前推进当前分支。
+git-reset(1) 和 (带有路径参数的)git-checkout(1)：撤销变更。
+git-merge(1)：合并两个本地分支。
+git-rebase(1)：维护局部分支。(译 注：git rebase 的工作大致是这样：原来在本地基于上游版本v，进行了一些改进，现在上游版本进化到了v+n，这时，在本地将基础首先进化到 v+n，然后把对 v 提交的、但还没进入 v+n 的 commit 加入到 v+n，其中可能会有冲突，这可能需要进行一些冲突处理，这里的这个在上游版本基础上添加内容而成的分支称为 topic 分支，这里翻译为局部分支。)
+git-tag(1)：标记标签。
+实例：
+以一个 tarball 来作为新仓库的起点。
+$ tar zxf frotz.tar.gz
+$ cd frotz
+$ git-init
+$ git add . (1)
+$ git commit -m “import of frotz source tree.”
+$ git tag v2.43 (2)
+将当前目录的所有内容加入仓库。
+添加一个轻量级的，没有注释的标签。
+简历一个局部分支并进行开发。
+$ git checkout -b alsa-audio (1)
+$ edit/compile/test
+$ git checkout — curses/ux_audio_oss.c (2)
+$ git add curses/ux_audio_alsa.c (3)
+$ edit/compile/test
+$ git diff HEAD (4)
+$ git commit -a -s (5)
+$ edit/compile/test
+$ git reset –soft HEAD^ (6)
+$ edit/compile/test
+$ git diff ORIG_HEAD (7)
+$ git commit -a -c ORIG_HEAD (8)
+$ git checkout master (9)
+$ git merge alsa-audio (10)
+$ git log –since=’3 days ago’ (11)
+$ git log v2.43.. curses/ (12)
+创建一个新的局部分支。
+取消对curses/ux_audio_oss.c的修改。
+如果添加了文件的话，需要告诉 git；而删除或修改文件的话，一会的 git commit -a 就可以处理了。
+查看将会提交哪些变更。
+签署并提交所有你测试过的内容。
+回到上一个 commit，但保存工作拷贝中的内容。
+查看自从上一个我们取回的不成熟提交以来的所有变更。
+重新进行上一步中没有完成的提交，使用你自己写的提交信息。
+切换到 master 分支。
+将局部分支合并入你的主分支。
+检查提交日志；其他的可以一起用上的输出选择方式包括–max-count=10 (最多显示10个commit), –until=2005-12-10 等等。
+只查看curses/ 目录中，v2.43标签以来的变更。
+个人开发者 (参与者)
+在一个小组中参与协同工作的开发者需要学会下面一些命令，以和他人沟通，同时也需要独立的开发者们会用到的命令。
+git-clone(1)：从上游来复制出本地仓库。
+git-pull(1) 和 git-fetch(1)：同上游保持同步更新。
+git-push(1)：共享仓库，这是是用 CVS 风格的情况下共享仓库的方法。
+git-format-patch(1)：准备邮件形式提交补丁，如果采用 Linux 内核风格的工作方法。
+实例：
+克隆上游源，并在此基础上工作。最后，将变更送回到上游。
+$ git clone git://git.kernel.org/pub/scm/…/torvalds/linux-2.6 my2.6
+$ cd my2.6
+$ edit/compile/test; git commit -a -s (1)
+$ git format-patch origin (2)
+$ git pull (3)
+$ git log -p ORIG_HEAD.. arch/i386 include/asm-i386 (4)
+$ git pull git://git.kernel.org/pub/…/jgarzik/libata-dev.git ALL (5)
+$ git reset –hard ORIG_HEAD (6)
+$ git gc (7)
+$ git fetch –tags (8)
+若干次类似操作。
+从本地分支输出 email 形式的补丁用于提交。
+git pull从origin取出更新并合并如当前分支。
+取出之后，查看上次取出后上游产生的变更，只观察我们感兴趣的部分。
+从某仓库的某分支取出变更并合并。
+回退上一次取出的内容。
+用垃圾回收去掉上次回退造成的残余物。
+时常从origin取出标签信息，并放到.git/refs/tags/目录下。
+推送入另一个仓库。
+satellite$ git clone mothership:frotz frotz (1)
+satellite$ cd frotz
+satellite$ git config –get-regexp ‘^(remote|branch).’ (2)
+remote.origin.url mothership:frotz
+remote.origin.fetch refs/heads/*:refs/remotes/origin/*
+branch.master.remote origin
+branch.master.merge refs/heads/master
+satellite$ git config remote.origin.push 
+           master:refs/remotes/satellite/master (3)
+satellite$ edit/compile/test/commit
+satellite$ git push origin (4)
+
+mothership$ cd frotz
+mothership$ git checkout master
+mothership$ git merge satellite/master (5)
+mothership 主机上的你的归属目录中有一个 frotz 仓库，从那里克隆仓库到 satellite 主机上来。
+克隆缺省会设置这些配置变量。这样，git pull 命令就会从 mothership 取出内容，并放到到本地的remotes/origin/*目录下的跟踪分支来。
+设置git push命令将本地的master分支推送到 mothership 主机的 remotes/satellite/master分支去。
+push 将会把我们的工作存储到 mothership 主机的 remotes/satellite/master 跟踪分支上。你可以把这作为是一种备份手段。
+在 mothership 主机上，合并 satellite 主机上来的工作到 master 分支。
+从某个标签开始分支。
+$ git checkout -b private2.6.14 v2.6.14 (1)
+$ edit/compile/test; git commit -a
+$ git checkout master
+$ git format-patch -k -m –stdout v2.6.14..private2.6.14 |
+  git am -3 -k (2)
+基于一个众所周知的(但在什么东西后面的)标签创建一个私有分支。
+不适用正式的 “merge”，将 private2.6.14 分支上的改动移植到 master 分支上来。
+集成者
+项目中的中心人物会扮演一个集成者的角色，收集他人提供的变更，查看并集成在一起，对外发布结果。与一般参与者相比，集成者还需要用到这样一些命令。
+git-am(1)：应用来自各个开发者的 email 形式的补丁。
+git-pull(1)：合并来自你信任的副手的变更。
+git-format-patch(1)：准备并发送替换建议给贡献者们。
+git-revert(1)：撤销修补。
+git-push(1)：发布新的版本。
+实例：
+我的典型 GIT 一天。
+$ git status (1)
+$ git show-branch (2)
+$ mailx (3)
+& s 2 3 4 5 ./+to-apply
+& s 7 8 ./+hold-linus
+& q
+$ git checkout -b topic/one master
+$ git am -3 -i -s -u ./+to-apply (4)
+$ compile/test
+$ git checkout -b hold/linus && git am -3 -i -s -u ./+hold-linus (5)
+$ git checkout topic/one && git rebase master (6)
+$ git checkout pu && git reset –hard next (7)
+$ git merge topic/one topic/two && git merge hold/linus (8)
+$ git checkout maint
+$ git cherry-pick master~4 (9)
+$ compile/test
+$ git tag -s -m “GIT 0.99.9x” v0.99.9x (10)
+$ git fetch ko && git show-branch master maint ‘tags/ko-*’ (11)
+$ git push ko (12)
+$ git push ko v0.99.9x (13)
+查看有什么正在做、没提交的东西。
+查看有哪些局部分支，思考他们是否成熟了。
+阅读邮件，保存那些可以用的，也保存那些还不是很成熟的。
+交互式打补丁，使用自己的签名。
+如果需要，建立局部分支，并用自己的签名打补丁。
+将内部的还没有并入 master 也没有成为稳定分支的一部分的局部分支用 rebase 移植到 master 上。
+reset pu，让它总是从 next 开始。
+将仍在工作中的分支们合并在一起。
+对先前的版本进行问题修正。
+建立一个有签名的标签。
+确信我没有偶然将 master 退回到已经发布出去的版本的后面了。ko 是我在 kernel.org 的仓库的简写，看起来类似这样：
+$ cat .git/remotes/ko
+URL: kernel.org:/pub/scm/git/git.git
+Pull: master:refs/tags/ko-master
+Pull: next:refs/tags/ko-next
+Pull: maint:refs/tags/ko-maint
+Push: master
+Push: next
+Push: +pu
+Push: maint
+在 git show-branch 的输出中, master 应该包含 ko-master 的所有内容, 而 next 应该包含ko-next 的所有内容。
+推送出最新版本。
+把标签也推送出去。
+仓库管理
+仓库管理员会使用如下工具来设置和维护开发者们对仓库的访问方法。
+git-daemon(1)：允许匿名下载仓库。
+git-shell(1) 可以被用于restricted login shell 来将中心仓库共享给用户。
+update hook howto 有一个不错的关于管理一个共享的中心仓库的例子。
+实例：
+我们假设如下内容位于 /etc/services 文件之内：
+$ grep 9418 /etc/services
+git             9418/tcp                # Git Version Control System
+用 git-daemon 通过 inetd 提供 /pub/scm 服务。
+$ grep git /etc/inetd.conf
+git     stream  tcp     nowait  nobody 
+  /usr/bin/git-daemon git-daemon –inetd –export-all /pub/scm
+实际配置文件中应该是一行。
+用 git-daemon 通过 xinetd 提供 /pub/scm 服务。
+$ cat /etc/xinetd.d/git-daemon
+# default: off
+# description: The git server offers access to git repositories
+service git
+{
+        disable = no
+        type            = UNLISTED
+        port            = 9418
+        socket_type     = stream
+        wait            = no
+        user            = nobody
+        server          = /usr/bin/git-daemon
+        server_args     = –inetd –export-all –base-path=/pub/scm
+        log_on_failure  += USERID
+}
+设置时请参考你的 xinetd(8) 文档，上述设置适用于 Fedora 系统。其他系统可能有所不同。
+仅提供 push/pull 权限给开发者。
+$ grep git /etc/passwd (1)
+alice:x:1000:1000::/home/alice:/usr/bin/git-shell
+bob:x:1001:1001::/home/bob:/usr/bin/git-shell
+cindy:x:1002:1002::/home/cindy:/usr/bin/git-shell
+david:x:1003:1003::/home/david:/usr/bin/git-shell
+$ grep git /etc/shells (2)
+/usr/bin/git-shell
+将 login shell 设置为 /usr/bin/git-shell, 这样，只有git push 和 git pull 操作才被允许。用户如果要访问计算机，需要通 ssh 访问权限。
+in many distributions /etc/shells needs to list what is used as the login shell. 很多发布版中，只有 /etc/shells 列出的程序才能作为 login shell.
+CVS 风格的共享仓库。
+$ grep git /etc/group (1)
+git:x:9418:alice,bob,cindy,david
+$ cd /home/devo.git
+$ ls -l (2)
+  lrwxrwxrwx   1 david git    17 Dec  4 22:40 HEAD -> refs/heads/master
+  drwxrwsr-x   2 david git  4096 Dec  4 22:40 branches
+  -rw-rw-r–   1 david git    84 Dec  4 22:40 config
+  -rw-rw-r–   1 david git    58 Dec  4 22:40 description
+  drwxrwsr-x   2 david git  4096 Dec  4 22:40 hooks
+  -rw-rw-r–   1 david git 37504 Dec  4 22:40 index
+  drwxrwsr-x   2 david git  4096 Dec  4 22:40 info
+  drwxrwsr-x   4 david git  4096 Dec  4 22:40 objects
+  drwxrwsr-x   4 david git  4096 Nov  7 14:58 refs
+  drwxrwsr-x   2 david git  4096 Dec  4 22:40 remotes
+$ ls -l hooks/update (3)
+  -r-xr-xr-x   1 david git  3536 Dec  4 22:40 update
+$ cat info/allowed-users (4)
+refs/heads/master       alice|cindy
+refs/heads/doc-update   bob
+refs/tags/v[0-9]*       david
+将开发者们都放入 git 组。
+并让整个共享仓库对组可写。
+使用 Carl 写的 Documentation/howto 中的 update-hook 例子用于分支策略控制。
+alice 和 cindy 可以向 master 中 push 内容，只有 bob 可以向 doc-update 中 push 内容。david 是对外发布管理员，是惟一可以创建并 push 版本标签的人。
+支持哑协议传输的 HTTP Server.
+dev$ git update-server-info (1)
+dev$ ftp user@isp.example.com (2)
+ftp> cp -r .git /home/user/myproject.git
+确认 info/refs 和 objects/info/packs 的内容是更新过的。
+上传到你的 ISP 提供的公共 HTTP 服务器。

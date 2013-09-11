@@ -1,0 +1,8 @@
+
+安装好wine后，安装通达信，然后在终端运行：
+
+winetricks gdiplus riched20 riched30 vcrun6
+
+
+
+

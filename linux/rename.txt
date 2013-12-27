@@ -1,0 +1,13 @@
+批量改名或拷贝文件
+ 
+比如将 start*.sh文件改为stop*.sh
+拷贝
+先查看
+ls -l start*.sh|awk '{m=$9; gsub(/start/,"stop",$9);print "cp "m " "$9}'
+再运行
+ls -l start*.sh|awk '{m=$9; gsub(/start/,"stop",$9);print "cp "m " "$9}'|sh
+改名
+先查看
+ls -l start*.sh|awk '{m=$9; gsub(/start/,"stop",$9);print "mv "m " "$9}'
+再运行
+ls -l start*.sh|awk '{m=$9; gsub(/start/,"stop",$9);print "mv "m " "$9}'|sh

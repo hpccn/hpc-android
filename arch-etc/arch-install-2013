@@ -1,0 +1,84 @@
+
+   此为2013.7.1日的官方镜像安装流程，具体安装可以参照最后列出的参考列表，本人实力有限，且此安
+装流程为系统安装完后所写，可能存在疏漏，有错误的地方请原谅．
+安装简易流程图
+一．准备安装
+本指南在windows下用工具写入USB安装．推荐工具win32diskimager
+二．基本安装
+１．分区划分和挂载
+根据个人需求划分分区，然后在/mnt目录下创建相应挂载目录，root分区挂载到/mnt，home分区挂载到/mnt/home目录，等等．
+２．网络连接(本实验用有线设置，无线具体看wiki)查看网络设备：ip link
+开启网络设备：ip link set *** up
+设置静态ip： ifconfig *** 192.168.1.***/24添加路由：route add default gw 192.168.1.1３．修改更新源
+推荐修改下更新源/etc/pacman.d/mirrorlist，官方的更新源速度太慢了，具体参看mirrorlist．４．安装系统
+pacstrap -i /mnt base
+
+
+
+
+
+
+５．创建fstab文件内容
+# genfstab -U -p /mnt >> /mnt/etc/fstab６．系统设置
+A.进入安装好的系统目录进行系统设置# arch-chroot /mnt
+也可以用arch-chroot /mnt /bin/bash进入bash shell模式
+
+B.Locale设置：vi /etc/locale.gen 选择中文 locale-gen
+
+C.时区设置:找到Asia目录下的Shanghai创建链接（至于时间同步问题，推荐安装完成后配置NTP客户端同步）
+# ln -s /usr/share/zoneinfo/<Zone>/<SubZone> /etc/localtimeD.hostname修改：# echo ＊＊＊＊ > /etc/hostnameE.root passwd修改：passwdF.安装grub：# pacman -S grub# grub-install --recheck /dev/sda
+如果是双系统，又不想自己手动指定另一个系统的启动盘，可以安装pacman -S os-prober，自动配置grub
+# grub-mkconfig -o /boot/grub/grub.cfgG.重启
+退出chroot:exit
+卸载挂载分区：# umount /mnt/{boot,home,}重启：reboot
+(狂欢吧，基本系统已经安装好了，要开始构建个人的桌面环境了)
+三．桌面安装
+1.安装xorg­service
+pacman -S xorg-server xorg-server-utils xorg-xinit
+２．安装声卡和显卡驱动（这一部分推荐具体查看wiki）安装alsa声卡支持：#pacman ­S alsa­utils查看显卡类型：$ lspci | grep VGA
+查看显卡驱动：$ pacman ­Ss xf86­video | less
+
+
+
+
+
+
+３．安装触控板驱动（笔记本）
+# pacman -S xf86-input-synaptics
+４．安装xfce4
+pacman ­S xfce4 安装完xfce4就可以用startxfce4启动到图形界面了．
+５．lxdm  相关配置
+安装lxdm：#pacman ­S lxdm
+设置lxdm开机启动：# systemctl enable lxdm
+编辑/etc/lxdm/lxdm.conf文件：添加session=/usr/bin/startxfce4（现在重启，应该能够进入lxdm界面了）
+四．完善安装
+基本的系统已经完成，启动也能够进入图形界面了，现在开始可以根据个人的爱好完善系统了．1.安装xfc4声卡控制插件
+#pacman -S xfce4-mixer gstreamer0.10-base-plugins
+#pacman -S gstreamer0.10-good-plugins gstreamer0.10-bad-plugins２．分区和U盘
+# pacman -S --needed gvfs#pacman -S ntfs-3g3.wicd网络管理软件安装#pacman -S wicd wicd-gtk
+4.安装net-tools包（新版本改用ip link工具来配置网络，默认没有ifconfig命令，如果不习惯可以安装下列包）
+#pacman -S net-tools5.输入法fcitx
+安装：pacman -S fcitx-im fcitx-googlepinyin
+配置：修改.xprofile或者.profile文件，不存在就自己创建一个，添加下列内容export GTK_IM_MODULE=fcitx export QT_IM_MODULE=fcitx export XMODIFIERS="@im=fcitx"6.时间同步
+
+
+
+
+
+
+安装ntp:#pacman -S ntp
+配置ntp服务：编辑/etc/ntp.conf添加ntp服务器列表server 0.cn.pool.ntp.org iburstserver 1.asia.pool.ntp.org iburstserver 3.asia.pool.ntp.org iburst开启ntp同步服务：#systemctl start ntpd开机启动ntp同步服务：# systemctl enable ntpd(其他基本软件就看个人爱好安装，现在已经基本系统完成了)
+五．问题
+１．问题：开机无线网卡无法打开
+方法：网上给的解决方案是添加一个开机启动脚本来开启wifi，亲测可用systemctl enable rfkill-unblock@all２．问题：使用AUR时报下列错误安装必要的开发包，不然makepkg会提示
+==> 错误： 无法找到以非根用户创建软件包所需的 fakeroot 二进制文件。 ==> 错误： 无法找到目标文件分割所需的 strip 二进制文件。 方法：默认安装base包，makepkg缺少必要的包sudo pacman -S --needed base-devel 
+３．问题：某些新版本的 Gnome 套件(比如 Networkmanager/gedit/evince)看起来非常难看
+方法：原因是新版的程序都依赖于 GTK3 主题。只需要保证软件的相应依赖即可(以下命令只安装标准的 gtk3 主题):
+#pacman -S gtk3 gnome-themes-standard gtk-xfce-engine然后为新的配置增加软链接:
+$ ln -s /usr/share/themes/Adwaita/gtk-3.0 ~/.config/
+
+
+
+
+
+

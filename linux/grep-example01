@@ -1,0 +1,54 @@
+使用grep查找指定目录下的关键字
+
+
+在/etc目录下如何查找包含’root’关键字的所有文件？
+
+对于一个指定的文件来说通常使用下面的方法来查找关键字：
+1	grep 'keyword' file
+
+如果你懂得正则表达式，那么还可以对关键字作更细致的匹配。但是利用grep查找指定目录下的所有文件我尚不清楚，通过man手册以及论坛求助基本解决了上面的那个问题。
+
+1.如何递归查找
+
+grep通常只能查找指定数目的文件，如果需要查找某个目录下的所有文件必须添加-R或-r选项。这个选项比较好理解，如果我们要删除一个非空的目录那么也必须对rm命令添加-r或-R选项。因此我们可以通过一下命令来完成本文一开始所提出的问题：
+1	grep -R 'boot' /etc
+
+这样好像已经解决了问题，不过从输出的结果来看有一些匹配并不符合我们的要求。
+1	/etc/grub.d/README:administrator.  For example, you can add an entry to boot another OS as
+2	/etc/grub.d/20_memtest86+:if test -e /boot/memtest86+.bin ; then
+3	/etc/grub.d/20_memtest86+:  prepare_boot_cache="$(prepare_grub_to_access_device ${GRUB_DEVICE_BOOT} | sed -e "s/^/
+4	\t/")"
+
+比如第三行所匹配的root并不是一个单独的词，而是包含在其他字符串中。
+
+2.完全匹配一个词
+
+通过上面的分析我们得知我们需要类似下面的举例那样匹配root关键字：
+
+I am a root
+root is me
+I have root permission
+
+而不是像下面这样：
+
+rooter is me
+I am rooter
+I have rooter permission
+
+因此，我们还需要增加其他参数以达到完全匹配一个词的目的。grep中使用-w选项来完全匹配一个单词。因此我们的解决方法修改如下：
+1	grep -R -w 'boot' /etc
+
+3.更友好的改进
+
+通过上面的命令已经可以较好的解决本文一开始提出的问题了。不过，其输出结果很长，不方便我们查看。
+
+如果我们需要知道该关键字位于被查找文件的哪一行，那么可以加入-n选项：
+1	grep -R -w -n 'boot' /etc
+
+有时候我们只需要知道该关键字包含在那个文件中，因此我们加入-l选项：
+1	grep -R -w -l 'boot' /etc
+
+这样以来的确方便了查看，不过由于输出结果在一个屏幕下不能完全显示，因此我们可以用more命令分屏查看，或者直接将输出结果重定位于指定的文件中：
+1	grep -R -w -l 'boot' /etc > ./output.txt
+
+这样就可以方便的查看输出结果了。

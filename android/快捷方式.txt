@@ -1,0 +1,92 @@
+第一步：AndroidManifest.xml 权限配置：
+添加快捷方式权限： 
+
+<uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
+
+验证快捷方式是否存在权限：
+
+<uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+
+删除快捷方式权限： 
+
+<uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+
+1. 创建快捷方式
+
+    /** 
+         * 为程序创建快捷方式 权限：<uses-permission 
+         * android:name="com.android.launcher.permission.INSTALL_SHORTCUT" /> 
+         */  
+        private void addShortcut() {  
+            Intent shortcut = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");  
+      
+            // 名称  
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.app_name));  
+            shortcut.putExtra("duplicate", false);  
+      
+            // 指定当前的Activity为快捷方式启动的对象  
+            // 注意: ComponentName的第二个参数必须加上点号(.)，否则快捷方式无法启动相应程序  
+            ComponentName comp = new ComponentName(this.getPackageName(), "." + this.getLocalClassName());  
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));  
+      
+            ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(this, R.drawable.icon);  
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);  
+      
+            sendBroadcast(shortcut);  
+        }  
+
+
+	2.  删除快捷方式 	
+
+    /** 
+         * 删除快捷方式 权限：<uses-permission 
+         * android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" /> 
+         */  
+        private void deleteShortcut() {  
+            Intent shortcut = new Intent("com.android.launcher.action.UNINSTALL_SHORTCUT");  
+      
+            // 名称  
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, getString(R.string.app_name));  
+      
+            // 指定当前的Activity为快捷方式启动的对象  
+            // 注意: ComponentName的第二个参数必须是完整的类名（包名+类名），否则无法删除快捷方式  
+            String appClass = this.getPackageName() + "." + this.getLocalClassName();  
+            ComponentName comp = new ComponentName(this.getPackageName(), appClass);  
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));  
+      
+            ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(this, R.drawable.icon);  
+            shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);  
+      
+            sendBroadcast(shortcut);  
+        }  
+
+3.  判断是否存在 
+
+    /** 
+         * 判断是否创建了快捷方式 
+         */  
+        private boolean hasShortcut() {  
+            boolean relt = false;  
+      
+            final ContentResolver cr = getContentResolver();  
+            String auhority = null;  
+            Log.i("", ",,,,,,," + getSystemVersion());  
+            if (getSystemVersion() < 8) {  
+                auhority = "com.android.launcher.settings"; // 2.2系统是launcher2  
+            } else {  
+                auhority = "com.android.launcher2.settings"; // 2.2系统是launcher2  
+            }  
+            final Uri CONTENT_URI = Uri.parse("content://" + auhority + "/favorites?notify=true");  
+            Cursor c = cr.query(CONTENT_URI, new String[] { "title", "iconResource" }, "title=?", new String[] { getString(R.string.app_name)  
+                    .trim() }, null);  
+            if (c != null && c.getCount() > 0) {  
+                c.close();  
+                relt = true;  
+            }  
+            return relt;  
+        }  
+      
+        private int getSystemVersion() {  
+            return android.os.Build.VERSION.SDK_INT;  
+        }  
+		

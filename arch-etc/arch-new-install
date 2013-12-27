@@ -1,0 +1,111 @@
+
+Archlinux没有/arch/setup的AIF，新安装方式。
+
+根据install.txt介绍。
+
+1 分区
+
+fdisk  /dev/sda
+
+我分了  /boot   sda1
+
+            swap     sda2
+
+            /            sda3
+
+           extend   sda4
+
+            /home   sda5   logic
+
+
+2 格式化
+
+mkfs.ext2 /dev/sda1
+
+mkfs.btrfs /dev/sda3
+
+mkfs.btrfs /dev/sda5
+
+mkswap   /dev/sda2
+
+
+3 挂载
+
+mount /dev/sda3 /mnt
+
+mkdir /mnt/boot
+
+mount /dev/sda1 /boot
+
+mkdir /mnt/home
+
+mount /dev/sda5 /home
+
+
+4 配置网络
+
+dhclient 或者 dhcpcd
+
+
+5 vi /etc/pacman.d/mirrorlist
+
+Server = http://ftp.nankai.edu.cn/archlinux/%repo/os/$arch
+
+
+6 安装linux base
+
+pacstrap /mnt base base-devel
+
+
+7 安装grub
+
+pacstrap /mnt grub-bios
+
+
+8 挂载各个分区
+
+genfstab -p /mnt >> /mnt/etc/fstab
+
+
+9 chroot
+
+arch-chroot /mnt
+
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+
+10 配置
+
+vi /etc/hostname
+
+vi /etc/locale.gen
+
+打开en_US.utf-8
+
+
+11 locale-gen
+
+
+12 mkinitcpio -p linux
+
+
+13 安装配置grub
+
+grub-install /dev/sda
+
+grub-mkconfig -o /boot/grub/grub.cfg
+
+
+14 其他
+
+passwd
+
+exit
+
+umount /mnt
+
+umount /mnt/boot
+
+umount /mnt/home
+
+reboot

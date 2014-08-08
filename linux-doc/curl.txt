@@ -1,0 +1,70 @@
+Linux curl 命令参数详解
+Linux curl 是通过 url 语法在命令行下上传或下载文件的工具软件,它支持
+http,https,ftp,ftps,telnet 等多种协议,常被用来抓取网页和监控 Web 服务
+器状态。
+
+1. linux curl 抓取网页 :
+抓取百度:
+curl http://www.baidu.com
+如发现乱码,可以使用 iconv 转码:
+curl http://tech.cxzzl.com.cn/ic.asp|iconv -fgb2312
+
+2. Linux curl 使用代理:
+linux curl 使用 http 代理抓取页面:
+linux curl 使用 http 代理抓取页面:
+curl -x 111.95.243.36:80 http://tech.cxzzl.com.cn/ic.asp|iconv -fgb2312
+curl -x 111.95.243.36:80 -U aiezu:password http://www.baidu.com
+使用 socks 代理抓取页面:
+curl --socks4 202.113.65.229:443 http://tech.cxzzl.com.cn/ic.asp|iconv
+-fgb2312
+curl --socks5 202.113.65.229:443 http://tech.cxzzl.com.cn/ic.asp|iconv
+-fgb2312
+代理服务器地址可以从看爬虫代理上获取。
+
+3.
+linux curl 处理 cookies
+接收 cookies:
+curl -c /tmp/cookies http://www.baidu.com #cookies 保存到/tmp/cookies
+文件
+发送 cookies:
+curl -b "key1=val1;key2=val2;" http://www.baidu.com #发送 cookies 文本
+curl -b /tmp/cookies http://www.baidu.com #从文件中读取 cookies
+
+4.
+linux curl 发送数据 :
+linux curl get 方式提交数据:
+curl -G -d "name=value&name2=value2" http://www.baidu.com
+linux curl post 方式提交数据:
+curl -d "name=value&name2=value2" http://www.baidu.com #post 数据
+curl -d a=b&c=d&txt@/tmp/txt http://www.baidu.com #post 文件
+以表单的方式上传文件:
+curl -F file=@/tmp/me.txt http://tech.cxzzl.com.cn
+相当于设置 form 表单的 method=”POST”和 enctype=’multipart/form-data’
+两个属性。
+
+5.
+linux curl http header 处理 :
+设置 http 请求头信息:
+curl -A "Mozilla/5.0 Firefox/21.0" http://www.baidu.com #设置 http 请求
+头 User-Agent
+curl -e "http://pachong.org/" http://www.baidu.com # 设 置 http 请 求 头
+Referer
+curl
+-H
+"Connection:keep-alive
+http://tech.cxzzl.com.cn
+\n
+User-Agent:
+Mozilla/5.0"
+设置 http 响应头处理:
+curl -I http://tech.cxzzl.com.cn #仅仅返回 header
+curl -D /tmp/header http://tech.cxzzl.com.cn # 将 http header 保 存 到
+/tmp/header 文件
+
+6. linux curl 认证:
+curl -u aiezu:password http://tech.cxzzl.com.cn #用户名密码认证
+curl -E mycert.pem https://www.baidu.com #采用证书认证
+
+7、其它
+curl -# http://www.baidu.com #以“#”号输出进度条
+curl -o /tmp/aiezu http://www.baidu.com #保存 http 响应到/tmp/cxzzl

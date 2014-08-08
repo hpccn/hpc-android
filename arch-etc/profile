@@ -33,13 +33,39 @@ export PATH=$PATH:${JAVA_HOME}/bin:${JRE_HOME}/bin
 export CLASSPATH=./:${JAVA_HOME}/lib:${JRE_HOME}/lib
 
 # android 
-export ANDROID_SDK=/opt/android-sdk-linux
+export ANDROID_SDK_ROOT=/opt/android-sdk
+export ANDROID_NDK_ROOT=/opt/android-ndk
+export ANDROID_SDK=/opt/android-sdk
 export ANDROID_NDK=/opt/android-ndk
 export PATH=$PATH:${ANDROID_SDK}/tools:${ANDROID_SDK}/platform-tools:${ANDROID_NDK}
+export PATH=$PATH:/opt/bin
+
+# android ndk toolchain
+export PATH=/opt/android-toolchain/bin:$PATH
+
 
 #eclipse
 
+# ant 
+export ANT_HOME=/opt/apache-ant
 
-export XMODIFIERS=@im=fcitx
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
+export PATH=$PATH:${ANT_HOME}/bin
+
+export SVN_EDITOR=vim
+
+# maven
+
+export MAVEN_HOME=/opt/maven
+export PATH=$PATH:${MAVEN_HOME}/bin
+
+# tomcat 
+export CATALINA_HOME=/opt/WebServer/tomcat
+export CATALINA_BASE=/opt/WebServer/tomcat
+export TOMCAT_HOME=/opt/WebServer/tomcat
+
+
+export CLASSPATH=${CLASSPATH}:${CATALINA_HOME}/lib
+
+export classpath=./:${JAVA_HOME}/lib/dt.jar:${JAVA_HOME}/lib/tools.jar:${CATALINA_HOME}/lib/servlet-api.jar
+
+export CHROME_DEVEL_SANDBOX="/opt/chrome-linux/chrome_sandbox"

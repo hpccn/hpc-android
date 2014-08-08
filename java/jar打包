@@ -1,0 +1,74 @@
+ java打jar包，引用其他.jar文件
+
+ 
+
+大家都知道一个java应用项目可以打包成一个jar，当然你必须指定一个拥有main函数的main class作为你这个jar包的程序入口。
+
+ 
+
+具体的方法是修改jar包内目录META-INF下的MANIFEST.MF文件。
+
+ 
+
+比如有个叫做test.jar的jar包，里面有一个拥有main函数的main class：test.someClassName
+
+我们就只要在MANIFEST.MF里面添加如下一句话：
+
+Main-Class: test.someClassName
+
+ 
+
+然后我们可以在控制台里输入java -jar test.jar即可以运行这个jar。
+
+ 
+
+但是我们这个项目需要引用其他第三方的jar包，在eclipse里面以项目jar包的形式引用了这个叫做some.jar的包，当时放在项目的lib子目录下，最后项目打包时把这个some.jar也打进来了，但是用java -jar执行这个test.jar的时候报找不到Class异常，原因就是jar引用不到放在自己内部的jar包。
+
+ 
+
+那怎么办？
+
+ 
+
+运行时将其加入classpath的方式行不行？就是在运行jar的同时加入classpath参数：
+
+java -classpath some.jar -jar test.jar
+
+ 
+
+这种方式应该能解决问题吧，试一下，还是不行。
+
+查了下资料，原来使用java -jar 命令运行jar包时classpath参数将会失效，所以，这种方式也不行。
+
+ 
+
+那该怎么引用其他的jar包呢，答案还是在这个目录META-INF下的MANIFEST.MF文件中。jar包引用其他jar包的信息必须在这个文件中声明。
+
+ 
+
+我们在MANIFEST.MF中添加如下代码：
+
+Class-Path: lib/some.jar
+
+ 
+
+lib是和test.jar同目录的一个子目录，test.jar要引用的some.jar包就在这里面。
+
+然后测试运行，一切正常！
+
+ 
+
+如果有多个jar包需要引用的情况：
+
+Class-Path: lib/some.jar lib/some2.jar
+
+每个单独的jar用空格隔开就可以了。
+
+ 
+
+ 
+
+ 
+
+总结：不管怎么样，只要想办法在执行test.jar之前把需要引用的jar导入classpath就可以。你甚至可以把需要引用的包都放到jre/lib/ext目录下，这样jvm一启动，这些包就加载了。
+

@@ -1,0 +1,5 @@
+在创建的目录下执行命令：
+
+mkfontscale
+mkfontdir
+fc-cache

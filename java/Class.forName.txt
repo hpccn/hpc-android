@@ -1,0 +1,25 @@
+反射】用Class.forName方法动态加载构造方法带参数的类
+
+用Class.forName方法动态加载构造方法带参数的类
+
+在用Class.forName方法动态加载构造方法带参数的类时,为了将参数传递进去,可以考虑java的反射机制
+
+
+
+ Class clazz = Class.forName("Cat");
+Constructor constructor = clazz.getConstructor(String.class, int.class);
+
+LoadCat test = (LoadCat) constructor.newInstance("test", 1);
+
+
+
+Class<?> userClass = null;
+userClass = Class.forName("cn.hpc.template");
+
+//构造函数带参数`
+Constructor<?> constructor = userClass.getConstructor(Context.class, String.class, JSONObject.class);
+
+Object obj = constructor.newInstance(context, "",jsonPolicy);
+
+//构造函数不带参数`
+//			Object obj = userClass.newInstance();

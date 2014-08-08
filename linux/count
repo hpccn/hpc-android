@@ -1,2 +1,2 @@
-编译当前目录代码行数，不含空行
+统计当前目录代码行数，不含空行
 find ./ -name "*.java" |xargs cat|grep -v ^$|wc -l

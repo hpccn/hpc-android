@@ -1,0 +1,92 @@
+git 如何让单个文件回退到指定的版本
+
+
+1.进入到文件所在文件目录，或者能找到文件的路径
+查看文件的修改记录
+
+
+
+	
+
+ $ git log MainActivity.java
+
+结果：
+
+	
+
+commit 7641210b242a95eed17827dd8159e76bdad6d619
+Author: ronanhardiman <liqiang.isman@gmail.com>
+Date:   Mon Apr 29 00:51:00 2013 +0800
+
+    System.currentTimeMillis() 替代 timer 实现 连续两次返回键退出
+
+    System.currentTimeMillis() 替代 timer 实现 连续两次返回键退出
+
+commit a4e215234aa4927c85693dca7b68e9976948a35e
+Author: kaxi4it <gyj_android@sina.com>
+Date:   Sat Apr 27 16:54:48 2013 +0800
+
+    修正了退出程序的BUG
+
+    用INT代替BOOL标记，修正了快速点击返回键一直播放退出动画的BUG，跳转页面后标记
+
+commit d31fcc01223407492310c1567a7b84ece1287368
+Author: yjl <yujilong@eoemobile.com>
+Date:   Mon Mar 25 12:09:21 2013 +0800
+
+2.回退到指定的版本
+
+
+	
+
+$ git reset a4e215234aa4927c85693dca7b68e9976948a35e MainActivity.java
+
+结果
+	
+
+Unstaged changes after reset:
+M       source/src/cn/eoe/app/ui/MainActivity.java
+su@SUCHANGLI /e/eoeclient/android-app/source/src/cn/eoe/app/ui (master)
+
+3.提交到本地参考
+
+	
+
+$ git commit -m "revert old file because yjl commmit have a bug"
+
+结果
+	
+
+[master 874e01a] revert old file because yjl commmit have a bug
+ 1 file changed, 26 insertions(+), 19 deletions(-)
+su@SUCHANGLI /e/eoeclient/android-app/source/src/cn/eoe/app/ui (master)
+
+4.更新到工作目录
+
+
+	
+
+$ git checkout MainActivity.java
+
+5.提交到远程仓库
+
+	
+
+$ git push origin master
+
+如果提交需要用户名密码的话，会有提示；
+结果
+
+
+Username for 'https://github.com': com360
+Password for 'https://com360@github.com':
+Counting objects: 17, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (7/7), done.
+Writing objects: 100% (9/9), 860 bytes, done.
+Total 9 (delta 5), reused 0 (delta 0)
+To https://github.com/com360/android-app.git
+   7db7346..874e01a  master -> master
+su@SUCHANGLI /e/eoeclient/android-app/source/src/cn/eoe/app/ui (master)
+
+这样就把指定的文件回退到指定的版本了。

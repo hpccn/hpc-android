@@ -1,0 +1,22 @@
+
+    /** Wrapper-function taking a KeyCode.
+     * A complete KeyStroke is DOWN and UP Action on a key! */
+    public static void simulateKeystroke(final int KeyCode) {
+    	new Thread () {  
+            public void run () {  
+                try {  
+                     Instrumentation inst=new Instrumentation();  
+                     inst.sendKeyDownUpSync(KeyCode);
+//                     inst.sendPointerSync(MotionEvent.obtain(SystemClock.uptimeMillis(),  
+//                             SystemClock.uptimeMillis(),   
+//                             MotionEvent.ACTION_DOWN, 240, 400, 0));  
+//                     inst.sendPointerSync(MotionEvent.obtain(SystemClock.uptimeMillis(),  
+//                             SystemClock.uptimeMillis(),   
+//                             MotionEvent.ACTION_UP, 240, 400, 0));    
+                } catch(Exception e) {  
+                    Log.e("Exception when sendPointerSync", e.toString());  
+                }  
+            }  
+        }.start();  
+    }
+

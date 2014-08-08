@@ -1,0 +1,38 @@
+
+
+android中HttpClient和WebView共享session的解决办法
+
+已有 1948 次阅读2012-5-21 16:53 |个人分类:android| android, http, session, webview
+   android开始项目中，通常会遇到既使用HttpClient，又使用WebView的情况。一个典型的例子是，使用HttpClient登录，WebView展示登录后的某些页面，这个时候，如果直接不加任何处理的话会发现在使用WebView展示的时候，会提示没有登录你的应用系统，造成这种结果的原因就是使用HttpClient登录的session和WebView访问服务器的session并不是同一个，解决办法如下。
+HttpClient 登录代码如下
+    DefaultHttpClient client = new DefaultHttpClient();
+    HttpGet get = new HttpGet(url);
+    HttpContext context = new BasicHttpContext();
+    CookieStore cookieStore = new BasicCookieStore();
+    context.setAttribute(ClientContext.COOKIE_STORE, cookieStore);
+    HttpResponse response = client.execute(get, context);
+    if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+            // 根据你的逻辑，判断返回的值是不是表示已经登录成功
+            if (isLoginSuccess()) {
+                   List<Cookie> cookies = cookieStore.getCookies();
+   if (!cookies.isEmpty()) {
+         for (int i = cookies.size(); i > 0; i --) {
+Cookie cookie = cookies.get(i - 1);
+if (cookie.getName().equalsIgnoreCase("jsessionid")) {
+                                                // 使用一个常量来保存这个cookie，用于做session共享之用
+Utils.appCookie = cookie;
+}
+}
+}
+            }
+    }
+WebView代码
+String url4load = "登录域名下你要访问的地址";
+CookieSyncManager.createInstance(this);
+CookieManager cookieManager = CookieManager.getInstance();
+Cookie sessionCookie = Utils.appCookie;
+if (sessionCookie != null) {
+String cookieString = sessionCookie.getName() + "=" + sessionCookie.getValue() + "; domain=" +            sessionCookie.getDomain();
+cookieManager.setCookie(url4Load, cookieString);
+CookieSyncManager.getInstance().sync();
+}

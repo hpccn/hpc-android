@@ -1,0 +1,115 @@
+
+SQLite3基本使用从shell到python
+
+        SQLite是一个轻量级的关系型数据库，在访问量不超过10万PV的中小网站中使用绰绰有余。而且使用方便，接口简单，下面从命令行和python接口两方面介绍SQLite3的基本操作。
+
+        在linux终端中，通过 sqlite3 a.db 打开a.db数据库，如果不存在会自动创建，创建一个表格：
+
+[sql] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    create table users(id integer primary key,name text,level integer);  
+
+
+然后插入新的数据：
+
+[plain] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    insert into users(name,level) values('李斯',2);  
+    insert into users(name,level) values('张三',4);  
+    insert into users(name,level) values('王五',3);  
+
+
+显示表格内容：
+
+[sql] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    sqlite> .mode column  
+    sqlite> .headers on  
+    sqlite> select * from users;  
+    id          name        level       
+    ----------  ----------  ----------  
+    1           李斯      2           
+    2           张三      4           
+    3           王五      3   
+
+
+更新李斯的level变为1，操作如下：
+
+[sql] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    sqlite> update users set level=1 where name='李斯';  
+    sqlite> select * from users;  
+    id          name        level       
+    ----------  ----------  ----------  
+    1           李斯      1           
+    2           张三      4           
+    3           王五      3        
+
+
+删除张三的数据：
+
+[sql] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    sqlite> delete from users where name='张三';  
+    sqlite> select * from users;  
+    id          name        level       
+    ----------  ----------  ----------  
+    1           李斯      1           
+    3           王五      3       
+
+
+上面这些操作可以满足基本SQLite的使用了，下面通过python的接口调用：
+
+连接数据库：
+
+[python] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    >>> import sqlite3  
+    >>> db=sqlite3.connect('a.db')  
+    >>> c=db.cursor()  
+
+
+插入一个用户的信息：
+
+[python] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    >>> c.execute('insert into users(name,level) values("田田蹦",9)')  
+    <sqlite3.Cursor object at 0xb711c4a0>  
+    >>> db.commit()  
+
+
+全部取出表中的数据：
+
+[python] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    >>> c.execute('select * from users')  
+    <sqlite3.Cursor object at 0xb70e74e0>  
+    >>> c.fetchall()  
+    [(1, '李斯', 1), (3, '王五', 3), (4, '田田蹦', 9)]  
+
+
+一行一行取出表中数据：
+
+[python] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    >>> c.execute('select * from users')  
+    <sqlite3.Cursor object at 0xb70e7c20>  
+    >>> c.fetchone()  
+    (1, '李斯', 1)  
+    >>> c.fetchone()  
+    (3, '王五', 3)  
+    >>> c.fetchone()  
+    (4, '田田蹦', 9)  
+    >>> c.fetchone() == None  
+    True  
+
+
+关闭游标对象并关闭数据库连接：
+
+[python] view plaincopy在CODE上查看代码片派生到我的代码片
+
+    >>> c.close()  
+    >>> db.close()  
+
+
+python下对SQLite的更新和删除操作参考上面的插入操作，是一样一样的，非常方便，得到的表格数据是list，每行数据是一个tuple，后续操作也非常方便。

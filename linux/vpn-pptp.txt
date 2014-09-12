@@ -1,0 +1,52 @@
+
+Linux命令行连接pptp VPN服务器
+
+最近换的新电脑，桌面环境换成了cinnamon，网络管理器自然放弃了connman，转到了NetworkManager，也不知道这个管理器什么状况，一直显示正在连接到网络的状态，根本无法使用VPN连接，于是我就尝试用命令行连接VPN，这样即使连接失败，还能查看详细的错误信息。
+
+首先需要安装Linux下的pptp客户端（这里我是搭建了pptp的VPN服务器）：
+
+ 
+sudo pacman -Syu pptpclient
+1
+	
+sudo pacman -Syu pptpclient
+
+然后需要创建一个新的VPN连接：
+
+ 
+sudo pptpsetup --create name --server server --username username --password password --encrypt --start
+1
+	
+sudo pptpsetup --create name --server server --username username --password password --encrypt --start
+
+这里几个参数的含义如下：
+
+    name参数是VPN的名称，下次连接的时候会用到
+    server可以接受域名或者IP地址，就是VPN服务器的地址
+    username表示VPN的用户名
+    password表示VPN的密码
+    –encrypt表示加密，如果你不是很清楚就写上吧，一般都有这个
+    –start表示立即连接VPN
+
+这里创建成功后，我们以后可以使用
+
+ 
+sudo pon name
+
+来启动VPN，用
+sudo poff name
+
+来停用VPN
+
+连接成功后，使用ip addr命令可以查看到我们多了一个网络接口，名字为ppp0（如果只连接了一个VPN），如果连接成功，这个接口应该已经有IP地址了，但是这样还没办法上网，因为现在网络流量并不通过这个接口出去，我们需要更改一下Linux的路由表，把所有的流量通过这个接口出去，首先我们可以看一下路由表：
+
+ 
+sudo route -n
+
+应该是没有ppp0接口相关信息的，我们这个时候如果上查询IP的网站，还会发现自己的IP是原本的IP，我们需要添加一下路由信息，这样，所有的流量就通过这个ppp0接口出去了，这样很偷懒～～
+sudo route add -net 0.0.0.0 netmask 0.0.0.0 dev ppp0
+	
+
+这样写就代表所有流量都从ppp0出去，当关闭VPN连接的时候，要删除这条路由信息，否则可能无法上网
+sudo route del -net 0.0.0.0 netmask 0.0.0.0 dev ppp0
+

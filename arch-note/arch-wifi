@@ -67,7 +67,7 @@ ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=wheel
 
 完成WPA-PSK设定
 引用
-wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
+wpa_supplicant -B -D nl80211 -i wlan0 -c /etc/wpa_supplicant.conf
 
 上面的命令会创建一个WPA验证的守护进程，用来在无线网卡加密验证的时候起作用。
 
@@ -84,7 +84,7 @@ dhcpcd wlan0
 
 在/etc/rc.local这个脚本中写入如下内容：
 引用
-wpa_supplicant -B -Dwext -i wlan0 -c /etc/wpa_supplicant.conf
+wpa_supplicant -B -D nl80211 -i wlan0 -c /etc/wpa_supplicant.conf
 dhcpcd wlan0
 
 

@@ -1,0 +1,98 @@
+使用git如何批量对文件进行rm操作
+
+
+
+
+用了一段时间git了，一直有个问题没解决。当做了一些修改时，一般会直接 "git add ." 先将文件staged起来。
+
+但是"git add ."对被删除的内容是无效的，还需要"git rm filename"删除文件，但是git rm命令貌似没有类似"git rm ."的用法（这样可以执行，但意思是删除所有文件），于是，当有比较大量的文件被删除时，一个个的git rm非常麻烦。。我现在基本上都是到gui的git（比如mac的Tower）中全选，批量Stage搞定，但是，命令行下面如何做比较方便呢，难道要自己写个脚本？
+
+
+
+
+git add -A
+
+它会把我们未通过 git rm 删除的文件全部stage
+
+
+
+
+
+还有个git commit -a可以用, 大致是删除的文件会自动标记, 但对新建文件就不行
+
+    -a, --all ____ Tell the command to automatically stage files that have been modified and deleted, but new files you have not told git about are not affected.
+
+
+
+
+有时git clone下来会出现很多branch，更麻烦的是如果主分支没代码那你就只能看到.git目录了。如下面的这个:
+
+$ git clonegit://gitorious.org/android-eeepc/mesa.git
+
+　　发现本地就只有一个.git目录，那么这个时候就需要checkout了。
+
+　　进入你的本地目录，如这个是mesa，利用
+
+$ git branch –r
+
+　　查看branch信息（当然你也可以用git show-branch查看，不过有时并不好用），获得如下branch信息：
+
+origin/android
+origin/mesa-es
+origin/mesa-es-dri
+
+　　此时我们需要的是android分支的代码，那么此时就要进行checkout了。
+
+$ git checkout origin/android
+
+　　你再看你的目录（mesa）下是不是有了代码了？其它的branch同理。
+
+ 
+
+ 
+
+git clone默认会把远程仓库整个给clone下来; T2 {0 t, l+ @0 U" C2 g) i
+但只会在本地默认创建一个master分支
+如果远程还有其他的分支，此时用git branch -a查看所有分支：
+
+    * master   
+    remotes/origin/HEAD -> origin/master   " A4 u3 ~+ n5 u5 \7 R" Z( d# J
+    remotes/origin/master   
+    remotes/origin/python_mail.skin   
+    remotes/origin/udisk   
+    remotes/origin/vip
+
+复制代码
+
+能看到远程的所有的分支，如remotes/origin/python_mail.skin  e  Y' X9 ~, f1 |
+可以使用checkout命令来把远程分支取到本地，并自动建立tracking
+
+    $ git checkout -b python_mail.skin origin/python_mail.skin) X& X: I3 Q; ?9 j9 T5 @; J/ M
+    Branch python_mail.skin set up to track remote branch python_mail.skin from origin.; i/ B! ^3 J# u6 a( }. I$ M- i
+    Switched to a new branch 'python_mail.skin'
+
+复制代码
+
+或者使用-t参数，它默认会在本地建立一个和远程分支名字一样的分支
+折叠展开复制代码
+
+    $ git checkout -t origin/python_mail.skin
+
+复制代码
+
+也可以使用fetch来做：
+
+    $ git fetch origin python_mail.skin:python_mail.skin
+
+复制代码
+
+不过通过fetch命令来建立的本地分支不是一个track branch，而且成功后不会自动切换到该分支上- z) t: R4 p- s6 _2 d3 a
+注意：不要在本地采用如下方法：
+
+    $ git branch python_mail.skin
+    $ git checkout python_mail.skin/ i8 z/ N: a% v/ Q: M
+    $ git pull origin python_mail.skin:python_mail.skin
+
+复制代码
+
+因为，这样建立的branch是以master为基础建立的，再pull下来的话，会和master的内容进行合并，有可能会发生冲突

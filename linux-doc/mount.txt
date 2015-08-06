@@ -1,0 +1,7 @@
+1. 把光盘制作成iso文件
+cp /dev/cdrom XXXXX.iso
+
+2.将硬盘上的iso文件加载到光盘(或者说虚拟光驱)。
+mount -t iso9660 -o loop /*/XXXXX.iso /mnt/iso
+
+mount 挂载远程共享的用法； mount -t smbfs -o codepage=cp936,username=用户名,password=密码 , -l //ip地址/共享文档夹名 挂载点

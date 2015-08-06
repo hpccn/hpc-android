@@ -1,0 +1,21 @@
+ linux sed 批量替换多个文件中的字符串
+
+一、linux sed 批量替换多个文件中的字符串
+
+sed -i "s/oldstring/newstring/g" `grep oldstring -rl yourdir`
+
+例如：替换/home下所有文件中的www.bcak.com.cn为bcak.com.cn
+
+sed -i "s/www.bcak.com.cn/bcak.com.cn/g" `grep www.bcak.com.cn -rl /home`
+
+
+
+二、下面这条命令：
+perl -pi -e 's|ABCD|Linux|g' `find ./ -type f`
+将调用perl执行一条替换命令，把find命令找到的所有文件内容中的ABCD替换为Linux
+
+find ./ -type f
+此命令是显示当前目录下所有的文件
+
+上面的“s|ABCD|Linux| g”是perl要执行的脚本，即把所有ABCD替换为Linux
+如果不写最后的那个g，“s|ABCD|Linux| ”将只替换每一行开头的ABCD 

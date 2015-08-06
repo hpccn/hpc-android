@@ -1,0 +1,18 @@
+进制转换
+
+二进制转换为十进制：echo 'ibase=2; 1001' |bc
+十进制转换为十六进制：echo 'obase=16;100' |bc
+十六进制转换为十进制：echo 'ibase=16;FF' |bc
+缺省的ibase或者obase都默认为十进制，明确指明十进制时使用大写的‘A’表示；
+输入的十六进制数应为大写字母。
+
+$ bc
+ bc 1.06.95
+Copyright 1991-1994, 1997, 1998, 2000, 2004, 2006 Free Software Foundation, Inc.
+This is free software with ABSOLUTELY NO WARRANTY.
+For details type `warranty'.
+ibase=2;obase=16;10001
+122
+ibase=A;obase=16;255
+FF
+quit

@@ -1,0 +1,265 @@
+Linux下批量修改文件名 2011-04-03 16:31:30
+
+
+Perl经典代码之rename
+
+Larry Wall的rename脚本, 只用了个位行数的代码就构造出一个功能超强的批量文件重命名工具: 
+
+注释：
+
+1.  # touch rename.perl        //创建一个文件：rename.perl  ,  内容如下。
+
+2.  # chmod +x rename.perl
+
+3.  # cp rename.perl /bin/
+
+4.  # rename.perl  's/gongxu/leibie/g'  *    //将目录中所有文件名中的 gongxu 替换为 leibie。
+
+#!/usr/bin/perl -w
+# rename - Larry's filename fixer
+#用法: Perl表达式 [要处理的文件名]
+$op = shift or die "Usage: rename expr [files]\n";
+
+#如果没有给出要处理的文件名则从标准输入读入
+chomp(@ARGV = <STDIN>) unless @ARGV;
+
+for (@ARGV) {
+    $was = $_;
+    eval $op; #对待处理的文件名($_)执行用户输入的Perl表达式$op
+    die $@ if $@; #退出 , 如果eval出错
+    rename($was,$_) unless $was eq $_;
+}
+
+rename脚本的经典实例示范:
+
+% rename.perl 's/\.orig$//' *.orig #移除文件末尾的.orig
+
+% rename.perl "tr/A-Z/a-z/ unless /^Make/" * #所有非Make打头的文件名大写转为小写
+
+% rename.perl '$_ .= ".bad"' *.f #每个*.f文件后面追加一个.bad
+
+% rename.perl 'print "$_: "; s/foo/bar/ if <STDIN> =~ /^y/i' * #回显每个待处理的文件名, 等待输入, 如果用户输入以y或Y打头, 把文件名中的foo替换成bar
+
+% find /tmp -name "*~" -print | rename.perl 's/^(.+)~$/.#$1/' #把 /tmp目录里面每个文件名末尾有~的文件名改成以.#开头
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+http://www.linuxidc.com/Linux/2011-01/31594.htm
+
+Linux的 rename 命令有两个版本，一个是C语言版本的，一个是Perl语言版本的，早期的Linux发行版基本上使用的是C语言版本的，现在已经很难见到C语言版本的了，因为Perl版本的支持正则处理，所以功能更加强大，已经不再需要C语言版本的了。
+
+如何区分系统里的rename命令是哪个版本的?
+
+输入 man rename 看到第一行是
+
+RENAME(1) Linux Programmer’s Manual RENAME(1)
+
+那么 这个就是C语言版本的。
+
+而如果出现的是：
+RENAME(1)              Perl Programmers Reference Guide              RENAME(1)
+
+这个就是Perl版本的了！
+
+
+两个版本的语法差异：
+
+C语言的，按照man上面的注解，
+rename的语法格式是：
+
+rename from to file
+
+这个命令有三个参数，分别是 from ： 修改什么名字， to：改成什么名字， file 需要修改的文件是哪些。
+
+用法示例：
+比如，有一批文件，都是以 log开头的， log001.txt,  log002.txt ....... 一直到 log100.txt
+现在想要把这批文件的log全部替换为 history
+rename  log  history  log*
+
+这句命令的意思很明白了，把 以 log开头的所有文件中的 log字符替换为 history
+这样替换后的文件是： history001.txt,  history002.txt ..... 一直到 history100.txt
+
+rename C语言版本的另一个man示例是把后缀名批量修改，
+比如我们要将所有 jpeg的后缀名图片文件修改为 jpg文件。
+
+rename .jpeg .jpg *.jpeg
+
+这样，所有以 .jpeg扩展的后缀名全部被修改为 .jpg
+
+现在总结一下rename C语言版本所能实现的功能： 批量修改文件名，结果是每个文件会被用相同的一个字符串替换掉！也就是说，无法实现诸如循环 然后按编号重命名！
+
+2, Perl 版本的批量重命名，带有Perl的好处是，你可以使用正则表达式来完成很奇特的功能。
+
+perl 版本的参数格式：
+
+rename  perlexpr files
+
+注意，perl版本的rename只有两个参数，第一个参数为perl正则表达式，第二个参数为所要处理的文件
+
+man rename的帮助示例：
+
+1) 有一批文件，以 .bak结尾，现在想把这些 .bak 统统去掉。
+
+rename     's/\.bak$//'        *.bak
+
+这个命令很简单，因为我还没有系统学习过perl，我不知道perl里替换字符串是不是这么干的，但sed是这么干的，所以如果你有sed或者tr基础，很容易明白，这个替换和sed里的正则语法是一模一样的。
+
+2) 把所有文件名内含有大小字母的，修改为小写字母。
+
+rename      'y/A-Z/a-z/'        *
+
+依然和sed的替换语法一样，不用多解释，如果看不懂的话，可以系统学习一下sed先。
+
+还有几个比较实用的例子：
+
+1） 批量去掉文件名里的空格
+Linux文件名本来是不支持空格的，不知道什么时候允许了，当然，在命令行调用文件的时候，空格是很有问 题滴，比如你 原来可以直接  mv  oldfile  newfile  但有空格就不行了 ， 得加双引号： mv "oldfile"  "newfile" 或者用反斜杠转移  \[] ，这样还好，但如果你直接把含有空格的图片名引入 Latex文档，Latex生成pdf的时候会直接打印出文件名，之前这个问题苦恼了我很久，我生成的pdf怎么老是出现文件名呢？后来才发现原来是文件 名内含有空格的问题！windows系统下生成的文件名是天生含有空格的，虽然很讨厌，但有些惠普扫描仪生成的图片默认就加入了空格，没有办法，只好去掉 他，在系统研究rename命令前，我是用 mv 去除空格的。
+
+网上流程的两个去空格的版本：
+
+1) tr 版：
+
+find . -type f -name "* *" -print |
+while read name; do
+na=$(echo $name | tr ' ' '_')
+if [[ $name != $na ]]; then
+mv "$name" $na
+fi
+done
+
+这个版本以前我一直用的，不知道哪个网上搜刮来的，当时还没有系统的学习过 tr/sed/awk命令。
+注解一下，很好理解， find . type f -name "* *" -print 这一句是查找当前目录下所有类型为普通文件的 并且名字之中含有空格的文件，并打印出来，其实 find默认就是打印的 这个 -print 多余了，然后 通过管道传输给 while 循环读取，文件名放到 name 变量里，用 tr 命令 替换空格为 下划线。 下面判断如果执行后的名称不相同，使用 mv 命令重命名。但这个if判断可有可无，因为find已经查询了所有文件名中含有空格的，那么经过 tr 命令后， $na变量肯定不等于 $name 变量的。
+
+所以这段代码可以简化：
+
+find . -type f -name "* *" |
+while read name; do
+na=$(echo $name | tr ' ' '_')
+mv "$name" "$na"
+done
+
+tr 可以看着是 sed 的一个精简版本，tr 用下划线来替换空格。
+
+还有一个 是 sed 版本实现：
+
+for f in *;do mv "$f" `echo "$f" | sed 's/[ ]\+/_/g' `; done
+
+这里的 sed表达式还可以这样写：
+
+sed 's/[[:space:]]\+/_/g'
+
+不过记住，sed里的出现一次或多次的加号是需要添加反斜杠的。即：\+
+
+这样就可以了。
+
+好了，这两种办法都太他妈罗嗦了，看看rename实现吧：
+
+rename      's/[ ]+/_/g'        *
+
+OK就这么简单。
+方括号内的空格可以用 [:space:]代替，
+即可以写成 's/[[:space:]]+/_/g'
+
+这里注意，rename 采用的是标准perl正则语法，所以无须将 加号转变为反斜杠加号
+即 + 不能修改为 \+，否则替换失败。
+
+
+还有几个好玩的例子：
+比如统一在文件头部添加上 hello 
+rename          's/^/hello/'        *
+
+统一把.html扩展名修改为 .htm
+rename          's/.html$/.htm/'      *
+
+统一在尾部追加 .zip后缀：
+rename          's/$/.zip/'      *
+
+统一去掉.zip后缀：
+rename          's/.zip$//'      *
+
+Ok ，rename就研究了这么多，暂时不知道如何在rename中引入动态变量，比如 $i++
+
+我测试过 i=0;  rename -n "s/^.*$/$((++i))/"   *  执行后i被自增了1,并非想我想像中那样，可以在每操作一个文件自增一，猜想可能是因为rename批量实现的，导致++i只计算一次！
+
+-n 用来测试rename过程，并不直接运行，可以查看测试效果后，然后再运行。
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+http://apps.hi.baidu.com/share/detail/16475516
+
+1.rename命令批量修改文件名, 其实linux下可以使用别的办法来批量修改文件名, 不过rename实在太方便了
+
+比如把所有的表为cdb1_* 修改为cdb_*的
+在本目录下
+只需要# rename 'cdb1' 'cdb' *
+
+以前都是写个for循环来做...想想多傻啊, 呵呵
+
+rename还有更多的功能, 建议man rename下
+
+From:http://www.hao32.com/unix-linux/42.html
+
+2.批量更改文件名 rename
+通过 man rename 命令可以得知,rename 命令其实是一个 Perl 脚本命令,
+它专用于批量地给多文件重命名(rename multiple files)。
+
+命令格式:
+rename [ -v ] [ -n ] [ -f ] perlexpr [ files ]
+perlexpr 是一种 Perl 脚本格式的正则表达式。
+参数:
+-v, --verbose
+Verbose: print names of files successfully renamed.
+详细模式:打印成功更改的文件名列表
+-n, --no-act
+No Action: show what files would have been renamed.
+测试模式:并不真正的执行命令,而只是显示哪些文件名应该怎么进行
+更改,用于测试模式。
+-f, --force
+Force: overwrite existing files.
+强制模式:在更改文件名,如果更改后的文件已经存在时覆盖已经存在
+的文件。
+
+rename 的典型应用:
+
+0. 批量更改文件扩展名
+$ ls
+1.txt 2.txt 3.txt 4.txt
+$ rename 's/\.txt/\.ext/' *
+$ ls
+1.ext 2.ext 3.ext 4.ext
+1. 批量删除文件扩展名
+$ ls
+1.txt 2.txt 3.txt 4.txt
+$ rename 's/\.txt//' *
+$ ls
+1 2 3 4
+2. 批量添加文件扩展名
+$ ls
+1 2 3 4
+$ rename 's/$/\.txt/' *
+$ ls
+1.txt 2.txt 3.txt 4.txt
+3. 按自己的方式批量重命名文件
+$ ls
+1.ext 2.ext 3.ext 4.ext
+$ rename 's/(\d)/第$1 章/' *
+$ ls
+第 1 章.ext 第 2 章.ext 第 3 章.ext 第 4 章.ext
+
+3.
+
+方法1：把文件名拆分处理，可以任意修改文件名
+find -name '*.log' -printf %f\\n|awk -F'.' '{print $1}'|xargs -i{} mv {}.log xiyun_{}.log
+方法2：利用rename
+一般的linux下的rename命令比较简单
+rename 'test' 'xiyun' '*.log'
+把文件名中的某部分字符串替换掉
+ubuntu下的rename命令支持正则表达式，因此功能更强大。
+方法3：直接利用find和xargs和mv，中间不用awk，这样只能添加后缀名，不能修改文件名。
+来自: http://hi.baidu.com/vchentech/blog/item/7d40ed2376e82f589922ed6b.html 

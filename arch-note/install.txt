@@ -1,0 +1,471 @@
+正式安装：
+
+     以下，是安装的具体步骤，我将做尽可能详细的解说：
+
+
+一、基本系统的安装
+
+    进入安装的方式很多，最简单的，是下载了镜像文件之后，用linux下的dd命令，将镜像文件制作为启动U盘，然后用U盘启动机子进行安装。如果是用win系统下的镜像制作工具来制作启动U盘，可能会有一些莫名其妙的问题，所以不建议使用Win下的镜像制作工具。此外，直接从硬盘安装也可以，最简单的办法，是使用grub工具（win下的话，就使用WinGrub）。进入安装的方式不再啰嗦（本博以前已有文章讨论过），下面直接讨论具体的安装过程。
+
+    1  cfdisk
+    这一步，是对磁盘进行分区。建议最好分为四个区，分别是：启动分区boot、根分区（\）、用户分区home与虚拟磁盘分区swap。当然，如果想简单，也可以只分为三个区，即，直接将home放在根分区（\）上。下图，是我的分区图例：
+
+名称        标志       分区类型   文件系统         [标签]         大小 (MB)
+ ------------------------------------------------------------------------------
+sda1        启动        主分区    vfat           23326.90
+sda5                    逻辑分区  vfat         40896.10
+sda6                    逻辑分区  vfat         40896.10
+sda7                    逻辑分区  ntfs         173010.54
+sda8                    逻辑分区  ntfs         25169.36
+sda9        启动        逻辑分区  ext4           90.48
+sda10                   逻辑分区  ext4         8101.91
+sda11                   逻辑分区  ext4         7402.76
+sda12                   逻辑分区  swap         1178.83*
+
+     [可启动 ]     [  删除  ]    [  帮助  ]    [最大化 ]     [  打印  ]
+     [  退出  ]    [  类型  ]    [  单位  ]    [  写入  ]
+
+    其中，boot作为今后的启动分区，不需要太大的空间，100mb足够。home是今后的用户目录，建议可稍分得大一些，根分区（/）至少需要4GB以上，当然，如果安装的程序少，并注意随时删除临时文件，那么2GB也足够。
+
+    分区完成之后，要重新格式化磁盘，以下，将磁盘格式化为当前主流的ext4格式。
+
+    2  mkfs.ext4 /dev/sda9
+    3  mkfs.ext4 /dev/sda10
+    4  mkfs.ext4 /dev/sda11
+
+    上三步，对三个主要分区进行了格式化。
+
+    5  mkswap /dev/sda12
+    这一步，对交换空间进行了格式化。
+
+    以下，立即起用磁盘的交换空间：
+    6  swapon /dev/sda12
+
+    下面几步，是挂载磁盘空间，这里的操作很容易出现错误，所以要特别小心。此外，挂载的顺序也不要出错，必须首先挂载根分区。
+
+    7  mount /dev/sda10 /mnt
+    我首先将sda10挂载为根分区，指向当前安装镜像的/mnt目录 。
+
+    8  mkdir /mnt/boot && mount /dev/sda9 /mnt/boot
+    9  mkdir /mnt/home && mount /dev/sda11 /mnt/home
+    上两步，分别在根分区上新建了boot启动目录与home用户目录，并分别挂载到了相应磁盘。
+
+   10  vi /etc/pacman.d/mirrorlist
+    以上，编辑安装源的列表，根据各人的情况，教育网内当然使用清华或交大、电子科大的源，网通则建议使用sohu的源，电信的，就只好使用163的源了。唯一需要注意的是，将自己首选的源，放在源列表的第一位。
+
+   11  dhcpcd
+    以上，连通网络。这里我使用的是自动获取IP，所以直接运行dhcpcd即可(其实现在已经可以不运行这步，系统默认是已经通过dhcpcd连通了网络)。如果有固定IP，则需要手工设置IP与DNS ，手工设置的方法如下：
+    ip adds add 我的固定IP/24 dev eth0
+    ip route add default via 我的网关
+    使用固定IP的话，那么就还得要手工设置DNS，如下：
+    vi /etc/resolv.conf
+     在上述文件中指定自己的DNS。如果是通过dhcpcd自动获取IP，则不必设定这个DNS文件。
+
+   12  pacstrap /mnt base base-devel
+    以上，是将基本系统安装到根目录上去。其实，这里安装的基本系统也肯定有自己用不到的冗余功能，例如我就用不到nano文本编辑器，但系统会默认给安上。如果知道基本系统每个文件的作用，其实也完全可以自定义安装。比如我，其实是手工指定，安装了下面这些东西：
+  pacstrap /mnt bash coreutils file filesystem grub2 linux pacman procps-ng syslog-ng glibc systemd-sysvcompat shawd dhcpcd vi
+
+与这些东西相关的关联程序，系统会自动为你安装。
+
+   13  pacstrap /mnt grub-bios
+      以上，安装启动管理器。启动管理器的相关设置，将在安装过程的结尾之时进行。
+   14  genfstab -p /mnt >>/mnt/etc/fstab
+     以上，生成磁盘挂载的列表。
+   15  arch-chroot /mnt
+     以上，切换到新系统中。
+
+二、对新的基本系统进行设置
+    1  vi /etc/hostname
+      写入本机的名称，如：aaa
+      偷懒的放话就直接：echo aaa >/etc/hostname，也是一样的。
+    2  vi /etc/hosts
+     在解析的列表中写入上面的本机名称。不过，2013版的这个镜像文件，已经可以不再执行这步操作了，系统能够自动解析本机的名称。
+    3  vi /etc/vconsole.conf
+     写入键盘布局方案，当然是美式键盘，如下：
+KEYMAP=us
+FONT=
+FONT_MAP=
+
+    4  vi /etc/timezone
+     写入时区：Asia/Shanghai
+
+    5  ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+     建立时区的软链接
+
+    6  vi /etc/locale.conf
+     写入本机的字符编码方式：
+     LANG=en_US.UTF-8
+     等到基本系统完全安装完成之后，再修改这个配置为中文编码： 
+     LANG=zh_CN.UTF-8
+
+    7、vi /etc/locale.gen
+      将用不到的编码全删掉，只保留en_US与zh_CN的几行。  
+
+    8、locale-gen
+      对系统的编码进行更新  
+
+    9、  hwclock --systohc --localtime
+      设定系统将用的时间方案。这个时间方案我是试过很多次，如果是双系统，电脑里还有win系统的话，建议设为：--localtime，否则可设为--utc。
+      不过，我现在虽然也用双系统，但还是设的utc，因为设为--localtime虽然在win下时间不会出错，但回到linux下，经常系统会有些古怪的问题，比如，升级系统之时，报密钥错误。使用--utc，虽然在linux下时间会慢8个多小时，但毕竟对整个系统没有影响。
+
+   10、  mkinitcpio -p linux
+      生成内核的启动镜象。  
+   11  grub-install /dev/sda
+   12  grub-mkconfig -o /boot/grub/grub.cfg
+      上两条，安装启动管理器，并生成系统启动的配置文件
+   13  vi /boot/grub/grub.cfg
+      查看一下启动配置文件，如果有必要，则将win系统的启动项手工添加进去，如下：
+menuentry "WINDOWS" {
+set root=(hd0,1)
+chainloader +1
+}
+   14  passwd
+      修改root根用户的密码，需要输入两次。注意，输入的时候，你会看到什么反应也没有，但其实是输入进去了的 。
+
+   15、exit
+    退出挂载
+
+   16、、umount /mnt/{boot,home,}
+    卸载挂载的分区，这一步千万不要忘掉，否则等会重启机子会无法进入系统。
+
+   17、reboot
+    重启机子
+    基本系统已安装完成，下面进入图形界面与常用程序的安装与设置：
+ 
+三、图形界面的安装
+    首先启动网络
+   18  dhcpcd
+    首先启动网络，如果是DHCP的当然简单，直接dhcpcd即可，如果是固定IP的，则要如下操作：
+   ip addr add 固定IP/24 dev eth0
+   ip link set dev eth0 up
+   ip route add default via 网关
+    网络连通后，首先
+   pacman -Syu
+    这是先更新一下看看，当然没啥可更新的，因为所有文件当前都是最新的。如果报错，则可能还须设定DNS解析，步骤见前面“基本系统安装”的第11步。
+
+    下面安装系统基础图形程序：
+    pacman -S dbus xorg-server xorg-server-utils xorg-utils xorg-xinit slim openbox lxterminal wqy-zenhei leafpad xf86-video-nouveau
+
+    上面安装的这几个东东，有几点要解释一下，
+1、我没有使用任何桌面环境，流行的GNOME、KDE、LXDE、Xfce等，几年前在用fedora时都用过，现在要想让系统更轻便一些，所以没有安装现在的桌面环境，准备手工自己配置，所以在这里安装了slim与openbox;
+2、由于单位这个机子用的是NVIDIA的显卡，所以这里安的是xf86-video-nouveau，暂未安装官方闭源驱动。如果是ATI显卡的话，要安xf86-video-ati;
+3、这里安装了lxterminal与leafpad，这两个东西都是LXDE桌面环境下的应用程序，个人感觉是既小巧又好用，所以安在了自己的系统中。同时，这时安装了，等会儿重启机子之后，就免得再开终端，可以直接使用lxterminal。
+
+    安装上面东东会花一定的时间，此时可以另开一个终端（Ctrl+Alt+F2或F3）,执行下面的操作：
+    新建用户：useradd -m 新用户
+    指定密码：passwd 新用户
+    指定用户所在的组：usermod -a -G video,audio,lp,log,wheel,optical,scanner,games,users,storage,power 新用户
+    请注意，我这里将新用户添加到了power组，这是因为我们后面要用openbox作桌面系统，如果不将新用户加入这个组，则无法执行关机与重启命令。
+
+
+    编写系统启动项：vi /home/新用户/.xinitrc
+    写入：exec openbox-session
+    保存后，修改一下本文件的权限：chmod 777 /home/新用户/.xinitrc
+
+    建立窗口管理器的启动配置：
+    先建立目录：mkdir -p /home/新用户/.config/openbox
+    再建立今后会用的状态栏的目录：mkdir -p /home/新用户/.config/tint2
+
+    改一下上面两个目录的权限：chmod 777 -R /home/新用户/.config/
+
+    好啦，到此为止，就只等第一个终端安装基本图形程序完成。回到第一个终端，确保安装已经完成了，则执行下面的几个步骤：
+
+    复制openbox的相关配置文件到新用户的目录中去：
+      cp /etc/xdg/openbox/{rc.xml,menu.xml,autostart,environment} /home/新用户/.config/openbox/
+
+    改一下该目录之中所有文件的权限：chmod 777 -R /home/新用户/.config/openbox/
+
+    编辑新用户openbox的右键菜单：
+
+    vi /home/新用户/.config/openbox/menu.xml
+ 
+    将lxterminal与leafpad的启动项加进去，这样，重启机子之后可以使用lxterminal虚拟终端来执行其它操作，否则必须退回到命令提示符下操作，就太麻烦了。
+
+< item label="Leafpad" > < action name="Execute" >
+< execute >leafpad< /execute >< /action >
+< /item >
+< item label="LXTerminal" > < action name="Execute" >
+< execute >lxterminal< /execute >< /action >
+< /item >
+
+    将上几行加入到menu.xml中任意的一对< menu >与< /menu >标签中都行，总之等会儿重启后自己要记得就好。
+    注意，上面代码中所有的左右尖括号后面，我都多添了一个空格，这是因为这个新浪博客显示代码时，不空格会直接将代码给删掉。
+
+    重设系统的编码方式：vi /etc/locale.conf，改为中文环境：
+     LANG=zh_CN.UTF-8
+
+    更新系统的编码：
+     locale-gen
+    设定登录之时，登录管理器自启动：
+     systemctl enable slim.service
+    设定登录之时，网络自动连接：
+     systemctl enable dhcpcd.service
+    如果是固定IP与DNS的话，则等会儿重启机子之后，网络不会自动连接，还得按上述手工启动网络的那几个步骤重新操作一遍。
+
+    以上步骤完成之后，再次重启机子：reboot
+
+四、图形界面的安装
+
+使用普通用户登录（不要用root登录），界面黑乎乎的，不太美观，呵呵。此时点击右键，就能弹出openbox中的菜单了，不过此时的菜单是系统默认的，很多东西我们都还没有安装，需要我们继续安装，那么，在菜单中找到刚才安装的lxterminal，启动它。以下的安装步骤我们就在这个命令行的虚拟终端中进行了！所以刚才说一定要在菜单中加入这个终端的启动项，不然我们又只有回到非图形界面下去。
+
+从右键菜单中启动lxterminal，输入：su -，注意su与-之间有个空格，回车，再输入root根用户的密码，如此，即取得了root用户的权限。
+如果此时网络还不通，则参照前述步骤启动网络，然后继续进行下面的安装：
+
+下面进行常用软件的安装并同时对系统进行美化。我这里安装的常用软件，只考虑了三个原则，一个是小，另一个就是快，最后一个是必须！
+pacman -S firefox firefox-i18n-zh-cn pcmanfm flashplugin gpicview wqy-microhei ttf-arphic-ukai ttf-arphic-uming file-roller unrar zip unzip p7zip arj unace librsvg obconf mesa gimp bluefish evince ntfs-3g menumaker xterm fcitx tint2
+
+简单解释一下上面所选择的程序：
+firefox firefox-i18n-zh-cn这个是火狐及其中文插件;
+pcmanfm：这个是资源管理器，类似于win系统下的explorer
+flashplugin:浏览网页时的flash插件;
+gpicview：图片浏览器;
+wqy-microhei、ttf-arphic-ukai、ttf-arphic-uming：三个重要的字体文件;
+file-roller、unrar、zip、unzip、p7zip、arj、unace：压缩与解压缩相关的东西;
+obconf：系统配置编辑器
+mesa：图形硬件加速
+gimp：图像处理软件
+bluefish：蓝鱼脚本编辑工具
+evince：PDF查看工具
+ntfs-3g：我的D盘是NTFS格式，所以还是得安这个东东;
+menumaker：openbox菜单生成器
+xterm：一个强大的终端
+fcitx：输入法
+
+上述程序安装的过程中会花一些时间，此时不妨再从右键菜单中启动lxterminal，开另一个终端，同样su -，输入超级用户的密码，进行一些其它的常规设置，如下：
+
+mkdir /mnt/c
+mkdir /mnt/d
+mkdir /mnt/e
+mkdir /mnt/f
+mkdir /mnt/g
+mkdir /mnt/u
+
+上面生成了几个文件夹，用于加载win下的c、d、e、f、g盘与U盘。
+加载之前，先要知道每个盘的编号与磁盘格式，运行：
+fdisk  -l，即可看到，比如我的如下图：
+
+[root@archer ~]# fdisk -l
+
+磁盘 /dev/sda：320.1 GB, 320072933376 字节，625142448 个扇区
+Units = 扇区 of 1 * 512 = 512 bytes
+扇区大小(逻辑/物理)：512 字节 / 512 字节
+I/O 大小(最小/最佳)：512 字节 / 512 字节
+磁盘标签类型：dos
+磁盘标识符：0x06e858c3
+
+   设备 Boot      Start         End      Blocks   Id  System
+/dev/sda1   *          63    45560339    22780138+   c  W95 FAT32 (LBA)
+/dev/sda2        45560340   625142447   289791054    f  W95 Ext'd (LBA)
+/dev/sda5        45560403   125435519    39937558+   b  W95 FAT32
+/dev/sda6       125435583   205310699    39937558+   b  W95 FAT32
+/dev/sda7       205310763   543221909   168955573+   7  HPFS/NTFS/exFAT
+/dev/sda8       543221973   592380809    24579418+   7  HPFS/NTFS/exFAT
+/dev/sda9   *   592380873   592557524       88326   83  Linux
+/dev/sda10      592557588   608381549     7911981   83  Linux
+/dev/sda11      608381613   622840049     7229218+  83  Linux
+/dev/sda12      622840113   625142447     1151167+  82  Linux swap / Solaris
+
+显然可以看出，sda7与sda8，也就是f盘与g盘，是ntfs格式，这点需要注意。
+
+下面编辑加载列表，并让其支持中文显示：
+
+执行：vi /etc/fstab，然后在文尾写入：
+/dev/sda1 /mnt/c vfat user,rw,iocharset=utf8,umask=000 0 0
+/dev/sda5 /mnt/d vfat user,rw,iocharset=utf8,umask=000 0 0
+/dev/sda6 /mnt/e vfat user,rw,iocharset=utf8,umask=000 0 0
+/dev/sda7 /mnt/f ntfs user,rw,umask=000 0 0
+/dev/sda8 /mnt/g ntfs user,rw,umask=000 0 0
+
+以上，由于我的f盘与g盘是ntfs格式的，本来就能显示中文文件名，所以不需要单独指定其显示方式，C盘、D盘与E盘单独指定了显示的文件时的字符集为：
+iocharset=utf8
+没有这句的话，文件名会全部是乱码。
+
+等前面第一个终端里应用程序安装完毕，你可以点击右键菜单，找到pcmanfm，也就是文件管理器，然后进入到目录：/usr/share/applications/下，你会看到你已经安装完成的程序，全都可以从这儿启动。此时，你不妨复制几个常用的，比如火狐、pcmanfm文件管理器到你的用户目录：/home/新用户/桌面/下去。复制之后，你会在你的桌面上，看到这些程序的启动器。
+
+这时，你不妨启动火狐，然后在百度的“图片”中去找几张桌面背景图，等会儿我们将要设置桌面背景。
+
+下面我们再安装点常用工具软件：
+pacman -S volumeicon bluefish alsa-utils mplayer smplayer gstreamer0.10-ffmpeg gstreamer0.10-ugly gstreamer0.10-ugly-plugins evince inkscape gimp pidgin pidgin-lwqq
+
+好啦，可以再次重启机子了：reboot
+
+五、常用软件与图形界面的设置
+
+（一）、输入法的配置：
+
+    现在最成熟的输入法是fcitx，过去我一直用ibus。但去年底由于某些原因，ibus的开发维护者与国内linux用户产生了冲突，导致现在ibus在中文环境下无论是安装还是使用，都有些问题。ibus有一个非常重要的优点，就是可以手工自定义输入法的编码列表。由于我个人要写一些传统文化方面的东西，有大量名词都是专有名词，每次都一个字一个字的输入，很麻烦，所以我一直有注意保留一份输入法的编码列表，用于生成自己的词汇代码库。但现在使用fcitx了，这份词汇表就没用了。不过好在fcitx配置比较容易，所以也没啥值得抱怨的：
+  1、安装完fcitx之后，在/home/用户/.xinitrc文件中，写入：
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+   即可。
+   特别要小心的是，.xinitrc文件中原有的一句 exec openbox-session 一定要放在整个文件中所有代码的最下面！也就是说，必须等上面所有代码都执行完毕之后，再执行加载openbox，否则很可能输入法会出些莫名其妙的错误。
+
+  2、在/home/用户/.config/openbox/autostart中，加入一行“fcitx &”（注意不要忘了结尾处的&号）;
+
+（二）、桌面背景生成
+
+在不使用其它那些成套的桌面环境的情况下，桌面背景通常有两种方式生成，一种，是安装feh，然后在autostart文件中，设置feh自动运行，调用某张图片并全屏显示。如此就形成了桌面背景；第二种方式，就是使用pcmanfm资源管理器来生成。步骤如下：
+   1、为让设置在重启机子之后能一直生效，我们需要首先修改/home/用户/.config/下的pcmanfm文件夹的权限。在root用户权限下，执行：chmod 777 -R /home/新用户/.config/pcmanfm/。如果不先执行这步操作，那么很可能下面的设置完成之后，一重启机子，我们所设置的效果就又全部消失了----没有保存，因为pcmanfm文件夹的权限问题。所以先得修改其权限。
+
+   2、在/usr/share/applications/下运行“桌面偏好设置”，或者在普通用户身份的终端命令行下，直接执行：pcmanfm --desktop-pref ，也可打开桌面设置等相关设置选项。注意，一定要是普通用户身份之下运行，如果是在root用户下设置，将没有作用。
+   打开“桌面偏好设置”之后，选择一张自己下载的图片，将其作为背景即可。相关设置，在“桌面偏好设置”中都有，这里就不再多啰嗦了。
+   此外，当前你是在哪个虚拟桌面的终端下进行的设置，所设置的效果也直接作用于当前桌面，如果要为不同的虚拟桌面设置不同的桌面背景，则需要切换到相应桌面环境，然后再进行设置----或者还有个偷懒的办法，就是复制/usr/share/applications/下的“桌面偏好设置”到桌面上，然后分别在每个虚拟桌面上去运行它，如此，就可以为不同的桌面设置不同的背景。
+
+  3、上面设置完背景图片之后，还不能立即看到效果，要立即看到效果，需要在当前普通用户身份的终端下，执行：pcmanfm --desktop，则图片就可显示出来。
+  4、为让设置一开机就能自动执行，则请在/home/新用户/.config/openbox/autostart中，写入下面这句，让其一开始就自动执行：“pcmanfm --desktop  &”，再次提醒，请别忘了最末的特殊符号。
+
+（三）右键菜单的编辑与美化
+
+   如果执行过下面的安装：pacman -S menumaker xterm ，那么我们很容易在自己安装完所有程序之后，生成一个包含当前已安装的所有程序的右键菜单----在普通用户的份的命令行终端之下，执行：mmaker -vf OpenBox3，即可为当前普通用户生成一个完整的右键菜单。哦，忘了说一点，在生成之前，建议将/home/用户/.config/openbox/menu.xml重命名一下，或者备个份之后删掉，然后再用上述命令生成，不然也可能会有权限问题，导致生成的菜单不能覆盖旧菜单。
+
+   新菜单生成之后，可以用文本编辑器打开它，然后按自己的需要或者习惯，进行编辑，将其改为中文状态，也可以为每个菜单项添加上图标，方法如下：
+
+1、在/usr/share/icons目录下去找一些图标文件，将其复制到当前用户目录的某个文件夹中；例如我的，就是将自己喜欢的图标，全部存在/home/用户/icos/文件夹下 ;
+2、为每个自己想加图标的菜单项，加入图标所在的位置，比如下面的是我menu.xml文件中的一段菜单代码，为其中的菜单项加入了图标：
+
+  < menu id="1" label="编程工具与文本编辑器" icon="icos/accessories-dictionary.png" >
+            < item label="蓝鱼脚本编辑器BlueFish" icon="icos/emblem-documents.png" > < action name="Execute" >
+                < execute >bluefish< / execute >
+            < / action > < / item >
+            < item label="纯文本编程器Leafpad" icon="icos/leafpad.png" > < action name="Execute" >
+                < execute >leafpad< / execute >
+            < / action >
+         < item label="几乎不用的Nano" icon="icos/emblem-new.png" > < action name="Execute" >
+                < execute >lxterminal -e nano< / execute >
+            < / action > < / item
+
+上述代码中的“icon=……”后面跟的就是图标的位置。
+
+    3、在命令行中运行obconf，可打开openbox窗口效果设置器，如果没安这个工具的话可安一个。也可以直接在usr/share/applications/下去打开这个窗口效果配置器，从这里可能窗口以及右键菜单的显示效果进行设置。具体设置成什么效果，当然就看每个人自己的喜好啦。
+
+（四）窗口阴影与透明效果的实现
+  安装：compmgr与transset-df，在终端中执行：pacman -S compmgr transset-df 即可。
+  compmgr，这个工具，为应用程序的窗口设置阴影，这样会比较美观。安装完成之后，在openbox的autostart文件中，写入下面的行，即可开启窗口的边框阴影效果：
+   xcompmgr -Ss -n -Cc -fF -I-10 -O-10 -D1 -t-3 -l-4 -r4 &
+  注意，不要忘掉上行结尾之处的“&”符号。
+
+transset-df，这个工具，可设置应用程序窗口的透明度，在开源显示驱动之下也有很好的效果。安装这个工具完成之后，在openbox的rc.xml文件中，找到标签：    <  context name="Titlebar"  >（注意，我在尖括号的两边加了空格）所在的行，删掉原来的UP与Down的相关代码，然后在下面加入以下几行代码：
+
+     < mousebind button="Up" action="Click" >
+       < action name= "Execute"  >
+       < execute >transset-df -p .2 --inc  < / execute >
+       < / action >
+     < / mousebind >
+     < mousebind button="Down" action="Click" >
+       < action name= "Execute"  >
+       < execute>transset-df -p .2 --dec < / execute >
+       < / action >
+     < / mousebind >
+
+如此，当我们重启机子之后，在任何应用程序的窗口标题栏上点滚动鼠标滚轮，即可让窗口产生半透明效果。
+
+（五）登录窗口的效果设置
+   安装slim-themes与archlinux-themes-slim，这两个，是登录管理器slim的风格主题，安装完成后，可自定义登录时的界面。
+   设置方法如下：
+   1、查看：/usr/share/slim/themes下，每个文件的名字，就是一个风格主题的名字，你可以看看自己喜欢哪一个或哪几个风格，记下名字；
+   2、/编辑/etc/slim.conf文件，找到倒数第三行左右“current_theme”所在的行，将你要使用的主题风格写在后面，如果要使用多个风格的话，则风格名称之间，用英文逗号分隔开。比如我写的就是：
+   current_theme       lake,lotus-sage,lotus-midnight,flower2
+
+如此，每次开机进入登录界面的时候，系统会自动随机在上述风格列表中选择一个作为登录的风格界面。
+
+
+(六)状态栏（系统托盘）的安装与设置
+   我使用的系统状态栏是tint2，当然，根据各人的喜好，也可选择其它的状态栏。我选择tint2，一是因为其小巧，方便；二是因为其自定义的时候相对其他状态栏要简单一些。
+1、在root下执行：pacman -S tint2 tint2conf，即可安装上这个状态栏及其配置工具；
+2、在普通用户身份下运行：tint2conf，即可打开tint2的配置界面。
+   此处要小心，如果你没有按照上述第三大点“图形界面安装”之下的第3小点中所说，建立了tint2的目录并修改过目录的权限让其可写的话，那么此时配置了状态栏的效果，也不会被保存！所以，一定要记得将其权限改为可写：
+ 确保目录已建立：mkdir -p /home/新用户/.config/tint2
+ 修改目录的权限：chmod 777 -R /home/新用户/.config/tint2
+
+用tint2conf工具配置状态栏的效果完成之后，需要查看一下配置文件是否已存在：/home/新用户/.config/tint2目录下，是否已有tint2rc文件。如果没有，只好手工建立，并到网上去找一些别人配置完成的效果，粘贴到这个文件中来。当然，如果上述操作全部正常执行了的话，这个配置文件应该已经存在了，而且其中保存的效果，就是你自己配置的效果了。
+
+3、设定tint2在机器启动的时候自动启动----在openbox的autostart文件中加入tint2的启动命令，并为其指定启动效果的配置文件：
+tint2 -c /home/新用户/.config/tint2/tint2rc  &
+
+4、至此，重启系统，即可看到你自己配置的状态栏。要想这个状态栏效果好，那么就得不断用tint2conf工具尝试设置。当然，可选的效果是很多的，例如，这状态栏可放置在屏幕顶端、可设置为半透明、可设置为不同的虚拟桌面下显示不同效果、可设置为同一虚拟桌面下显示其它虚拟桌面的状态栏（呵呵，这句话好费解，要用过这个效果的人才知道是怎么回事）。其实，用tint2conf工具进行设置是比较傻瓜化的，建议还是学会自己手工修改/home/新用户/.config/tint2/下的tint2rc文件，这个文件的代码并不复杂，多试几次就知道每个代码段的功能与作用啦。
+
+5、当整个状态栏的设置效果已经满意，建议安装tint2-svn替换掉tint2，tint2-svn会自动用tint2的配置文件使用自己的配置文件，但tint2-svn的功能比单纯的tint2要强大一些，最简单的例子，是可以添回类似win系统下的“快速启动栏”，我个人觉得，这个功能是很实用的。关于安装tint2-svn，并设置其显示“快速启动栏”，请参考本博文档：http://blog.sina.com.cn/s/blog_69e5d8400101977a.html  的后段。
+
+（七）设置并美化桌面快捷方式
+   要在桌面上显示快捷方式是非常简单的事情，只需要做两步：
+  1、从“/usr/share/applications/”目录下找到你想放到桌面上的程序的快捷方式，复制粘贴到“/home/新用户/桌面”这个文件夹下即可。
+  2、在所粘贴的程序快捷方式上点右键，选“用leafpad打开”，找到其相应的“name”处，将其修改为你喜欢的名称即可。比如，我把“文件管理器pcmanfm”的快捷方式，改名为“我的电脑”，如此，在桌面上看来，就像win系统中“我的电脑”一个样了。注意是找“name”处修改，而不是直接对快捷方式进行“重命名”。同时，如果想修改这些启动器在桌面上显示时的图标，则请直接在/usr/share/icons下找到相应的图标，记下图标全称，然后修改启动器文件中的”Icon“对应的值为这个图标的全称即可。注意，这里直接写上图标的全称就行了，不必跟这个图片所在的路径。以我pcmanfm的图标为例，我写的就是：
+Icon=computer.png
+就这样就行了，不必跟图片的路径。
+
+  3、修改并美化桌面图标：
+    （1）、启动pcmanfm，在”编辑“菜单的最下端是”偏好设置“，打开”偏好设置“，在”显示“选项卡中，设置”大图标尺寸“与”小图标尺寸“，即可改变桌面图标的大小，根据你屏幕的分辨率，你可以设置一个值，让你桌面的图标变得小巧好看。比如我的，设置的”大图标尺寸“是”32x32“，显示效果就很好；
+    （2）桌面图标虽然好看了，但图标的提示文字可能依然不理想，那么在/usr/share/applications/下运行”桌面偏好设置“，设定桌面文字的字体与大小（比如我设的，是文泉驿微米黑，10号字）、再设定文本的颜色与文字阴影的颜色，稍稍细心一点，微调一下，整个桌面的效果就非常好。
+
+（八）设定屏幕的分辨率
+     设定屏幕的分辨率的最简单办法，是安装xrandr，然后在openbox的autostart文件中加入指定的分辨率即可，例如我的如下：
+    xrandr -s 1280x800 &
+
+     设定屏幕的分辨率的另一种方法，是安装lxrandr，如此，你可以在“/usr/share/applications/”目录下找到”显示器设置“工具，运行这个工具即可对屏幕的显示分辨率进行设置。不过，这个方法不是万能的，如果在安装显示驱动的时候有问题，那么此时很可能会每次开机都得手工用这个工具设置一次分辨率，不然显示还是会不正常。当然，如果安装驱动的时候是正常的，则用这个方法比用上述从autosrart进行设置要直观一些。
+
+（九）窗体界面的美化
+   安装lxappearance工具，即可对GTK的窗体效果进行设置，以我安装的为例---
+  pacman -S lxappearance gtk-engines
+  上面命令，同时安上GTK的设置工具与GTK最常用的主题。其实可以任选一个主题做基础，然后自己在这个基础之上，自定义窗体、按钮的颜色与灰度等等。这个就不具体再展开聊了，安装完后，自己运行/usr/share/applications/下的”自定义外观和体验“，即可进行窗体的风格设置。如果有兴趣，那么可以在网上找到一大堆的各种主题风格包，下载下来在这里安装一下就行了。当然，最有成就感的，还是拿一个风格为底本，自己手工慢慢在这处底本之下，改出自己喜欢的主题风格出来。比如我的界面主题风格，就是以mist风格为底本自己改出来的。
+
+（十）安装上音量控制器
+  首先安装音量控制的后端与前端：pacman -S alsamixer volumeicon
+
+  其中，alsamixer是进行在命令行的音量控制程序，而volumeicon是图形界面下的控制工具，这个工具实质上是在调用前者。
+alsamixer的用法，是按左右方向键选择不同的设置对象，然后按上下方向键设置音量。如果对象没有被激活，则选择它之后，按M键对其进行激活。
+安装完之后，不要忘了在openbox的autostart文件中启动volumeicon，加入一行“volumeicon &”即可。
+
+重启系统之后，在工具栏上会自动出现volumeicon的音量控制图标，点击它，即可能音量等进行设置。
+
+六、服务器功能的安装与设置
+
+1、先安装web服务器相关组件：
+pacman -S apache php php-apache mariadb libmariadbclient mariadb-clients
+这里安装的是apache、php与mariadb。mariadb其实就是传统所说的mysql，不过因为种种原因（本博前面有文章聊到过这件事儿），现在的mysql已经不能适应发展需要，所以换用mariadb。mariadb的所有设置方式，与mysql完全一样。
+
+2、启动apache与mysql服务：
+ systemctl enable mysqld.service
+ systemctl enable httpd.service
+
+3、编辑apache的配置文件：
+vi /etc/httpd/conf/httpd.conf
+ （1）、禁用#LoadModule unique_id_module modules/mod_unique_id.so
+否则mysql会有些莫名其妙的错误;
+ （2）、加入对PHP的支持，插入下行：
+Include conf/extra/php5_module.conf
+ （3）、加入启动PHP的库文件：
+LoadModule php5_module modules/libphp5.so
+ （4）、在配置文件尾，加入对PHP默认首页文件的解析：
+  DirectoryIndex index.php index.html
+  AddHandler application/x-httpd-php .php
+  AddHandler application/x-httpd-php-source .phps
+
+4、编辑php配置文件
+vi /etc/php/php.ini
+  （1）、启用各种要用的库，特别是mysql的库;
+extension=mssql.so
+extension=mysqli.so
+
+  （2）、修改mysql的配置项，如下：
+mysql.default_port = 3306
+mysql.default_host =127.0.0.1
+
+5、测试一下系统的web服务配置
+  chmod 777 -R /srv/http/*
+  rm /srv/http/index.html
+  vi /srv/http/index.php
+写入：
+< ?  php
+phpinfo (  )  ;
+?  >
+
+6、重启系统，配置mysql，并测试web服务器是否正常
+  （1）重启系统
+  （2）进入命令行，在root权限下执行：
+/usr/bin/mysqladmin -u root password “新密码”
+即重设了mysql的root超级密码。
+  （3）然后从浏览器中访问http://127.0.0.1，检查配置是否成功。
+
+
+OK，到此为止，整个工作站的安装与设置，即告完成！

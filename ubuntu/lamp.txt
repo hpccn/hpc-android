@@ -1,0 +1,64 @@
+在Ubuntu上快速安装LAMP。
+
+一键安装LAMP服务（在终端执行以下命令）：
+sudo tasksel install lamp-server
+一键卸载LAMP（在终端执行命令）：
+sudo tasksel remove lamp-server
+通过上面的命令卸载Lamp时不免把Linux系统本身的东西卸载掉了，因此，在卸载LAMP后一定记着使用下边的命
+令更新一下系统：
+sudo apt-get update
+sudo apt-get upgrade
+
+
+----------------
+
+1、安装数据库MySQL 5
+
+apt-get install mysql-server mysql-client
+
+2、安装 Apache：
+
+apt-get install apache2
+
+默认目录：/var/www/html，配置文件：/etc/apache2/apache2.conf
+
+3、安装 PHP：
+
+apt-get install php5 libapache2-mod-php5
+
+再重启 apache2
+
+service apache2 restart
+
+4、测试 PHP，建立一个探针文件：
+
+vi /var/www/html/info.php
+
+内容如下：
+
+<?php
+phpinfo();
+?>
+
+5、让 php5 支持 MySQL
+
+apt-cache search php5
+apt-get install php5-mysql php5-curl php5-gd php5-intl php-pear php5-imagick php5-imap php5-mcrypt php5-memcache php5-ming php5-ps php5-pspell php5-recode php5-snmp php5-sqlite php5-tidy php5-xmlrpc php5-xsl
+
+重启 apache:
+
+service apache2 restart
+
+6、安装 XCache 优化缓存
+
+apt-get install php5-xcache
+
+重启 apache:
+
+service apache2 restart
+
+7、安装phpmyadmin管理Mysql:
+
+apt-get install phpmyadmin
+
+

@@ -126,7 +126,6 @@ Android 混淆代码总结
 最后贴上proguard-project.txt的全部代码：
 
   
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
     # To enable ProGuard in your project, edit project.properties  
     # to define the proguard.config property as described in that file.  
@@ -279,29 +278,22 @@ Android 混淆代码总结
         public static final int *;  
     }  
 
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
-    2015-05-25更新  
 
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
     1. 依赖工程的jar 申明：  
 
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
     以下是邮件发送的实例  
 
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
     -libraryjars ../KlowerBase/libs/mail-activation.jar  
     -libraryjars ../KlowerBase/libs/mail-additionnal.jar  
     -libraryjars ../KlowerBase/libs/mail.jar  
 
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
     2. 解决邮件发送时报的以异常  
 
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
      -keep class javax.mail.**{*;}  
      -keep class com.sun.mail.**{*;}  
@@ -309,7 +301,6 @@ Android 混淆代码总结
     -keep class org.apache.harmony.**{*;}  
     -keep class java.security.**{*;}  
 
-[java] view plaincopy在CODE上查看代码片派生到我的代码片
 
     #解决：can't find referenced class java.beans.Beans  
     -dontwarn org.apache.commons.collections.BeanMap  

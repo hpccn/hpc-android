@@ -1,0 +1,8 @@
+1、生成私钥
+openssl genrsa -out rsa_private_key.pem 1024
+
+2、将原始私钥转换为pkcs8格式
+openssl pkcs8 -topk8 -inform PEM -in rsa_private_key.pem -outform PEM -nocrypt -out rsa_private_key_pkcs8.pem 
+
+3、根据私钥生成公钥
+openssl rsa -in rsa_private_key.pem -pubout -out ras_public_key.pem

@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn"><head><script charset="utf-8" src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/id.php"></script><script src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/analytics.js" async=""></script><script src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/postmoduletext.js" async=""></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>【Android】jar包Proguard混淆方法 - Rex.. - 博客园</title>
+<link type="text/css" rel="stylesheet" href="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/blog-common.css">
+<link id="MainCss" type="text/css" rel="stylesheet" href="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/bundle-iMetro_HD.css">
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/rayray/rss">
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/rayray/rsd.xml">
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/rayray/wlwmanifest.xml">
+<script src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'rayray', cb_enable_mathjax=false;</script>
+<script src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/blog-common.js" type="text/javascript"></script>
+</head>
+<body><link type="text/css" rel="stylesheet" href="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/jiathis_share.css"><div style="height: auto; position: fixed; z-index: 100000000; top: 150px; right: 0px; overflow: hidden; width: 268px; left: 970px;" class="jiathis_style"><table cellpadding="0" cellspacing="0"><tbody style="background:transparent"><tr><td style="background:transparent"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/r1.gif" style="cursor:pointer;" onmouseover="$CKE.over()" onclick="$CKE.center(this)"></td><td><div><div class="jiadiv_01"><div style="width:100%;background:#F2F2F2;border-bottom:1px solid #E5E5E5;line-height:200%;padding-left:5px;font-size:12px"><table width="100%"><tbody><tr class="jt_sharetitle"><td style="text-align:left;line-height:25px;font-size:14px;font-weight:bold;color:#000000;" align="left">分享到...</td><td style="text-align:right;" align="right"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/img_exit.gif" style="opacity:0.5;filter:alpha(opacity=50);margin:0 10px;cursor:pointer;" onclick="$CKE.shareClose();" border="0"></td></tr></tbody></table></div><div class="jiadiv_02" style="width:100%;" id="jiathis_sers"><a href="javascript:;" onclick="jiathis_sendto('copy');return false;" class="jiatitle"><span class="jtico jtico_copy">复制网址</span></a><a href="javascript:;" onclick="jiathis_sendto('email');return false;" class="jiatitle"><span class="jtico jtico_email">邮件</span></a><a href="javascript:;" onclick="jiathis_sendto('qzone');return false;" class="jiatitle"><span class="jtico jtico_qzone">QQ空间</span></a><a href="javascript:;" onclick="jiathis_sendto('tsina');return false;" class="jiatitle"><span class="jtico jtico_tsina">新浪微博</span></a><a href="javascript:;" onclick="jiathis_sendto('tqq');return false;" class="jiatitle"><span class="jtico jtico_tqq">腾讯微博</span></a><a href="javascript:;" onclick="jiathis_sendto('weixin');return false;" class="jiatitle"><span class="jtico jtico_weixin">微信</span></a><a href="javascript:;" onclick="jiathis_sendto('renren');return false;" class="jiatitle"><span class="jtico jtico_renren">人人网</span></a><a href="javascript:;" onclick="jiathis_sendto('yixin');return false;" class="jiatitle"><span class="jtico jtico_yixin">易信</span></a><a href="javascript:;" onclick="jiathis_sendto('t163');return false;" class="jiatitle"><span class="jtico jtico_t163">网易微博</span></a><a href="javascript:;" onclick="jiathis_sendto('tsohu');return false;" class="jiatitle"><span class="jtico jtico_tsohu">搜狐微博</span></a><a href="javascript:;" onclick="jiathis_sendto('cqq');return false;" class="jiatitle"><span class="jtico jtico_cqq">QQ好友</span></a><a href="javascript:;" onclick="jiathis_sendto('kaixin001');return false;" class="jiatitle"><span class="jtico jtico_kaixin001">开心网</span></a><a href="javascript:;" onclick="jiathis_sendto('feixin');return false;" class="jiatitle"><span class="jtico jtico_feixin">飞信</span></a><a href="javascript:;" onclick="jiathis_sendto('douban');return false;" class="jiatitle"><span class="jtico jtico_douban">豆瓣</span></a><a href="javascript:;" onclick="jiathis_sendto('ishare');return false;" class="jiatitle"><span class="jtico jtico_ishare">一键分享</span></a><a href="javascript:;" onclick="$CKE.center(this);return false;" class="jiatitle"><span class="jtico jtico_jiathis">查看更多(122)</span></a><div style="clear:both"></div></div><div class="ckepopBottom" style="width:100%;"><div style="float:left;font-size:10px"><a href="http://www.jiathis.com/help/html/what-is-jiathis" class="link_01" style="color:#333333;" target="_blank">这是什么工具?</a></div><div style="float:right;font-size:11px;margin:0 5px 0 0;"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/img_012.gif" border="0" align="absmiddle"><a href="http://www.jiathis.com/index2" style="color:#333333;padding:0 3px;" class="link_01" target="_blank">JiaThis</a></div><div style="clear:both"></div></div></div></div></td></tr></tbody></table></div><iframe style="position: fixed; display: none;" frameborder="0"></iframe><div style="height: auto; position: absolute; z-index: 100000000; display: none; top: 50%; left: 50%; overflow: auto;" class="jiathis_style"><div style="border:10px solid #7F7F7F; width:300px;"><div class="jiadiv_01" style="width:300px;"><div style="background:#F2F2F2;line-height:100%;height:30px;overflow:hidden;width:300px;"><table style="margin:5px 0 0 0;" width="100%"><tbody><tr class="jt_sharetitle" style="line-height:20px!important;"><td style="text-align:left;font-size:12px;" align="left">分享到各大网站</td><td align="right"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/img_exit.gif" style="margin:0 4px;cursor:pointer;" onclick="$CKE.centerClose();" border="0"></td></tr></tbody></table></div><div class="searchTxtCont"><div style="background:url(http://v3.jiathis.com/code/images/img_so.gif) no-repeat center;height:30px; width:281px"><form onsubmit="return false;"><input class="searchTxt" name="" onclick="this.value='';this.style.color='#000';" value="输入网站名或拼音缩写" onkeyup="$CKE.choose(this);" type="text"></form></div></div><div id="jiathis_sharelist" class="jiadiv_02" style="width:300px;height:300px;overflow-y:auto;"><a href="javascript:;" onclick="jiathis_sendto('ishare');return false;" class="jiatitle"><span class="jtico jtico_ishare">一键分享</span><input value="ishare,一键分享,yjfx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('ujian');return false;" class="jiatitle"><span class="jtico jtico_ujian">猜你喜欢</span><input value="ujian,猜你喜欢,cnxh" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('copy');return false;" class="jiatitle"><span class="jtico jtico_copy">复制网址</span><input value="copy,复制网址,fzwz" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('fav');return false;" class="jiatitle"><span class="jtico jtico_fav">收藏夹</span><input value="fav,收藏夹,scj" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('print');return false;" class="jiatitle"><span class="jtico jtico_print">打印</span><input value="print,打印,dy" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('email');return false;" class="jiatitle"><span class="jtico jtico_email">邮件</span><input value="email,邮件,yj" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('qzone');return false;" class="jiatitle"><span class="jtico jtico_qzone">QQ空间</span><input value="qzone,QQ空间,qqkj" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tsina');return false;" class="jiatitle"><span class="jtico jtico_tsina">新浪微博</span><input value="tsina,新浪微博,xlwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('weixin');return false;" class="jiatitle"><span class="jtico jtico_weixin">微信</span><input value="weixin,微信,wx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tqq');return false;" class="jiatitle"><span class="jtico jtico_tqq">腾讯微博</span><input value="tqq,腾讯微博,txwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tsohu');return false;" class="jiatitle"><span class="jtico jtico_tsohu">搜狐微博</span><input value="tsohu,搜狐微博,shwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('t163');return false;" class="jiatitle"><span class="jtico jtico_t163">网易微博</span><input value="t163,网易微博,wywb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('renren');return false;" class="jiatitle"><span class="jtico jtico_renren">人人网</span><input value="renren,人人网,rrw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('kaixin001');return false;" class="jiatitle"><span class="jtico jtico_kaixin001">开心网</span><input value="kaixin001,开心网,kxw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('googleplus');return false;" class="jiatitle"><span class="jtico jtico_googleplus">Google+</span><input value="googleplus,Google+,googlej" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('yixin');return false;" class="jiatitle"><span class="jtico jtico_yixin">易信</span><input value="yixin,易信,yx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('alibaba');return false;" class="jiatitle"><span class="jtico jtico_alibaba">阿里巴巴</span><input value="alibaba,阿里巴巴,albb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('douban');return false;" class="jiatitle"><span class="jtico jtico_douban">豆瓣</span><input value="douban,豆瓣,db" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('xiaoyou');return false;" class="jiatitle"><span class="jtico jtico_xiaoyou">朋友网</span><input value="xiaoyou,朋友网,pyw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('sdonote');return false;" class="jiatitle"><span class="jtico jtico_sdonote">麦库记事</span><input value="sdonote,麦库记事,mkjs" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('baidu');return false;" class="jiatitle"><span class="jtico jtico_baidu">百度搜藏</span><input value="baidu,百度搜藏,bdsc" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('taobao');return false;" class="jiatitle"><span class="jtico jtico_taobao">淘江湖</span><input value="taobao,淘江湖,tjh" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('ydnote');return false;" class="jiatitle"><span class="jtico jtico_ydnote">有道云笔记</span><input value="ydnote,有道云笔记,ydybj" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('189share');return false;" class="jiatitle"><span class="jtico jtico_189share">手机快传</span><input value="189share,手机快传,sjkc" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tianya');return false;" class="jiatitle"><span class="jtico jtico_tianya">天涯社区</span><input value="tianya,天涯社区,tysq" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('feixin');return false;" class="jiatitle"><span class="jtico jtico_feixin">飞信</span><input value="feixin,飞信,fx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tieba');return false;" class="jiatitle"><span class="jtico jtico_tieba">百度贴吧</span><input value="tieba,百度贴吧,bdtb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('qingbiji');return false;" class="jiatitle"><span class="jtico jtico_qingbiji">轻笔记</span><input value="qingbiji,轻笔记,qbj" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tifeng');return false;" class="jiatitle"><span class="jtico jtico_tifeng">凤凰微博</span><input value="tifeng,凤凰微博,fhwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('youshi');return false;" class="jiatitle"><span class="jtico jtico_youshi">优士网</span><input value="youshi,优士网,ysw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('fanfou');return false;" class="jiatitle"><span class="jtico jtico_fanfou">饭否</span><input value="fanfou,饭否,ff" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('diandian');return false;" class="jiatitle"><span class="jtico jtico_diandian">点点网</span><input value="diandian,点点网,ddw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('mingdao');return false;" class="jiatitle"><span class="jtico jtico_mingdao">明道</span><input value="mingdao,明道,md" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('zsvs');return false;" class="jiatitle"><span class="jtico jtico_zsvs">中搜v商</span><input value="zsvs,中搜v商,zsvs" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('google');return false;" class="jiatitle"><span class="jtico jtico_google">谷歌</span><input value="google,谷歌,gg" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('buzz');return false;" class="jiatitle"><span class="jtico jtico_buzz">谷歌Buzz</span><input value="buzz,谷歌Buzz,ggbuzz" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('youdao');return false;" class="jiatitle"><span class="jtico jtico_youdao">有道书签</span><input value="youdao,有道书签,ydsq" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('cqq');return false;" class="jiatitle"><span class="jtico jtico_cqq">QQ好友</span><input value="cqq,QQ好友,cqq" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('qq');return false;" class="jiatitle"><span class="jtico jtico_qq">QQ书签</span><input value="qq,QQ书签,qqsq" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('msn');return false;" class="jiatitle"><span class="jtico jtico_msn">MSN</span><input value="msn,MSN,msn" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('pinterest');return false;" class="jiatitle"><span class="jtico jtico_pinterest">Pinterest</span><input value="pinterest,Pinterest,pinterest" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('huaban');return false;" class="jiatitle"><span class="jtico jtico_huaban">花瓣网</span><input value="huaban,花瓣网,hbw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('duitang');return false;" class="jiatitle"><span class="jtico jtico_duitang">堆糖</span><input value="duitang,堆糖,dt" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tyaolan');return false;" class="jiatitle"><span class="jtico jtico_tyaolan">摇篮微博</span><input value="tyaolan,摇篮微博,ylwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('115');return false;" class="jiatitle"><span class="jtico jtico_115">115收藏</span><input value="115,115收藏,115sc" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('hi');return false;" class="jiatitle"><span class="jtico jtico_hi">百度空间</span><input value="hi,百度空间,bdkj" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('gmail');return false;" class="jiatitle"><span class="jtico jtico_gmail">Gmail邮箱</span><input value="gmail,Gmail邮箱,gmailyx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('hotmail');return false;" class="jiatitle"><span class="jtico jtico_hotmail">Hotmail邮箱</span><input value="hotmail,Hotmail邮箱,hotmailyx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('xqw');return false;" class="jiatitle"><span class="jtico jtico_xqw">雪球</span><input value="xqw,雪球,xqw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('hexun');return false;" class="jiatitle"><span class="jtico jtico_hexun">和讯</span><input value="hexun,和讯,hx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('toeeee');return false;" class="jiatitle"><span class="jtico jtico_toeeee">南方微博</span><input value="toeeee,南方微博,nfwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('139mail');return false;" class="jiatitle"><span class="jtico jtico_139mail">139邮箱</span><input value="139mail,139邮箱,139yx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('189mail');return false;" class="jiatitle"><span class="jtico jtico_189mail">189邮箱</span><input value="189mail,189邮箱,189yx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('i139');return false;" class="jiatitle"><span class="jtico jtico_i139">爱分享</span><input value="i139,爱分享,afx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('iwo');return false;" class="jiatitle"><span class="jtico jtico_iwo">WO+分享</span><input value="iwo,WO+分享,iwo" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('189cn');return false;" class="jiatitle"><span class="jtico jtico_189cn">翼友圈</span><input value="189cn,翼友圈,yyq" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('139');return false;" class="jiatitle"><span class="jtico jtico_139">移动微博</span><input value="139,移动微博,ydwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tpeople');return false;" class="jiatitle"><span class="jtico jtico_tpeople">人民微博</span><input value="tpeople,人民微博,rmwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('cnfol');return false;" class="jiatitle"><span class="jtico jtico_cnfol">中金微博</span><input value="cnfol,中金微博,zjwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('txinhua');return false;" class="jiatitle"><span class="jtico jtico_txinhua">新华微博</span><input value="txinhua,新华微博,xhwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('caimi');return false;" class="jiatitle"><span class="jtico jtico_caimi">财迷</span><input value="caimi,财迷,cm" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('translate');return false;" class="jiatitle"><span class="jtico jtico_translate">谷歌翻译</span><input value="translate,谷歌翻译,ggfy" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tuita');return false;" class="jiatitle"><span class="jtico jtico_tuita">推他</span><input value="tuita,推他,tt" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('mop');return false;" class="jiatitle"><span class="jtico jtico_mop">猫扑推客</span><input value="mop,猫扑推客,mptk" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('digu');return false;" class="jiatitle"><span class="jtico jtico_digu">嘀咕网</span><input value="digu,嘀咕网,dgw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('xianguo');return false;" class="jiatitle"><span class="jtico jtico_xianguo">鲜果</span><input value="xianguo,鲜果,xg" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('faxianla');return false;" class="jiatitle"><span class="jtico jtico_faxianla">发现啦</span><input value="faxianla,发现啦,fxl" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('ganniu');return false;" class="jiatitle"><span class="jtico jtico_ganniu">赶牛网</span><input value="ganniu,赶牛网,gnw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('miliao');return false;" class="jiatitle"><span class="jtico jtico_miliao">米聊</span><input value="miliao,米聊,ml" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('kansohu');return false;" class="jiatitle"><span class="jtico jtico_kansohu">搜狐随身看</span><input value="kansohu,搜狐随身看,shssk" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('51');return false;" class="jiatitle"><span class="jtico jtico_51">51社区</span><input value="51,51社区,51sq" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('ifengkb');return false;" class="jiatitle"><span class="jtico jtico_ifengkb">凤凰快博</span><input value="ifengkb,凤凰快博,fhkb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('jcrb');return false;" class="jiatitle"><span class="jtico jtico_jcrb">法律微博</span><input value="jcrb,法律微博,flwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('gmw');return false;" class="jiatitle"><span class="jtico jtico_gmw">光明网</span><input value="gmw,光明网,gmw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('leihou');return false;" class="jiatitle"><span class="jtico jtico_leihou">雷猴网</span><input value="leihou,雷猴网,lhw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('thexun');return false;" class="jiatitle"><span class="jtico jtico_thexun">和讯微博</span><input value="thexun,和讯微博,hxwb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('dream163');return false;" class="jiatitle"><span class="jtico jtico_dream163">游戏江湖</span><input value="dream163,游戏江湖,yxjh" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('masar');return false;" class="jiatitle"><span class="jtico jtico_masar">玛撒网</span><input value="masar,玛撒网,msw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('binzhi');return false;" class="jiatitle"><span class="jtico jtico_binzhi">宾至网</span><input value="binzhi,宾至网,bzw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('fb');return false;" class="jiatitle"><span class="jtico jtico_fb">Facebook</span><input value="fb,Facebook,facebook" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('twitter');return false;" class="jiatitle"><span class="jtico jtico_twitter">Twitter</span><input value="twitter,Twitter,twitter" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tumblr');return false;" class="jiatitle"><span class="jtico jtico_tumblr">Tumblr</span><input value="tumblr,Tumblr,tumblr" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('reddit');return false;" class="jiatitle"><span class="jtico jtico_reddit">Reddit</span><input value="reddit,Reddit,reddit" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('instapaper');return false;" class="jiatitle"><span class="jtico jtico_instapaper">Instapaper</span><input value="instapaper,Instapaper,instapaper" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('pocket');return false;" class="jiatitle"><span class="jtico jtico_pocket">Pocket</span><input value="pocket,Pocket,pocket" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('wealink');return false;" class="jiatitle"><span class="jtico jtico_wealink">若邻网</span><input value="wealink,若邻网,rlw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('leshou');return false;" class="jiatitle"><span class="jtico jtico_leshou">乐收</span><input value="leshou,乐收,ls" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('waakee');return false;" class="jiatitle"><span class="jtico jtico_waakee">挖客网</span><input value="waakee,挖客网,wkw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('cyzone');return false;" class="jiatitle"><span class="jtico jtico_cyzone">创业邦</span><input value="cyzone,创业邦,cyb" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('99earth');return false;" class="jiatitle"><span class="jtico jtico_99earth">救救地球</span><input value="99earth,救救地球,jjdq" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('chouti');return false;" class="jiatitle"><span class="jtico jtico_chouti">抽屉网</span><input value="chouti,抽屉网,ctw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('dig24');return false;" class="jiatitle"><span class="jtico jtico_dig24">递客网</span><input value="dig24,递客网,dkw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('douban9dian');return false;" class="jiatitle"><span class="jtico jtico_douban9dian">豆瓣9点</span><input value="douban9dian,豆瓣9点,db9d" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('meilishuo');return false;" class="jiatitle"><span class="jtico jtico_meilishuo">美丽说</span><input value="meilishuo,美丽说,mls" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('mogujie');return false;" class="jiatitle"><span class="jtico jtico_mogujie">蘑菇街</span><input value="mogujie,蘑菇街,mgj" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('tianji');return false;" class="jiatitle"><span class="jtico jtico_tianji">天际网</span><input value="tianji,天际网,tjw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('poco');return false;" class="jiatitle"><span class="jtico jtico_poco">Poco网</span><input value="poco,Poco网,pocow" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('yijee');return false;" class="jiatitle"><span class="jtico jtico_yijee">易集网</span><input value="yijee,易集网,yjw" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('pdfonline');return false;" class="jiatitle"><span class="jtico jtico_pdfonline">Pdf在线转换</span><input value="pdfonline,Pdf在线转换,pdfzxzh" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('printfriendly');return false;" class="jiatitle"><span class="jtico jtico_printfriendly">友好打印</span><input value="printfriendly,友好打印,yhdy" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('w3c');return false;" class="jiatitle"><span class="jtico jtico_w3c">W3c验证</span><input value="w3c,W3c验证,w3cyz" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('bitly');return false;" class="jiatitle"><span class="jtico jtico_bitly">Bit.ly</span><input value="bitly,Bit.ly,bitly" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('digg');return false;" class="jiatitle"><span class="jtico jtico_digg">Digg</span><input value="digg,Digg,digg" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('mailru');return false;" class="jiatitle"><span class="jtico jtico_mailru">Mail.ru</span><input value="mailru,Mail.ru,mail.ru" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('diigo');return false;" class="jiatitle"><span class="jtico jtico_diigo">Diigo</span><input value="diigo,Diigo,diigo" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('evernote');return false;" class="jiatitle"><span class="jtico jtico_evernote">EverNote</span><input value="evernote,EverNote,evernote" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('friendfeed');return false;" class="jiatitle"><span class="jtico jtico_friendfeed">FriendFeed</span><input value="friendfeed,FriendFeed,friendfeed" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('myspace');return false;" class="jiatitle"><span class="jtico jtico_myspace">Myspace</span><input value="myspace,Myspace,myspace" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('linkedin');return false;" class="jiatitle"><span class="jtico jtico_linkedin">LinkedIn</span><input value="linkedin,LinkedIn,linkedin" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('mixx');return false;" class="jiatitle"><span class="jtico jtico_mixx">Mixx</span><input value="mixx,Mixx,mixx" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('netlog');return false;" class="jiatitle"><span class="jtico jtico_netlog">NetLog</span><input value="netlog,NetLog,netlog" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('netvibes');return false;" class="jiatitle"><span class="jtico jtico_netvibes">Netvibes</span><input value="netvibes,Netvibes,netvibes" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('phonefavs');return false;" class="jiatitle"><span class="jtico jtico_phonefavs">Phonefavs</span><input value="phonefavs,Phonefavs,phonefavs" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('pingfm');return false;" class="jiatitle"><span class="jtico jtico_pingfm">Ping.fm</span><input value="pingfm,Ping.fm,ping.fm" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('plaxo');return false;" class="jiatitle"><span class="jtico jtico_plaxo">Plaxo</span><input value="plaxo,Plaxo,plaxo" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('delicious');return false;" class="jiatitle"><span class="jtico jtico_delicious">Delicious</span><input value="delicious,Delicious,delicious" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('wong');return false;" class="jiatitle"><span class="jtico jtico_wong">Mister Wong</span><input value="wong,Mister Wong,misterwong" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('stumbleupon');return false;" class="jiatitle"><span class="jtico jtico_stumbleupon">Stumbleupon</span><input value="stumbleupon,Stumbleupon,stumbleupon" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('plurk');return false;" class="jiatitle"><span class="jtico jtico_plurk">Plurk</span><input value="plurk,Plurk,plurk" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('funp');return false;" class="jiatitle"><span class="jtico jtico_funp">Funp</span><input value="funp,Funp,funp" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('myshare');return false;" class="jiatitle"><span class="jtico jtico_myshare">Myshare</span><input value="myshare,Myshare,myshare" type="hidden"></a><a href="javascript:;" onclick="jiathis_sendto('fwisp');return false;" class="jiatitle"><span class="jtico jtico_fwisp">Fwisp</span><input value="fwisp,Fwisp,fwisp" type="hidden"></a><div style="clear:both"></div></div><div class="centerBottom"><div style="float:left;font-size:10px;"><a href="http://www.jiathis.com/help/html/what-is-jiathis" class="link_01" style="color:#333333;" target="_blank">这是什么工具?</a></div><div style="float:right;font-size:11px;margin:0 10px 0 0;"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/img_012.gif" border="none" align="absmiddle">&nbsp;<a href="http://www.jiathis.com/index2" style="color:#333333;" class="link_01" target="_blank">JiaThis</a></div><div style="clear:both"></div></div></div></div></div><iframe src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/jiathis_utility.htm" style="display: none;" frameborder="0"></iframe>
+<a name="top"></a>
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="http://www.cnblogs.com/rayray/"><img id="blogLogo" src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/logo.gif" alt="返回主页"></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/rayray/">Rex——iOS Android Arduino 移动互联网</a></h1>
+<h2>iOS Android Arduino 产品 创业 创客 移动互联网</h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li></li>
+<li><a id="MyLinks1_MyHomeLink" class="menu" href="http://www.cnblogs.com/rayray/">首页</a></li>
+<li><a id="MyLinks1_NewPostLink" class="menu" rel="nofollow" href="http://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li></li>
+<li><a id="MyLinks1_Syndication" class="menu" href="http://www.cnblogs.com/rayray/rss">订阅</a>
+<!--<a id="MyLinks1_XMLLink" class="aHeaderXML" href="http://www.cnblogs.com/rayray/rss"><img src="http://www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="MyLinks1_Admin" class="menu" rel="nofollow" href="http://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			
+<!--done-->
+随笔- 139&nbsp;
+文章- 1&nbsp;
+评论- 408&nbsp;
+
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+<div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class="post">
+		<h1 class="postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/rayray/p/3421028.html">【Android】jar包Proguard混淆方法</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body"><p>本文章的前提条件是，读者已经掌握了正确导出jar包的技能。</p>
+<p>1、拷贝Android项目中“proguard.cfg”文件到你指定的位置，并改名为“proguard.pro”，此步是为proguardgui应用做前期的配置。</p>
+<p>&nbsp;</p>
+<p>2、在android开发sdk相应的目录下找到proguardgui启动入口，mac os上的路径如下</p>
+<p>“/Users/jayhomzhou/IDE/Android/adt-bundle-mac/sdk/tools/proguard/bin”</p>
+<p>通过"终端"启动proguardgui</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13111950-5bbfcf5d20fc4bf99ccd199406ad8f23.png" alt=""></p>
+<p>3、加载“1”中的"proguard.pro"配置文件</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13112006-bb34e51c771c4f7599dce221df1e10fd.png" alt=""></p>
+<p>4、配置需要混淆的jar包，需要注意的是上部分是可以把多个jar包混淆输出成一个jar包，下半部分为混淆时所需的依赖jar包。</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13112014-02a89555ab404902961359c984b2802b.png" alt=""></p>
+<p>5、配置那些内容在混淆时忽略的，这里我选择了“Library”和“Enumeration”。</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13112028-81ce3376e1964af29ae5113ad68ec7ed.png" alt=""></p>
+<p>6、需要特别注意红框的选项，勾选后混淆出来的jar包有时导致在主项目中使用时报错：“<a href="http://mingkg21.iteye.com/blog/1182755">conversion to dalvik format failedwith error 1</a>”。</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13112114-e0ce99cfd1e446b5a73d5e551e072f28.png" alt=""></p>
+<p>7、Optimization界面</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13112124-9ec68c62b26c41bb8f5aea4e981de6df.png" alt=""></p>
+<p>8、红框1，正确选择target下拉框对应的jdk版本，否则可能出现异常错误。红框2，编译时如果遇到未找到定义的警告，那么在这里添加需要忽略的内容，详细看后面的步骤。</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13112147-b1476e863a384cfea22622716da36689.png" alt=""></p>
+<p>9、点击红框的按钮后，界面出现对上面一系列配置进行的汇总，此时最好进行保存（红框版本的按钮）。保存后的文件为.pro后缀，可以使用编辑软件
+进行对其作修改（必须按照proguard规范进行），再按照上述步骤进行重新加载。到这里一起工作已经就绪，那么点击“Process”开始混淆吧！
+（遇到警告或错误停止混淆，请使用“-dontwarn”进行屏蔽处理）。祝你好运，一切顺利，哈哈。</p>
+<p>&nbsp;<img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/13112203-7709b722052a40baa57d26d97ea6520c.png" alt=""></p>
+<p>&nbsp;</p>
+<p><span>文章转载，版权归原作者所有，尊重版权，支持原创</span></p>
+<p>&nbsp;</p></div><div style="display: block;" id="MySignature">专注移动互联网产品设计研发  分享最新的移动互联网产品和技术</div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory">分类: <a href="http://www.cnblogs.com/rayray/category/449433.html">01 Android</a></div>
+<div id="EntryTag">标签: <a href="http://www.cnblogs.com/rayray/tag/Android/">Android</a>, <a href="http://www.cnblogs.com/rayray/tag/jar%E5%8C%85/">jar包</a>, <a href="http://www.cnblogs.com/rayray/tag/Proguard/">Proguard</a>, <a href="http://www.cnblogs.com/rayray/tag/%E6%B7%B7%E6%B7%86/">混淆</a></div>
+<div id="blog_post_info"><div id="green_channel">
+绿色通道：
+<a href="javascript:void(0);" id="green_channel_digg" onclick="DiggIt(3421028,cb_blogId,1);green_channel_success(this,'谢谢推荐！');">好文要顶</a>
+<a id="green_channel_follow" onclick="c_follow();" href="javascript:void(0);">关注我</a>
+<a id="green_channel_favorite" onclick="AddToWz(cb_entryId);return false;" href="javascript:void(0);">收藏该文</a><a id="green_channel_contact" href="http://msg.cnblogs.com/send/Rex.." target="_blank">与我联系</a>
+<a id="green_channel_weibo" href="javascript:void(0);" title="分享至新浪微博" onclick="ShareToTsina()"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/icon_weibo_24.png" alt=""></a>
+</div>
+<div id="author_profile">
+<div id="author_profile_info" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/rayray/" target="_blank"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/20130228142033.jpe" class="author_avatar" alt=""></a>
+<div id="author_profile_detail" class="author_profile_info">
+<a href="http://home.cnblogs.com/u/rayray/">Rex..</a><br>
+<a href="http://home.cnblogs.com/u/rayray/followees">关注 - 91</a><br>
+<a href="http://home.cnblogs.com/u/rayray/followers">粉丝 - 109</a>
+</div>
+</div>
+<div class="clear"></div>
+<div id="author_profile_honor"></div>
+<div id="author_profile_follow">
+    <a href="javascript:void(0);" onclick="c_follow();return false;">+加关注</a>
+</div>
+</div>
+<div id="div_digg">										
+    <div class="diggit" onclick="votePost(3421028,'Digg')">
+        <span class="diggnum" id="digg_count">3</span>
+    </div>
+	<div class="buryit" onclick="votePost(3421028,'Bury')"> 
+		<span class="burynum" id="bury_count">0</span>
+	</div>
+	<div class="clear"></div>	
+	<div class="diggword" id="digg_tips">
+    (请您对文章做出评价)
+    </div>	
+</div>
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"><a href="http://www.cnblogs.com/rayray/p/3413688.html" class="p_n_p_prefix">« </a> 上一篇：<a href="http://www.cnblogs.com/rayray/p/3413688.html" title="发布于2013-11-13 09:05">【Android】LMK 工作机制</a><br><a href="http://www.cnblogs.com/rayray/p/3413697.html" class="p_n_p_prefix">» </a> 下一篇：<a href="http://www.cnblogs.com/rayray/p/3413697.html" title="发布于2013-11-13 12:41">【Android】性能优化的一些方法</a><br></div>
+</div>
+
+
+		</div>
+		<div class="postDesc">posted @ <span id="post-date">2013-11-13 11:24</span> <a href="http://www.cnblogs.com/rayray/">Rex..</a> 阅读(<span id="post_view_count">6646</span>) 评论(<span id="post_comment_count">1</span>)  <a href="http://i.cnblogs.com/EditPosts.aspx?postid=3421028" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(3421028);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,isLogined=false,cb_blogId=64464,cb_entryId=3421028,cb_blogApp=currentBlogApp,cb_blogUserGuid='82b236ce-d3a8-de11-ba8f-001cf0cd104b',cb_entryCreatedDate='2013/11/13 11:24:00';loadViewCount(cb_entryId);</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"><div id="comments_pager_top"></div>
+<br>
+<div class="feedback_area_title">评论列表</div>
+<div class="feedbackNoItems"></div>	
+
+		<div class="feedbackItem">
+			<div class="feedbackListSubtitle">
+				<div class="feedbackManage">
+					&nbsp;&nbsp;<span class="comment_actions"></span>
+				</div>
+				<a href="#2891242" class="layer">#1楼</a><a name="2891242" id="comment_anchor_2891242"></a><span id="comment-maxId" style="display:none;">2891242</span><span id="comment-maxDate" style="display:none;">2014/3/9 12:57:20</span>  <span class="comment_date">2014-03-09 12:57</span> <a id="a_comment_author_2891242" href="http://www.cnblogs.com/qicaitian/" target="_blank">七彩天空</a> <a href="http://msg.cnblogs.com/send/%E4%B8%83%E5%BD%A9%E5%A4%A9%E7%A9%BA" title="发送站内短消息" class="sendMsg2This">&nbsp;</a>
+			</div>
+			<div class="feedbackCon">
+				<div id="comment_body_2891242" class="blog_comment_body">刚看了篇混淆的文章，可以去了解下<br>android发布打包常见问题及解决方法-android proguard<br><a href="http://www.yee4.com/android-release-package-for-common-problems-and-solving-methods-of-android-proguard/" target="_blank">http://www.yee4.com/android-release-package-for-common-problems-and-solving-methods-of-android-proguard/</a></div><div class="comment_vote"><a href="javascript:void(0);" class="comment_digg" onclick="return voteComment(2891242,'Digg',this)">支持(0)</a><a href="javascript:void(0);" class="comment_bury" onclick="return voteComment(2891242,'Bury',this)">反对(0)</a></div>
+			</div>
+		</div>
+	<div id="comments_pager_bottom"></div></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id="comment_form" class="commentform">
+<a name="commentform"></a>
+<div id="divCommentShow"></div>
+<div id="comment_nav"><span id="span_refresh_tips"></span><a href="javascript:void(0);" id="lnk_RefreshComments" onclick="return RefreshCommentList();">刷新评论</a><a href="#" onclick="return RefreshPage();">刷新页面</a><a href="#top">返回顶部</a></div>
+<div id="comment_form_container"><div class="login_tips">注册用户登录后才能发表评论，请 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return login('commentform');">登录</a> 或 <a rel="nofollow" href="javascript:void(0);" class="underline" onclick="return register();">注册</a>，<a href="http://www.cnblogs.com/">访问</a>网站首页。</div></div>
+<div class="ad_text_commentbox" id="ad_text_under_commentbox"></div>
+<div id="site_nav_under"><a href="http://www.cnblogs.com/" target="_blank" title="开发者的网上家园">博客园首页</a><a href="http://q.cnblogs.com/" target="_blank" title="程序员问答社区">博问</a><a href="http://news.cnblogs.com/" target="_blank" title="IT新闻">新闻</a><a href="http://home.cnblogs.com/ing/" target="_blank">闪存</a><a href="http://job.cnblogs.com/" target="_blank">程序员招聘</a><a href="http://kb.cnblogs.com/" target="_blank">知识库</a></div>
+<div id="opt_under_post"></div>
+<script type="text/javascript">
+    var enableGoogleAd = canShowAdsense(); 
+    fixPostBodyFormat();
+</script>
+<div id="google_ad_c1" class="c_ad_block"></div>
+<div id="under_post_news"><div class="itnews c_ad_block"><b>最新IT新闻</b>:<br> ·  <a href="http://news.cnblogs.com/n/528548/" target="_blank">老外办了个很火的网站 专门介绍中国智能手机</a><br> ·  <a href="http://news.cnblogs.com/n/528547/" target="_blank">三星布局智能家居大计划曝光</a><br> ·  <a href="http://news.cnblogs.com/n/528546/" target="_blank">苹果在硅谷外建设全球第二大运营中心</a><br> ·  <a href="http://news.cnblogs.com/n/528545/" target="_blank">小米林斌回应红米换屏风波</a><br> ·  <a href="http://news.cnblogs.com/n/528544/" target="_blank">产品十宗罪（冷静反思篇）</a><br>» <a href="http://news.cnblogs.com/" title="IT新闻" target="_blank">更多新闻...</a></div></div>
+<div id="google_ad_c2" class="c_ad_block"></div>
+<div id="under_post_kb"><div class="itnews c_ad_block" id="kb_block"><b>最新知识库文章</b>:<br><div id="kb_recent"> ·  <a href="http://kb.cnblogs.com/page/519485/" target="_blank">软件设计杂谈</a><br> ·  <a href="http://kb.cnblogs.com/page/527253/" target="_blank">打破定式，突破屏障，走出自己的创意舒适区</a><br> ·  <a href="http://kb.cnblogs.com/page/527139/" target="_blank">关于软件开发，你老板不知道的7件事</a><br> ·  <a href="http://kb.cnblogs.com/page/526769/" target="_blank">关于烂代码的那些事（中）</a><br> ·  <a href="http://kb.cnblogs.com/page/526768/" target="_blank">关于烂代码的那些事（上）</a><br></div>» <a href="http://kb.cnblogs.com/" target="_blank">更多知识库文章...</a></div></div>
+<div id="HistoryToday" class="c_ad_block"></div>
+<script type="text/javascript">
+$(function () {
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 200);
+});
+</script>
+</div>
+
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"><p><a href="http://www.youwanjie.com/" target="_blank"><strong style="font-size: 14pt;">游玩街-互联网新农业</strong></a></p>
+<p><a href="http://www.muzhilianmeng.com/" target="_blank"><strong style="font-size: 14pt;">拇指联盟</strong></a></p>
+<p><a href="http://s.click.taobao.com/t?e=m%3D2%26s%3DNhBvoDj%2FLAUcQipKwQzePCperVdZeJviEViQ0P1Vf2kguMN8XjClAqdtaqy7xPSZE%2F5hz9fMNJ%2BO1cXGIqLSM22DF7LDVAwDt4yUpWwC4pxKuAHhhUnuTedn1BbglxZYxUhy8exlzcq9AmARIwX9K%2BnbtOD3UdznPV1H2z0iQv9NkKVMHClW0QbMqOpFMIvnvjQXzzpXdTHGJe8N%2FwNpGw%3D%3D" target="_blank"><strong style="font-size: 18pt;">阿里云服务器</strong></a></p>
+
+<p><a href="http://space.cnblogs.com/group/arduino" target="_blank">
+<strong style="font-size: 12pt;">点击进入Arduino小组 </strong></a>
+</p>
+<p><a href="http://jifen.2345.com/?i7565415" target="_blank">
+<strong style="font-size: 18pt;">码农赚钱神器</strong></a></p>
+<!--QQ在线-->
+
+<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=531315403&amp;site=qq&amp;menu=yes"><img src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/pa.gif" alt="点击这里给我发消息" title="点击这里给我发消息" border="0"></a>
+
+
+
+
+
+<!-- JiaThis Button BEGIN -->
+
+
+<!-- JiaThis Button END --><div id="profile_block">昵称：<a href="http://home.cnblogs.com/u/rayray/">Rex..</a><br>园龄：<a href="http://home.cnblogs.com/u/rayray/" title="入园时间：2009-09-24">5年11个月</a><br>粉丝：<a href="http://home.cnblogs.com/u/rayray/followers/">109</a><br>关注：<a href="http://home.cnblogs.com/u/rayray/followees/">91</a><div id="p_b_follow"><a href="javascript:void(0);" onclick="cnblogs.UserManager.FollowBlogger('82b236ce-d3a8-de11-ba8f-001cf0cd104b')">+加关注</a></div></div></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style=""><table id="blogCalendar" class="Cal" title="日历" cellpadding="0" cellspacing="0">
+	<tbody><tr><td colspan="7"><table class="CalTitle" cellspacing="0">
+		<tbody><tr><td class="CalNextPrev"><a href="javascript:void(0);" onclick="loadBlogCalendar('2015/08/01');return false;">&lt;</a></td><td align="center">2015年9月</td><td class="CalNextPrev" align="right"><a href="javascript:void(0);" onclick="loadBlogCalendar('2015/10/01');return false;">&gt;</a></td></tr>
+	</tbody></table></td></tr><tr><th class="CalDayHeader" abbr="日" scope="col" align="center">日</th><th class="CalDayHeader" abbr="一" scope="col" align="center">一</th><th class="CalDayHeader" abbr="二" scope="col" align="center">二</th><th class="CalDayHeader" abbr="三" scope="col" align="center">三</th><th class="CalDayHeader" abbr="四" scope="col" align="center">四</th><th class="CalDayHeader" abbr="五" scope="col" align="center">五</th><th class="CalDayHeader" abbr="六" scope="col" align="center">六</th></tr><tr><td class="CalOtherMonthDay" align="center">30</td><td class="CalOtherMonthDay" align="center">31</td><td align="center">1</td><td align="center">2</td><td align="center">3</td><td align="center">4</td><td class="CalWeekendDay" align="center">5</td></tr><tr><td class="CalWeekendDay" align="center">6</td><td class="CalTodayDay" align="center">7</td><td align="center">8</td><td align="center">9</td><td align="center">10</td><td align="center">11</td><td class="CalWeekendDay" align="center">12</td></tr><tr><td class="CalWeekendDay" align="center">13</td><td align="center">14</td><td align="center">15</td><td align="center">16</td><td align="center">17</td><td align="center">18</td><td class="CalWeekendDay" align="center">19</td></tr><tr><td class="CalWeekendDay" align="center">20</td><td align="center">21</td><td align="center">22</td><td align="center">23</td><td align="center">24</td><td align="center">25</td><td class="CalWeekendDay" align="center">26</td></tr><tr><td class="CalWeekendDay" align="center">27</td><td align="center">28</td><td align="center">29</td><td align="center">30</td><td class="CalOtherMonthDay" align="center">1</td><td class="CalOtherMonthDay" align="center">2</td><td class="CalOtherMonthDay" align="center">3</td></tr><tr><td class="CalOtherMonthDay" align="center">4</td><td class="CalOtherMonthDay" align="center">5</td><td class="CalOtherMonthDay" align="center">6</td><td class="CalOtherMonthDay" align="center">7</td><td class="CalOtherMonthDay" align="center">8</td><td class="CalOtherMonthDay" align="center">9</td><td class="CalOtherMonthDay" align="center">10</td></tr>
+</tbody></table></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"><div id="sidebar_search" class="sidebar-block">
+<div id="sidebar_search" class="mySearch">
+<h3 class="catListTitle">搜索</h3>
+<div id="sidebar_search_box">
+<div id="widget_my_zzk" class="div_my_zzk"><input id="q" onkeydown="return zzk_go_enter(event);" class="input_my_zzk" type="text">&nbsp;<input onclick="zzk_go()" value="找找看" id="btnZzk" class="btn_my_zzk" type="button"></div>
+
+</div>
+</div>
+
+</div><div id="sidebar_categories">
+<div id="sidebar_postcategory" class="catListPostCategory sidebar-block">
+<h3 class="catListTitle">随笔分类<span style="font-size:11px;font-weight:normal">(120)</span></h3>
+
+<ul>
+
+<li><a id="CatList_LinkList_0_Link_0" href="http://www.cnblogs.com/rayray/category/449433.html">01 Android(73)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_1" href="http://www.cnblogs.com/rayray/category/595191.html">02 JAVA(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_2" href="http://www.cnblogs.com/rayray/category/457863.html">03 Arduino(14)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_3" href="http://www.cnblogs.com/rayray/category/457850.html">04 边走边写(17)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_4" href="http://www.cnblogs.com/rayray/category/449446.html">05 工具(6)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_5" href="http://www.cnblogs.com/rayray/category/449436.html">06 评测-产品(3)</a> </li>
+
+<li><a id="CatList_LinkList_0_Link_6" href="http://www.cnblogs.com/rayray/category/600957.html">07 IOS(4)</a> </li>
+
+</ul>
+
+</div>
+
+</div><div id="sidebar_scorerank" class="sidebar-block">
+<div class="catListBlogRank">
+<h3 class="catListTitle">积分与排名</h3>
+<ul>
+	<li class="liScore">
+		积分 -	200701
+	</li>
+	<li class="liRank">
+		排名 -	682
+	</li>
+</ul>
+</div>
+
+
+</div><div id="sidebar_recentcomments" class="sidebar-block"><div id="recent_comments_wrap">
+<div class="catListComment">
+<h3 class="catListTitle">最新评论</h3>
+
+	<div id="RecentCommentsBlock"><ul>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/rayray/p/3382087.html#3258539">1. Re:【Android】TypedArray和obtainStyledAttributes使用</a></li>
+    <li class="recent_comment_body">3Q</li>
+    <li class="recent_comment_author">--翼展zjz</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/rayray/p/3413673.html#3249660">2. Re:【Android】Android清除本地数据缓存代码</a></li>
+    <li class="recent_comment_body">问题是如何调用啊，网上都是这答案，光把接口写好了，那个String...的数据是什么啊？</li>
+    <li class="recent_comment_author">--shuxte</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/rayray/archive/2013/03/18/Android_MMS.html#3226569">3. Re:【Android】Android  彩信发送的两种方式+源代码</a></li>
+    <li class="recent_comment_body">能发下源码吗?<br>rlacjf1333@163.com<br>谢谢了 大哥</li>
+    <li class="recent_comment_author">--HeRo小</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/rayray/p/3157601.html#3212981">4. Re:【Arduino】开发入门【十】Arduino蓝牙模块与Android实现通信</a></li>
+    <li class="recent_comment_body">@Yu4rmyfs我也是，com3上什么都没有？这是什么问题呀？...</li>
+    <li class="recent_comment_author">--Ericon</li>
+    <li class="recent_comment_title"><a href="http://www.cnblogs.com/rayray/archive/2013/03/08/2949439.html#3184740">5. Re:【Arduino】开发入门教程【一】什么是Arduino</a></li>
+    <li class="recent_comment_body">给你点赞</li>
+    <li class="recent_comment_author">--rainboy</li>
+</ul>
+</div>
+</div>
+</div></div><div id="sidebar_topviewedposts" class="sidebar-block"><div id="topview_posts_wrap">
+<div class="catListView">
+<h3 class="catListTitle">阅读排行榜</h3>
+	<div id="TopViewPostsBlock"><ul><li><a href="http://www.cnblogs.com/rayray/p/3157601.html">1. 【Arduino】开发入门【十】Arduino蓝牙模块与Android实现通信(30049)</a></li><li><a href="http://www.cnblogs.com/rayray/p/3413673.html">2. 【Android】Android清除本地数据缓存代码(23775)</a></li><li><a href="http://www.cnblogs.com/rayray/archive/2013/03/16/2961528.html">3. 【Arduino】开发入门教程【五】Hello Arduino(14047)</a></li><li><a href="http://www.cnblogs.com/rayray/p/3178403.html">4. 【Android】Android 监听apk安装替换卸载广播(12683)</a></li><li><a href="http://www.cnblogs.com/rayray/archive/2013/03/25/2965474.html">5. 【Android】Android 监听网络状态+源代码(12673)</a></li><li><a href="http://www.cnblogs.com/rayray/archive/2013/03/09/2932043.html">6. 【Android】 ANR异常及traces信息解析(11922)</a></li><li><a href="http://www.cnblogs.com/rayray/archive/2013/04/15/3015172.html">7. 【Arduino】开发入门【八】舵机操作+源代码(11476)</a></li><li><a href="http://www.cnblogs.com/rayray/archive/2013/04/10/2992449.html">8. 【Arduino】开发入门【七】7段显示器实现+源代码(11178)</a></li><li><a href="http://www.cnblogs.com/rayray/archive/2013/03/18/Android_MMS.html">9. 【Android】Android  彩信发送的两种方式+源代码(10890)</a></li><li><a href="http://www.cnblogs.com/rayray/p/3410204.html">10. 【Android】ContentValues的用法(10415)</a></li></ul></div>
+</div>
+</div></div></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright ©2015 Rex..
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+<!--PageEndHtml Block Begin-->
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F5bcd2b6828a1c59c5dc438ec66a1d804' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="Android-jar%E5%8C%85Proguard%E6%B7%B7%E6%B7%86%E6%96%B9%E6%B3%95_files/h.js" type="text/javascript"></script>
+<!--PageEndHtml Block End-->
+
+
+</body></html>

@@ -1,0 +1,17 @@
+[groups]
+fileserver-admin = hanpengcheng,xuchaohuai
+fileserver-dev = hanpengchen,xuchaohuai
+
+# repos 为svn 库名
+[repos:/]
+@fileserver-dev = rw
+@fileserver-admin = rw
+
+[repos:/trunk]
+@fileserver-dev = rw
+@fileserver-admin = rw
+
+
+[repos:/tags]
+@fileserver-admin = rw
+

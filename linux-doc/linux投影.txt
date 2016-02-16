@@ -1,0 +1,109 @@
+linux连接投影机
+ 
+方案一：
+ 
+$xrandr
+ SZ:    Pixels          Physical       Refresh
+*0   1280 x 1024   ( 433mm x 346mm )  *50   54
+1   1024 x 768    ( 346mm x 260mm )   51   60   61
+
+第0条加了*号，说明这是笔记本电脑当前使用的分辨率。如果投影仪的分辨率是1024x768，那么就需要改变笔记本电脑的分辨率。因为在上面的结果中，1024x768对应第1条，所以运行这个命令来改变分辨率：
+ 
+$xrandr -s 1
+这样就切换了分辨率。等待投影仪的搜索吧。
+ 
+首先接上VGA，执行命令(VGA代表显示器，LVDS代表笔记本液晶屏):
+ 
+$ xrandr --output VGA --auto
+ 
+当前桌面会复制到VGA上面，此时执行xrandr会看到有了VGA-0
+ 
+断开VGA-0:
+ 
+$ xrandr --output VGA-0 --auto
+ 
+按照当前的配置扩展桌面:
+ 
+$xrandr --output VGA-0 --auto --left-of LVDS
+ 
+这是需修改xorg.conf，先用不带参数执行xrandr能够列出当前的显示设备和每个设备支持的模式。Screen代表了总显示区域，VGA代表显示器，LVDS代表笔记本液晶屏。
+ 
+Screen 0: minimum 320 x 200, current 1280 x 768, maximum 1280 x 1280 
+VGA connected (normal left inverted right x axis y axis)
+   1280x1024      75.0 +   69.8     59.9  
+   1024x768       75.1     70.1     60.0  
+   800x600        72.2     75.0     60.3  
+   640x480        75.0     72.8     65.4     60.0  
+   720x400        70.1  
+LVDS connected 1024x768+0+0 (normal left inverted right x axis y axis) 246mm x 184mm
+   1024x768       50.0*+   60.0     40.0  
+   800x600        60.3  
+   640x480        60.0     59.9 
+ 
+修改：
+ 
+gedit /etc/X11/xorg.conf
+ 
+修改后如下：
+ 
+Section "Screen"
+   Identifier "Default Screen"
+   Monitor "Configured Monitor"
+   Device "Configured Video Device"
+   SubSection "Display" 
+      Virtual 2304 1024 #左右扩展双屏,2304=1280+1024,1024=max(1024,768)
+   EndSubSection 
+EndSection
+ 
+ 
+ 
+xrandr 命令行可以很方便地切换双屏，常用方式如下，其他的可以自己探索：
+ 
+xrandr --output VGA --same-as LVDS --auto
+         打开外接显示器(最高分辨率)，与笔记本液晶屏幕显示同样内容（克隆）
+ 
+xrandr --output VGA --same-as LVDS --mode 1024x768
+      打开外接显示器(分辨率为1024x768)，与笔记本液晶屏幕显示同样内容（克隆）
+ 
+xrandr --output VGA --right-of LVDS --auto
+         打开外接显示器(最高分辨率)，设置为右侧扩展屏幕
+ 
+xrandr --output VGA --off
+          关闭外接显示器
+ 
+xrandr --output VGA --auto --output LVDS --off
+        打开外接显示器，同时关闭笔记本液晶屏幕（只用外接显示器工作）
+ 
+xrandr --output VGA --off --output LVDS --auto
+        关闭外接显示器，同时打开笔记本液晶屏幕 (只用笔记本液晶屏)
+		
+ xrandr --output DFP1 --off   关闭HDMI输出
+
+ xrandr --output DFP1  --same-as LVDS --auto   输出到HDMI端口，信号格式同当前的显示器信号。
+
+    当然有时候会行不通，可能与HDMI连接的设备不支持当前的信号，这时需要使用下面的命令：
+
+ xrandr --output DFP1  --same-as LVDS --mode  mode名(如1024x768)
+
+ 
+方案二：
+ 
+打开xorg.conf
+ 
+gedit /etc/X11/xorg.conf
+ 
+修改Section “Device”如下：
+ 
+Section "Device"
+ 
+Identifier "Configured Video Device"
+ 
+Option "TwinView" "True" #打开双显支持
+ 
+Option "TwinViewOrientation" "Clone" #复制模式，Relative为扩展模式
+ 
+Option "UseEdidFreqs" "True" #打开刷新频率设置
+ 
+Option "Metamodes" "1024x768_60, 1024x768; 1024x768_60,800x600" #刷新频率模式，指明这两个设备的分辨率，逗号前的第一个是本机显示设备，逗号后的第二个是外部设备，分号分隔开多套模式，可以设两套方案或更多。
+ 
+EndSection

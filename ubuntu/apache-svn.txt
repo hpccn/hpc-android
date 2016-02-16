@@ -1,0 +1,155 @@
+
+Ubuntu下搭建基于Apache的SVN环境
+
+前言
+
+或许现在大多数高级程序员都用github来做代码管理工具，但是还有很多公司考虑到便于实施和人员接受能力的问题，还是会选择svn作为代码版本管理工具，下面介绍一下如何基于Apache搭建SVN版本库。
+
+安装svn相关模块
+
+Ubuntu下安装命令
+
+sudo apt-get install subversion libapache2-svn apache2-utils 
+
+安装成功后截图
+
+配置svn版本库
+
+创建svn根目录
+
+mkdir -p /home/svn 
+
+创建所需要的版本库
+
+cd  /home/svn/ 
+
+sudo svnadmin create 版本库的名字 
+
+修改版本库目录的权限
+
+因为是通过apache访问svn，所以目录的属主均为www-data即可
+
+sudo  chown -R www-data.www-data 版本库名字 
+
+配置Apache
+
+修改apache基于svn模块的配置文件
+
+sudo vim /etc/apache2/mods-available/dav_svn.conf
+
+修改后配置文件内容如下
+
+# dav_svn.conf - Example Subversion/Apache configuration
+#
+# For details and further options see the Apache user manual and
+# the Subversion book.
+#
+# NOTE: for a setup with multiple vhosts, you will want to do this
+# configuration in /etc/apache2/sites-available/*, not here.
+
+# <Location URL> ... </Location>
+# URL controls how the repository appears to the outside world.
+# In this example clients access the repository as http://hostname/svn/
+# Note, a literal /svn should NOT exist in your document root.
+<Location /svn>
+
+  # Uncomment this to enable the repository
+  DAV svn
+
+  # Set this to the path to your repository
+ # SVNPath /home/svn
+  # Alternatively, use SVNParentPath if you have multiple repositories under
+  # under a single directory (/var/lib/svn/repo1, /var/lib/svn/repo2, ...).
+  # You need either SVNPath and SVNParentPath, but not both.
+  SVNListParentPath on
+  SVNParentPath /home/svn
+
+  # Access control is done at 3 levels: (1) Apache authentication, via
+  # any of several methods.  A "Basic Auth" section is commented out
+  # below.  (2) Apache <Limit> and <LimitExcept>, also commented out
+  # below.  (3) mod_authz_svn is a svn-specific authorization module
+  # which offers fine-grained read/write access control for paths
+  # within a repository.  (The first two layers are coarse-grained; you
+  # can only enable/disable access to an entire repository.)  Note that
+  # mod_authz_svn is noticeably slower than the other two layers, so if
+  # you don't need the fine-grained control, don't configure it.
+
+  # Basic Authentication is repository-wide.  It is not secure unless
+  # you are using https.  See the 'htpasswd' command to create and
+  # manage the password file - and the documentation for the
+  # 'auth_basic' and 'authn_file' modules, which you will need for this
+  # (enable them with 'a2enmod').
+  AuthType Basic
+  AuthName "Subversion Repository"
+  AuthUserFile /etc/apache2/dav_svn.passwd
+
+  # To enable authorization via mod_authz_svn
+  AuthzSVNAccessFile /etc/apache2/dav_svn.authz
+
+  # The following three lines allow anonymous read, but make
+  # committers authenticate themselves.  It requires the 'authz_user'
+  # module (enable it with 'a2enmod').
+  #<LimitExcept GET PROPFIND OPTIONS REPORT>
+    Require valid-user
+  #</LimitExcept>
+
+</Location>
+
+注意：
+
+    <Location /svn>与</Location>成对出现
+    DAV svn开启DAV模块支持
+    SVNPath与SVNParentPath二选其一，不能同时出现，建议使用SVNParentPath，这样可以在SVN的根目录下创建多个svn版本库
+    开启BASIC认证
+    多读一下英文注释，很简单的
+
+创建svn账户
+
+sudo htpasswd [-c] /etc/apache2/dav_svn.passwd $username 
+
+注意：
+
+    /etc/apache2/dav_svn.passwd是在apache的dav_svn.conf里AuthUserFile指定的文件
+    参数-c，当指定文件不存在时需要该参数创建文件，当指定文件存在时，不需要该参数，否则会覆盖掉原有文件中记录
+
+访问权限控制
+
+修改AuthzSVNAccessFile指定文件
+
+sudo vim /etc/apache2/dav_svn.authz
+
+创建组并进行读写控制
+
+示例文件配置
+
+[groups]
+haotest1-admin=wangzhengyi
+haotest1-dev=wangzhengyi,chenshan
+
+[haotest1:/]
+@haotest1-dev=r
+@haotest1-admin=rw
+
+[haotest1:/trunk]
+@haotest1-dev=rw
+
+[haotest1:/tags]
+@haotest1-admin=rw
+
+参数说明
+
+    [groups]针对haotest1版本库设置了两个组，一个admin，一个dev
+    [haotest1:/]这是haotest1版本库的根目录，针对dev组只有r权限，也就是只能检出，针对admin有rw权限，可以创建，删除，修改等权限
+    点到为止，不明白的google一下，说多了就没意思了
+
+检出测试
+
+场景
+
+远程主机ip：192.168.1.1 检出版本库的路径：/svn/haotest1
+
+检出命令
+
+svn co http://192.168.1.1/svn/haozhaotest1 --username wangzhengyi
+
+创建目录并提交

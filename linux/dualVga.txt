@@ -1,0 +1,79 @@
+
+ Linux 下双显卡切换 2013-08-17 20:47:41
+
+
+我的笔记本是i5 集显和NVS4200M双显卡，在LINUX下，要么一个都不能识别，要么两个同时工作，现在要做双显卡切换了。
+具体过程，全部网络摘抄！
+
+#lspci | grep VGA 命令插卡系统下显卡
+00:02.0 VGA compatible controller: Intel Corporation 2nd Generation Core Processor Family Integrated Graphics Controller (rev 09)
+01:00.0 VGA compatible controller: NVIDIA Corporation GF119M [Quadro NVS 4200M] (rev a1)
+
+
+linux在默认情况下是两个显卡都开启，且电源管理极差，导致电脑温度超高，如果在BIOS里面强行切换为一个显卡，当然也可以解决这个问题，但是在双系统的情况下，就极为不便。如果需要切换显卡还要重启电脑，那实在是太落后了。
+
+linux kernel 2.6.38以上的内核开始支持双显卡的切换。
+
+在linux3.10下切换显卡的模块仍然处于debug状态，首先就要加载这些模块
+
+Step1:
+
+#mount -t debugfs debugfs /sys/kernel/debug
+
+注：需要在root权限下执行
+
+Step2:
+
+#cat /sys/kernel/debug/vgaswitcheroo/switch
+
+查看是否可以进行显卡切换，正常的输出类似于：
+
+0:DIS: : Pwr:0000:01:00.0
+
+1:IGD:+:Pwr:0000:00:02.0
+
+如果没有任何输出，那就很抱歉，这种方法不管用了，可能是linux内核过旧
+
+Step3:
+
+echo DDIS > /sys/kernel/debug/vgaswitcheroo/switch
+
+用来切换到独立显卡
+
+echo DIGD > /sys/kernel/debug/vgaswitcheroo/switch
+
+用来切换到集成显卡
+
+echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
+
+这个命令是用来关闭不用的显卡电源
+
+echo ON > /sys/kernel/debug/vgaswitcheroo/switch
+
+这个是用来重新开启关闭的显卡电源
+
+一般情况下，我们就执行第三条命令
+
+echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
+
+可以再看一下/sys/kernel/debug/vgaswitcheroo/switch这个文件的状态
+
+cat /sys/kernel/debug/vgaswitcheroo/switch
+
+如果输出结果是
+
+0:DIS: :Off:0000:01:00.0
+
+1:IGD:+:Pwr:0000:00:02.0
+
+那就表明成功了。
+
+这里Off表示电源已经关闭，Pwr表示正在运转。
+
+至此大功告成，可以在rc.local(/etc/rc.d/rc.local)里面加上
+
+mount -t debugfs debugfs /sys/kernel/debug
+
+echo OFF > /sys/kernel/debug/vgaswitcheroo/switch
+
+这两句话，这样每次开机就自动将不用的显卡关闭电源了，不用再忍受烧烤温度的电脑。

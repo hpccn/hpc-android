@@ -1,0 +1,32 @@
+archlinux64配置android开发环境时aapt无法找到libz.so.1
+
+原因是aapt需要到/usr/lib32/libz.so.1但是我们只有/usr/lib64/libz.so.1
+
+解决方法：
+编辑/etc/pacman.conf，取消multilib那几行的注释
+
+pacman -Sy 
+pacman -S lib32-libstdc++5   lib32-libx11    lib32-ncurses
+
+pacman -S lib32-zlib     
+
+
+---------------------------------------------------
+adb devices显示no permissions
+
+以普通用户登录linux，解出android-sdk后，设置环境变量，然后运行adb devices会提示权限不够：
+
+List of devices attached 
+????????????    no permissions
+
+这是因为访问adb设备需要root权限。
+
+
+我们可以利用文件的set-user-id属性来解决这个问题：
+
+sudo chown root:root adb
+sudo chmod a+x adb
+sudo chmod a+s adb
+adb kill-server
+
+先将adb的owner改为root、对所有用户加入可执行属性，然后设置set-user-id属性。这样，任何用户运行adb后，adb就会以owner身份运行（即root），而不是登录的用户。之后还需要adb kill-server，重新启动adb server。

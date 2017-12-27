@@ -1,0 +1,16 @@
+android lib 
+
+pacman -S lib32-libstdc++5   lib32-libx11    lib32-ncurses lib32-zlib     
+
+
+
+
+
+error while loading shared libraries: libgtk-x11-2.0.so.0: cannot open shared object file: No such file or directory
+To fix this, simple install the package ia32-libs-gtk
+
+libgtk-x11-2.0.so.0: wrong ELF class: ELFCLASS64
+ 
+解决方法：
+ 
+#pacman -S lib32-gtk2

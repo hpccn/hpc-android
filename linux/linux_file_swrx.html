@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.1//EN' 'http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+  <head profile='http://dublincore.org/documents/dcmi-terms/'>
+    <meta http-equiv='Content-Type' content='text/html;' />
+	<meta charset="utf-8"/>
+    <title>linux权限补充：rwt rwT rws rwS 特殊权限</title>
+    <meta name='DCTERMS.title' content='EpubPress - Thu Jan 04 2018' />
+    <meta name='DCTERMS.language' content='en' scheme='DCTERMS.RFC4646' />
+    <meta name='DCTERMS.source' content='MFW' />
+    <meta name='DCTERMS.issued' content='{$issued}' scheme='DCTERMS.W3CDTF'/>
+    <meta name='DCTERMS.creator' content='EpubPress'/>
+    <meta name='DCTERMS.contributor' content='' />
+    <meta name='DCTERMS.modified' content='{$issued}' scheme='DCTERMS.W3CDTF'/>
+    <meta name='DCTERMS.provenance' content='' />
+    <meta name='DCTERMS.subject' content='Unknown' />
+    <link rel='schema.DC' href='http://purl.org/dc/elements/1.1/' hreflang='en' />
+    <link rel='schema.DCTERMS' href='http://purl.org/dc/terms/' hreflang='en' />
+    <link rel='schema.DCTYPE' href='http://purl.org/dc/dcmitype/' hreflang='en' />
+    <link rel='schema.DCAM' href='http://purl.org/dc/dcam/' hreflang='en' />
+    <link rel='stylesheet' type='text/css' href='../css/ebook.css' />
+  </head>
+  <body>
+    <div id='s1'></div>
+    <div>
+      <h1>linux权限补充：rwt rwT rws rwS 特殊权限</h1>
+      <div id="cnblogs_post_body" class="blogpost-body">
+      <div>
+      <p>众所周知，Linux的文件权限如:
+      777；666等，其实只要在相应的文件上加上UID的权限，就可以用到加权限人的身份去运行这个文件。<strong>所以我们只需要将bash复制出来到另一个地方，然后用root加上UID权限,只要用户运行此Shell就可以用用root的身份来执行任何文件了</strong></p>
+      <p>一个文件都有一个所有者, 表示该文件是谁创建的. 同时, 该文件还有一个组编号, 表示该文件所属的组,
+      一般为文件所有者所属的组.</p>
+      <p>如果是一个可执行文件, 那么在执行时, 一般该文件只拥有调用该<strong>文件的用户</strong>具有的权限.
+      而setuid, setgid 可以来改变这种设置.&nbsp;</p>
+      <p>
+      <strong>setuid：该位是让普通用户可以以root用户的角色运行只有root帐号才能运行的程序或命令</strong>。比如我们用普通用户运行passwd命令来更改自己的口令，实际上最终更改的是/etc/passwd文件我们知道/etc/passwd文件是用户管理的配置文件，只有root权限的用户才能更改</p>
+      <p>　　[root@localhost ~]# ls -l /etc/passwd</p>
+      <p>　　-rw-r--r-- 1 root root 2379 04-21 13:18 /etc/passwd</p>
+      <p>
+      　　作为普通用户如果修改自己的口令通过修改/etc/passwd肯定是不可完成的任务，但是不是可以通过一个命令来修改呢答案是肯定的，作为普通用户可以通过passwd
+      来修改自己的口令这归功于passwd命令的权限我们来看一下；</p>
+      <p>　　[root@localhost ~]# ls -l /usr/bin/passwd</p>
+      <p>　　-r-s--x--x 1 root root 21944 02-12 16:15 /usr/bin/passwd</p>
+      <p>　　因为/usr/bin/passwd 文件已经设置了setuid
+      权限位（也就是r-s--x--x中的s），所以普通用户能临时变成root，间接的修改/etc/passwd，以达到修改自己口令的权限</p>
+      <p><strong>setgid: 该权限只对目录有效.</strong> <strong>目录被设置该位后,
+      任何用户在此目录下创建的文件都具有和该目录所属的组相同的组.</strong></p>
+      <p><strong>sticky bit: 该位可以理解为防删除位.</strong> 一个文件是否可以被某用户删除,
+      主要取决于该文件所属的组是否对该用户具有写权限. <strong>如果没有写权限, 则这个目录下的所有文件都不能被删除,
+      同时也不能添加新的文件.</strong> <strong><em>如果希望用户能够添加文件但同时不能删除文件,
+      则可以对文件使用sticky bit位.</em></strong> 设置该位后, 就算用户对目录具有写权限,
+      也不能删除该文件.</p>
+      <p>下面说一下如何操作这些标志:</p>
+      <p>操作这些标志与操作文件权限的命令是一样的, 都是 chmod. 有两种方法来操作,</p>
+      <p>1) chmod u+s temp -- 为temp文件加上setuid标志. (setuid 只对文件有效)</p>
+      <p>chmod g+s tempdir -- 为tempdir目录加上setgid标志 (setgid 只对目录有效)</p>
+      <p>chmod o+t temp -- 为temp文件加上sticky标志 (sticky只对文件有效)</p>
+      <p>2) 采用八进制方式. 对一般文件通过三组八进制数字来置标志, 如 666, 777, 644等. 如果设置这些特殊标志,
+      则在这组数字之外外加一组八进制数字. 如 4666, 2777等. 这一组八进制数字三位的意义如下,</p>
+      <p>abc</p>
+      <p>a - setuid位, 如果该位为1, 则表示设置setuid 4---</p>
+      <p>b - setgid位, 如果该位为1, 则表示设置setgid 2---</p>
+      <p>c - sticky位, 如果该位为1, 则表示设置sticky 1---</p>
+      <p>设置完这些标志后, 可以用 ls -l 来查看. 如果有这些标志, 则会在原来的执行标志位置上显示. 如</p>
+      <p>rwsrw-r-- 表示有setuid标志</p>
+      <p>rwxrwsrw- 表示有setgid标志</p>
+      <p>rwxrw-rwt 表示有sticky标志</p>
+      <p><strong>那么原来的执行标志x到哪里去了呢? 系统是这样规定的, 如果本来在该位上有x, 则这些特殊标志显示为小写字母
+      (s, s, t). 否则, 显示为大写字母 (S, S, T)</strong></p>
+      <p>注意：setuid和setgid会面临风险，所以尽可能的少用，偶在这里也是了解了解，O(∩_∩)O哈！</p>
+      </div>
+      </div>
+    </div>
+  </body>
+</html>

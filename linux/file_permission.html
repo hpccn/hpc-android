@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
+    <title>深入理解linux权限</title>
+  </head>
+  <body><h1 id="chapterTitle">深入理解linux权限</h1><hr/><h4 id="webMeta"> </h4>
+
+
+
+
+<h2>linux 从ls命令开始</h2>
+<p>Linux学习的第一步就是掌握常用命令，Linux命令众多，以笔者使用的Red Hat Enterprise Linux 5.4来说，有大概两千多个命令，假设每个命令有二十个选项，如此多的命令和选项全部敲一遍，简直是在浪费生命浪费键盘浪费手指头，更加没有必要买一本大部头的什么命令大全之类的东西狂看，真正在管理应用中使用到的命令大概也就只有一二百个，所以要把握学习的原则，掌握最常使用的命令和最常使用的选项即可。在入门悟道之后，碰到未知的命令或选项，只要自己掌握获得帮助的方法，即可一通百通，如同已有九阳神功护体再学习乾坤大挪移或葵花宝典就小case了。</p>
+<p>学习命令的窍门之一是掌握方法，把每个命令的英文全称和每个选项的英文单词找到，籍此记忆强于死记硬背，方可事半功倍；学习命令的窍门之二是不断的练习和实验，记住，练习是掌握命令的最好方法，毛主席教导我们说“实践是验证真理的唯一标准”；学习命令的窍门之三是学习和练习每个命令或选项时不要形而上学，要多想一想什么时候会用到如何去用，才能让你的知识系统化和有目的性。</p>
+<p>Linux中使用频率最高的命令唯ls莫属，而ls使用最多的选项自然是-l 。本讲即以ls -l命令为例做一示例讲解，全做抛砖引玉。</p>
+<p>ls意为“list directory contents”，列出目录内容之意，可理解为ls即为list的缩写；-l意为“use a long listing format”，长格式显示，通俗点说就是显示文件的详细信息，可理解为l即为long的缩写。通过man、info等帮助命令可获得此信息，英文不好的兄弟还可籍此学习（每天背上二三十个英文单词，不出三个月所有Linux英文帮助文档相信应该都差不多可以看懂），通过这种方法记忆会容易得多。</p>
+<p>在Linux中使用ls -l命令查看文件的详细信息：</p>
+<pre>-rw-r--r-- 1 root root 27974 Oct 27  2009 install.log
+</pre>
+<p>“-rw-r--r--”第一个字符表示文件类型，常见的文件类型包括：-表示二进制文件，d表示目录，l表示软链接文件，使用ls查看会发现有颜色标记不同的文件类型，如目录是蓝色、二进制文件是白色、软链接是青色……默认ls查看目录内容是没有颜色标记的，之所以会显示这样的信息，因为在Linux中默认有一个别名定义：</p>
+<pre># which ls
+alias ls=`ls --color=tty`
+       /bin/ls
+</pre>
+<p>甚至颜色还可以更改，比如你喜欢黄色想把目录改成黄色，只需编辑配置文件/etc/DIR_COLORS即可，把这个文件复制改名并保存用户宿主目录中（cp /etc/DIR_COLORS ~/.dir_colors），就可以产生一个用户独立的配置，具体颜色如何更改只要看此文件的注释说明即可。笔者并不推荐用颜色的方式识别文件类型，一来大多UNIX默认无此设置；二来很多远程登录管理工具默认不支持颜色标记。</p>
+<p>尤其要说明的是软链接文件，在Linux中，有两种链接文件，一种是软链接，类似Windows的桌面快捷方式；一种是硬链接，相当于复制+同步更新。</p>
+<pre># ln -s install.log install.log.soft   # 生成install.log文件的软链接文件install.log.soft
+# ln install.log install.log.hard   # 生成install.log文件的硬链接文件install.log.hard
+-rw-rw-r-- 2 root admgroup 27941 May 20 07:42 install.log
+-rw-rw-r-- 2 root admgroup 27941 May 20 07:42 install.log.hard
+lrwxrwxrwx 1 root root        11 May 29 01:14 install.log.soft -&gt; install.log
+</pre>
+<p>可以观察到软链接文件用l标记，权限皆为“lrwxrwxrwx”，会有-&gt;指向源文件，它很小，同Windows快捷方式一样，只是一个符号链接。而硬连接所有属性与原文件相同，且与原文件可以同步更新，最牛X的是原文件即便被干掉了，硬连接依然有效，而软链接当然就死翘翘了。知其然还要知其所以然，为什么硬链接可以这么牛XX ，在此要先讲一个Linux法则，这个法则说的通俗一点就是Linux内核这家伙不认识字母，所以它在管理文件时文件要用一个数字标记，就是i节点；同样，用户要有一个UID 、用户组要有一个GID 、进程要有一个PID …… ls -i可以查看到文件的i节点：</p>
+<pre># ls -i install.log install.log.soft install.log.hard
+</pre>
+<p>679394 install.log 679394 install.log.hard 679477 install.log.soft</p>
+<p>在Linux中每个文件必须有一个i节点，反之，一个i节点是不是必须对应一个文件，一般来说是的，但是硬链接就是个特例，大家会看到原文件和硬链接对映一个i节点，所以它们会同步更新，因为内核不管文件名是什么它只识别i节点，这就是硬链接和原文件可以同步更新的原因。</p>
+<p>其他九个字符，每三个字符对应一种用户类型，简单来说，Linux中基本的权限管理，是每个文件把用户分成了三类：</p>
+<p>第一类是所有者（u），也就是文件的创建者或拥有者</p>
+<p>一般来说文件的创建者就是所有者，但有时会变更文件所有者，比如笔者原本在写一个防火墙脚本，因出差，工作要转交给另一个同事，索性把文件所有者改为他，他即可拥有对文件的全部操作权限，此时可以理解为他是文件的拥有者也就是所有者。文件的所有者只能有一个。</p>
+<p>第二类是所属组（g），可以定义一组具有相同权限的用户对文件的操作权限</p>
+<p>文件所属组默认就是创建文件的所有者所在的缺省组，一个用户可以属于多个组，但是只有一个缺省组，就像不管你是多么大个的花心大萝卜，你只能有一个媳妇，这就是缺省的，缺省的只能有一个，而且在Linux中规定，没媳妇的萝卜是不允许存在的！每个用户必须有个缺省组，添加用户时如果没有指定所属组系统会自动为你分配。理论上来说，一个管理做的很好的系统，应该每个用户都隶属于至少一个组，不可能添加一个用户到系统是什么都不让他做的或者他不属于任何公司部门的，这是管理员要规划好的事情。</p>
+<p>第三类是其他人（o），如果不是所有者也不是所属组中的成员，那么就属于其他人</p>
+<p>Linux中的用户分类比较简单，权限也简单的分为r可读、w可写、x可执行三种，ls-l的第三个部分“root root”分别对应着文件的所有者和所属组，所以此文件的权限为：所有者root对文件有读写权限，而所属组root用户组和其他人只有读权限。</p>
+<h4>深入理解rwx</h4>
+<p>做一个小实验，用root用户登录系统，然后执行：</p>
+<pre># mkdir /test   # 创建目录/test
+# chmod 777 /test   # 目录权限修改为777即rwxrwxrwx
+# touch /test/newfile   # 在/test目录下新建文件newfile
+# ls -ld /test   # 查看/test目录详细信息
+drwxrwxrwx 2 root root 4096 May 20 07:46 /test
+# ls -l /test/newfile   # 查看/test/newfile文件详细信息
+-rw-r--r-- 1 root root 0 May 20 07:46 /test/newfile
+# su - zhangsan   # 切换用户身份为用户zhangsan
+$ rm /test/newfile   # 删除/test/newfile文件
+</pre>
+<p>问题：普通用户zhangsan是否可以删除管理员root创建的newfile文件？</p>
+<p>答案是：可以。很多朋友觉得不可以，因为newfile文件是root创建且其他用户没有写权限，这其实是搞错了一个概念：认为删除一个文件的前提条件是对文件有写权限。要注意的是，rwx对于文件和目录的意义是截然不同的，这往往是新手容易忽视的地方，我们通过表格比较一下。</p>
+<p>代表字符<br/>
+权限<br/>
+对文件的含义<br/>
+对目录的含义</p>
+<p>1.r<br/>
+可读<br/>
+可以查看文件内容<br/>
+可以列出目录中的内容</p>
+<p>2.w<br/>
+可写<br/>
+可以修改文件内容<br/>
+可以在目录中创建、删除文件</p>
+<p>3.x<br/>
+可执行<br/>
+可以执行文件<br/>
+可以进入目录</p>
+<p>1.对于文件来说</p>
+<p>可读是指可以使用cat、more等命令查看文件内容；</p>
+<p>可写是指可以使用vi等编辑器修改文件内容；</p>
+<p>可执行指的是这个文件可能是命令或者Shell脚本等，可以执行。</p>
+<p>2.对于目录来说</p>
+<p>可读是指能使用ls命令显示目录下的内容；</p>
+<p>可写指的是能够在此目录下使用mkdir、touch、rm等命令创建或删除文件；</p>
+<p>可执行指的是能够使用cd进入目录。</p>
+<p>所以，在Linux中，一个文件能否被删除，是取决于命令执行者对文件所在目录是否有写权限，而与文件本身权限无关，文件本身权限只是限定文件内容查看或修改权限及是否可执行。</p>
+<h4>用户授权</h4>
+<p>授权用户zhangsan和lisi对/backup目录具有读写权限，是Linux中最基本的用户与权限管理，一般的做法是：把zhangsan和lisi用户加入到一个用户组中，然后改变/backup目录的所属组为此用户组，再将所属组权限设置为rw即可。</p>
+<pre># groupadd admgroup   # 添加用户组admgroup
+# gpasswd -a zhangsan admgroup   # 将用户zhangsan加入用户组admgroup
+# gpasswd -a lisi admgroup   # 将用户lisi加入用户组admgroup
+# grep admgroup /etc/group   # 查看admgroup用户组的信息
+admgroup:x:502:zhangsan,lisi
+# chgrp admgroup /backup   # 改变/backup目录的所属组为admgroup
+# chmod g+w /backup   # 给所属组添加w可写权限
+# ls -ld /backup   # 查看/backup目录详细信息
+</pre>
+<p>drwxrwxr-x 2 root admgroup 4096 May 20 08:19 /backup</p>
+<p>以上是授权用户对目录的访问权限，若授权用户对文件的控制权限，则要更复杂一点，除了对文件本身授权外，还要授权用户对文件所在目录具有可读可执行权限。如笔者使用的Red Hat Linux系统在安装后会在/root下生成安装日志文件，设置用户zhangsan和lisi对/root/install.log文件有读写权限，还要考虑用户对文件所在目录/root要具有可读和可执行权限，否则依然无法获得文件的操作权限。</p>
+<p>ls -l的第二部分“1”表示硬连接数，默认文件本身起始硬链接数就是1 ，如果新建了一个硬链接文件，会更新为2 ，此项意义不大，不做过多讨论。</p>
+<p>ls -l的第五部分“27974”表示文件大小，在笔者使用的系统中是以字节为单位，但是很多Linux或UNIX系统单位以数据块为单位，一个数据块为512字节。</p>
+<p>ls -l的第六部分“Oct 27 2009”表示文件的创建时间或最后更改时间（如果文件在创建后被更改过的话）。</p>
+<p>最后一部分“install.log”自然就是文件名了，在Linux中与Windows不同，第一，文件不必一定有后缀名；第二，文件名可以使用除“/”以外的任意字符；第三，以“.”开头的文件在Linux中表示隐藏文件。</p>
+<h2>深入理解 setUID</h2>
+<p>在Linux系统中每个普通用户都可以更改自己的密码，这是合理的设置。问题是：用户的信息保存在文件/etc/passwd中，用户的密码保存在文件/etc/shadow中，也就是说用户更改自己密码时是修改了/etc/shadow文件中的加密密码，但是，LOOK——</p>
+<pre>-rw-r--r-- 1 root root 1787 Oct 27 2009 /etc/passwd
+-r-------- 1 root root 1187 Oct 27 2009 /etc/shadow
+</pre>
+<p>/etc/passwd文件每个用户都有读权限但是只有root有写权限，/etc/shadow文件只有超级用户root有读写权限，也就是说普通用户对这两个文件都没有写权限无法写入新密码，为什么普通用户可以更改密码呢？<br/>
+PS：在Linux中设置或更改用户密码，是先写入到/etc/passwd文件然后通过pwconv命令转换到/etc/shadow文件，执行pwunconv命令可观察到转换前效果，会观察到/etc/shadow文件神奇的消失掉了，而/etc/passwd文件中原来打xx的地方变成了真正的加密密码。</p>
+<p>其实，用户能更改密码真正的秘密不在于文件的权限，而在于更改密码的命令passwd 。<br/>
+-rwsr-xr-x 1 root root 22960 Jul 17 2006 /usr/bin/passwd<br/>
+passwd命令有一个特殊的权限标记s ，存在于文件所有者的权限位上。这是一类特殊的权限SetUID ，可以这样来理解它：当一个具有执行权限的文件设置SetUID权限后，用户执行这个文件时将以文件所有者的身份执行。passwd命令具有SetUID权限，所有者为root（Linux中的命令默认所有者都是root），也就是说当普通用户使用passwd更改自己密码的时候，那一瞬间突然灵魂附体了，实际在以passwd命令所有者root的身份在执行，root当然可以将密码写入/etc/shadow文件（不要忘记root这个家伙是superuser什么事都可以干），命令执行完成后该身份也随之消失。</p>
+<p>可以试验用root身份修改passwd命令权限去掉SetUID ：<br/>
+chmod u-s /usr/bin/passwd<br/>
+再尝试以普通用户身份登录后修改密码，就会发现提示：<br/>
+passwd<br/>
+Changing password for user samlee.<br/>
+Changing password for samlee<br/>
+(current) UNIX password:<br/>
+passwd: Authentication token manipulation error<br/>
+普通用户无法修改密码，所以只要能够想明白为什么普通用户可以更改密码就可以大概了解SetUID权限的作用。</p>
+<p>接下来我们用两个SetUID的按理来进一步诠释下它的概念——</p>
+<h4>SetUID授权示例</h4>
+<p>为便于深入理解SetUID ，笔者以touch命令为例做一演示。<br/>
+普通用户samlee用touch创建文件newfile01 ：</p>
+<pre>touch newfile01
+ls -l newfile01
+-rw-rw-r-- 1 samlee samlee 0 05-21 01:20 newfile01
+</pre>
+<p>文件的创建者默认就是所有者，所以文件newfile01的所有者为samlee 。<br/>
+管理员root给touch命令添加SetUID权限:</p>
+<pre>chmod u+s /bin/touch   # 或 chmod 4755 /bin/touch
+ls -l /bin/touch
+-rwsr-xr-x 1 root root 42284 Jul 13 2009 /bin/touch
+</pre>
+<p>再用普通用户samlee创建文件newfile02，看到如下结果:</p>
+<pre>touch newfile02
+ls -l newfile02
+-rw-rw-r-- 1 root samlee 0 05-21 01:48 newfile02
+</pre>
+<p>通过这个例子，我们可以再诠释下SetUID的定义，当一个可执行文件（命令touch）设置SetUID权限后，当普通用户samlee执行touch创建新文件时，实际上是以touch命令所有者root的身份在执行此操作，既然是以root身份执行，当然新建文件的所有者为root ，这就是SetUID的作用。</p>
+<p>再看一下与SetUID类似的SetGID权限，看一个例子，给touch命令再授予SetGID:</p>
+<pre>chmod g+s /bin/touch   # 或 chmod 6755 /bin/touch
+ls -l /bin/touch
+-rwsr-sr-x 1 root root 42284 Jul 13 2009 /bin/touch
+</pre>
+<p>此时，再使用touch创建新文件newfile03，会看到如下现象:</p>
+<pre>touch newfile03
+ls -l newfile03
+-rw-rw-r-- 1 root root 0 05-21 01:48 newfile02
+</pre>
+<p>新建文件的所属组为touch命令的所属组，而不是执行touch命令的普通用户samlee的所属组，这就是SetGID的作用，与SetUID类似，用户在执行具有SetGID的命令时会调用命令所属组的身份。</p>
+<h4>危险的SetUID</h4>
+<p>对于SetUID的使用，可以做一个的比喻：一个绝密机关，要让一些人进来做一些事情，但是不能让他们看见机关内部的情况，于是授权一些特殊的“车辆”（没有窗户，车门紧闭，看不到外面，只有一个小洞允许乘坐的人伸出手臂做事），带着所乘坐的人开到要去的地方，允许它办完事情马上带他出来。这样是不是很安全？不一定。如果“车辆”没有经过精挑细选，可能有很多“门窗”，那可就危险了，这种类似的场景相信大家在一些警匪电影中已经见过多次了。</p>
+<p>普通用户使用vi编辑/etc/shadow文件会提示“Permission Denied”，这是合理的设置，但是如果赋予vi以SetUID权限:</p>
+<pre>chmod u+s /bin/vi
+ls -l /bin/vi
+-rwsr-xr-x 1 root root 594740 Jun 12 2009 /bin/vi
+</pre>
+<p>此时，普通用户使用vi即可以编辑/etc/shadow文件，因为具备root身份，可以进行任意读写操作（比如可以把任何一个用户密码位清空，则用户登录不需要输入密码）。但是使用more、cat等命令仍然无法查看文件/etc/shadow的内容，只有被授予了SetUID的vi可以查看和修改。同样，vi如果具有了SetUID权限，普通用户可以vi编辑/etc/passwd文件把自己的UID改为0,则他的权限就和root一样；可以vi编辑/etc/inittab文件把缺省运行级别改成6 ，则Linux会开机后不停的重启</p>
+<p>再来看一个令人不安的情况，用普通用户尝试关闭Apache服务:</p>
+<pre>ps -le | grep httpd
+140 S     0 8916     1 0 76   0    - 3697 -      ?        00:00:00 httpd
+kill 8916
+-bash: kill: (8916) - Operation not permitted
+</pre>
+<p>可以看到，普通用户不可以关闭root启动的进程，但是如果做下面一个动作：</p>
+<pre>chmod 6555 /bin/kill
+</pre>
+<p>现在当普通用户执行kill时，因为kill被授予了SetUID权限，在执行的一瞬间具有了root权限，只要用户不爽想关闭任何服务都可以！</p>
+<p>所以，SetUID权限不能随便设置，同时要防止黑客的恶意修改，怎样避免SetUID的不安全影响，有几点建议：<br/>
+1. 关键目录应严格控制写权限。比如“/”、“/usr”等；<br/>
+2. 用户的密码设置要足够强壮，8位以上，大小写字母、数字、符号的组合，如：<a href="mailto:Am@ri31n">Am@ri31n</a>，且定期更换；<br/>
+3. 对系统中应该具有SetUID权限的文件作一列表，定时检查有没有这之外的文件被设置了SetUID权限。</p>
+<p>可以对系统中应该具有SetUID权限的文件作一列表，定时检查有没有非列表中的命令被设置了SetUID权限。<br/>
+在Linux安装部署完成后，执行下面命令生成SetUID列表文件:</p>
+<pre>mkdir /script   # 创建目录/script
+find / -perm -4000 -o -perm -2000 &gt; /script/setuid.list
+</pre>
+<p>命令find选项“-perm”为指定文件权限，SetUID权限位对应数字标识为4 ，SetGID权限位对应数字标识为2 ，后面写为“000”标识对所有者所属组其他人三类用户的权限不限制；“-o”表示or，就是文件具有SetUID或者具有SetGID都在搜索之列，生成的搜索结果存放在文件/script/setuid.list中。</p>
+<p>在需要对系统做检查时，执行以下shell程序。也可以放在计划任务中定时检查。</p>
+<pre>/usr/bin/find / -perm -4000 -o -perm -2000 &gt; /tmp/setuid.check
+for file in `/bin/cat /tmp/setuid.check`
+do
+        /bin/grep $file /script/setuid.list &gt; /dev/null
+               if [ "$?" != "0" ]
+               then
+                      echo "$file isn't in list! it's danger!!"
+               fi
+done
+</pre>
+<p>/bin/rm /tmp/setuid.check<br/>
+假设命令kill被设置了SetUID ，则会检测提示：<br/>
+/bin/kill isn't in list! it's danger!!</p>
+<p>另外，如果在一些数据存放的分区想禁用SetUID功能，还可以做如下设置，编辑配置文件/etc/fstab ，找到要设置的分区（如/home）所对应的设置行：</p>
+<pre>vi /etc/fstab
+LABEL=/home       /home     ext3        defaults          1     2
+</pre>
+<p>在设置“defaults”后，添加“nosuid”选项，并重新挂载/home分区：</p>
+<pre>vi /etc/fstab
+LABEL=/home       /home     ext3        defaults,nosuid              1     2
+mount -o remount /home
+</pre>
+<p>设置后，分区/home上任何可执行文件即使被设置了SetUID权限也无法执行（读者可自行拷贝一个SetUID命令至/home目录下执行试验），在一些存放数据、用来备份等功能的分区上做此设置，可以保护系统安全。</p>
+<h2>其他的一些linux权限</h2>
+<h3>权限之粘着位</h3>
+<p>Linux中有一个存放临时文件的目录/tmp（类似于Windows中的temp目录），每个用户产生的临时文件都存放在此目录下，也就是说每个用户对/tmp目录都应该有写权限（否则无法拷贝生成文件），这样造成一个问题，比如，高洛峰在/tmp目录下创建了一个文件，张沫看着不爽就可以删掉，这如何控制？<br/>
+其实，这种情况永远都不会发生，因为/tmp目录有一个特殊的权限标记：</p>
+<pre>ls -ld /tmp 
+drwxrwxrwt 5 root root 4096 May 24 13:55 /tmp
+</pre>
+<p>瞧见那个rwx权限最后的“t”了没，那个神奇的“t”就是粘着位t（有的资料中文也称为粘滞位），是Linux特殊权限中的第三个（另外两个是SetUID和SetGID），定义为：权限为777的目录设置粘着位t以后，具有写权限每个用户都可以在目录下创建文件，不同的是每个用户只能删除自己是所有者的文件，也就是说只能删除自己创建的文件。<br/>
+读者可以做一下试验，重复一下《草根》第二期“从ls命令开始”中的案例一操作（给目录/test授予777权限用一个普通用户登录删除另一个普通用户创建的文件），不过这次创建的目录/test多授予它一个粘着位权限：</p>
+<pre>chmod o+t /test # 或 chmod 1777 /test
+</pre>
+<p>此时普通用户尝试删除其他用户的文件时，会给出提示“Operation not permitted”（中文翻译：你丫没事吧，瞎得瑟啥，哥的文件你删不了）。</p>
+<h3>文件系统权限</h3>
+<p>每个操作系统都要有一种组织管理数据的方式，我们可以理解为就是文件系统，比如Windows的NTFS、FAT ，Linux的EXT ，而在Linux加载分区时可以针对文件系统进行权限设定。<br/>
+配置文件/etc/fstab保存了Linux启动时自动加载的分区信息，/etc/fstab文件中第四项定义了加载时的设置，默认为defaults ，包括rw、suid、dev、exec、auto、nouser、async ，如果想改变整个分区的限定，可以利用这些选项。本文举两例说明，证明基于文件系统的权限那是相当霸道。</p>
+<p>1.只读分区</p>
+<p>默认加载分区是可读写rw的，但是如果特殊应用希望分区加载后是只读的，可以做一下设置：</p>
+<pre>vi /etc/fstab # 编辑/etc/fstab文件在defaults后加入ro选项（逗号分隔） 
+LABEL=/soft /soft ext3 defaults,ro 1 2 
+mount -o remount /soft # 重新加载/soft分区，使设置生效
+</pre>
+<p>如果你不嫌麻烦也可以重启系统，设置同样会生效。<br/>
+此时整个/soft分区都是只读的，用root登录后执行：</p>
+<pre>touch /soft/testfile 
+touch: cannot touch `testfile': Read-only file system 
+</pre>
+<p>会提示/soft分区是只读的，即便牛X到是root也不可以创建文件，这是凌驾于rwx权限之上的文件系统权限，相当的牛A与牛C之间。像本例是笔者公司的软件共享目录，一般半个月才更新一次软件，平时不想任何人增加或删除（包括不希望root用户误删除），所以设置为ro ，更新软件时，可以临时更改会rw来设置：<br/>
+mount -o remount,rw /soft<br/>
+在命令行上也可以设置分区权限，但是只是当前会话有效，而写入/etc/fstab文件后则会一直有效。</p>
+<p>2.安全分区</p>
+<p>数据存储的分区，如用做备份的分区，我们可以增加下安全设置选项：<br/>
+vi /etc/fstab # 编辑/etc/fstab文件在defaults后加入noexec选项<br/>
+LABEL=/backup /backup ext3 defaults,noexec 1 2<br/>
+mount -o remount /backup # 重新加载/backup分区，使设置生效<br/>
+此时做个试验，我们使用普通用户拷贝一个命令文件pwd在/backup目录下<br/>
+cp /bin/pwd /backup<br/>
+/backup/pwd<br/>
+-bash: pwd: Permission denied<br/>
+ls -l pwd<br/>
+-rwxr-xr-x 1 liming liming 93560 Sep 25 10:13 pwd<br/>
+命令拷贝到/backup下虽然具有可执行权限，但是也无法执行，在/backup分区下，任何可执行文件都将不能执行，这么做的意义在哪里？如果攻击程序、木马、病毒不能够执行，那么就相当于没有意义。<br/>
+其他选项不做更多演示，这里只抛砖引玉，其他选项设置读者可man mount查看，查看-o选项中的详细介绍，更多设置读者可自行尝试，所谓授之以鱼不如授之以渔读万卷书不如行万里路万恶淫为首窗前明月光啊。</p>
+<h3>权限之chattr</h3>
+<p>chatrr只有超人root用户可以使用，用来修改文件的权限属性，建立凌驾于rwx基础权限之上的授权。<br/>
+在此介绍两个常用选项：<br/>
+a 只允许在文件后追加数据，如果目录具有此属性，系统将只允许在目录下建立和修<br/>
+改文件，而不允许删除任何文件。<br/>
+i 不允许对文件进行任何修改，如果目录具有此属性，那么只能修改目录下的文件，<br/>
+不允许建立和删除文件。</p>
+<p>1.无法删除和更改的文件<br/>
+如果要建立一个公共访问的目录，大家都可以删除和创建、拷贝文件，但是有一个基本的使用此目录的规则，要建立一个说明文件README ，这个文件不允许大家删除和修改，则可以如下设置：</p>
+<pre>chattr +i README 
+</pre>
+<p>这时，README文件所在目录所有用户都有读写权限，但是任何用户都无法删除README文件（包括root），尝试删除会提示：</p>
+<pre>rm README 
+rm: remove write-protected regular empty file `README'? y 
+rm: cannot remove `README': Operation not permitted 
+</pre>
+<p>同样也不可以改变文件的内容，可以查看到README文件被增加了一个不可更改的属性：</p>
+<pre>lsattr README 
+----i-------- README 
+</pre>
+<p>此时，README变成了一个非常牛XX的文件，即便你是SuperUser也无法删除和修改它，想对它干嘛都不成。<br/>
+若要更改或删除文件也必须先去掉i属性才可以：</p>
+<pre>chattr -i README 
+</pre>
+<p>2.备份目录应用<br/>
+假设有这样一种应用，我们每天自动化实现把上海服务器的日志通过scp和rsync远程备份到北京的备份服务器上，备份服务器的存储目录可设置为只可创建文件而不可删除。</p>
+<pre>chattr +a /backup/log 
+</pre>
+<p>设置后，可在本机测试：</p>
+<pre>cp /var/log/messages /backup/log # 可以拷贝文件 
+rm /backup/log/messages # 删除文件则被禁止 
+rm: remove regular file `messages'? y 
+rm: cannot remove `messages': Operation not permitted 
+</pre>
+<p>chattr命令不宜对目录/、/dev、/tmp、/var等设置，严重者甚至容易导致系统无法启动，比如根目录如果设置了i属性，谨慎设置，看过此文试验后造成系统问题者，笔者概不负责……</p>
+<h3>权限之ACL</h3>
+<p>Linux中默认的权限管理比较菜，难以实现复杂的权限控制，如针对一个文件设置几个用户或用户组具有不同权限，这就需要依靠ACL（Access Control List）访问控制列表实现，可以针对任意指定的用户/用户组分配权限。<br/>
+开启分区的ACL功能 ，需要在/etc/fstab文件中加入acl选项，如：</p>
+<pre>LABEL=/backup        /backup        ext3        defaults,acl        1 2 
+</pre>
+<p>然后重新加载分区即可生效：</p>
+<p>mount -o remount /backup</p>
+<p>如果想临时生效可不修改/etc/fstab文件，直接执行命令“mount -o remount,acl /backup”即可。</p>
+<p>案例：设定复杂权限控制目录<br/>
+设定目录/backup/log用户zhangsan有读写执行权限，用户lisi有读权限，用户wangwu有读写权限，而用户组bakgroup有读和执行权限，则可做如下设置：<br/>
+setfacl -m u:zhangsan:rwx,u:lisi:r,u:wangwu:rw,g:bakgroup:rx /backup/log<br/>
+setfacl -m可以设置文件/目录的访问权限，至于权限设定的写法包括三个组成部分，第一部分列出设定对象是用户u或用户组g ；第二部分指定用户名或用户组名；第三部分指定访问权限rwx ，设定多组权限中间用逗号分隔。如“u:lisi:r”表示设定用户lisi为只读权限。<br/>
+查看目录属性：</p>
+<pre>ls -ld /backup/log 
+drwxrwxr-x+ 2 root root 4096 May 25 07:16 /backup/log 
+</pre>
+<p>会发现文件权限位后增加了一个加号，这说明/backup/log设置了ACL ，同时可以查看其详细的权限设置：</p>
+<pre>getfacl /backup/log 
+# file: backup/log 
+# owner: root 
+user::rwx 
+# group: root 
+user:zhangsan:rwx 
+user:lisi:r-- 
+user:wangwu:rw- 
+group::r-x 
+group:bakgroup:r-x 
+mask::rwx 
+other::r-x 
+</pre>
+<p>这样即可实现Linux中文件/目录的复杂权限控制，要注意的是ACL优先于基本权限设置，也就是说如果默认所属组为rx权限，但是ACL若指定了所属组中某个成员为rwx权限，则此成员拥有rwx权限。</p>
+<h3>权限之管理员授权</h3>
+<p>管理员做为特权用户，很容易误操作造成不必要的损失，再者都是root管理也怪累的，管理员也是人，也需要留点时间去约约会看看电影装装傻发发呆啥的不是……所以健康的管理方法是Linux服务架构好后，可授权普通用户协助完成日常管理，现在最流行的工具是Sudo ，几乎所有Linux都已缺省安装。<br/>
+Sudo使用简单，管理员root使用visudo命令即可编辑其配置文件/etc/sudoers进行授权，具体格式为：<br/>
+用户名/用户组名 主机地址=授权命令（绝对路径）<br/>
+如，授权用户zhaoliu可以关机和重启，则添加如下行：</p>
+<pre>zhaoliu        Helen=/sbin/shutdown,/sbin/reboot 
+</pre>
+<p>指定组名用百分号标记，如%admgroup ，多个授权命令之间用逗号分隔。<br/>
+用户zhaoliu可以使用sudo查看授权的命令列表：</p>
+<pre>sudo -l 
+Password: 
+User zhaoliu may run the following commands on this host: 
+    (root) /sbin/shutdown 
+    (root) /sbin/reboot 
+</pre>
+<p>提示输入密码为zhaoliu的密码，验证其是否为管理员通过sudo授权的用户，执行命令：<br/>
+sudo /sbin/shutdown -h now<br/>
+zhaoliu即可关机，注意命令写绝对路径，或者把/sbin路径导入到用户缺省路径中，否则无法执行。</p>
+<p>案例：授权用户管理Apache<br/>
+授权一个用户管理你的Web服务器，不用自己插手是不是很爽，以后修改设置更新网页什么都不用管，一定Happy死了，LOOK——<br/>
+首先要分析授权用户管理Apache至少要实现哪些基本授权：<br/>
+1、可以使用Apache管理脚本<br/>
+2、可以修改Apache配置文件<br/>
+3、可以更新网页内容<br/>
+假设Aapche管理脚本为/etc/rc.d/init.d/httpd ，满足条件一，用visudo进行授权：<br/>
+zhaoliu Helen=/etc/rc.d/init.d/httpd reload,/etc/rc.d/init.d/httpd configtest<br/>
+授权用户zhaoliu可以通过Apache管理脚本重新读取配置文件让更改的设置生效（reload）和可以检测Apache配置文件语法错误（configtest），但不允许其执行关闭（stop）、重启（restart）等操作。<br/>
+满足条件二，同样使用visudo授权：<br/>
+zhaoliu Helen=/bin/vi /etc/httpd/conf/httpd.conf<br/>
+授权用户可以root身份使用vi编辑Apache配置文件。<br/>
+以上两种sudo的设置，要特别注意，很多朋友使用sudo会犯两个错误：第一，授权命令没有细化到选项和参数；第二，认为只能授权管理员执行的命令。<br/>
+条件三则比较简单，假设网页存放目录为/var/www/html ，则只需要授权zhaoliu对此目录具有写权限或者索性更改目录所有者为zhaoliu即可，如果需要还可以设置zhaoliu可以通过FTP等文件共享服务更新网页。<br/>
+本文所有操作在Red Hat Enterprise Linux 5.4下完成，其他Linux基本无差异，本文基本涵盖Linux的所有权限管理方式，虽不细致但足以让读者对其有一个整体的了解。<br/>
+最后请切记系统安全的基本原则：授权用户最小的权限。<br/>
+蜘蛛侠说“能力越大责任越大”，Linux管理员说“能力越大出错几率越大”，阿门。</p>
+<p>参考:<br/>
+1.<a href="http://blog.csdn.net/arachnoman/article/details/5654621" class="uri">http://blog.csdn.net/arachnoman/article/details/5654621</a><br/>
+2.<a href="http://nba20717zcx.blog.51cto.com/343890/392063" class="uri">http://nba20717zcx.blog.51cto.com/343890/392063</a><br/>
+3.<a href="http://www.iteye.com/topic/807807" class="uri">http://www.iteye.com/topic/807807</a></p>
+
+</div>
+</html>

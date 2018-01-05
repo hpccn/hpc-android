@@ -1,0 +1,26 @@
+1 使用sshfs挂载时自动输入密码
+大家都知道登陆ssh可以用sshpass自动输入密码，但是挂载sshfs却不行，其实sshpss是可以给sshfs输入密码的，只需要使用参数-o ssh_command=’sshpass -p password ssh’。
+
+sshfs -o ssh_command='sshpass -p 123456 ssh' -o cache=yes,allow_other user@ip path
+
+
+2 ssh 通过rsa免密登录。
+  1.1 基本说明
+
+		ssh key是一对密钥文件，一个public key文件是要给放到多端让其加到信任列表的，一个private key是留存本地，在鉴权的时候才需要。
+
+	1.2 生成密钥对
+		ssh-keygen -t rsa
+
+    密钥有多种类型（DSA, RSA, ECDSA, ED25519等），上面用的是DSA，不指定类型时ssh-keygen默认类型是RSA．
+    我们可以生成多个密钥，每个保存在不同的文件中．本例中生成的密钥保存在 /home/fsmythe/.ssh/id_dsa 和 /home/fsmythe/.ssh/id_dsa.pub 中（前者是私钥，后者是公钥）
+    Passphrase也是一种密码，是在程序读取你的私钥文件时要用到的（即你的私钥文件被加密保存了）．如果你想完全自动登录对端（不想交互式输入任何东西）那么这里可以不输入passphrase（直接回车），不过从安全性上面来说并不是太好（更好的办法是采用 ssh-agent 来加载你的密钥（加载时输入passphrase），然后在后面使用过程中就是 ssh-agent 与对端交互，不再需要输入passphrase了）
+	1.3 配置自动登录,
+		将本机公钥添加到主机
+		* ssh-copy-id -i ~/.ssh/id_rsa_xxx.pub user@ip //ssh-copy-id 将key写到远程机器的 ~/ .ssh/authorized_key.文件中
+		* scp id_rsa.pub user@ip, 在目标主机 cat id_rsa.pub >> ~/.ssh/authorized_keys
+		/home/user       -> 700
+		/home/user/.ssh  -> 700
+		/home/user/.ssh/authorized_keys  -> 600
+	
+		`

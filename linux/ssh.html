@@ -12,26 +12,26 @@
 <br/>
 第一步:在本地机器上使用ssh-keygen产生公钥私钥对
 <div id="codeText" class="codeText">
-<ol class="dp-css c1"><li>zhz@zhz:~/$ ssh-keygen<br/>
+<ol class="dp-css c1"><li>hpc@hpc:~/$ ssh-keygen<br/>
 Generating public/private rsa key pair.<br/>
-Enter file in which to save the key (/home/zhz/.ssh/id_rsa):</li>
+Enter file in which to save the key (/home/hpc/.ssh/id_rsa):</li>
 <li>Enter passphrase (empty for no passphrase): [Press enter key</li>
 <li>same passphrase again: [Pess enter key]</li>
-<li>Your identification has been saved in /home/zhz/.ssh/id_rsa.</li>
-<li>Your public key has been saved in /home/zhz/.ssh/id_rsa.pub.</li>
+<li>Your identification has been saved in /home/hpc/.ssh/id_rsa.</li>
+<li>Your public key has been saved in /home/hpc/.ssh/id_rsa.pub.</li>
 <li>The key fingerprint is:</li>
 <li>用cat命令查看是否生成产生公钥私钥对</li>
-<li>zhz@zhz:~$ cat .ssh/id_rsa.pub<br/>
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCl9N5+xboqSIagBx02rdZ2fkROCPW8iW7hl6Gu+2hkBYYy/b1qcOm8RF/AMyas3i0QEK7Hcu9H51l2lulVbS5n9M9FaWIyYzssaS012x2mg9iA6MxPMlaXFsZ5jnVrGicndzf3VUu9kCErp5q0OzzMjsG3PKQevzWZJSBaFgc8NF5ZJ+VT54BN8ktMTHVwOo15I2Uai+bs4eP0NsuwIJmGyYIUOuvTuUtJxGV3hZ+tcjhupupqVCwYOE+cDz8VkFBGtnKsdE69hWoY2VUfEOAfHZptra7Ce9dXfDgx9jxuuNiJYtGo/bZDfe+UJ5HUv8wrL+hFeRIihdmP2CKJD8j5 zhz@zhz</li>
+<li>hpc@hpc:~$ cat .ssh/id_rsa.pub<br/>
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCl9N5+xboqSIagBx02rdZ2fkROCPW8iW7hl6Gu+2hkBYYy/b1qcOm8RF/AMyas3i0QEK7Hcu9H51l2lulVbS5n9M9FaWIyYzssaS012x2mg9iA6MxPMlaXFsZ5jnVrGicndzf3VUu9kCErp5q0OzzMjsG3PKQevzWZJSBaFgc8NF5ZJ+VT54BN8ktMTHVwOo15I2Uai+bs4eP0NsuwIJmGyYIUOuvTuUtJxGV3hZ+tcjhupupqVCwYOE+cDz8VkFBGtnKsdE69hWoY2VUfEOAfHZptra7Ce9dXfDgx9jxuuNiJYtGo/bZDfe+UJ5HUv8wrL+hFeRIihdmP2CKJD8j5 hpc@hpc</li>
 </ol></div>
 第二步:用ssh-copy-id将公钥复制到远程机器中
 <div class="codeText">
-<ol class="dp-css c1"><li>zhz@zhz:~$  ssh-copy-id -i .ssh/id_rsa.pub  用户名字@192.168.x.xxx</li>
+<ol class="dp-css c1"><li>hpc@hpc:~$  ssh-copy-id -i .ssh/id_rsa.pub  用户名字@192.168.x.xxx</li>
 </ol></div>
 <p><strong>注意:</strong> ssh-copy-id <strong>将key写到远程机器的 ~/</strong> .ssh/authorized_key.文件中</p>
 第三步:<a href="mailto:jsmith@local-host$">登录到</a>远程机器不用输入密码
 <div class="codeText">
-<ol class="dp-css c1"><li>zhz@zhz:~$  ssh 用户名字@192.168.x.xxx</li>
+<ol class="dp-css c1"><li>hpc@hpc:~$  ssh 用户名字@192.168.x.xxx</li>
 <li><br/></li>
 <li>Last login: Sun Nov 16 17:22:33 2008 from 192.168.1.2</li>
 </ol></div>

@@ -1,0 +1,28 @@
+
+git多用户账号设置
+
+首先需要在ssh里面生成两个key，一个是公司的git的ssh开发key，一个是为了github所生成的ssh的key。
+ssh-keygen -t rsa -C "xx@xx.com"
+
+因为默认是读取id_rsa,所以要ssh agent添加新的ssh。
+
+ssh-add ~/.ssh/id_xx
+
+修改~/.ssh/config文件（没有就创建一个）
+
+Host defaultgit
+    HostName github.com
+    User x1
+    IdentityFile ~/.ssh/id_x2
+Host secondgit
+    HostName youripaddr
+    User x2
+    IdentityFile ~/.ssh/id_x1
+
+在不同的工程目录下面设置非全局的用户名和邮箱
+
+git config user.name x1
+
+git config user.email x1@xx.com
+
+这样测试下ssh －T git@github.com

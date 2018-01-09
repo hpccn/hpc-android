@@ -1,0 +1,6 @@
+sudo pacman -S cups ghostscript gsfonts hplip
+sudo systemctl enable org.cups.cupsd
+
+// hp 打印机配制
+hp-setup
+

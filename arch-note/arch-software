@@ -52,6 +52,7 @@ gimp # 编辑图片
 gstreamer0.10-plugins # 解码器
 mirage # 看图
 geeqie 看图
+Ristretto 看图
 mplayer2
 smplayer # 看视频
 scrot # 截图

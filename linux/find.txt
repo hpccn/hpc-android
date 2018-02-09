@@ -139,5 +139,7 @@ find / -name access_log 2>/dev/null
 　　-ls
 　　打印同种文件格式的文件.
 
+48小时以内修改过的文件：
+find . -mtime -2 -type f
 
 　　总结：到这里为止我们已经学习了这名多关于find命令的使用方法，也列出了很多常用的find命令的选项，如果我们能熟练掌握在Linux中find命令的使用方法，那么在Linux中查找文件也不是一件困难的事情。

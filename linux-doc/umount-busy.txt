@@ -1,0 +1,74 @@
+linux umount命令介绍与device is busy解决方法
+
+介绍umount命令，主要用来卸载文件系统，另一个与之对应的命令就是mount,用来加载文件系统。
+
+umount -l 解决了占用问题
+
+语法：umount  参数  挂载点/设备名
+
+参数：
+
+-a   卸除/etc/mtab中记录的所有文件系统。
+-h   显示帮助。
+-n   卸除时不要将信息存入/etc/mtab文件中。
+-r   若无法成功卸除，则尝试以只读的方式重新挂入文件系统。
+-t<文件系统类型>   仅卸除选项中所指定的文件系统。
+-v   执行时显示详细的信息。
+-V   显示版本信息。
+其他参数请通过man umount查看。
+实例：
+
+比如我的U盘在系统中显示为/dev/sdb1，我在/新建usb目录用于挂载U盘内容。
+
+#mount /dev/sdb1  /usb
+
+想卸载时
+
+#umount  /dev/sdb1或
+
+#umount /usb都可以。
+
+不过对于u盘一般使用eject命令卸载
+
+#eject /dev/sdb1或
+
+#eject /usb
+
+但是经常会出现umount: /usb: device is busy的情况
+
+设备正忙，说明我们还在使用这个设备，一般情况下是我们正在设备的挂载点上，如/usb，此时cd其他路径再umount就可以了。不过有时这样做还是不可以，说明还有其他进程正在使用这个设备。此时我们应该怎么查找这个进程呢？
+
+对于这种情况，我们一般使用“lazy” umount来解决。使用很简单，umount加上-l参数即可，lazy umount会断开设备并关闭打开该设备的全部句柄。如果还是不行，咋办呢。那就只能查找使用此设备的进程啦。
+
+第一个我想到的是使用lsof命令，lsof命令可以列举系统中被 打开的文件。
+
+lsof命令详见：http://bbs.51osos.com/thread-456-1-1.html
+
+http://bbs.51osos.com/thread-3624-1-1.html
+
+#losf | grep usb
+
+把找到的进程kill掉就OK啦。
+
+第二个想到是fuser命令。
+
+#fuser -m /usb
+
+如显示：2362c
+
+把2362这个pid kill掉就OK啦。后面的字母含义如下：
+
+    c: current directory.
+    e: executable being run.
+    f: open file. f is omitted in default display mode.
+    F: open file for writing. F is omitted in default display mode.
+    r: root directory.
+    m: mmap’ed file or shared library.
+
+也可以这样操作：
+
+fuser -m -v -i -k  /usb 使用i参数会问你是否kill掉这个某个进程，按y就把它kill了。
+
+fuser命令详见：http://bbs.51osos.com/thread-4185-1-1.html
+
+不过使用ps -ef 或ps aux与grep应该也可以找到的，如果您有更好的方法欢迎在评论中与大家分享。

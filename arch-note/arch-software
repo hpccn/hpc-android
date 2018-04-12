@@ -105,6 +105,12 @@ wiki 里提到的 alsamixer 就在 alsa-utils 里
 简单好用, 界面友好
 
 
+无声的修复
+桌面环境用的是xfce4。
+
+自从某次更新过后，panel中调节声音的插件变成了 xfce4-pulseaudio-plugin
+sudo pacman -S xfce4-pulseaudio-plugin
+
 archlinux中fcitx随X的配置
 
 fcitx，中文输入法，现在中文输入工具已经有不少非常好用的，偶还是偏好fcitx，设置很简单，修改.fcitx/config文件。

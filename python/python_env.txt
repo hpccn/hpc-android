@@ -1,0 +1,85 @@
+1. 对Ubuntu apt-get仓库进行更新
+sudo apt-get update && sudo apt-get upgrade
+2. 安装必要的python插件及一些环境
+sudo apt-get install python3-setuptools python3-dev -y
+3. 安装pip
+sudo easy_install3 pip
+4. 对pip进行的更新(非必要)
+pip install --upgrade pip
+5. 安装numpy包
+pip install numpy
+
+除此之外，还需要一些通用的包：
+
+6. 安装build-essential
+sudo apt-get install build-essential -y  
+7. 其他的一些开发用包
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev -y 
+
+安装OpenGL（PyOpenGL）
+
+如果你不想要OpenGL的话，可以略过这一步
+
+实际上这个安装过程很简单，只要一个命令：
+
+pip install pyopengl
+
+安装完毕后，使用如下代码测试下是否正确即可：
+
+# hello_world.py
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+def Draw():
+    glClear(GL_COLOR_BUFFER_BIT)
+    glRotatef(0.5, 0, 1, 0)
+    glutWireTeapot(0.5)
+    glFlush()
+
+if __name__ == "__main__":
+    glutInit()
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGBA)
+    glutInitWindowSize(400, 400)
+    glutCreateWindow("test")
+    glutDisplayFunc(Draw)
+    glutIdleFunc(Draw)
+    glutMainLoop()
+
+使用如下命令启动这个代码：
+
+python3 hello_world.py
+
+如果你配置过程正确，那么就应该显示出一个旋转的茶壶。
+安装OpenCV
+sudo pip install opencv-python
+
+
+如果你只需要了解OpenCV怎么安装，那么直接看这里即可
+
+首先你需要找个地方下载OpenCV的安装包，并且解压后，将它安装到Ubuntu里，因此我选择的路径是/home/users/Download下，并且执行了如下命令：
+
+wget https://github.com/Itseez/opencv/archive/3.0.0.zip
+
+将压缩包解压后，进入到opencv-3.0.0的目录下，并创建编译后文件的存放地址：
+
+unzip 3.0.0.zip && cd opencv-3.0.0  
+mkdir build && cd build  
+
+之后再build目录下执行如下命令：
+
+cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local PYTHON3_EXECUTABLE=/usr/bin/python3 PYTHON_INCLUDE_DIR=/usr/include/python3.4 PYTHON_LIBRARY=/usr/lib/x86_64-linux-gnu/libpython3.4m.so PYTHON3_NUMPY_INCLUDE_DIRS=/usr/local/lib/python3.4/dist-packages/numpy/core/include ..  
+
+最后，执行安装命令：
+
+make && sudo make install
+
+工作完成后，使用如下命令测试是否安装成功：
+
+python3
+
+然后进入到python3的shell交互环境后，输入如下命令
+
+import cv2
+
+如果没有报错，那应该是安装成功了！

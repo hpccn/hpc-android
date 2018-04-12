@@ -1,0 +1,50 @@
+
+ vim 的 tags 模块 与 ctags
+1. 概述
+
+一般来说，在代码中跳转，离不开 ctags。
+
+实际上，vim 中代码跳转是由 vim tags 模块完成的，tags 模块依赖于 tags 文件。
+
+ctags(Generate tag files for source code) 是产生 tags 文件的。
+
+tags 文件只包含了函数、类、变量的定义的信息，而没有包含使用信息。
+
+如果要知道一个函数都在什么地方使用过，需要使用 cscope。
+2. tags 文件的生成与更新
+
+ctags 默认是不会自动生成 ctags 文件的，常用的 3 个生成命令如下：
+
+$ ctags *
+$ ctags -R
+$ ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .
+
+    -R: 循环生成子目录的 tags
+    *: 当前目录下的所有文件，不递归
+    –c++-kinds=+px : 记录 c++ 文件中的函数声明和各种外部和前向声明
+    –fields=+iaS : ctags 要求描述的信息，其中i表示如果有继承，则标识出父类；a 表示如果元素是类成员的话，要标明其调用权限（即是 public 还是 private）；S 表示如果是函数，则标识函数的 signature。
+    –extra=+q: 强制要求ctags做如下操作—如果某个语法元素是类的一个成员，ctags默认会给其记录一行，可以要求ctags对同一个语法元素再记一行，这样可以保证在VIM中多个同名函数可以通过路径不同来区分。
+
+3. 常见功能与快捷键
+
+详细的说明，见 vim 的 tags 帮助文档。
+
+:help tags
+
+命令、快捷键、功能描述如下：
+
+    CTRL+]        :tag tagname     跳转到定义处
+    CTRL-W ]     :stag tagname    新窗口中打开并跳转到定义处。split 后执行  tag tagname
+    CTRL+T                               CTRL+] 的反操作，向回跳转。类似 CTRL+o，区别在于，CTRL+o 的跳转不局限于 CTRL+] 构成的调用树。
+
+对于存在多个匹配的 tag（如， 在 .h 和  .cpp 中都声明或者定义的方法名）：
+
+    :ts[elect]                 列出所有匹配的 tag
+    :[count]tp[revious]  跳转至前 count 个 tag 处。
+    :[count]tn[ext]        跳转至后 count 个 tag 处。
+
+4. Vim + ctags 配置
+
+set tags=tags;  " ; 不可省略，表示若当前目录中不存在tags， 则在父目录中寻找。
+map <C-F12> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR> 
+

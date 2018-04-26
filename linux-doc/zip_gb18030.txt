@@ -1,0 +1,75 @@
+
+linux zip 解压乱码处理
+
+python2 解压
+----------------------
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+
+import os
+import sys
+import zipfile
+
+print "Processing File " + sys.argv[1]
+
+file=zipfile.ZipFile(sys.argv[1],"r");
+for name in file.namelist():
+    utf8name=name.decode('gbk')
+    print "Extracting " + utf8name
+    pathname = os.path.dirname(utf8name)
+    if not os.path.exists(pathname) and pathname!= "":
+        os.makedirs(pathname)
+    data = file.read(name)
+    if not os.path.exists(utf8name):
+        fo = open(utf8name, "w")
+        fo.write(data)
+        fo.close
+file.close()
+-----------------------------------------------
+
+unar万能linux解压工具
+
+1. 安装
+
+sudo apt-get install unar
+
+    1
+
+2.列出压缩包内容
+
+lsar test.zip
+
+    1
+
+3.解压压缩包
+
+unar test.zip
+
+    1
+
+4.unar常用选项解释
+
+-o
+
+    解释：指定解压结果保存的位置
+    unar test.zip -o /home/dir/
+
+-e
+
+    解释：指定编码
+    unar -e GBK test.zip
+
+-p
+
+    解释：指定解压密码
+    unar -p 123456 test.zip
+
+3.解决linux解压压缩包中文文件名乱码问题
+
+lsar test.zip
+
+###若发现乱码，可指定压缩包文件名使用的编码格式##
+lsar -e GB18030 test.zip
+
+###若能正常列出文件名，可解压###
+unar -e GB18030 test.zip

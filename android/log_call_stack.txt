@@ -1,0 +1,136 @@
+Android各种获取代码调用栈的方法
+
+
+静态方法
+
+1. Java中打印调用栈
+
+比较简单，利用Throwable，直接log中打印出来：
+
+
+    Log.d(TAG, Log.getStackTraceString(new Throwable()));   
+
+
+2. C++中打印调用栈
+也是比较简单，直接利用CallStack类
+
+    #include <utils/CallStack.h>    
+    ...    
+    CallStack stack("FUCK");    
+    ...  
+
+CallStack从4.3开始，重写了下，现在使用比较简单了，实例化的地方就直接打印了。
+
+3. C中打印调用栈
+   以前写的方法，又复杂又不好用(版本更新，很多库和接口都变了)。其实，在C中打印调用栈，也是超级简单。只要随便找一个C++的源文件，实现一个函数就可以了：
+
+    #include <utils/CallStack.h>    
+    extern "C" void printCallStack();  
+    void printCallStack() {  
+     CallStack stk("Fuck");  
+    }  
+
+这可以添加在android现有code中，也可以自己新增一个cpp的文件编进来。 想要打印的地方，直接调用即可：
+
+    ...  
+    extern void printCallStack();  
+    void test_c_code() {  
+     ...  
+     printCallStack();  
+     ...  
+    }  
+    ...  
+
+注意：
+
+    C++代码的printCallStack声明一定要有extern "C"，否则c++的mangle后的符号，C中是不认的
+    添加后注意库的链接，还有命名空间别搞错了。
+
+另外，以上方法实际上也就适用在汇编中打印CallStack，都一样的~~
+以上CallStack方法， NDK中不好用，而且旧版本可能有兼容性问题，NDK想用的话，需要处理一下，不过不保证每家做出来的都一样(理论上google没统一的，可能都可能不保险..)，应用包进去的话，估计要小心点。
+4. 内核态代码中打印调用栈
+
+内核看调用栈，也是比较简单的，直接在要看的地方，加入：
+
+    WARN_ON(1);  
+
+
+静态打印的问题：
+
+    静态打印调用栈，需要修改代码，重新编译运行
+    对于底层函数，或者调用次数很多的函数，会出现海量流氓log，没法真正分析了。
+
+解决方法，改代码这个没法解决，针对流氓log，可以想一些办法：
+
+    callStack的地方，条件触发，根据上下文，设置条件触发
+    不好以上下文设条件的，可以根据进程名/uid等设置触发条件
+    可以用大绝招：自己定义property设条件，可以在shell串口通过改变property值来toggle log开关。
+
+
+动态方法
+
+动态的话，其实ADB连上DDMS后，查看更方便，java堆栈查看起来特别顺手，这里只看shell命令的几种方式：
+1. Dump Java调用栈
+
+java调用栈实际也包含了native的栈和内核栈，比较全一些，看的也更清晰。使用方式也很简单：
+
+    kill -3 <pid>  
+
+
+    由于是虚拟机帮忙的，目前只适用于虚拟机进程(即java进程)
+2. Dump native栈
+    用Debuggerd很容易获取native栈信息，这个可以当采样或者分析卡住或死锁问题。
+
+
+    debuggerd -b <pid>  
+
+
+
+    注意这个对java进程，是得不到java调用栈的，不过得到的是虚拟机执行java指令时的虚拟机调用栈，debugger 虚拟机必用。
+3. 查看内核栈
+    比较难，大多系统没有开放，看不到，不过调试版本可以。
+    查看方法是：
+
+    cat /proc/<pid>/task/<tid>/stack  
+
+不过最新Naugot上的调用栈，看起来最新的不做demangle了：
+
+    "main" prio=5 tid=1 Native  
+      | group="main" sCount=1 dsCount=0 obj=0x748ef6b8 self=0xa638b400  
+      | sysTid=1774 nice=0 cgrp=default sched=0/0 handle=0xaa74b534  
+      | state=S schedstat=( 0 0 0 ) utm=18 stm=193 core=0 HZ=100  
+      | stack=0xbf403000-0xbf405000 stackSize=8MB  
+      | held mutexes=  
+      kernel: SyS_epoll_wait+0x23c/0x2d1  
+      kernel: SyS_epoll_pwait+0x70/0xe1  
+      kernel: sysenter_do_call+0x12/0x22  
+      native: #00 pc ffffe424  [vdso] (__kernel_vsyscall+16)  
+      native: #01 pc 000779ab  /system/lib/libc.so (__epoll_pwait+43)  
+      native: #02 pc 00020cb0  /system/lib/libc.so (epoll_pwait+112)  
+      native: #03 pc 00020d0e  /system/lib/libc.so (epoll_wait+62)  
+      native: #04 pc 00018f1b  /system/lib/libutils.so (_ZN7android6Looper9pollInnerEi+203)  
+      native: #05 pc 00018d84  /system/lib/libutils.so (_ZN7android6Looper8pollOnceEiPiS1_PPv+68)  
+      native: #06 pc 000d38c3  /system/lib/libandroid_runtime.so (_ZN7android18NativeMessageQueue8pollOnceEP7_JNIEnvP8_jobjecti+77)  
+      native: #07 pc 000d3934  /system/lib/libandroid_runtime.so (???)  
+      native: #08 pc 007b1c0c  /system/framework/x86/boot-framework.oat (Java_android_os_MessageQueue_nativePollOnce__JI+136)  
+      at android.os.MessageQueue.nativePollOnce(Native method)  
+      at android.os.MessageQueue.next(MessageQueue.java:323)  
+      at android.os.Looper.loop(Looper.java:136)  
+      at android.app.ActivityThread.main(ActivityThread.java:6119)  
+      at java.lang.reflect.Method.invoke!(Native method)  
+      at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:886)  
+      at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:776)  
+
+这有点蛋疼，读起来有点难受，看提交记录，是为了绕某个bug：
+
+    commit 7c903fbacfaf449fb4f7a9fa2f1a1b6ba2db5330  
+    Author: Josh Gao <jmgao@google.com>  
+    Date:   Tue Mar 22 11:29:17 2016 -0700  
+        Don't demangle symbol names.  
+          
+        Bug: http://b/27299236  
+        Change-Id: I3a698c6d93e262fd78e743c1e6e946b054b9dcd1  
+
+
+当然，这些动态看的调用栈，通过adb bugreport或dumpstate命令，都能得到。如果有bug的话，可以先保存一份bugreport，存下了放在后面慢慢看，然后再来解刨场景分析。
+    

@@ -1,0 +1,123 @@
+
+可行性评估：
+
+参考现存的：
+1 google android for work. (android 7 ）
+	Android for work
+	https://blog.csdn.net/liu1314you/article/details/52028823
+2 三星 knox
+
+
+1 用户切换时动态切换，packages.xml, packages.list 
+	目前双系统的模式，动态功切换出错，系统桌面点击无响应。
+
+Process com.android.systemui has crashed too many times: killing!
+Process com.android.systemui (pid 15748) has died
+
+Process com.android.phone has crashed too many times: killing!
+Process com.android.phone (pid 15715) has died
+
+05-28 16:18:20.997 16533 16533 D AndroidRuntime: Shutting down VM
+05-28 16:18:20.998 16533 16533 E AndroidRuntime: FATAL EXCEPTION: main
+05-28 16:18:20.998 16533 16533 E AndroidRuntime: Process: com.android.phone, PID: 16533
+05-28 16:18:20.998 16533 16533 E AndroidRuntime: java.lang.RuntimeException: Unable to create application com.android.phone.PhoneApp: java.lang.SecurityException: ConnectivityService: Neither user 1001 nor current process has android.permission.ACCESS_NETWORK_STATE.
+
+
+05-28 16:18:20.998 16533 16533 E AndroidRuntime: Caused by: java.lang.SecurityException: ConnectivityService: Neither user 1001 nor current process has android.permission.ACCESS_NETWORK_STATE.
+
+
+05-28 16:18:21.001  1360  5040 W ActivityManager: Process com.android.phone has crashed too many times: killing!
+05-28 16:18:21.007 16533 16533 I Process : Sending signal. PID: 16533 SIG: 9
+05-28 16:18:21.020  5001  5001 D WeatherService: Failed to load weather profile
+05-28 16:18:21.075  1360  4327 I ActivityManager: Process com.android.phone (pid 16533) has died
+05-28 16:18:21.075  1360  4327 D ActivityManager: cleanUpApplicationRecord -- 16533
+05-28 16:18:21.076  1360  4327 W ActivityManager: Scheduling restart of crashed service com.android.phone/.TelephonyDebugService in 0ms
+05-28 16:18:21.077  1360  4327 W ActivityManager: Re-adding persistent process ProcessRecord{6527987 16533:com.android.phone/1001}
+05-28 16:18:21.078  1360  4327 W PackageManager: permission error:1001,android.permission.WRITE_MEDIA_STORAGE
+05-28 16:18:21.078  1360  4327 W PackageManager: permission error:1001,android.permission.READ_EXTERNAL_STORAGE
+05-28 16:18:21.112  1360  4327 D ActivityManager: am_proc_start:0,16551,1001,com.android.phone,restart,com.android.phone
+05-28 16:18:21.113  1360  4327 I ActivityManager: Start proc 16551:com.android.phone/1001 for restart com.android.phone
+05-28 16:18:21.173 16551 16551 W System  : ClassLoader referenced unknown path: /system/priv-app/TeleService/lib/arm64
+05-28 16:18:21.188 16551 16551 W System  : ClassLoader referenced unknown path: /system/priv-app/TelephonyProvider/lib/arm64
+05-28 16:18:21.221 16551 16551 D TelephonyProvider: dbh.onOpen: ok, queried table=siminfo
+05-28 16:18:21.222 16551 16551 D TelephonyProvider: dbh.onOpen: ok, queried table=carriers
+05-28 16:18:21.239 16551 16551 W System  : ClassLoader referenced unknown path: /system/app/AutoRegistration/lib/arm64
+05-28 16:18:21.260 16551 16551 W System  : ClassLoader referenced unknown path: /system/app/PhoneFeatures/lib/arm64
+0
+
+
+05-24 11:19:05.365  1362  1362 W WallpaperManagerService: Wallpaper service gone: ComponentInfo{com.android.systemui/com.android.systemui.ImageWallpaper}
+05-24 11:19:05.366  1362  1362 W WallpaperManagerService: Reverting to built-in wallpaper!
+05-24 11:19:05.366  1362  4085 D ActivityManager: cleanUpApplicationRecord -- 15730
+05-24 11:19:05.366  1362  4085 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.ImageWallpaper in 0ms
+05-24 11:19:05.366  1362  4085 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.keyguard.KeyguardService in 0ms
+05-24 11:19:05.366  1362  4085 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.SystemUIService in 0ms
+05-24 11:19:05.367  1362  4085 W ActivityManager: Re-adding persistent process ProcessRecord{85f051d 15730:com.android.systemui/u0a14}
+05-24 11:19:05.367  1362  4085 W PackageManager: permission error:10014,android.permission.WRITE_MEDIA_STORAGE
+05-24 11:19:05.367  1362  4085 W PackageManager: permission error:10014,android.permission.READ_EXTERNAL_STORAGE
+05-24 11:19:05.387  1362  4085 D ActivityManager: am_proc_start:0,15748,10014,com.android.systemui,restart,com.android.systemui
+05-24 11:19:05.388  1362  4085 I ActivityManager: Start proc 15748:com.android.systemui/u0a14 for restart com.android.systemui
+05-24 11:19:05.391  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.395  1362  4319 W ActivityManager: Process com.android.phone has crashed too many times: killing!
+05-24 11:19:05.397 15715 15715 I Process : Sending signal. PID: 15715 SIG: 9
+05-24 11:19:05.440  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.441  1362  4968 I ActivityManager: Process com.android.phone (pid 15715) has died
+05-24 11:19:05.441  1362  4968 D ActivityManager: cleanUpApplicationRecord -- 15715
+05-24 11:19:05.442  1362  4968 W ActivityManager: Scheduling restart of crashed service com.android.phone/.TelephonyDebugService in 0ms
+05-24 11:19:05.444  1362  4968 W ActivityManager: Re-adding persistent process ProcessRecord{7532723 15715:com.android.phone/1001}
+05-24 11:19:05.445  1362  4968 W PackageManager: permission error:1001,android.permission.WRITE_MEDIA_STORAGE
+05-24 11:19:05.445  1362  4968 W PackageManager: permission error:1001,android.permission.READ_EXTERNAL_STORAGE
+05-24 11:19:05.464 15748 15748 W System  : ClassLoader referenced unknown path: /system/priv-app/SystemUI/lib/arm64
+05-24 11:19:05.471  1362  4968 D ActivityManager: am_proc_start:0,15762,1001,com.android.phone,restart,com.android.phone
+05-24 11:19:05.472  1362  4968 I ActivityManager: Start proc 15762:com.android.phone/1001 for restart com.android.phone
+05-24 11:19:05.484 15748 15748 V SystemUIService: Starting SystemUI services.
+05-24 11:19:05.486  1362  5016 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.486  1362  5016 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS_FULL
+05-24 11:19:05.486  1362  5016 W ActivityManager: Permission Denial: getCurrentUser() from pid=15748, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.488 15748 15748 D AndroidRuntime: Shutting down VM
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: FATAL EXCEPTION: main
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: Process: com.android.systemui, PID: 15748
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: java.lang.RuntimeException: Unable to create service com.android.systemui.keyguard.KeyguardService: java.lang.SecurityException: Permission Denial: getCurrentUser() from pid=15748, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+
+
+看日志是切换数据源后，进程跨用户访问数据导致。
+
+
+2 建用户时:
+	1 同步建立用户app按装路径。 /data/system/users/??/app
+	2 同步建立用户app注册文件， /data/system/users/??/packages.xml, packages.list
+动态合并packages, =  userApp + systemApp
+
+
+下一步：
+
+切换到android 原生的多用户版本，测试上述方法是否可行。
+	git 库无说明，checkout 不同版本测试
+	最早的版本无法启动，黑屏。
+	
+
+编译原生多用户版本，将方法1的添加进行测试。测试此方法的可行性。
+
+
+2d99a9c HEAD@{3}: reset: moving to 2d99a9c648ad9cf6969f851d380eac5cecf82458
+b6cee31 HEAD@{4}: reset: moving to b6cee31ec48720e094d43fefc047ba27a470f7a1
+3679398 HEAD@{6}: reset: moving to 36793986d4a5f3c45edfe8677429072a490e39c1
+b2896fe HEAD@{7}: reset: moving to b2896fe288ca057b3f35e53e6e6e2ad494c98068
+
+这四个基线均无法正常启动。使用最新版本的boot.img，可以正常启动。但是切换多用户launcher 崩溃。
+
+错误：
+
+05-28 09:55:40.231 24406 24406 E AndroidRuntime: Caused by: java.lang.SecurityException: Permission Denial: broadcast from android asks to run as user 0 but is calling from user 10; this requires android.permission.INTERACT_ACROSS_USERS_FULL or android.permission.INTERACT_ACROSS_USERS
+
+
+使用最新版本的ELauncher3.apk替换后，进入桌面，所有的应用都无法使用崩溃，log同上。
+
+
+
+ 用户切换时动态切换，packages.xml, packages.list 因目前的系统中基线版本多用户切换异常，暂不折腾基线多用户bug.导致此方法目前遇到困境。暂停此方法。
+
+
+接下来需要深入分析android 多用户的。 
+
+

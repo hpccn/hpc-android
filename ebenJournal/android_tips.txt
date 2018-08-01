@@ -1,0 +1,181 @@
+	// 屏蔽系统按键，需要系统签名
+	public void hideNavigationBar()
+	{
+		android.app.StatusBarManager sbm = (StatusBarManager) getActivity().getSystemService("statusbar");
+		sbm.disable(StatusBarManager.DISABLE_MASK);// 禁用
+		sbm.disable(StatusBarManager.NONE);// 启用
+}
+
+// 反射方法：
+{
+	 final String STATUS_BAR_SERVICE = "statusbar";
+	 final String CLASS_STATUS_BAR_MANAGER = "android.app.StatusBarManager";
+	 final String METHOD_DISABLE = "disable"; 
+
+	try {
+		Object service = getSystemService(STATUS_BAR_SERVICE);
+		Class<?> statusBarManager = Class.forName(CLASS_STATUS_BAR_MANAGER);
+		Method disable = statusBarManager.getMethod(METHOD_DISABLE,
+				int.class);
+		//          disable.invoke(service, 0x00200000); // 为View.STATUS_BAR_DISABLE_HOME 的值
+		//          disable.invoke(service, 0x00400000); // 为View.STATUS_BAR_DISABLE_BACK  的值
+		disable.invoke(service, 0x01000000); // 为View.STATUS_BAR_DISABLE_RECENT的值
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
+}
+
+-------------------- ----------------------------------------
+
+禁用电源键
+
+frameworks/base/services/core/java/com/android/server/policy/PhoneWindowManager.java
+    case KeyEvent.KEYCODE_POWER: {  
+
+		if (){
+			break; // 不处理电源键，直接返回。黑屏后，电源键也无效。
+		}
+        result &= ~ACTION_PASS_TO_USER;//不分发到应用  
+        isWakeKey = false; // wake-up will be handled separately  
+        if (down) {  
+            Log.i(TAG, "PowerKey down, interactive = " + interactive);  
+            interceptPowerKeyDown(event, interactive);//按键down  
+        } else {  
+            Log.i(TAG, "PowerKey up.");  
+            interceptPowerKeyUp(event, interactive, canceled);//按键up  
+        }  
+        break;  
+    }  
+
+-------------------- ----------------------------------------
+创建与修改android属性用Systemproperties.set(name, value)，获取android属性用Systemproperties.get(name)，需要注意的是android属性的名称是有一定的格式要求的，如下：前缀必须用system\core\init\property_service.c中定义的前缀，进行系统属性设置的程序也必须有system或root权限，
+
+如何将android程序的权限提升到system权限？方法是这样的：
+
+1、在AndroidManifest.xml中，在manifest加入android:sharedUserId="android.uid.system"。
+
+2、在Android.mk中，將LOCAL_CERTIFICATE := XXX修改成LOCAL_CERTIFICATE :=platform。
+system/core/init/property_service.c
+通过查看property_service.c，我们可以明确以下事实：
+
+1、  属性名不是随意取的。在property_perms数组中定义了当前系统上可用的所有属性的前缀，以及相对应的存取权限UID。对属性的设置要满足权限要求，同时命名也要在这些定义的范围内。
+
+2、  PA_COUNT_MAX指定了系统（共享内存区域中）最多能存储多少个属性。
+
+3、  PROP_NAME_MAX指定了一个属性的key最大允许长度；PROP_VALUE_MAX则指定了value的最大允许长度。
+设置系统属性，需要注意键值，
+     #define PERSISTENT_PROPERTY_DIR  "/data/property"
+     struct {
+         const char *prefix;
+         unsigned int uid;
+     } property_perms[] = {
+         { "net.rmnet0.",    AID_RADIO },
+         { "net.gprs.",      AID_RADIO },
+         { "ril.",           AID_RADIO },
+         { "gsm.",           AID_RADIO },
+         { "net.dns",        AID_RADIO },
+         { "net.usb0",       AID_RADIO },
+         { "net.",           AID_SYSTEM },
+         { "dev.",           AID_SYSTEM },
+         { "runtime.",       AID_SYSTEM },
+         { "hw.",            AID_SYSTEM },
+         { "sys.",        AID_SYSTEM },
+         { "service.",    AID_SYSTEM },
+         { "wlan.",        AID_SYSTEM },
+         { "dhcp.",        AID_SYSTEM },
+         { "dhcp.",        AID_DHCP },
+         { "debug.",        AID_SHELL },
+         { "log.",        AID_SHELL },
+         { "service.adb.root",    AID_SHELL },
+         { "persist.sys.",    AID_SYSTEM },
+         { "persist.service.",   AID_SYSTEM },
+         { NULL, 0 }
+     };
+-------------------- ----------------------------------------
+selinux 配制
+
+external/sepolicy/
+device/qcom/sepolicy/common/
+
+
+-------------------- ----------------------------------------
+打印调用堆栈：
+
+android.util.Log.d(TAG, android.util.Log.getStackTraceString(new Throwable()));
+-------------------- ----------------------------------------
+
+   mgrep init.rc  命令，命令的输出大概揭示了init.rc 的生成过程。
+
+android 6 中init.rc的生成过程
+
+           android 系统开机是会有一个初始化过程 init ，整个初始化过程是根据配置脚本init.rc进行的。init.rc文件位于android设备的根目录，在设备出厂是就确定了，一般用户无法修改，厂家也不希望用户修改，如果是资深人士，那就另当别论了。
+
+          不管在android的原生代码根目录，还是soc提供的目录下，在执行完 source build/envsetup.sh之后，可以在代码根目录下使用
+
+          mgrep init.rc  命令，命令的输出大概揭示了init.rc 的生成过程。
+
+
+system/core/rootdir/init.rc
+-------------------- ----------------------------------------
+关闭 seLinux：
+adb shell 
+setenforce 0
+
+
+打开seLinux：
+
+setenforce 1
+
+查看seLinux状态
+adb shell
+getenforce
+Enforcing：seLinux已经打开；        
+Permissive：seLinux已经关闭；
+
+
+-------------------- ----------------------------------------
+监听Settings的值的变化
+
+	private void registerDualSystemSwitch(){
+		//Log.d(TAG, "registerContentObserver current_system : " + android.provider.Settings.Global.getInt(mContext.getContentResolver(), "current_system", 0));
+		handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+				mContext.getContentResolver().registerContentObserver(android.provider.Settings.Global.getUriFor("current_system"), true, obServerDualSystem);//注册监听
+            }
+        }, 10000);//3秒后执行Runnable中的run方法
+	}
+	private void unregisterDualSystemSwitch(){
+		mContext.getContentResolver().unregisterContentObserver(obServerDualSystem);//注销监听
+		Log.d(TAG, "unregisterContentObserver current_system : " + android.provider.Settings.Global.getInt(mContext.getContentResolver(), "current_system", 0));
+	}
+	Handler handler = new Handler(){
+
+		public void handleMessage(Message msg){
+		};
+	};
+	android.database.ContentObserver obServerDualSystem = new android.database.ContentObserver(handler){
+		@Override
+		public void onChange(boolean selfChange) {
+			super.onChange(selfChange);
+			Log.d(TAG, "current_system : " + android.provider.Settings.Global.getInt(mContext.getContentResolver(), "current_system", 0) + ", " + selfChange);
+		}  
+
+	};
+
+
+
+
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------
+-------------------- ----------------------------------------

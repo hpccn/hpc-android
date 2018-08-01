@@ -1,0 +1,293 @@
+
+
+
+ 启动PackageManagerService
+frameworks/base/services/java/com/android/server/SystemServer.java
+
++161
+    private SystemServiceManager mSystemServiceManager;
+// SystemServiceManager 启动系统服务
++282
+       // Create the system service manager.
+        mSystemServiceManager = new SystemServiceManager(mSystemContext);
+        LocalServices.addService(SystemServiceManager.class, mSystemServiceManager);
+
++346
+        Installer installer = mSystemServiceManager.startService(Installer.class);
+
+        // Activity manager runs the show.
+        mActivityManagerService = mSystemServiceManager.startService(
+                ActivityManagerService.Lifecycle.class).getService();
+        mActivityManagerService.setSystemServiceManager(mSystemServiceManager);
+        mActivityManagerService.setInstaller(installer);
+
+
+
+
+
++390
+        // Start the package manager.
+        Slog.i(TAG, "Package Manager");
+        mPackageManagerService = PackageManagerService.main(mSystemContext, installer,
+                mFactoryTestMode != FactoryTest.FACTORY_TEST_OFF, mOnlyCore);
+        mFirstBoot = mPackageManagerService.isFirstBoot();
+        mPackageManager = mSystemContext.getPackageManager();
+
+        Slog.i(TAG, "User Service");
+        ServiceManager.addService(Context.USER_SERVICE, UserManagerService.getInstance());
+
+
+
+SecurityException
+libcore/luni/src/main/java/java/lang/SecurityException.java
+
+DropBoxManagerService
+frameworks/base/services/core/java/com/android/server/DropBoxManagerService.java
+
+
+dropbox日志 /data/system/dropbox
+
+
+dropbox日志文件的命名有一定的规则，其前缀都是一个特定的tag（标签），
+
+tag由两部分组成，合起来是”进程类型”_”事件类型”。
+
+下边代码中的processClass函数返回该进程的类型，包括“system_server”、“system_app”和“data_app”三种。eventType用于指定事件类型，目前也有三种类型：“crash“、”wtf“（what terrible failure）和“anr”
+
+
+data app crash
+system app crash
+
+system app strict
+
+system boot
+system restart
+
+system server crash
+
+system server wtf (what terrible failure)
+
+
+
+3.4 DropBoxManagerService分析
+
+DropBoxManagerService（简称DBMS，下同）用于生成和管理系统运行时的一些日志文件。这些日志文件大多记录的是系统或某个应用程序出错时的信息。
+下面来分析这项服务。其中向SystemServer添加DBMS的代码：
+ServiceManager.addService(Context.DROPBOX_SERVICE,//服务名为”dropbox”
+                           new DropBoxManagerService(context,
+                           newFile("/data/system/dropbox")));
+ 
+3.4.1  DBMS构造函数分析
+DBMS构造函数如下：
+[-->DropBoxManagerService.java]
+public DropBoxManagerService(final Contextcontext, File path) {
+       mDropBoxDir = path;//path指定dropbox目录为/data/system/dropbox
+       mContext = context;
+       mContentResolver = context.getContentResolver();
+ 
+       IntentFilter filter = new IntentFilter();
+       filter.addAction(Intent.ACTION_DEVICE_STORAGE_LOW);
+       filter.addAction(Intent.ACTION_BOOT_COMPLETED);
+        //注册一个Broadcast监听对象，当系统启动完毕或者设备存储空间不足时，会收到广播
+       context.registerReceiver(mReceiver, filter);
+       //当Settings数据库相应项发生变化时候，也需要告知DBMS进行相应处理
+       mContentResolver.registerContentObserver(
+           Settings.Secure.CONTENT_URI, true,
+           new ContentObserver(new Handler()) {
+               public void onChange(boolean selfChange) {
+             //当Settings数据库发生变化时候， BroadcastReceiver的onReceive函数
+             //将被调用。注意第二个参数为null
+                   mReceiver.onReceive(context,(Intent) null);
+               }
+        });
+}
+根据上面代码可知：DBMS注册一个BroadcastReceiver对象，同时会监听Settings数据库的变动。其核心逻辑都在此BroadcastReceiver的onReceive函数中。该函数在以下三种情况发生时被调用：
+·  当系统启动完毕时，由BOOT_COMPLETED广播触发。
+·  当设备存储空间不足时，由DEVICE_STORAGE_LOW广播触发。
+·  当Settings数据库相应项发生变化时候，该函数也会被触发。
+这个函数内容较简单，主要功能是存储空间不足时需要删除一些老旧的日志文件以节省存储空间。读者可自行分析这个函数。
+ 
+3.4.2  dropbox日志文件的添加
+要想理清一个Service，最面好从它提供的服务开始进行分析。根据前面对DBMS的介绍可知，它提供了记录系统运行时日志信息的功能，所以这里先从dropbox日志文件的生成时说起。
+当某个应用程序因为发生异常而崩溃（crash）时，ActivityManagerService（简称AMS，下同）的handleApplicationCrash函数被调用，其代码如下：
+[-->ActivityManagerService.java]
+public void handleApplicationCrash(IBinder app,
+                     ApplicationErrorReport.CrashInfocrashInfo) {
+   ProcessRecordr = findAppProcess(app, "Crash");
+   ......
+   //调用addErrorToDropBox函数，第一个参数是一个字符串，为“crash”
+   addErrorToDropBox("crash",r, null, null, null, null, null, crashInfo);
+   ......
+}
+下面来看addErrorToDropBox函数：
+[-->ActivityManagerService.java]
+public void addErrorToDropBox(String eventType,
+           ProcessRecord process, ActivityRecord activity,
+            ActivityRecordparent, String subject,
+           final String report, final File logFile,
+           final ApplicationErrorReport.CrashInfo crashInfo) {
+      
+    /*
+    dropbox日志文件的命名有一定的规则，其前缀都是一个特定的tag（标签），
+    tag由两部分组成，合起来是”进程类型”_”事件类型”。
+    下边代码中的processClass函数返回该进程的类型，包括“system_server”、“system_app”
+    和“data_app”三种。eventType用于指定事件类型，目前也有三种类型：“crash“、”wtf“
+    （what aterrible failure）和“anr”
+    */
+    finalString dropboxTag = processClass(process) + "_" + eventType;
+    //获取DBMS Bn端的对象DropBoxManager
+       final DropBoxManager dbox = (DropBoxManager)
+               mContext.getSystemService(Context.DROPBOX_SERVICE);
+     /*
+      对于DBMS，不仅通过tag于标示文件名，还可以根据配置的情况，允许或禁止特定tag日志
+      文件的记录。isTagEnable将判断DBMS是否禁止该标签，如果该tag已被禁止，则不允许记
+      录日志文件
+      */
+        if(dbox == null || !dbox.isTagEnabled(dropboxTag)) return;
+        //创建一个StringBuilder，用于保存日志信息
+       final StringBuilder sb = new StringBuilder(1024);
+       appendDropBoxProcessHeaders(process, sb);
+        ......//将信息保存到字符串sb中
+         //单独启动一个线程用于向DBMS添加信息
+       Thread worker = new Thread("Error dump: " + dropboxTag) {
+           @Override
+           public void run() {
+               if (report != null) {
+                   sb.append(report);
+               }
+               if (logFile != null) {
+                   try {//如果有log文件，那么就把log文件内容读到sb中
+                       sb.append(FileUtils.readTextFile(logFile,
+                                128 * 1024,"\n\n[[TRUNCATED]]"));
+                   } ......
+               }
+               //读取crashInfo信息，一般记录的是调用堆栈信息
+               if (crashInfo != null && crashInfo.stackTrace != null) {
+                   sb.append(crashInfo.stackTrace);
+               }
+               String setting = Settings.Secure.ERROR_LOGCAT_PREFIX + dropboxTag;
+              //查询Settings数据库，判断该tag类型的日志是否对所记录的信息有行数限制，
+             //例如某些tag的日志文件只准记录1000行的信息
+              int lines =Settings.Secure.getInt(mContext.getContentResolver(),
+                                                       setting, 0);
+               if (lines > 0) {
+                   sb.append("\n");
+                     InputStreamReader input =null;
+                   try {
+                        //创建一个新进程以运行logcat，后面的参数都是logcat常用的参数
+                        java.lang.Processlogcat = new
+                          ProcessBuilder("/system/bin/logcat",
+                        "-v","time", "-b", "events", "-b","system", "-b",
+                             "main", "-t", String.valueOf(lines))
+                                .redirectErrorStream(true).start();
+                     //由于新进程的输出已经重定向，因此这里可以获取最后lines行的信息，
+                   //不熟悉ProcessBuidler的读者可以查看SDK中关于它的用法说明
+                     ......
+                  }
+               }
+              //调用DBMS的addText
+               dbox.addText(dropboxTag, sb.toString());
+           }
+        };
+        if(process == null || process.pid == MY_PID) {
+           worker.run(); //如果是SystemServer进程crash了，则不能在别的线程执行
+        }else {
+           worker.start();
+     }
+}
+由上面代码可知，addErrorToDropBox在生成日志的内容上花了不少工夫，因为这些是最重要的，最后仅调用addText函数便将内容传给DBMS的功能。
+addText函数定义在DropBoxManager类中，代码如下：
+[-->DropBoxManager.java]
+public void addText(String tag, String data) {
+  /*
+   mService和DBMS交互。DBMS对外只提供一个add函数用于日志添加，而DBM提供了3个函数，
+   分别是addText、addData、addFile，以方便我们的使用
+  */
+   try {mService.add(new Entry(tag, 0, data)); } ......
+}
+DBM向DBMS传递的数据被封装在一个Entry中。下面来看DBMS的add函数，其代码如下：
+[-->DropBoxManagerService.java]
+public void add(DropBoxManager.Entry entry) {
+        Filetemp = null;
+       OutputStream output = null;
+        finalString tag = entry.getTag();//先取出这个Entry的tag
+        try{
+           int flags = entry.getFlags();
+            ......
+            //做一些初始化工作，包括生成dropbox目录、统计当前已有的dropbox文件信息等
+           init();
+           if (!isTagEnabled(tag)) return;//如果该tag被禁止，则不能生成日志文件
+           long max = trimToFit();
+           long lastTrim = System.currentTimeMillis();
+           //BlockSize一般是4KB
+           byte[] buffer = new byte[mBlockSize];
+           //从Entry中得到一个输入流。与Java I/O相关的类比较多，且用法非常灵活
+           //建议读者阅读《Java编程思想》中“Java I/O系统”一章
+            InputStreaminput = entry.getInputStream();
+            ......
+           int read = 0;
+           while (read < buffer.length) {
+               int n = input.read(buffer, read, buffer.length - read);
+                if (n <= 0) break;
+               read += n;
+           }
+           //先生成一个临时文件，命名方式为”drop线程id.tmp”
+           temp = new File(mDropBoxDir, "drop" +
+                         Thread.currentThread().getId()+ ".tmp");
+           int bufferSize = mBlockSize;
+           if (bufferSize > 4096) bufferSize = 4096;
+           if (bufferSize < 512) bufferSize = 512;
+           FileOutputStream foutput = new FileOutputStream(temp);
+           output = new BufferedOutputStream(foutput, bufferSize);
+            //生成GZIP压缩文件
+           if (read == buffer.length &&
+                 ((flags &DropBoxManager.IS_GZIPPED) == 0)) {
+               output = new GZIPOutputStream(output);
+               flags = flags | DropBoxManager.IS_GZIPPED;
+            }
+            /*
+                DBMS很珍惜/data分区，若所生成文件的size大于一个BlockSize，
+                则一定要先压缩。
+            */
+            ......//写文件,这段代码非常繁琐，其主要目的是尽量节省存储空间
+            /*
+            生成一个EntryFile对象，并保存到DBMS内部的一个数据容器中。
+            DBMS除了负责生成文件外，还提供查询的功能，这个功能由getNextEntry完成。
+             另外，刚才生成的临时文件在createEntry函数中会重命为带标签的名字，
+            读者可自行分析createEntry函数
+            */
+           long time = createEntry(temp, tag, flags);
+           temp = null;
+           Intent dropboxIntent = new
+                         Intent(DropBoxManager.ACTION_DROPBOX_ENTRY_ADDED);
+           dropboxIntent.putExtra(DropBoxManager.EXTRA_TAG, tag);
+           dropboxIntent.putExtra(DropBoxManager.EXTRA_TIME, time);
+           if (!mBooted) {
+               dropboxIntent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY);
+           }
+           //发送DROPBOX_ENTRY_ADDED广播。系统中目前还没有程序接收该广播
+           mContext.sendBroadcast(dropboxIntent,
+                            android.Manifest.permission.READ_LOGS);
+        }......
+}
+上面代码中略去了DBMS写文件的部分，我们从代码注释中可获悉，DBMS非常珍惜/data分区的空间，每一个日志文件都需要考虑压缩以节省存储空间。如果说细节体现功力，那么这正是一个极好的例证。
+一个真实设备上/data/system/dropbox目录的内容如图3-2所示。
+图3-2  真实设备中dropbox目录的内容
+图3-2中最后一项data_app_anr@1324836096560.txt.gz的大小是6.1KB，该文件解压后得到的文件大小是42kB。看来，压缩确实节省了不少存储空间。
+另外，我们从图3-2中还发现了其他不同的tag，如SYSTEM_BOOT、SYSTEM_TOMBSTONE等，这些都是由BootReceiver在收到BOOT_COMPLETE广播后收集相关信息并传递给DBMS而生成的日志文件。
+3.4.3  DBMS和settings数据库
+DBMS的运行依赖一些配置项。其实除了DBMS，SystemServer中很多服务都依赖相关的配置选项。这些配置项都是通过SettingsProvider操作Settings数据库来设置和查询的。SettingsProvider是系统中很重要的一个APK，如果将其删除，系统就不能正常启动。
+这里总结一下和DBMS相关的设置项，具体情况如下（注意，右边双引号的内容是该配置项在数据库中的名字。这些和系统相关的项都在Settings数据库中的Secure表内）：
+//用来判断是否允许记录该tag类型的日志文件。默认是允许生成任何tag类型的文件
+Secure.DROPBOX_TAG_PREFIX+tag: “dropbox:”+tag
+//用于控制每个日志文件的存活时间，默认是三天。大于三天的日志文件就会被删除以节省空间
+Secure.DROPBOX_AGE_SECONDS: ”dropbox_age_seconds”
+//用于控制系统保存的日志文件个数，默认是1000个文件
+Secure.DROPBOX_MAX_FILES：”dropbox_max_files”
+//用于控制dropbox目录最多占存储空间容量的比例，默认是10%
+Secure.DROPBOX_QUOTA_PERCENT:”dropbox_quota_percent”
+//不允许dropbox使用的存储空间的比例，默认是10%，也就是dropbox最多只能使用90%的空间
+Secure.DROPBOX_RESERVE_PERCENT:”dropbox_reserve_percent”
+//dropbox最大能使用的空间大小，默认是5MB
+Secure.DROPBOX_QUOTA_KB：”dropbox_quota_kb”
+感兴趣的读者可以通过adb shell进入/data/data/com.android.providers.settings/databases/目录，然后利用sqlite3命令操作settings.db，其中有一个Secure表。不过系统中的很多选项在该表中都没有相关设置，因此实际运行时都会使用代码中设置的默认值。

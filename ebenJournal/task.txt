@@ -1,0 +1,431 @@
+20180312
+
+--------------------------------------------------------
+adb logcat -s "tag:*" ——输出指定tag的所有基本的信息
+
+adb logcat -s "tag:I" ——输出指定tag的所有info级别的信息。其他可用级别见最后
+
+adb logcat -b all -s WeatherService:* OperatorSimInfo:
+
+--------------------------------------------------------
+
+快速编译system.img，可以使用这个命令：
+
+#make systemimage -j8 
+
+快速编译boot.img，可以使用以下命令:
+
+#make bootimage -j8
+
+
+--------------------------------------------------------
+Android设备上的分区信息
+如果想看某些分区的别名信息，对于高通平台上来说，可以通过下面的命令
+// emmc 
+ls -la /dev/block/platform/soc.0/7824900.sdhci/by-name/ 
+// ufs 分区
+/dev/block/bootdevice/by-name/
+
+接着执行dd+空格+if+=+recovery分区位置+空格+of+=+输出文件夹/recovery.img ，例如我要输出到内部储存里则是: dd if=/dev/block/platform/soc.0/7824900.sdhci/by-name/recovery of=/sdcard/recovery.img，
+--------------------------------------------------------
+怎么挂载android system.img
+
+首先使用simg2img将其解压为raw image, 然后用mount 挂载。
+
+如
+
+ out/host/linux-x86/bin/simg2img out/target/product/<type>/system.img raw_system.img
+
+sudo mount -t ext4 raw_system.img /mnt/android/system
+
+--------------------------------------------------------
+ext4格式的 system.img 怎么修改
+
+$file system.img就可以看到这个文件是个什么格式的了
+
+system.img: Linux rev 1.0 ext4 filesystem data..
+
+gingerbread的system.img缺省是ext4格式的，使用mount命令将system.imgmount到某个目录下，
+
+然后用编译android framework时生成的make_ext4fs命令重新打包成成system.img，这个命令缺省在out/host/linux-x86/bin/make_ext4fs
+
+$sudo mount -t ext4 -o loop system.img tmp/
+
+$cd tmp
+修改该目录下的文件，比如增删改。。。
+
+完了之后生成新的system.img
+
+$sudo ./make_ext4fs -s -l 160M -a system system.img.ext4 tmp/  压缩成.ext4格式的system
+
+$sudo unmount tmp
+
+$./simg2img system.img.ext4 system.img   这就是你需要的system.img了
+
+
+--------------------------------------------------------
+Android 6.0 adb remount后没有写权限，提示Read-only file system
+在Android6.0 （Android M）userdebug版本上(eng版本不存在该问题)，发现使用adb remount 系统之后，还是不能对system分区进行操作，提示没有写权限，为只读文件系统Read-only file system
+
+解决方法如下
+方法一：使用新的adb工具包
+1.下载最新的adb工具包
+查看是否为adb最新版本：
+# adb version
+Android Debug Bridge version 1.0.32
+Revision 09a0d98bebce-android
+（有该信息表明是最新的1.0.32版本，旧的1.0.32版本没有该信息）
+
+最新版本的adb增加了一些adb命令，如 adb disable-verity等，可通过adb help查看安装的adb是否支持disable-verity命令
+2.执行如下命令
+1. adb root
+2. adb disable-verity
+(最新的adb 工具包才支持adb disable-verity命令，如果是Linux开发环境，则可使用工程编译结果目录out/host/linux-x86/bin下的adb执行文件）
+3. adb reboot 重启设备
+(只要不刷机，以上步骤执行一次就行)
+4. adb root
+5. adb remount
+现在可以对system分区进行读写了
+
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+Android源码编译开启ccache缓存
+设置方法：
+1. 在你home主目录的.bashrc中加入：
+export USE_CCACHE=1
+2. 如果你需要指定一个特殊的缓存目录，也需要在.bashrc中加入，不指定则为你当前用户目录下的.ccache。
+export CCACHE_DIR=/home/tlh/.ccache  (tlh是自己home目录)
+3. 在MoKee OpenSource主目录中运行，50G~100G之间手动指定：
+prebuilts/misc/linux-x86/ccache/ccache -M 50G   （这个地方的ccache命令时Adnroid源码中的不是编译环境中的命令，也就是说我们要找到源码中的ccache命令指定缓存区大小）
+
+4.在修改了~/.bashrc后记得source下,不然刚刚添加的变量不会生效。
+
+5.察看ccache的状态：
+ccache -s 察看ccache状态
+--------------------------------------------------------
+修改settings 数据库
+
+
+adb shell settings get global captive_portal_server
+adb shell settings put global captive_portal_server 0
+
+
+eben jars
+vendor/3rd_App/PRC/EbenSystemApp/jars/
+
+切换系统时，重启phone
+
+移动网络连接，
+
+settings 设置 
+frameworks/base/core/java/android/provider/Settings.java  +8018 
+
+移动网络建立连接：
+setDataEnabled(boolean);
+
+frameworks/opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTracker.java
+frameworks/opt/telephony/src/java/com/android/internal/telephony/dataconnection/DcTrackerBase.java +1383
+
+vendor/qcom/proprietary/telephony-fwk/opt/telephony/src/java/com/qti/internal/telephony/dataconnection/QtiDcTracker.java
+
+frameworks/base/telephony/java/android/telephony/TelephonyManager.java +4422
+
+
+frameworks/opt/telephony/src/java/com/android/internal/telephony/PhoneFactory.java 
+
+frameworks/opt/telephony/src/java/com/android/internal/telephony/PhoneBase.java +2746
+
+packages/services/Telephony/src/com/android/phone/PhoneInterfaceManager.java
+
+
+--------------------------------------------------------
+20180313
+
+移动网络 3g, 4g 开关
+frameworks/base/core/java/android/provider/Settings.java  +8018 
+从 global 移至 secure
+global系统全局与用户无关，secure 与用户相关
+            MOVED_TO_SECURE.add(Settings.Global.DATA_ROAMING);
+            MOVED_TO_SECURE.add(Settings.Global.MOBILE_DATA); 
+ 
+
+----------------------------------------------------
+
+监听Setings.Global配置更改
+
+mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(Settings.Global.WIFI_SLEEP_POLICY),  false, mWifiObserver);  
+
+private ContentObserver mWifiObserver = new ContentObserver(new Handler()) {  
+		@Override  
+		public void onChange(boolean selfChange) {  
+			int value = Settings.System.getInt(  
+					mContext.getContentResolver(), Settings.Global.WIFI_SLEEP_POLICY, Settings.Global.WIFI_SLEEP_POLICY_NEVER);  
+			if(value != Settings.Global.WIFI_SLEEP_POLICY_NEVER){  
+				if(mWakeLock!=null){  
+					if(mWakeLock.isHeld())  
+						mWakeLock.release();  
+					mWakeLock = null;  
+				}  
+			}else{  
+				WifiManager wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);  
+
+				if(wifiManager.isWifiEnabled()){  
+					mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WifiEnableWakeLock");  
+					mWakeLock.acquire();  
+				}  
+			}  
+		}  
+
+};  
+
+------------------------------------------------------
+电池电量配制
+frameworks/base/core/res/res/xml/power_profile.xml
+
+私密系统禁用app,在Settings中的ManaagedProfilesSetup.java
+packages/apps/Settings/src/com/android/settings/ManagedProfileSetup.java
+
+配制私密系统功能,android 多用户的权限
+//禁用蓝牙 mUserManager.setUserRestriction(UserManager.DISALLOW_CONFIG_BLUETOOTH, true, mManagedProfileUserInfo.getUserHandle());
+packages/apps/ManagedProvisioning/src/com/android/managedprovisioning/ProfileOwnerProvisioningService.java 
+
+
+
+
+系统分享：
+frameworks/base/core/java/com/android/internal/app/ChooserActivity.java
+
+
+
+--------------------------------------------------------
+
+http://blog.csdn.net/Kitty_Landon/article/details/46118289
+
+
+恢复出厂设置
+
+入口流程分析
+
+    1、在MasterClearConfirm.java（/packages/apps/Settings/src/com/android/settings/MasterClearConfirm.java）中显示恢复出厂提示和对应button，点击button后调用button的click方法。如果选中了mEraseSdCard（格式化SD卡），则启动ExternalStorageFormatter的服务；否则发送Intent.ACTION_MASTER_CLEAR广播。
+
+    private void doMasterClear() {
+        //Modify for erase internal sd by wangchong 20160526 start
+  //      if (mEraseSdCard) {
+  //          Log.i("MasterClearConfirm", "onClick mEraseSdCard");
+  //          Intent intent = new Intent(ExternalStorageFormatter.FORMAT_AND_FACTORY_RESET);
+  //          intent.setComponent(ExternalStorageFormatter.COMPONENT_NAME);
+  //          intent.putExtra(MasterClear.ERASE_EXTERNAL_EXTRA, mEraseSdCard);
+  //          getActivity().startService(intent);
+  //      } else {
+            Intent intent = new Intent(Intent.ACTION_MASTER_CLEAR);
+            intent.addFlags(Intent.FLAG_RECEIVER_FOREGROUND);
+            intent.putExtra(Intent.EXTRA_REASON, "MasterClearConfirm");
+            intent.putExtra(Intent.EXTRA_WIPE_EXTERNAL_STORAGE, mEraseSdCard);
+            getActivity().sendBroadcast(intent);
+            // Intent handling is asynchronous -- assume it will happen soon.
+   //     }
+        //Modify for erase internal sd by wangchong 20160526 end
+    }
+
+ 2、定位到注册改广播的地方，frameworks/base/core/res/AndroidManifest.xml中注册了改广播接收器
+        <receiver android:name="com.android.server.MasterClearReceiver"
+            android:permission="android.permission.MASTER_CLEAR">
+            <intent-filter
+                    android:priority="100" >
+                <!-- For Checkin, Settings, etc.: action=MASTER_CLEAR -->
+                <action android:name="android.intent.action.MASTER_CLEAR" />
+
+                <!-- MCS always uses REMOTE_INTENT: category=MASTER_CLEAR -->
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="android.intent.category.MASTER_CLEAR" />
+            </intent-filter>
+        </receiver>
+
+
+
+
+3、对应的在MasterClearReceiver（frameworks/base/services/core/java/com/android/server/MasterClearReceiver.java）会接受此广播，在onReceive()方法中会调用RecoverySystem.rebootWipeUserData()方法，并传递三个参数：context；shutdown=false；reason=“MasterClearConfirm”。
+
+应用层流程
+
+设置模块中恢复出厂设置，不管是否删除SD卡，最终都会执行如下两步：
+
+1、 往/cache/recovery/command文件中写入命令字段
+
+2、 重启系统，进入recovery模式
+
+具体参考
+frameworks/base/core/java/android/os/RecoverySystem.java
+
+在rebootWipeUserData方法中，会调用bootCommand方法，并传入参数--wipe_data命令字段（命令字段：--wipe_data--reason="MasterClearConfirm"--locale="zh_CN"）；在bootCommand方法中将命令字段写入/cache/recovery/command文件中，并重启进入recovery模式，recovery服务会通过读取此参数来擦除data和cache分区。详细流程如下。
+
+
+重启流程分析
+
+    1、在bootCommand中将命令字段写入/cache/recovery/command文件后，调用PowerManager的reboot方法，代码如下：
+	
+frameworks/base/core/java/android/os/PowerManager.java
+    /**
+     * Reboot the device.  Will not return if the reboot is successful.
+     * <p>
+     * Requires the {@link android.Manifest.permission#REBOOT} permission.
+     * </p>
+     *
+     * @param reason code to pass to the kernel (e.g., "recovery") to
+     *               request special boot modes, or null.
+     */
+    public void reboot(String reason) {
+        try {
+            mService.reboot(false, reason, true);
+        } catch (RemoteException e) {
+        }
+    }
+进而调用PowerManagerService对象的reboot方法，传递三个参数：confirm=false，不会显示重启确认对话框；reason=“recovery”，导致重启的原因是进行恢复出厂设置，重启后进入recovery模式；wait=true，等待重启完成。代码如下：
+
+ @Override // Binder call  
+   public void reboot(boolean confirm, String reason, boolean wait) {  
+       mContext.enforceCallingOrSelfPermission(android.Manifest.permission.REBOOT, null);  
+       if (PowerManager.REBOOT_RECOVERY.equals(reason)) {  
+           mContext.enforceCallingOrSelfPermission(android.Manifest.permission.RECOVERY, null);  
+       }  
+  
+       final long ident = Binder.clearCallingIdentity();  
+       try {  
+           shutdownOrRebootInternal(false, confirm, reason, wait);  
+       } finally {  
+           Binder.restoreCallingIdentity(ident);  
+       }  
+   }  
+
+
+
+  由于传递的shutdown参数为false，此处执行ShutdownThread类的reboot方法，并且传递参数reason为“recovery”；confirm为false。ShutdownThread类位于frameworks/base/services/core/java/com/android/server/power中。
+
+
+在reboot方法中分别为变量赋值：mReboot=true；mRebootSafeMode=false；mRebootReason=reason=“recovery”；之后调用shutdownInner方法。 
+
+上面传递的confirm为false，因此这里直接执行beginShutdownSequence方法。 
+
+   beginShutdownSequence方法中进行关机的一些准备操作，包括停止播放音乐，显示关机对话框，设置CPU锁避免cpu休眠，screen锁防止屏幕变暗（防止机器在关机过程中休眠）；最后执行sInstance.start方法。sInstance是ShutdownThread的对象，ShutdownThread集成Thread，因此当执行sInstance.start方法的时候就是允许Thread的run方法。
+
+在run方法中设置系统属性“sys.shutdown.requested”为“recovery”，之后关闭一些系统服务，最后调用rebootOrShutdown方法，并传递参数mReboot=true，mRebootReason=“recovery”。
+
+
+
+    在rebootOrShutdown方法中根据参数reboot为true，主要是调用了PowerManagerService.lowLevelReboot方法。 
+
+
+  在lowLevelReboot方法中，主要是调用SystemProperties.set("ctl.start", "pre-recovery");，启动“pre-recovery”服务。正是这个动作触发关机流程继续往下走，“pre-recovery”服务定义在init.rc（/system/core/rootdir）中。如下所示： 
+    service pre-recovery /system/bin/uncrypt  
+        class main  
+        disabled //不自动启动  
+        oneshot  
+
+
+四、恢复模式流程分析
+
+    重启后，从recovery模式的init.rc文件中可以看到启动recovery服务，具体可参考bootable/recovery/etc/init.rc文件，代码片段如下：
+
+
+    service recovery /sbin/recovery  
+        seclabel u:r:recovery:s0  
+
+    1、recovery服务的主函数在bootable/recovery/recovery.cpp文件中，main函数结构清晰，主要流程分析如下：
+
+
+
+我们分析一下main函数的主要流程。
+
+    （1）、调用load_volume_table()函数，读取/etc/recovery.fstab文件的内容，这个文件中保存的是进入recovery模式后系统的分区情况，包括分区名称，参数等。
+
+    （2）、调用get_args()函数的主要作用就是建立recovery的启动参数，如果命令行中有recovery命令，则优先执行命令行的recovery命令，否则读取misc分区中的命令。如果misc分区中不存在命令，则执行/cache/recovery/command文件中的命令。get_args()函数则通过get_bootloader_message()来读取misc分区中的命令。参考：http://book.51cto.com/art/201504/474440.htm
+--------------------------------------------------------
+recovery 开启 adb 
+https://blog.csdn.net/loongembedded/article/details/67638687
+
+\bootable\recovery\etc\init.rc
+
+增加
+
+# 增加adb service,
+service console /system/bin/sh  
+   class core  
+   console  
+   disabled  
+   user shell  
+   group shell log  
+   seclabel u:r:shell:s0  
+# 下面需要合并   
+on property:ro.debuggable=1  
+	start console
+#--------end----------
+
+我们知道out\debug\target\product\xxx\recovery\root\system下没有bin文件夹(当然也没有sh)，所以需要在编译的时候创建，需要\build\core\Makefile增加创建目录和把out目录下的/system/bin/sh拷贝到out/recovery/system/bin目录下
+
+build\core\Makefile
+  @echo ----- Making recovery image ------
+  ... ...
+# hpc add recovery adb shell
+
+  $(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/system/bin
+  $(hide) cp -r $(PRODUCT_OUT)/system/bin/sh  $(TARGET_RECOVERY_OUT)/system/bin/
+  $(hide) cp -r $(PRODUCT_OUT)/system/bin/busybox  $(TARGET_RECOVERY_OUT)/system/bin/
+  $(hide) cp -r $(PRODUCT_OUT)/system/bin/toybox  $(TARGET_RECOVERY_OUT)/system/bin/
+  $(hide) cp -r $(PRODUCT_OUT)/system/bin/grep  $(TARGET_RECOVERY_OUT)/system/bin/
+
+# hpc end
+ 
+但这样还是不行，后来知道recovery可执行文件是静态编译的，之所以这样是因为recovery模式中没有共享库还有缺动态链接库加载器(/system/bin/linker，Android动态连接器linker与静态连接器ld)。
+
+所以external\mksh\Android.mk
+
+# mksh source files
+LOCAL_SRC_FILES := \
+    src/lalloc.c src/edit.c src/eval.c src/exec.c \
+    src/expr.c src/funcs.c src/histrap.c src/jobs.c \
+    src/lex.c src/main.c src/misc.c src/shf.c \
+    src/syn.c src/tree.c src/var.c
+# hpc add recovery adb shell 
+#LOCAL_SYSTEM_SHARED_LIBRARIES := libc
+
+LOCAL_STATIC_LIBRARIES := libc
+LOCAL_FORCE_STATIC_EXECUTABLE := true
+#hpc end
+
+--------------------------------------------------------
+双系统apk 安装：
+
+
+
+--------------------------------------------------------
+t10 版本号修改
+build/tools/supplier_buildinfo.mk
+
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------
+--------------------------------------------------------

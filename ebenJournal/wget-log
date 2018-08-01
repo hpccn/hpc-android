@@ -1,0 +1,7 @@
+--2018-07-18 16:44:40--  https://nj01ct01.baidupcs.com/file/71d4b06ad2f16a12068fb509fc105d18?bkt=p3-140071d4b06ad2f16a12068fb509fc105d1812857e910000002d750c
+Loaded CA certificate '/etc/ssl/certs/ca-certificates.crt'
+Resolving nj01ct01.baidupcs.com (nj01ct01.baidupcs.com)... 58.217.200.63
+Connecting to nj01ct01.baidupcs.com (nj01ct01.baidupcs.com)|58.217.200.63|:443... connected.
+HTTP request sent, awaiting response... 400 Bad Request
+2018-07-18 16:44:43 ERROR 400: Bad Request.
+

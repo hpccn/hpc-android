@@ -1,0 +1,37 @@
+
+预置文件到system
+
+在Android.mk中增加
+------------------------------------------
+
+预置 so 到 system/lib, 使用shell 可以。
+# cp so to system/lib
+# failed 
+#PRODUCT_COPY_FILES += $(LOCAL_PATH)/libs/arm64-v8a/libGAPIP11.so:system/lib64/libGAPIP11.so
+#PRODUCT_COPY_FILES += $(LOCAL_PATH)/libs/arm64-v8a/libnative-lib.so:system/lib64/libnative-lib.so
+
+#SO_FILES := libGAPIP11 libnative-lib
+#PRODUCT_COPY_FILES += $(foreach fn,$(SO_FILES),\
+#	$(LOCAL_PATH)/libs/arm64-v8a/$(fn).so:system/lib64/$(fn).so)
+
+#LOCAL_PREBUILT_JNI_LIBS := \
+#	$(LOCAL_PATH)/libs/arm64-v8a/libGAPIP11.so \
+#	$(LOCAL_PATH)/libs/arm64-v8a/libnative-lib.so
+#
+# shell 命令可以。	
+$(shell mkdir -p $(TARGET_OUT)/lib64)
+$(shell cp -f $(LOCAL_PATH)/libs/arm64-v8a/*.* $(TARGET_OUT)/lib64)
+#end hpc
+-----------------------------------------------
+
+编译 so 
+
+#hpc use so
+LOCAL_SHARED_LIBRARIES :=libGAPIP11 \
+	libnative-lib
+
+
+使用 jar
+
+
+LOCAL_STATIC_JAVA_LIBRARIES := ebensz-utils

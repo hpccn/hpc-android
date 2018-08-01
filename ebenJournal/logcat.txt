@@ -1,0 +1,55 @@
+
+Android的logcat命令详解
+
+    (1) 显示全部日志信息：adb logcat
+
+    (2) 显示某一TAG的日志信息：adb logcat -s TAG名称
+
+    (3) 显示某一TAG的某一级别的日志信息：adb logcat TAG名称:级别.....TAG名称：级别 *:S
+
+          注：日志级别（Ｖ-verbose,D-debug,I-info,W-warning,E-error,F-fatal,S-silent），＊:S（确保日志输出的时候是按照过滤器的说明限制）
+
+    (4) 显示某一级别以上的全部日志信息：adb logcat *:级别
+
+    (5) 以某种格式显示日志信息：adb logcat -v 格式
+
+          注：日志格式（brief,process,tag,thread,raw,time,long）
+
+    (6) 显示缓冲区中的日志信息：adb logcat -b 缓冲区类型
+
+          注：缓冲区类型（radio-无线缓冲区，events-事件缓冲区，main-主缓冲区，默认）
+
+    (7) 清理已经存在的日志：adb logcat -c
+
+    (8) 将日志显示在控制台后退出：adb logcat -d
+
+    (9) 将日志输出到文件：adb logcat -f 文件名
+
+ 
+
+    注：DDMS的LogCat中文乱码：修改MultiLineReceiver类中的addOutput()方法，将其中的"ISO-8859-1"改成"UTF-8"，重新编译源码。
+
+
+Log.isLoggable的使用姿势
+
+1 code 
+{
+public static final String TAG = "Main";
+public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+
+public void onCreate(){
+    if (DEBUG){
+        Log.d(TAG, "onCreate");
+    }
+}
+}
+
+2 开启日志 
+	adb shell setprop log.tag.Main D
+
+或者
+	修改/data/local.prop文件(该方法不一定有效，根据不同的系统，可能不会去读取local.prop文件)
+
+	log.tag.Main=D
+3
+退出APP，重新进入，即可打印Log

@@ -1,0 +1,39 @@
+eclipse使用ModelGoon插件自动生成java类的UML图 
+
+http://alan9uo.iteye.com/blog/2344510
+1.下载：ModelGoon-4.4.1-site.zip文件。
+
+   如果你有代理，直接访问下载：http://www.modelgoon.org/downloads/ModelGoon-4.4.1-site.zip  记得在下载工具上配置代理。
+
+   没有就用百度云吧，我刚刚上传的：链接: https://pan.baidu.com/s/1eS82BFO 密码: rt9x   失效的话通知我一下。
+
+
+1、ModelGoon介绍
+
+    ModelGoon 是一个 Eclipse插件，能将Eclipse中现有的java类生成类图，可以进行Java 包的依赖分析，基于UML图进行模型设计，以及逆向工程（即从已有源代码生成类图）。
+
+2、ModelGoon下载与安装
+
+    2.1 下载
+
+    本示例的环境为：Windows 7_X64, Eclipse Juno， JDK1.7, JRE1.7。待安装的ModelGoon版本为：ModelGoon-4.4.1-site.zip。下载ModelGoon-4.4.1-site.zip到电脑，最好保存在"\eclipse\"文件夹下面。
+
+    2.2 安装
+
+    打开eclipse，选择help-->install new software。点击work with-->Add-->Archive，选择已经下载的ModelGoon-4.4.1-site.zip，一路next或者accept，最后选择finish完成安装。(有的时候安装过程会比较长，还可能出现类似卡死的现象，长时间没有任何进度。这时候不要取消，耐心等待就好)。
+
+3、ModelGoon使用
+
+    ModelGoon安装成功后，重新启动eclipse。在eclipse中，选择已经打开的Java或者Android工程。在合适的文件夹或者直接在工程根目录中，File-->new-->other-->ModelGoon Diagrams，如下图所示：
+
+    3.1 Class Diagram
+
+    选择Class Diagram，在自己Java工程中创建一个后缀是.mgc的文件，用它来生成类图。用法很简单，直接把Java类拖拽到这个文件视图中，就会自动生成UML类图。
+
+    3.2 Interaction Diagram
+
+    选择Interaction Diagram，在自己Java工程中创建一个后缀是.mgi的文件，可以看出类之间的依赖关系，具体到方法，如下图所示：
+
+    3.3 Package Diagram
+
+    选择Package Diagram，在自己Java工程中创建一个后缀是.mgp的文件，可以检查出包的依赖关系，如下图所示：

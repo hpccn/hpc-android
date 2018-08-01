@@ -1,0 +1,88 @@
+
+07-06 18:23:52.696 17767 17767 D PhoneStatusBar: addNotification key=10|com.tencent.mtt|83|null|1010102
+07-06 18:23:52.696 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=com.tencent.mtt user=UserHandle{10} id=83 tag=null score=20 key=10|com.tencent.mtt|83|null|1010102: Notification(pri=2 contentView=com.tencent.mtt/0x7f030039 vibrate=null sound=null defaults=0x0 flags=0x22 color=0x00000000 vis=PRIVATE))
+07-06 18:23:52.712 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:52.750 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@c9dc6eb, entry com.android.systemui.statusbar.NotificationData$Entry@68b7c48, entry.notification.getUser()UserHandle{10}
+07-06 18:23:52.751 17767 17767 D StatusBar: Skipping HUN check for 10|com.tencent.mtt|83|null|1010102 since it's filtered out.
+07-06 18:23:52.759 17767 17767 D PhoneStatusBar: addNotification key=10|com.tencent.map|2|null|1010104
+07-06 18:23:52.759 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=com.tencent.map user=UserHandle{10} id=2 tag=null score=0 key=10|com.tencent.map|2|null|1010104: Notification(pri=0 contentView=com.tencent.map/0x7f040271 vibrate=default sound=default tick defaults=0x3 flags=0x11 color=0x00000000 vis=PRIVATE))
+07-06 18:23:52.774 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:52.793 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@d7a0fb7, entry com.android.systemui.statusbar.NotificationData$Entry@c4ca324, entry.notification.getUser()UserHandle{10}
+07-06 18:23:52.794 17767 17767 D StatusBar: Skipping HUN check for 10|com.tencent.map|2|null|1010104 since it's filtered out.
+07-06 18:23:52.801 17767 17767 D PhoneStatusBar: addNotification key=-1|android|17040366|null|1000
+07-06 18:23:52.801 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=android user=UserHandle{-1} id=17040366 tag=null score=0 key=-1|android|17040366|null|1000: Notification(pri=0 contentView=android/0x1090086 vibrate=null sound=null tick defaults=0x0 flags=0x2 color=0xff607d8b vis=PUBLIC))
+07-06 18:23:52.803 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:52.827 17767 17767 D StatusBar: hpc profileDrawable null, entry com.android.systemui.statusbar.NotificationData$Entry@9319f, entry.notification.getUser()UserHandle{-1}
+07-06 18:23:52.828 17767 17767 D StatusBar: interrupt: false
+07-06 18:23:52.841 17767 17767 D PhoneStatusBar: addNotification key=10|com.tencent.map|1|null|1010104
+07-06 18:23:52.842 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=com.tencent.map user=UserHandle{10} id=1 tag=null score=0 key=10|com.tencent.map|1|null|1010104: Notification(pri=0 contentView=com.tencent.map/0x7f040271 vibrate=default sound=default tick defaults=0x3 flags=0x11 color=0x00000000 vis=PRIVATE))
+07-06 18:23:52.845 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:52.858 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@f6a1433, entry com.android.systemui.statusbar.NotificationData$Entry@4c453f0, entry.notification.getUser()UserHandle{10}
+07-06 18:23:52.858 17767 17767 D StatusBar: Skipping HUN check for 10|com.tencent.map|1|null|1010104 since it's filtered out.
+07-06 18:23:52.866 17767 17767 D PhoneStatusBar: addNotification key=10|com.ss.android.ugc.aweme|65045009|app_notify|1010101
+07-06 18:23:52.866 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=com.ss.android.ugc.aweme user=UserHandle{10} id=65045009 tag=app_notify score=0 key=10|com.ss.android.ugc.aweme|65045009|app_notify|1010101: Notification(pri=0 contentView=com.ss.android.ugc.aweme/0x7f040297 vibrate=null sound=null tick defaults=0x0 flags=0x11 color=0x00000000 vis=PRIVATE))
+07-06 18:23:52.883 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:52.899 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@1607023, entry com.android.systemui.statusbar.NotificationData$Entry@64c9920, entry.notification.getUser()UserHandle{10}
+07-06 18:23:52.899 17767 17767 D StatusBar: Skipping HUN check for 10|com.ss.android.ugc.aweme|65045009|app_notify|1010101 since it's filtered out.
+07-06 18:23:52.908 17767 17767 D PhoneStatusBar: addNotification key=10|com.tencent.map|0|null|1010104
+07-06 18:23:52.908 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=com.tencent.map user=UserHandle{10} id=0 tag=null score=0 key=10|com.tencent.map|0|null|1010104: Notification(pri=0 contentView=com.tencent.map/0x7f040271 vibrate=default sound=default tick defaults=0x3 flags=0x11 color=0x00000000 vis=PRIVATE))
+07-06 18:23:52.912 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:52.928 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@7775411, entry com.android.systemui.statusbar.NotificationData$Entry@f922976, entry.notification.getUser()UserHandle{10}
+07-06 18:23:52.929 17767 17767 D StatusBar: Skipping HUN check for 10|com.tencent.map|0|null|1010104 since it's filtered out.
+07-06 18:23:52.940 17767 17767 D PhoneStatusBar: addNotification key=10|com.tencent.map|10001|null|1010104
+07-06 18:23:52.940 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=com.tencent.map user=UserHandle{10} id=10001 tag=null score=0 key=10|com.tencent.map|10001|null|1010104: Notification(pri=0 contentView=com.tencent.map/0x1090086 vibrate=null sound=null tick defaults=0x8 flags=0x7a color=0x00000000 vis=PRIVATE))
+07-06 18:23:52.945 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:52.974 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@cd2b6bd, entry com.android.systemui.statusbar.NotificationData$Entry@c9394b2, entry.notification.getUser()UserHandle{10}
+07-06 18:23:52.976 17767 17767 D StatusBar: Skipping HUN check for 10|com.tencent.map|10001|null|1010104 since it's filtered out.
+07-06 18:23:52.984 17767 17767 D PhoneStatusBar: addNotification key=10|jackpal.androidterm|1|null|1010103
+07-06 18:23:52.984 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=jackpal.androidterm user=UserHandle{10} id=1 tag=null score=0 key=10|jackpal.androidterm|1|null|1010103: Notification(pri=0 contentView=jackpal.androidterm/0x1090086 vibrate=null sound=null tick defaults=0x0 flags=0x62 color=0x00000000 vis=PRIVATE))
+07-06 18:23:52.991 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:53.018 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@b732eae, entry com.android.systemui.statusbar.NotificationData$Entry@d8144f, entry.notification.getUser()UserHandle{10}
+07-06 18:23:53.020 17767 17767 D StatusBar: Skipping HUN check for 10|jackpal.androidterm|1|null|1010103 since it's filtered out.
+07-06 18:23:53.032 17767 17767 D PhoneStatusBar: addNotification key=10|com.android.music|1|null|1010097
+07-06 18:23:53.032 17767 17767 D StatusBar: createNotificationViews(notification=StatusBarNotification(pkg=com.android.music user=UserHandle{10} id=1 tag=null score=0 key=10|com.android.music|1|null|1010097: Notification(pri=0 contentView=com.android.music/0x7f03001e vibrate=null sound=null defaults=0x0 flags=0x2 color=0x00000000 vis=PRIVATE))
+07-06 18:23:53.039 17767 17767 V StatusBar: publicNotification: null
+07-06 18:23:53.072 17767 17767 D StatusBar: hpc profileDrawable android.graphics.drawable.BitmapDrawable@aa7005b, entry com.android.systemui.statusbar.NotificationData$Entry@c9910f8, entry.notification.getUser()UserHandle{10}
+07-06 18:23:53.073 17767 17767 D StatusBar: Skipping HUN check for 10|com.android.music|1|null|1010097 since it's filtered out.
+07-06 18:23:53.154 17767 17767 D PhoneStatusBar: disable1: 0x03710000 -> 0x03300000 (diff1: 0x00410000)
+07-06 18:23:53.155 17767 17767 D PhoneStatusBar: disable2: 0x00000000 -> 0x00000000 (diff2: 0x00000000)
+07-06 18:23:53.155 17767 17767 D PhoneStatusBar: disable: < expand* icons alerts SYSTEM_INFO back* HOME RECENT clock SEARCH quick_settings >
+07-06 18:23:53.158 17767 17767 D PhoneStatusBar: setSystemUiVisibility vis=3618000 mask=ffffffff oldVal=3610000 newVal=3618000 diff=8000
+07-06 18:23:53.160 17767 17767 D PhoneStatusBar: setSystemUiVisibility vis=8600 mask=ffffffff oldVal=3618000 newVal=8600 diff=3610600
+07-06 18:23:53.182 17767 17767 D PhoneStatusBar: disable1: 0x03300000 -> 0x03300000 (diff1: 0x00000000)
+07-06 18:23:53.182 17767 17767 D PhoneStatusBar: disable2: 0x00000000 -> 0x00000000 (diff2: 0x00000000)
+07-06 18:23:53.183 17767 17767 D PhoneStatusBar: disable: < expand icons alerts SYSTEM_INFO back HOME RECENT clock SEARCH quick_settings >
+07-06 18:23:53.391 17767 17767 D PhoneStatusBar: hiding the MENU button
+07-06 18:24:02.541 17767 17767 V PhoneStatusBar: onReceive: Intent { act=android.intent.action.CLOSE_SYSTEM_DIALOGS flg=0x10 (has extras) }
+07-06 18:24:02.608 17767 17767 D PhoneStatusBar: disable1: 0x03300000 -> 0x03300000 (diff1: 0x00000000)
+07-06 18:24:02.608 17767 17767 D PhoneStatusBar: disable2: 0x00000000 -> 0x00000000 (diff2: 0x00000000)
+07-06 18:24:02.608 17767 17767 D PhoneStatusBar: disable: < expand icons alerts SYSTEM_INFO back HOME RECENT clock SEARCH quick_settings >
+07-06 18:24:02.665 17767 17767 V PhoneStatusBar: onReceive: Intent { act=ebensz.intent.action.DUAL_SYSTEM_SWITCH flg=0x10 (has extras) }
+07-06 18:24:02.670 17767 17767 D PhoneStatusBar: phone userId: 0 userSystem: 0 curSystem: 0 swUserId: 0 is in the house
+07-06 18:24:03.200 17767 17767 V PhoneStatusBar: onReceive: Intent { act=ebensz.intent.action.ACTION_NAVIGATIONBAR_IS_SHOW flg=0x10 (has extras) }
+07-06 18:24:03.221 17767 17767 V PhoneStatusBar: onReceive: Intent { act=android.intent.action.SCREEN_OFF flg=0x50000010 }
+07-06 18:24:06.099 17767 17767 V PhoneStatusBar: onReceive: Intent { act=android.intent.action.SCREEN_ON flg=0x50000010 }
+07-06 18:24:06.234 17767 17767 D PhoneStatusBar: disable1: 0x03300000 -> 0x03300000 (diff1: 0x00000000)
+07-06 18:24:06.235 17767 17767 D PhoneStatusBar: disable2: 0x00000000 -> 0x00000000 (diff2: 0x00000000)
+07-06 18:24:06.235 17767 17767 D PhoneStatusBar: disable: < expand icons alerts SYSTEM_INFO back HOME RECENT clock SEARCH quick_settings >
+07-06 18:24:06.307 17767 17767 D PhoneStatusBar: disable1: 0x03300000 -> 0x03200000 (diff1: 0x00100000)
+07-06 18:24:06.307 17767 17767 D PhoneStatusBar: disable2: 0x00000000 -> 0x00000000 (diff2: 0x00000000)
+07-06 18:24:06.307 17767 17767 D PhoneStatusBar: disable: < expand icons alerts system_info* back HOME RECENT clock SEARCH quick_settings >
+07-06 18:24:06.313 17767 17767 D PhoneStatusBar: making carrier label visible
+07-06 18:24:06.331 17767 17767 V PhoneStatusBar: onReceive: Intent { act=ebensz.intent.action.ACTION_NAVIGATIONBAR_IS_SHOW flg=0x10 (has extras) }
+07-06 18:24:06.383 17767 17767 D PhoneStatusBar: disable1: 0x03200000 -> 0x00000000 (diff1: 0x03200000)
+07-06 18:24:06.384 17767 17767 D PhoneStatusBar: disable2: 0x00000000 -> 0x00000000 (diff2: 0x00000000)
+07-06 18:24:06.384 17767 17767 D PhoneStatusBar: disable: < expand icons alerts system_info back home* recent* clock search* quick_settings >
+07-06 18:24:06.414 17767 17767 D PhoneStatusBar: hiding the MENU button
+07-06 18:24:08.529 17767 17767 V PhoneStatusBar: onReceive: Intent { act=ebensz.intent.action.ACTION_NAVIGATIONBAR_IS_SHOW flg=0x10 (has extras) }
+07-06 18:24:08.530 17767 17767 D PhoneStatusBar: hiding the MENU button
+07-06 18:24:09.202 17767 17767 V PhoneStatusBar: onReceive: Intent { act=ebensz.intent.action.DUAL_SYSTEM_SWITCH flg=0x10 (has extras) }
+07-06 18:24:09.218 17767 17767 D PhoneStatusBar: phone userId: 10 userSystem: 1 curSystem: 1 swUserId: 10 is in the house
+07-06 18:24:09.781 17767 17767 D PhoneStatusBar: panel: ACTION_DOWN at (735.521118, 0.000000) mDisabled1=0x00000000 mDisabled2=0x00000000
+07-06 18:24:09.785 17767 17767 D PhoneStatusBar: panel: ACTION_DOWN at (735.521118, 0.000000) mDisabled1=0x00000000 mDisabled2=0x00000000
+07-06 18:24:09.837 17767 17767 D PhoneStatusBar: disable1: 0x00000000 -> 0x00100000 (diff1: 0x00100000)
+07-06 18:24:09.837 17767 17767 D PhoneStatusBar: disable2: 0x00000000 -> 0x00000000 (diff2: 0x00000000)
+07-06 18:24:09.837 17767 17767 D PhoneStatusBar: disable: < expand icons alerts SYSTEM_INFO* back home recent clock search quick_settings >
+07-06 18:24:10.020 17767 17767 D PhoneStatusBar: panel: ACTION_UP at (695.547180, 1003.510010) mDisabled1=0x00100000 mDisabled2=0x00000000
+07-06 18:24:10.086 17767 17767 D PhoneStatusBar: hiding the MENU button
+^F

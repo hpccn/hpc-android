@@ -1,0 +1,4 @@
+/data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+
+grep "avc: *denied" log.txt > denied.txt
+

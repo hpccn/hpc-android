@@ -1,0 +1,117 @@
+
+frameworks/base/core/java/android/app/ActivityThread.java
+
++2558 
+
+
+frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java
+
+
++ 1610  
+显示输入密码对话框 
+
+
+frameworks/base/services/core/java/com/android/server/am/WaitingConfirmDialog.java
+
+
++60 
+
+在对话框显示时，重置状态栏。当前不生校
+
+应用锁验证界面静置超过1分钟后home键等其他按钮莫名显现
+
+
+07-12 16:26:14.981  2929  2929 D BatteryService: isScreenOn=truechargingEnable=true,level=99,status=2,mBatteryLevelLow=false,mIsStatusChangedfalse
+07-12 16:26:14.981  2929  2929 D BatteryService: mPlugType=2
+07-12 16:26:14.982  2929  2929 D BatteryService: not charge not low99
+07-12 16:26:15.296  2929  2951 I Process : Sending signal. PID: 4044 SIG: 3
+07-12 16:26:15.296  4044  4049 I art     : Thread[2,tid=4049,WaitingInMainSignalCatcherLoop,Thread*=0xea38f000,peer=0x32c070a0,"Signal Catcher"]: reacting to signal 3
+07-12 16:26:15.532  2929  2951 E ActivityManager: ANR in com.netease.newsreader.activity
+07-12 16:26:15.532  2929  2951 E ActivityManager: PID: 27382
+07-12 16:26:15.532  2929  2951 E ActivityManager: Reason: Broadcast of Intent { act=android.intent.action.USER_PRESENT flg=0x24000010 cmp=com.netease.newsreader.activity/com.igexin.sdk.PushReceiver }
+07-12 16:26:15.532  2929  2951 E ActivityManager: Load: 5.9 / 5.79 / 5.32
+07-12 16:26:15.532  2929  2951 E ActivityManager: CPU usage from 0ms to 6393ms later:
+07-12 16:26:15.532  2929  2951 E ActivityManager:   80% 2929/system_server: 27% user + 53% kernel / faults: 22333 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   11% 4242/cn.eben.newweather: 6.9% user + 4.8% kernel / faults: 11005 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   10% 8448/cn.eben.newweather: 7.7% user + 2.8% kernel / faults: 9976 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   9.9% 4276/com.android.phone: 3.1% user + 6.7% kernel / faults: 4191 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   8.5% 7825/android.process.media: 4.7% user + 3.7% kernel / faults: 815 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   7.5% 3546/com.android.systemui: 3.1% user + 4.4% kernel / faults: 2952 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   5.9% 5732/adbd: 0.3% user + 5.6% kernel / faults: 65 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   4.8% 4292/com.android.launcher3: 3.6% user + 1.2% kernel / faults: 1899 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.1% 599/debuggerd: 0% user + 0% kernel / faults: 5733 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.1% 600/debuggerd64: 0% user + 0% kernel / faults: 4152 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   3.9% 4044/cn.eben.sync: 0.9% user + 2.9% kernel / faults: 1021 minor 3 major
+07-12 16:26:15.532  2929  2951 E ActivityManager:   3.7% 9/rcu_preempt: 0% user + 3.7% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   2.8% 480/surfaceflinger: 0.3% user + 2.5% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   2.5% 3503/sdcard: 0.4% user + 2% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   2.5% 29380/com.ebensz.widgets.pad: 1.7% user + 0.7% kernel / faults: 1788 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   2% 4127/com.quicinc.cne.CNEService: 1.5% user + 0.4% kernel / faults: 759 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   2% 27382/com.netease.newsreader.activity: 0.9% user + 1.1% kernel / faults: 1152 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.8% 17502/com.ss.android.ugc.aweme: 0.4% user + 1.4% kernel / faults: 1582 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.7% 297/cfinteractive: 0% user + 1.7% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.5% 478/lmkd: 0.7% user + 0.7% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.4% 4233/com.qualcomm.qti.tetherservice: 1.1% user + 0.3% kernel / faults: 552 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.1% 4260/com.qualcomm.qti.services.secureui:sui_service: 0% user + 0% kernel / faults: 518 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1% 479/servicemanager: 0.3% user + 0.7% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.1% 3532/com.ebensz.servant: 0.4% user + 0.6% kernel / faults: 588 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.1% 4137/com.qualcomm.qti.notificationservice: 0.4% user + 0.6% kernel / faults: 511 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.1% 4148/com.qualcomm.qti.GBAHttpAuthentication.auth: 0.6% user + 0.4% kernel / faults: 567 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   1.1% 4168/com.ebensz.bridge: 0.3% user + 0.7% kernel / faults: 798 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 4218/com.qualcomm.qti.carrierconfigure: 0% user + 0% kernel / faults: 501 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.9% 390/logd: 0% user + 0.9% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 4202/com.qualcomm.qti.loadcarrier: 0% user + 0% kernel / faults: 618 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.7% 7/rcuc/0: 0% user + 0.7% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.7% 329/msm-core:sampli: 0% user + 0.7% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.7% 2802/mm-pp-daemon: 0.3% user + 0.4% kernel / faults: 190 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 4186/com.qualcomm.qti.rcsbootstraputil: 0% user + 0% kernel / faults: 628 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.7% 16281/kworker/u16:5: 0% user + 0.7% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.6% 16/rcuc/1: 0% user + 0.6% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.6% 22/rcuc/2: 0% user + 0.6% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.6% 28/rcuc/3: 0% user + 0.6% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.6% 691/data_pt_check: 0.1% user + 0.4% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.6% 18668/kworker/0:1: 0% user + 0.6% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 34/rcuc/4: 0% user + 0% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.4% 247/irq/419-ft5626: 0% user + 0.4% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.4% 477/healthd: 0.1% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.4% 817/sensors.qcom: 0.1% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.4% 27463/logcat: 0.3% user + 0.1% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 1//init: 0% user + 0.3% kernel / faults: 83 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 3/ksoftirqd/0: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 17/ksoftirqd/1: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 23/ksoftirqd/2: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 29/ksoftirqd/3: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 40/rcuc/5: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 58/kworker/u17:0: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 630/hvdcp_opti: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 5090/kworker/u16:0: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 5393/irq/215-408000.: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 17481/com.ss.android.ugc.aweme:push: 0.1% user + 0.1% kernel / faults: 11 minor
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 21733/kworker/u16:8: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.3% 27418/mdss_fb0: 0% user + 0.3% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.1% 27/migration/3: 0% user + 0.1% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 35/ksoftirqd/4: 0% user + 0% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 39/migration/5: 0% user + 0% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 185/kworker/4:2: 0% user + 0% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0% 292/irq/216-tsens_i: 0% user + 0% kernel
+07-12 16:26:15.532  2929  2951 E ActivityManager:   0.1% 302/mmc-cmdqd/0: 0% user + 0.1% kern
+07-12 16:26:15.534  2929 27508 E ActivityManager: Error reading /data/anr/traces.txt
+07-12 16:26:15.534  2929 27508 E ActivityManager: java.io.FileNotFoundException: /data/anr/traces.txt: open failed: ENOENT (No such file or directory)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	at libcore.io.IoBridge.open(IoBridge.java:452)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	at java.io.FileInputStream.<init>(FileInputStream.java:76)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	at android.os.FileUtils.readTextFile(FileUtils.java:236)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	at com.android.server.am.ActivityManagerService$19.run(ActivityManagerService.java:13021)
+07-12 16:26:15.534  2929 27508 E ActivityManager: Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	at libcore.io.Posix.open(Native Method)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	at libcore.io.BlockGuardOs.open(BlockGuardOs.java:186)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	at libcore.io.IoBridge.open(IoBridge.java:438)
+07-12 16:26:15.534  2929 27508 E ActivityManager: 	... 3 more
+07-12 16:26:15.537  3546  3546 D PowerUI : updateBatteryStopChargingNotification(), mTemperature=299 mBatteryPlugged=true mBatteryStopChargingNotification=
+07-12 16:26:15.537  4137  4137 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+07-12 16:26:15.537  5708  5796 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-12 16:26:15.539  8176  8176 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+07-12 16:26:15.540  2929  2953 W ActivityManager:   Force finishing activity com.netease.newsreader.activity/com.netease.nr.biz.ad.AdActivity
+07-12 16:26:15.541  2929  2953 V ActivityManager: adjustFocusedActivityLocked: task ---> TaskRecord{4391fa7 #181 A=com.netease.newsreader.activity U=0 sz=1}, front ---> true, topTask ---> TaskRecord{4391fa7 #181 A=com.netease.newsreader.activity U=0 sz=1}, overHome ---> falseactivity ---> ActivityRecord{6e01758 u0 com.netease.newsreader.activity/com.netease.nr.biz.ad.AdActivity t181 f}
+07-12 16:26:15.709  4044  4049 E art     : Unable to open stack trace file '/data/anr/traces.txt': Permission denied
+07-12 16:26:15.843  2929  2953 I WindowManager: Screenshot max retries 4 of Token{a96f0b1 ActivityRecord{6e01758 u0 com.netease.newsreader.activity/com.netease.nr.biz.ad.AdActivity t181 f}} appWin=Window{5d75fb3 u0 Starting com.netease.newsreader.activity} drawState=4
+07-12 16:26:15.845  2929  2953 I ActivityManager: Killing 27382:com.netease.newsreader.activity/u0a96 (adj 0): user request after error

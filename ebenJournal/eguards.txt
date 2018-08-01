@@ -1,0 +1,83 @@
+
+kill process
+
+杀进程日志 TAG
+
+后台
+ Log.d("ProcessStop", "Background PackageName=" + packageName);
+非后台
+ Log.d("ProcessStop", "stopProcess PackageName=" + packageName);
+
+触发条件：
+1 关闭屏幕时。
+	com/ebensz/guards/services/EGuardsService.java +74
+
+	...
+	public int onStartCommand(Intent intent, int flags, int startId) {
+        try {
+            int screen = intent.getIntExtra(AppManageApplication.SCREEN_OFF, 0);
+            Log.d("zxb","EGuardsService onStartCommand1");
+            if(screen == AppManageApplication.STOP_APP){
+                Log.d("zxb","EGuardsService onStartCommand2");
+                screenOffStopApp();
+            }
+...
+
+屏幕广播：
+	com/ebensz/guards/AppManageApplication.java +69
+
+...
+            Intent powerIntent = new Intent(AppManageApplication.this, EGuardsService.class);
+            powerIntent.setAction(EGuardsService.ACTION_EGUARDS_SERVICE);
+            powerIntent.putExtra(SCREEN_OFF, STOP_APP);
+            if (action.equals(Intent.ACTION_SCREEN_OFF)) {
+                powerPendingIntent = PendingIntent.getService(AppManageApplication.this, 0, powerIntent, 0);
+...
+
+
+log.txt日志 分析：
+收到屏幕关闭的广播进行清理进程。
+
+开始结束进程
+line 7375   05-21 05:38:51.540 27355 27355 D zxb     : EGuardsService onStartCommand1
+line 7376   05-21 05:38:51.540 27355 27355 D zxb     : EGuardsService onStartCommand2
+
+ stopProcess
+ log TAG
+
+Log.d("ProcessStop", "stopProcess PackageName=" + packageName);
+
+结束完成
+line 7596  05-21 05:38:53.336 27355 27355 D ScreenReceiver: stop
+line 7597  05-21 05:38:53.336 27355 27355 D ProcessStop: release  
+
+
+补充：
+查看后续的stop , killing日志 
+
+发现之前都有一个BatteryStatsImpl: readFromParcel...  怀疑电量变化时，触发清理时程
+
+
+
+line 1568  05-21 05:27:14.846 18947 18947 D BatteryStatsImpl: readFromParcel...
+
+line 1569 05-21 05:27:15.290  1233  4243 I ActivityManager: Killing 12982:com.netease.newsreader.activity/u0a45 (adj 10): kill background
+
+
+
+line 1836  05-21 05:31:32.832 20554 20554 D BatteryStatsImpl: readFromParcel...
+
+line 1847  05-21 05:31:33.320  1233  4201 I ActivityManager: Force stopping com.netease.newsreader.activity appid=10045 user=0: from pid 4163
+
+
+
+line 2287 05-21 05:35:43.753 24397 24397 D BatteryStatsImpl: readFromParcel...
+line 2288 05-21 05:35:44.141  1233  3688 I ActivityManager: Killing 20601:com.netease.newsreader.activity/u0a45 (adj 7): kill background
+
+line 3200 05-21 05:37:43.288 26275 26275 D BatteryStatsImpl: readFromParcel...
+
+line 3252 05-21 05:37:44.105  1233  3686 I ActivityManager: Force stopping com.netease.newsreader.activity appid=10045 user=0: from pid 4163
+
+
+
+

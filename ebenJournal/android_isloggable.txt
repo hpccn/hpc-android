@@ -1,0 +1,17 @@
+
+
+android Log.isLoggable方法的使用
+
+android 动态控制logcat日志开关,通过Log.isLoggable（TAG,level）方法动态控制，
+1.添加日志的时候加入判断，
+        String TAG="Volley";
+        boolean isDbug=Log.isLoggable(TAG, Log.VERBOSE);
+        if (isDbug) {
+            Log.w(TAG, "log");
+        }
+2.通过设置属性值来控制该日志开关。
+
+        在pc上，cmd->目录指向adb.exe（D:\android\adt-bundle-windows-x86-20131030\sdk \platform-tools）->adb shell setprop log.tag.Volley V 设置该TAG的输出级别为VERBOSE。 则Log.isLoggable("Volley", Log.VERBOSE) level为VERBOSE以上的都返回true，每设置一次，只能用于一部手机没有重启的情况，如果换一部或者重启要重新设置一下；这样的好处是，自己 开发的手机设置一次，都能打印VERBOSE，编译给别的手机就不能打印VERBOSE信息，这样就不用每次正式发布时要把isDbug设置为false
+        该属性值取值顺序为【V,D,I,W,E,A,S】 A表示最高级别的日志，即assert；S表示Suppress，即停止该日志的输出。
+
+也可以将该属性添加在data/local.prop属性文件中,不同的是，只要存在local.prop，该手机重启与否都一样，可以打印VERBOSE

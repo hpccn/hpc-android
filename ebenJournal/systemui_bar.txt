@@ -1,0 +1,84 @@
+    
+	堆栈打印的方法:
+	android.util.Log.d("hpc", android.util.Log.getStackTraceString(new Throwable()));  
+
+T10锁屏页面布局
+
+vendor/qcom/proprietary/qrdplus/Extension/res-overlay/frameworks/base/packages/SystemUI/res/layout/keyguard_bottom_area.xml
+
+
+TouchEvent
+
+锁屏页面触摸，手势识别
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/DragDownHelper.java
+
+
+
+1、锁屏分两类：非安全锁屏（如滑动锁屏）和安全锁屏（滑动锁屏）
+
+2、他们都会加载到StatusBarWindowView上，而StatusBarWindowView在又会加载到window上从而显示出来
+
+容器：
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java
+
+View :
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBarView.java
+
+
+
+解锁屏页面，touch 调用堆栈
+
+ com.android.systemui.statusbar.phone.PanelView.startUnlockHintAnimation(PanelView.java:1059)
+ com.android.systemui.statusbar.phone.NotificationPanelView.startUnlockHintAnimation(NotificationPanelView.java:2289)
+ com.android.systemui.statusbar.phone.NotificationPanelView.onMiddleClicked(NotificationPanelView.java:2557)
+ com.android.systemui.statusbar.phone.PanelView.onEmptySpaceClick(PanelView.java:1172)
+ com.android.systemui.statusbar.phone.PanelView.endMotionEvent(PanelView.java:526)
+ com.android.systemui.statusbar.phone.PanelView.onTouchEvent(PanelView.java:459)
+ com.android.systemui.statusbar.phone.NotificationPanelView.onTouchEvent(NotificationPanelView.java:920)
+ android.view.View.dispatchTouchEvent(View.java:9312)
+ android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2548)
+ android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2241)
+ android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2554)
+ android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2255)
+ android.view.ViewGroup.dispatchTransformedTouchEvent(ViewGroup.java:2554)
+ android.view.ViewGroup.dispatchTouchEvent(ViewGroup.java:2255)
+ com.android.systemui.statusbar.phone.StatusBarWindowView.dispatchTouchEvent(StatusBarWindowView.java:209)
+
+
+
+锁屏页面手势处理入口, 通知栏的手势也是在这里
+
+com.android.systemui.statusbar.phone.PanelView.onTouchEvent()
+
+com.android.systemui.statusbar.phone.NotificationPanelView.onTouchEvent()
+
+//多点触摸，当前页面
+	NotificationPanelView.onTouchEvent(MotionEvent event){
+		hpcTouchEvent(event);
+	}
+
+    private boolean hpcTouchEvent(MotionEvent event) {
+
+		//Log.d("hpc", "NotificationPanelView hpcTouchEvent: mStatusBarState = " + mStatusBarState);
+		//mStatusBarState == StatusBarState.SHADE 解锁后的登录页面，下拉通知栏
+		//mStatusBarState == StatusBarState.KEYGUARD  滑屏解解页面
+        if (mStatusBarState == StatusBarState.KEYGUARD){
+			Log.d("hpc", "NotificationPanelView hpcTouchEvent: mStatusBarState = " + mStatusBarState);
+		} else {
+			return false;
+		}
+
+		switch (event.getActionMasked()) {
+			case MotionEvent.ACTION_POINTER_UP:
+				Log.d("hpc", "NotificationPanelView ACTION_POINTER_UP touch count:" + event.getPointerCount() + ", ");
+				break;
+			case MotionEvent.ACTION_POINTER_DOWN:
+				Log.d("hpc", "NotificationPanelView ACTION_POINTER_DOWN touch count:" + event.getPointerCount() + ", ");
+				break;
+		}
+	//	Log.d("hpc", "NotificationPanelView touch count:" + event.getPointerCount());
+		return false;
+	}
+
+

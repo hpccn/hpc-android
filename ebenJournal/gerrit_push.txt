@@ -1,0 +1,12 @@
+提交流程：
+
+1 commit 中有Change-Id：
+	需要此文件：  ./git/hooks/commit-msg, 用以生成 Change-Id. commit 
+
+
+
+2 push 库
+	git push origin HEAD:refs/for/ebent10
+
+3 到gerrit web 审核：
+	http://10.10.134.54/gerrit/

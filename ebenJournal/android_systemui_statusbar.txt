@@ -1,0 +1,105 @@
+
+
+通知显示
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java
+
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/BaseStatusBar.java
+
+
+打开通知：
+
+打开日志：
+setprop log.tag.StatusBar V
+
+adb logcat -s StatusBar:* PhoneStatusBar:*
+
+
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java
+{
+
+}
+
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/BaseStatusBar.java
+{
++1972
+    protected NotificationData.Entry createNotificationViews(StatusBarNotification sbn) {
+        if (DEBUG) {
+            Log.d(TAG, "createNotificationViews(notification=" + sbn);
+        }
+        final StatusBarIconView iconView = createIcon(sbn);
+        if (iconView == null) {
+            return null;
+        }
+
+        // Construct the expanded view.
+        NotificationData.Entry entry = new NotificationData.Entry(sbn, iconView);
+        if (!inflateViews(entry, mStackScroller)) {
+            handleNotificationError(sbn, "Couldn't expand RemoteViews for: " + sbn);
+            return null;
+        }
+
+		// 此处处理，增加小图标无效， 无法获取消息发送者的 user  entry.notification.getUser() :  UserHandle{-1}
+        return entry;
+    }
+
++2059
+
+ 
+    protected void addNotificationViews(Entry entry, RankingMap ranking) {
+
+		// 此处处理，增加小图标无效， 无法获取消息发送者的 user  entry.notification.getUser() :  UserHandle{-1}
+
+	}
+
+
++ 1625
+			// hpc 通知栏私密小图标
+           final ImageView profileBadge = (ImageView) publicViewLocal.findViewById(
+                    R.id.profile_badge_line3);
+
+
+
+}
+
+
+
+NotificationContentView 一条通知
+
+LinearLayout   line3
+		ImageView   profile_badge_line3   私密小图标
+		
+通知条目布局
+	frameworks/base/packages/SystemUI/res/layout/status_bar_notification_row.xml	
+
+
+无私密小图票
+    <com.android.systemui.statusbar.NotificationContentView android:id="@+id/expanded"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       />
+
+
+有私密小图票
+    <com.android.systemui.statusbar.NotificationContentView android:id="@+id/expandedPublic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        />
+
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/ExpandableNotificationRow.java:417:        mPublicLayout = (NotificationContentView) findViewById(R.id.expandedPublic);
+
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/ExpandableNotificationRow.java:418:        mPrivateLayout = (NotificationContentView) findViewById(R.id.expanded);
+
+
+
+这三种类型的通知不显示私密小图标
+        RemoteViews contentView = sbn.getNotification().contentView;
+        RemoteViews bigContentView = sbn.getNotification().bigContentView;
+        RemoteViews headsUpContentView = sbn.getNotification().headsUpContentView;
+
+		publicContentView 显示私密小图标

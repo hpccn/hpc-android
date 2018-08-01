@@ -1,0 +1,252 @@
+
+05-24 11:19:05.015  1362  4971 I ActivityManager: Process com.android.systemui (pid 15682) has died
+05-24 11:19:05.015  1362  4971 D ActivityManager: cleanUpApplicationRecord -- 15682
+05-24 11:19:05.015  1362  1362 W WallpaperManagerService: Wallpaper service gone: ComponentInfo{com.android.systemui/com.android.systemui.ImageWallpaper}
+05-24 11:19:05.015  1362  1362 W WallpaperManagerService: Reverting to built-in wallpaper!
+05-24 11:19:05.016  1362  4971 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.ImageWallpaper in 0ms
+05-24 11:19:05.016  1362  4971 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.keyguard.KeyguardService in 0ms
+05-24 11:19:05.016  1362  4971 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.SystemUIService in 0ms
+05-24 11:19:05.016  1362  4971 W ActivityManager: Re-adding persistent process ProcessRecord{85f051d 15682:com.android.systemui/u0a14}
+05-24 11:19:05.016  1362  4971 W PackageManager: permission error:10014,android.permission.WRITE_MEDIA_STORAGE
+05-24 11:19:05.016  1362  4971 W PackageManager: permission error:10014,android.permission.READ_EXTERNAL_STORAGE
+05-24 11:19:05.019  5023  5023 D WeatherService: Failed to load weather profile
+05-24 11:19:05.027  1362  4321 W PackageManager: permission error:1001,android.permission.ACCESS_NETWORK_STATE
+05-24 11:19:05.028 15668 15668 D AndroidRuntime: Shutting down VM
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: FATAL EXCEPTION: main
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: Process: com.android.phone, PID: 15668
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: java.lang.RuntimeException: Unable to create application com.android.phone.PhoneApp: java.lang.SecurityException: ConnectivityService: Neither user 1001 nor current process has android.permission.ACCESS_NETWORK_STATE.
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:4771)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.app.ActivityThread.access$1600(ActivityThread.java:155)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1410)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: Caused by: java.lang.SecurityException: ConnectivityService: Neither user 1001 nor current process has android.permission.ACCESS_NETWORK_STATE.
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1620)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1573)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.net.IConnectivityManager$Stub$Proxy.isNetworkSupported(IConnectivityManager.java:1226)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.net.ConnectivityManager.isNetworkSupported(ConnectivityManager.java:2049)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.internal.telephony.RIL.<init>(RIL.java:683)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.internal.telephony.PhoneFactory.makeDefaultPhone(PhoneFactory.java:154)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.internal.telephony.PhoneFactory.makeDefaultPhones(PhoneFactory.java:88)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.internal.telephony.TelephonyPluginBase.makeDefaultPhones(TelephonyPluginBase.java:46)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.qti.internal.telephony.QtiTelephonyPlugin.makeDefaultPhones(QtiTelephonyPlugin.java:44)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.internal.telephony.TelephonyPluginDelegate.makeDefaultPhones(TelephonyPluginDelegate.java:105)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.phone.PhoneGlobals.onCreate(PhoneGlobals.java:353)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at com.android.phone.PhoneApp.onCreate(PhoneApp.java:56)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1014)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:4768)
+05-24 11:19:05.029 15668 15668 E AndroidRuntime: 	... 8 more
+05-24 11:19:05.040  1362  4971 D ActivityManager: am_proc_start:0,15701,10014,com.android.systemui,restart,com.android.systemui
+05-24 11:19:05.041  1362  4971 I ActivityManager: Start proc 15701:com.android.systemui/u0a14 for restart com.android.systemui
+05-24 11:19:05.045  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.048  1362  1387 W ActivityManager: Process com.android.phone has crashed too many times: killing!
+05-24 11:19:05.050 15668 15668 I Process : Sending signal. PID: 15668 SIG: 9
+05-24 11:19:05.057  1362  1362 D BatteryService: isScreenOn=truechargingEnable=true,level=94,status=2,mBatteryLevelLow=false,mIsStatusChangedfalse
+05-24 11:19:05.057  1362  1362 D BatteryService: mPlugType=2
+05-24 11:19:05.057  1362  1362 D BatteryService: not charge not low94
+05-24 11:19:05.058  4915  4915 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+05-24 11:19:05.059  8951  8951 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+05-24 11:19:05.078  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.097 15701 15701 W System  : ClassLoader referenced unknown path: /system/priv-app/SystemUI/lib/arm64
+05-24 11:19:05.109  1362  4971 I ActivityManager: Process com.android.phone (pid 15668) has died
+05-24 11:19:05.109  1362  4971 D ActivityManager: cleanUpApplicationRecord -- 15668
+05-24 11:19:05.110  1362  4971 W ActivityManager: Scheduling restart of crashed service com.android.phone/.TelephonyDebugService in 0ms
+05-24 11:19:05.110  1362  4971 W ActivityManager: Re-adding persistent process ProcessRecord{7532723 15668:com.android.phone/1001}
+05-24 11:19:05.111  1362  4971 W PackageManager: permission error:1001,android.permission.WRITE_MEDIA_STORAGE
+05-24 11:19:05.111  1362  4971 W PackageManager: permission error:1001,android.permission.READ_EXTERNAL_STORAGE
+05-24 11:19:05.137  1362  4971 D ActivityManager: am_proc_start:0,15715,1001,com.android.phone,restart,com.android.phone
+05-24 11:19:05.139  1362  4971 I ActivityManager: Start proc 15715:com.android.phone/1001 for restart com.android.phone
+05-24 11:19:05.149 15701 15701 V SystemUIService: Starting SystemUI services.
+05-24 11:19:05.150  1362  5064 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.150  1362  5064 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS_FULL
+05-24 11:19:05.150  1362  5064 W ActivityManager: Permission Denial: getCurrentUser() from pid=15701, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.152 15701 15701 D AndroidRuntime: Shutting down VM
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: FATAL EXCEPTION: main
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: Process: com.android.systemui, PID: 15701
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: java.lang.RuntimeException: Unable to create service com.android.systemui.keyguard.KeyguardService: java.lang.SecurityException: Permission Denial: getCurrentUser() from pid=15701, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:2930)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.app.ActivityThread.access$1900(ActivityThread.java:155)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1432)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: Caused by: java.lang.SecurityException: Permission Denial: getCurrentUser() from pid=15701, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1620)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1573)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.app.ActivityManagerProxy.getCurrentUser(ActivityManagerNative.java:5108)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.app.ActivityManager.getCurrentUser(ActivityManager.java:2718)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at com.android.systemui.tuner.TunerService.start(TunerService.java:68)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at com.android.systemui.SystemUIApplication.startServicesIfNeeded(SystemUIApplication.java:126)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at com.android.systemui.keyguard.KeyguardService.onCreate(KeyguardService.java:44)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:2920)
+05-24 11:19:05.154 15701 15701 E AndroidRuntime: 	... 8 more
+
+05-24 11:19:05.156  1362  4320 W ActivityManager: Process com.android.systemui has crashed too many times: killing!
+05-24 11:19:05.157 15701 15701 I Process : Sending signal. PID: 15701 SIG: 9
+05-24 11:19:05.194 15715 15715 W System  : ClassLoader referenced unknown path: /system/priv-app/TeleService/lib/arm64
+05-24 11:19:05.198  1362  4989 I ActivityManager: Process com.android.systemui (pid 15701) has died
+05-24 11:19:05.198  1362  1362 W WallpaperManagerService: Wallpaper service gone: ComponentInfo{com.android.systemui/com.android.systemui.ImageWallpaper}
+05-24 11:19:05.198  1362  1362 W WallpaperManagerService: Reverting to built-in wallpaper!
+05-24 11:19:05.198  1362  4989 D ActivityManager: cleanUpApplicationRecord -- 15701
+05-24 11:19:05.199  1362  4989 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.ImageWallpaper in 0ms
+05-24 11:19:05.200  1362  4989 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.keyguard.KeyguardService in 0ms
+05-24 11:19:05.200  1362  4989 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.SystemUIService in 0ms
+05-24 11:19:05.201  1362  4989 W ActivityManager: Re-adding persistent process ProcessRecord{85f051d 15701:com.android.systemui/u0a14}
+05-24 11:19:05.202  1362  4989 W PackageManager: permission error:10014,android.permission.WRITE_MEDIA_STORAGE
+05-24 11:19:05.202  1362  4989 W PackageManager: permission error:10014,android.permission.READ_EXTERNAL_STORAGE
+05-24 11:19:05.230  1362  4989 D ActivityManager: am_proc_start:0,15730,10014,com.android.systemui,restart,com.android.systemui
+05-24 11:19:05.231  1362  4989 I ActivityManager: Start proc 15730:com.android.systemui/u0a14 for restart com.android.systemui
+05-24 11:19:05.235  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.241 15715 15715 W System  : ClassLoader referenced unknown path: /system/priv-app/TelephonyProvider/lib/arm64
+05-24 11:19:05.265  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.271 15715 15715 D TelephonyProvider: dbh.onOpen: ok, queried table=siminfo
+05-24 11:19:05.271 15715 15715 D TelephonyProvider: dbh.onOpen: ok, queried table=carriers
+05-24 11:19:05.291 15730 15730 W System  : ClassLoader referenced unknown path: /system/priv-app/SystemUI/lib/arm64
+05-24 11:19:05.294 15715 15715 W System  : ClassLoader referenced unknown path: /system/app/AutoRegistration/lib/arm64
+05-24 11:19:05.308 15730 15730 V SystemUIService: Starting SystemUI services.
+05-24 11:19:05.309  1362  5064 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.310  1362  5064 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS_FULL
+05-24 11:19:05.310  1362  5064 W ActivityManager: Permission Denial: getCurrentUser() from pid=15730, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.312 15730 15730 D AndroidRuntime: Shutting down VM
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: FATAL EXCEPTION: main
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: Process: com.android.systemui, PID: 15730
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: java.lang.RuntimeException: Unable to create service com.android.systemui.keyguard.KeyguardService: java.lang.SecurityException: Permission Denial: getCurrentUser() from pid=15730, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:2930)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.app.ActivityThread.access$1900(ActivityThread.java:155)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1432)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: Caused by: java.lang.SecurityException: Permission Denial: getCurrentUser() from pid=15730, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1620)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1573)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.app.ActivityManagerProxy.getCurrentUser(ActivityManagerNative.java:5108)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.app.ActivityManager.getCurrentUser(ActivityManager.java:2718)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at com.android.systemui.tuner.TunerService.start(TunerService.java:68)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at com.android.systemui.SystemUIApplication.startServicesIfNeeded(SystemUIApplication.java:126)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at com.android.systemui.keyguard.KeyguardService.onCreate(KeyguardService.java:44)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:2920)
+05-24 11:19:05.315 15730 15730 E AndroidRuntime: 	... 8 more
+05-24 11:19:05.318  1362  5030 W ActivityManager: Process com.android.systemui has crashed too many times: killing!
+05-24 11:19:05.321 15730 15730 I Process : Sending signal. PID: 15730 SIG: 9
+05-24 11:19:05.326 15715 15715 W System  : ClassLoader referenced unknown path: /system/app/PhoneFeatures/lib/arm64
+05-24 11:19:05.333 15715 15715 W System.err: java.io.FileNotFoundException: userstore/sn: open failed: ENOENT (No such file or directory)
+05-24 11:19:05.334 15715 15715 W System.err: 	at libcore.io.IoBridge.open(IoBridge.java:452)
+05-24 11:19:05.334 15715 15715 W System.err: 	at java.io.FileInputStream.<init>(FileInputStream.java:76)
+05-24 11:19:05.334 15715 15715 W System.err: 	at java.io.FileReader.<init>(FileReader.java:42)
+05-24 11:19:05.334 15715 15715 W System.err: 	at com.android.phone.PhoneApp.readSN(PhoneApp.java:67)
+05-24 11:19:05.334 15715 15715 W System.err: 	at com.android.phone.PhoneApp.onCreate(PhoneApp.java:48)
+05-24 11:19:05.334 15715 15715 W System.err: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1014)
+05-24 11:19:05.334 15715 15715 W System.err: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:4768)
+05-24 11:19:05.334 15715 15715 W System.err: 	at android.app.ActivityThread.access$1600(ActivityThread.java:155)
+05-24 11:19:05.334 15715 15715 W System.err: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1410)
+05-24 11:19:05.334 15715 15715 W System.err: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+05-24 11:19:05.334 15715 15715 W System.err: 	at android.os.Looper.loop(Looper.java:148)
+05-24 11:19:05.335 15715 15715 W System.err: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+05-24 11:19:05.335 15715 15715 W System.err: 	at java.lang.reflect.Method.invoke(Native Method)
+05-24 11:19:05.335 15715 15715 W System.err: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+05-24 11:19:05.335 15715 15715 W System.err: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+05-24 11:19:05.335 15715 15715 W System.err: Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+05-24 11:19:05.335 15715 15715 W System.err: 	at libcore.io.Posix.open(Native Method)
+05-24 11:19:05.335 15715 15715 W System.err: 	at libcore.io.BlockGuardOs.open(BlockGuardOs.java:186)
+05-24 11:19:05.335 15715 15715 W System.err: 	at libcore.io.IoBridge.open(IoBridge.java:438)
+05-24 11:19:05.335 15715 15715 W System.err: 	... 14 more
+05-24 11:19:05.361  1362  4276 W PackageManager: permission error:1001,android.permission.ACCESS_NETWORK_STATE
+05-24 11:19:05.362 15715 15715 D AndroidRuntime: Shutting down VM
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: FATAL EXCEPTION: main
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: Process: com.android.phone, PID: 15715
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: java.lang.RuntimeException: Unable to create application com.android.phone.PhoneApp: java.lang.SecurityException: ConnectivityService: Neither user 1001 nor current process has android.permission.ACCESS_NETWORK_STATE.
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:4771)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.app.ActivityThread.access$1600(ActivityThread.java:155)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1410)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: Caused by: java.lang.SecurityException: ConnectivityService: Neither user 1001 nor current process has android.permission.ACCESS_NETWORK_STATE.
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1620)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1573)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.net.IConnectivityManager$Stub$Proxy.isNetworkSupported(IConnectivityManager.java:1226)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.net.ConnectivityManager.isNetworkSupported(ConnectivityManager.java:2049)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.internal.telephony.RIL.<init>(RIL.java:683)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.internal.telephony.PhoneFactory.makeDefaultPhone(PhoneFactory.java:154)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.internal.telephony.PhoneFactory.makeDefaultPhones(PhoneFactory.java:88)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.internal.telephony.TelephonyPluginBase.makeDefaultPhones(TelephonyPluginBase.java:46)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.qti.internal.telephony.QtiTelephonyPlugin.makeDefaultPhones(QtiTelephonyPlugin.java:44)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.internal.telephony.TelephonyPluginDelegate.makeDefaultPhones(TelephonyPluginDelegate.java:105)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.phone.PhoneGlobals.onCreate(PhoneGlobals.java:353)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at com.android.phone.PhoneApp.onCreate(PhoneApp.java:56)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.app.Instrumentation.callApplicationOnCreate(Instrumentation.java:1014)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	at android.app.ActivityThread.handleBindApplication(ActivityThread.java:4768)
+05-24 11:19:05.363 15715 15715 E AndroidRuntime: 	... 8 more
+05-24 11:19:05.366  1362  4085 I ActivityManager: Process com.android.systemui (pid 15730) has died
+05-24 11:19:05.365  1362  1362 W WallpaperManagerService: Wallpaper service gone: ComponentInfo{com.android.systemui/com.android.systemui.ImageWallpaper}
+05-24 11:19:05.366  1362  1362 W WallpaperManagerService: Reverting to built-in wallpaper!
+05-24 11:19:05.366  1362  4085 D ActivityManager: cleanUpApplicationRecord -- 15730
+05-24 11:19:05.366  1362  4085 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.ImageWallpaper in 0ms
+05-24 11:19:05.366  1362  4085 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.keyguard.KeyguardService in 0ms
+05-24 11:19:05.366  1362  4085 W ActivityManager: Scheduling restart of crashed service com.android.systemui/.SystemUIService in 0ms
+05-24 11:19:05.367  1362  4085 W ActivityManager: Re-adding persistent process ProcessRecord{85f051d 15730:com.android.systemui/u0a14}
+05-24 11:19:05.367  1362  4085 W PackageManager: permission error:10014,android.permission.WRITE_MEDIA_STORAGE
+05-24 11:19:05.367  1362  4085 W PackageManager: permission error:10014,android.permission.READ_EXTERNAL_STORAGE
+05-24 11:19:05.387  1362  4085 D ActivityManager: am_proc_start:0,15748,10014,com.android.systemui,restart,com.android.systemui
+05-24 11:19:05.388  1362  4085 I ActivityManager: Start proc 15748:com.android.systemui/u0a14 for restart com.android.systemui
+05-24 11:19:05.391  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.395  1362  4319 W ActivityManager: Process com.android.phone has crashed too many times: killing!
+05-24 11:19:05.397 15715 15715 I Process : Sending signal. PID: 15715 SIG: 9
+05-24 11:19:05.440  1362  1400 W PackageManager: permission error:10014,android.permission.INTERNET
+05-24 11:19:05.441  1362  4968 I ActivityManager: Process com.android.phone (pid 15715) has died
+05-24 11:19:05.441  1362  4968 D ActivityManager: cleanUpApplicationRecord -- 15715
+05-24 11:19:05.442  1362  4968 W ActivityManager: Scheduling restart of crashed service com.android.phone/.TelephonyDebugService in 0ms
+05-24 11:19:05.444  1362  4968 W ActivityManager: Re-adding persistent process ProcessRecord{7532723 15715:com.android.phone/1001}
+05-24 11:19:05.445  1362  4968 W PackageManager: permission error:1001,android.permission.WRITE_MEDIA_STORAGE
+05-24 11:19:05.445  1362  4968 W PackageManager: permission error:1001,android.permission.READ_EXTERNAL_STORAGE
+05-24 11:19:05.464 15748 15748 W System  : ClassLoader referenced unknown path: /system/priv-app/SystemUI/lib/arm64
+05-24 11:19:05.471  1362  4968 D ActivityManager: am_proc_start:0,15762,1001,com.android.phone,restart,com.android.phone
+05-24 11:19:05.472  1362  4968 I ActivityManager: Start proc 15762:com.android.phone/1001 for restart com.android.phone
+05-24 11:19:05.484 15748 15748 V SystemUIService: Starting SystemUI services.
+05-24 11:19:05.486  1362  5016 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.486  1362  5016 W PackageManager: permission error:10014,android.permission.INTERACT_ACROSS_USERS_FULL
+05-24 11:19:05.486  1362  5016 W ActivityManager: Permission Denial: getCurrentUser() from pid=15748, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.488 15748 15748 D AndroidRuntime: Shutting down VM
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: FATAL EXCEPTION: main
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: Process: com.android.systemui, PID: 15748
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: java.lang.RuntimeException: Unable to create service com.android.systemui.keyguard.KeyguardService: java.lang.SecurityException: Permission Denial: getCurrentUser() from pid=15748, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:2930)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.app.ActivityThread.access$1900(ActivityThread.java:155)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1432)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: Caused by: java.lang.SecurityException: Permission Denial: getCurrentUser() from pid=15748, uid=10014 requires android.permission.INTERACT_ACROSS_USERS
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1620)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.os.Parcel.readException(Parcel.java:1573)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.app.ActivityManagerProxy.getCurrentUser(ActivityManagerNative.java:5108)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.app.ActivityManager.getCurrentUser(ActivityManager.java:2718)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at com.android.systemui.tuner.TunerService.start(TunerService.java:68)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at com.android.systemui.SystemUIApplication.startServicesIfNeeded(SystemUIApplication.java:126)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at com.android.systemui.keyguard.KeyguardService.onCreate(KeyguardService.java:44)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	at android.app.ActivityThread.handleCreateService(ActivityThread.java:2920)
+05-24 11:19:05.489 15748 15748 E AndroidRuntime: 	... 8 more
+05-24 11:19:05.491  1362  5064 W ActivityManager: Process com.android.systemui has crashed too many times: killing!
+05-24 11:19:05.492 15748 15748 I Process : Sending signal. PID: 15748 SIG: 9
+05-24 11:19:05.524 15762 15762 W System  : ClassLoader referenced unknown path: /system/priv-app/TeleService/lib/arm64
+05-24 11:19:05.534  1362  1362 W WallpaperManagerService: Wallpaper service gone: ComponentInfo{com.android.systemui/com.android.systemui.ImageWallpaper}
+05-24 11:19:05.534  1362  1362 W WallpaperManagerService: Reverting to built-in wallpaper!
+05-24 11:19:05.537 15762 15762 W System  : ClassLoader referenced unknown path: /system/priv-app/TelephonyProvider/lib/arm64
+05-24 11:19:05.539  1362  5064 I ActivityManager: Process com.android.systemui (pid 15748) has died

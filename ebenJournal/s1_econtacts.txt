@@ -1,0 +1,7 @@
+S1 未系统系统联系人
+
+使用packages/apps/EbenSystemApk/EContacts, T10验证功能重新实现。
+
+
+拨号功能
+ packages/apps/EbenSystemApk/EContacts/src/com/ebensz/contacts/data/Utilities.java

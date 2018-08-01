@@ -1,0 +1,1141 @@
+
+07-05 16:49:27.841 17080 17117 D AndroidRuntime: zoneinfo is Asia/Shanghai
+07-05 16:49:27.841 17080 17117 D AndroidRuntime: persist.sys.timezone is Asia/Shanghai
+07-05 17:09:26.061 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:09:37.273 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 11 lines
+07-05 17:09:49.510 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:10:00.757 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:10:15.108 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:10:29.393 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:10:46.799 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:10:58.064 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:11:12.385 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:11:31.834 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:11:45.121 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:11:58.428 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 17 lines
+07-05 17:12:04.268 17080 17080 I chatty  : uid=1002(bluetooth) com.android.bluetooth expire 1 line
+07-05 17:12:19.162 17080 17080 I chatty  : uid=1002(bluetooth) com.android.bluetooth expire 1 line
+07-05 17:12:19.163 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:12:34.160 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:12:49.492 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:13:02.783 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 11 lines
+07-05 17:13:10.358 17080 17080 I chatty  : uid=1002(bluetooth) com.android.bluetooth expire 2 lines
+07-05 17:13:13.001 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:13:27.290 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:13:41.615 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:13:59.045 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:14:11.253 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:14:29.603 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:14:40.781 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:14:53.020 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:15:07.182 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 10 lines
+07-05 17:15:22.419 17080 17110 I chatty  : uid=1002(bluetooth) HeadsetStateMac expire 2 lines
+07-05 17:15:23.062 17080 17080 I chatty  : uid=1002(bluetooth) com.android.bluetooth expire 2 lines
+07-05 17:15:23.087 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:15:23.334 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:24.352 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:25.352 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:26.357 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:27.007 17080 17091 D BluetoothUtils: callingUid =1001000
+07-05 17:15:27.007 17080 17091 E BluetoothUtils: foregroundUser =0
+07-05 17:15:27.007 17080 17091 E BluetoothUtils: callingUser =10
+07-05 17:15:27.009 17080 17126 D BluetoothUtils: callingUid =1001000
+07-05 17:15:27.011 17080 17126 E BluetoothUtils: foregroundUser =0
+07-05 17:15:27.011 17080 17126 E BluetoothUtils: callingUser =10
+07-05 17:15:27.011 17080 17126 D A2dpService: getA2DPService(): returning com.android.bluetooth.a2dp.A2dpService@6fe145d
+07-05 17:15:27.012 17080 17126 I A2dpService: audio isMusicActive is false
+07-05 17:15:27.012 17080 17126 I BluetoothAdapterService: setScanMode: prev mode: 21 new mode: 23
+07-05 17:15:27.013 17080 17097 D BluetoothAdapterProperties: Discoverable Timeout:120
+07-05 17:15:27.013 17080 17097 D BluetoothAdapterProperties: Scan Mode:23
+07-05 17:15:27.043 17080 17122 D BluetoothUtils: callingUid =1001000
+07-05 17:15:27.046 17080 17122 E BluetoothUtils: foregroundUser =0
+07-05 17:15:27.046 17080 17122 E BluetoothUtils: callingUser =10
+07-05 17:15:27.047 17080 17122 D A2dpService: getA2DPService(): returning com.android.bluetooth.a2dp.A2dpService@6fe145d
+07-05 17:15:27.047 17080 17122 I A2dpService: audio isMusicActive is false
+07-05 17:15:27.047 17080 17105 W bt_btif : bta_dm_check_av:0
+07-05 17:15:27.049 17080 17124 D BluetoothUtils: callingUid =1001000
+07-05 17:15:27.049 17080 17124 E BluetoothUtils: foregroundUser =0
+07-05 17:15:27.050 17080 17124 E BluetoothUtils: callingUser =10
+07-05 17:15:27.051 17080 17122 D BluetoothUtils: callingUid =1001000
+07-05 17:15:27.052 17080 17122 E BluetoothUtils: foregroundUser =0
+07-05 17:15:27.052 17080 17122 E BluetoothUtils: callingUser =10
+07-05 17:15:27.052 17080 17105 E bt_btif : bte_scan_filt_param_cfg_evt, 23
+07-05 17:15:27.053 17080 17122 D A2dpService: getA2DPService(): returning com.android.bluetooth.a2dp.A2dpService@6fe145d
+07-05 17:15:27.053 17080 17122 I A2dpService: audio isMusicActive is false
+07-05 17:15:27.054 17080 17122 I BluetoothAdapterService: setScanMode: prev mode: 23 new mode: 23
+07-05 17:15:27.055 17080 17097 D BluetoothAdapterProperties: Discoverable Timeout:120
+07-05 17:15:27.057 17080 17097 D BluetoothAdapterProperties: Scan Mode:23
+07-05 17:15:27.130 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:27.130 17080 17097 D bt_btif_config: btif_get_device_type: Device [1c:5f:ff:10:49:6f] type 2
+07-05 17:15:27.138 17080 17097 D BluetoothRemoteDevices: Remote Address is:1C:5F:FF:10:49:6F
+07-05 17:15:27.140 17080 17097 D BluetoothRemoteDevices: Remote Device name is: UKEY_el
+07-05 17:15:27.144 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:27.144 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:1C:5F:FF:10:49:6F
+07-05 17:15:27.301 17080 17105 W bt_btm  : btm_process_inq_results: BDA: 20-16-d8-ff-e6-28
+07-05 17:15:27.301 17080 17105 W bt_btm  : btm_process_inq_results: Dev class: 3e-01-0c
+07-05 17:15:27.301 17080 17097 D bt_btif_config: btif_get_device_type: Device [20:16:d8:ff:e6:28] type 1
+07-05 17:15:27.311 17080 17097 D BluetoothRemoteDevices: Remote Address is:20:16:D8:FF:E6:28
+07-05 17:15:27.313 17080 17097 D BluetoothRemoteDevices: Remote Device name is: XIAOJ
+07-05 17:15:27.315 17080 17097 D BluetoothRemoteDevices: Remote class is:4063500
+07-05 17:15:27.315 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:20:16:D8:FF:E6:28
+07-05 17:15:27.379 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:28.391 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:28.498 17080 17105 W bt_btm_ble: btm_ble_process_adv_pkt_cont device is no longer discoverable so discarding advertising packet pkt
+07-05 17:15:28.506 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:28.506 17080 17097 D bt_btif_config: btif_get_device_type: Device [79:00:6e:9e:b3:68] type 2
+07-05 17:15:28.516 17080 17097 D BluetoothRemoteDevices: Remote Address is:79:00:6E:9E:B3:68
+07-05 17:15:28.519 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:28.521 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:79:00:6E:9E:B3:68
+07-05 17:15:28.524 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:28.537 17080 17105 W bt_btm_ble: btm_ble_process_adv_pkt_cont device is no longer discoverable so discarding advertising packet pkt
+07-05 17:15:28.538 17080 17097 D BluetoothRemoteDevices: Remote Address is:4B:85:E6:68:03:05
+07-05 17:15:28.539 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:28.539 17080 17105 W bt_btm_ble: btm_ble_process_adv_pkt_cont device is no longer discoverable so discarding advertising packet pkt
+07-05 17:15:28.540 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:4B:85:E6:68:03:05
+07-05 17:15:28.545 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:28.556 17080 17097 D BluetoothRemoteDevices: Remote Address is:74:35:6D:AE:A5:B1
+07-05 17:15:28.557 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:28.558 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:74:35:6D:AE:A5:B1
+07-05 17:15:28.667 17080 17105 W bt_btm  : btm_process_inq_results: BDA: 9c-2e-a1-e8-ab-62
+07-05 17:15:28.667 17080 17105 W bt_btm  : btm_process_inq_results: Dev class: 5a-02-0c
+07-05 17:15:28.668 17080 17097 D bt_btif_config: btif_get_device_type: Device [9c:2e:a1:e8:ab:62] type 1
+07-05 17:15:28.682 17080 17097 D BluetoothRemoteDevices: Remote Address is:9C:2E:A1:E8:AB:62
+07-05 17:15:28.684 17080 17097 D BluetoothRemoteDevices: Remote Device name is: Adam
+07-05 17:15:28.687 17080 17097 D BluetoothRemoteDevices: Remote class is:5898764
+07-05 17:15:28.688 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:9C:2E:A1:E8:AB:62
+07-05 17:15:29.406 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:29.769 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=4 mRoam=0 mBatteryCharge=4
+07-05 17:15:29.769 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:15:29.853 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=4 mRoam=0 mBatteryCharge=4
+07-05 17:15:29.854 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:15:29.874 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:29.889 17080 17097 D BluetoothRemoteDevices: Remote Address is:88:6B:6E:E7:0E:FF
+07-05 17:15:29.891 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:29.891 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:88:6B:6E:E7:0E:FF
+07-05 17:15:30.407 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:30.735 17080 17105 W bt_btm  : btm_process_inq_results: BDA: 0c-8f-ff-6b-df-d9
+07-05 17:15:30.736 17080 17105 W bt_btm  : btm_process_inq_results: Dev class: 5a-02-0c
+07-05 17:15:30.749 17080 17097 D BluetoothRemoteDevices: Remote Address is:0C:8F:FF:6B:DF:D9
+07-05 17:15:30.752 17080 17097 D BluetoothRemoteDevices: Remote Device name is: zjts
+07-05 17:15:30.753 17080 17097 D BluetoothRemoteDevices: Remote class is:5898764
+07-05 17:15:30.754 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:0C:8F:FF:6B:DF:D9
+07-05 17:15:31.418 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:31.611 17080 17097 D bt_btif_config: btif_get_device_type: Device [9c:2e:a1:e8:ab:62] type 1
+07-05 17:15:31.615 17080 17105 W bt_btm  : btm_process_inq_results: BDA: 88-9f-fa-b1-10-81
+07-05 17:15:31.615 17080 17105 W bt_btm  : btm_process_inq_results: Dev class: 00-00-00
+07-05 17:15:31.617 17080 17105 W bt_btm  : btm_process_inq_results: BDA: 90-00-4e-df-fb-cb
+07-05 17:15:31.617 17080 17105 W bt_btm  : btm_process_inq_results: Dev class: 00-00-00
+07-05 17:15:31.629 17080 17097 D BluetoothRemoteDevices: Remote Address is:9C:2E:A1:E8:AB:62
+07-05 17:15:31.632 17080 17097 D BluetoothRemoteDevices: Remote Device name is: Adam
+07-05 17:15:31.637 17080 17097 D BluetoothRemoteDevices: Remote class is:5898764
+07-05 17:15:31.638 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:9C:2E:A1:E8:AB:62
+07-05 17:15:31.641 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:31.650 17080 17097 D BluetoothRemoteDevices: Remote Address is:88:9F:FA:B1:10:81
+07-05 17:15:31.652 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:31.653 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:88:9F:FA:B1:10:81
+07-05 17:15:31.654 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:31.654 17080 17097 D bt_btif_config: btif_get_device_type: Device [90:00:4e:df:fb:cb] type 1
+07-05 17:15:31.660 17080 17097 D BluetoothRemoteDevices: Remote Address is:90:00:4E:DF:FB:CB
+07-05 17:15:31.663 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:31.664 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:90:00:4E:DF:FB:CB
+07-05 17:15:32.428 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:33.436 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:33.723 17080 17105 W bt_btm  : btm_process_inq_results: BDA: 74-e5-43-d4-f1-d9
+07-05 17:15:33.723 17080 17105 W bt_btm  : btm_process_inq_results: Dev class: 0a-01-0c
+07-05 17:15:33.724 17080 17097 D bt_btif_config: btif_get_device_type: Device [74:e5:43:d4:f1:d9] type 1
+07-05 17:15:33.734 17080 17097 D BluetoothRemoteDevices: Remote Address is:74:E5:43:D4:F1:D9
+07-05 17:15:33.736 17080 17097 D BluetoothRemoteDevices: Remote class is:655628
+07-05 17:15:33.737 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:74:E5:43:D4:F1:D9
+07-05 17:15:33.855 17080 17097 D bt_btif_config: btif_get_device_type: Device [74:e5:43:d4:f1:d9] type 1
+07-05 17:15:33.867 17080 17097 D BluetoothRemoteDevices: Remote Address is:74:E5:43:D4:F1:D9
+07-05 17:15:33.869 17080 17097 D BluetoothRemoteDevices: Remote Device name is: DESKTOP-DUF0R0B
+07-05 17:15:33.871 17080 17097 D BluetoothRemoteDevices: Remote class is:655628
+07-05 17:15:33.873 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:74:E5:43:D4:F1:D9
+07-05 17:15:34.444 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:35.455 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:35.553 17080 17097 D bt_btif_dm: btif_dm_search_devices_evt cod is 0, set as unclassified
+07-05 17:15:35.553 17080 17097 D bt_btif_config: btif_get_device_type: Device [75:25:c7:19:6b:6b] type 2
+07-05 17:15:35.557 17080 17097 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:35.558 17080 17097 D BluetoothRemoteDevices: Remote Address is:75:25:C7:19:6B:6B
+07-05 17:15:35.560 17080 17097 D BluetoothRemoteDevices: Remote class is:7936
+07-05 17:15:35.560 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:75:25:C7:19:6B:6B
+07-05 17:15:36.470 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:37.049 17080 17096 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:37.124 17080 17105 W bt_btm  : btm_process_inq_results: BDA: e4-46-da-59-da-5d
+07-05 17:15:37.124 17080 17105 W bt_btm  : btm_process_inq_results: Dev class: 5a-02-0c
+07-05 17:15:37.124 17080 17097 D bt_btif_config: btif_get_device_type: Device [e4:46:da:59:da:5d] type 1
+07-05 17:15:37.134 17080 17097 D BluetoothRemoteDevices: Remote Address is:E4:46:DA:59:DA:5D
+07-05 17:15:37.136 17080 17097 D BluetoothRemoteDevices: Remote Device name is: SpiderMan
+07-05 17:15:37.138 17080 17097 D BluetoothRemoteDevices: Remote class is:5898764
+07-05 17:15:37.139 17080 17097 D BluetoothRemoteDevices: deviceFoundCallback: Remote Address is:E4:46:DA:59:DA:5D
+07-05 17:15:37.487 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:38.501 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:39.502 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:40.514 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:41.205 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:49807 opcode:21 cur count:0
+07-05 17:15:41.206 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:144 opcode:21 cur count:0
+07-05 17:15:41.206 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:145 opcode:21 cur count:0
+07-05 17:15:41.214 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:146 opcode:21 cur count:0
+07-05 17:15:41.535 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:41.893 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:1683 opcode:21 cur count:0
+07-05 17:15:41.894 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:148 opcode:21 cur count:0
+07-05 17:15:41.894 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:149 opcode:21 cur count:0
+07-05 17:15:41.894 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:150 opcode:21 cur count:0
+07-05 17:15:42.225 17080 17126 D BluetoothUtils: callingUid =1001000
+07-05 17:15:42.226 17080 17126 E BluetoothUtils: foregroundUser =0
+07-05 17:15:42.226 17080 17126 E BluetoothUtils: callingUser =10
+07-05 17:15:42.236 17080 17092 D BluetoothUtils: callingUid =1001000
+07-05 17:15:42.244 17080 17092 E BluetoothUtils: foregroundUser =0
+07-05 17:15:42.245 17080 17092 E BluetoothUtils: callingUser =10
+07-05 17:15:42.251 17080 17122 D BluetoothUtils: callingUid =1001000
+07-05 17:15:42.263 17080 17122 E BluetoothUtils: foregroundUser =0
+07-05 17:15:42.263 17080 17122 E BluetoothUtils: callingUser =10
+07-05 17:15:42.269 17080 17122 D A2dpService: getA2DPService(): returning com.android.bluetooth.a2dp.A2dpService@6fe145d
+07-05 17:15:42.269 17080 17122 I A2dpService: audio isMusicActive is false
+07-05 17:15:42.270 17080 17122 I BluetoothAdapterService: setScanMode: prev mode: 23 new mode: 21
+07-05 17:15:42.273 17080 17097 D BluetoothAdapterProperties: Discoverable Timeout:120
+07-05 17:15:42.274 17080 17097 D BluetoothAdapterProperties: Scan Mode:21
+07-05 17:15:42.275 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:663 opcode:21 cur count:0
+07-05 17:15:42.275 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:408 opcode:21 cur count:0
+07-05 17:15:42.275 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:153 opcode:21 cur count:0
+07-05 17:15:42.296 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:154 opcode:21 cur count:0
+07-05 17:15:42.296 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:155 opcode:21 cur count:0
+07-05 17:15:42.303 17080 17105 E bt_btif : bte_scan_filt_param_cfg_evt, 23
+07-05 17:15:42.536 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:42.605 17080 17105 W bt_btm  : btm_acl_role_changed: BDA: 1c-5f-ff-36-e7-23
+07-05 17:15:42.605 17080 17105 W bt_btm  : btm_acl_role_changed: New role: 0
+07-05 17:15:42.605 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:668 opcode:21 cur count:0
+07-05 17:15:42.605 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:157 opcode:21 cur count:0
+07-05 17:15:42.605 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:158 opcode:21 cur count:0
+07-05 17:15:42.605 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:159 opcode:21 cur count:0
+07-05 17:15:42.609 17080 17105 W bt_btm  : btm_acl_created hci_handle=2 link_role=1  transport=1
+07-05 17:15:42.614 17080 17105 W bt_btm  : btm_acl_created hci_handle=2 link_role=0  transport=1
+07-05 17:15:42.614 17080 17105 W bt_btif : bta_dm_acl_change info: 0x10
+07-05 17:15:42.614 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:15:42.615 17080 17097 D bt_btif_dm: remote version info [1c:5f:ff:36:e7:23]: 0, 0, 0
+07-05 17:15:42.617 17080 17097 E BluetoothRemoteDevices: state12newState0
+07-05 17:15:42.618 17080 17097 D BluetoothRemoteDevices: aclStateChangeCallback: State:Connected to Device:1C:5F:FF:36:E7:23
+07-05 17:15:42.640 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:160 opcode:21 cur count:0
+07-05 17:15:42.640 17080 17105 W bt_btm  : btm_read_remote_version_complete: BDA: 1c-5f-ff-36-e7-23
+07-05 17:15:42.640 17080 17105 W bt_btm  : btm_read_remote_version_complete lmp_version 8 manufacturer 29 lmp_subversion 2003
+07-05 17:15:42.654 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:42.693 17080 17105 W bt_l2cap: L2CAP - st: CLOSED evt: 10
+07-05 17:15:42.694 17080 17105 W bt_l2cap: L2CAP - st: TERM_W4_SEC_COMP evt: 7
+07-05 17:15:42.694 17080 17105 W bt_l2cap: L2CA_ErtmConnectRsp()  CID: 0x0042  Result: 0  Status: 0  BDA: 1c5fff36e723 p_ertm_info:0x00000000
+07-05 17:15:42.694 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_CON_RSP evt: 22
+07-05 17:15:42.694 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 24
+07-05 17:15:42.700 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 14
+07-05 17:15:42.700 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 25
+07-05 17:15:42.700 17080 17105 W bt_l2cap: L2CAP-Upper layer Config_Rsp,Local CID: 0x0042,Remote CID: 0x0044,PSM:1,our MTU present:1,our MTU:672
+07-05 17:15:42.702 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 15
+07-05 17:15:42.702 17080 17105 W bt_l2cap: L2CAP-peer_Config_Rsp,Local CID: 0x0042,Remote CID: 0x0044,PSM: 1,peer MTU present: 0,peer MTU: 672
+07-05 17:15:42.713 17080 17105 W bt_l2cap: L2CA_DisconnectRsp()  CID: 0x0042
+07-05 17:15:42.713 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_DISC_RSP evt: 28
+07-05 17:15:42.776 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:161 opcode:21 cur count:0
+07-05 17:15:42.779 17080 17105 W bt_l2cap: L2CAP - st: CLOSED evt: 10
+07-05 17:15:42.779 17080 17105 W bt_l2cap: L2CAP - st: TERM_W4_SEC_COMP evt: 7
+07-05 17:15:42.779 17080 17105 W bt_l2cap: L2CA_ErtmConnectRsp()  CID: 0x0043  Result: 0  Status: 0  BDA: 1c5fff36e723 p_ertm_info:0xe9020f40
+07-05 17:15:42.779 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_CON_RSP evt: 22
+07-05 17:15:42.779 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 24
+07-05 17:15:42.786 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 14
+07-05 17:15:42.786 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 25
+07-05 17:15:42.786 17080 17105 W bt_l2cap: L2CAP-Upper layer Config_Rsp,Local CID: 0x0043,Remote CID: 0x0045,PSM:4099,our MTU present:1,our MTU:8087
+07-05 17:15:42.786 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 15
+07-05 17:15:42.786 17080 17105 W bt_l2cap: L2CAP-peer_Config_Rsp,Local CID: 0x0043,Remote CID: 0x0045,PSM: 4099,peer MTU present: 0,peer MTU: 8087
+07-05 17:15:42.787 17080 17105 W bt_l2cap: L2CAP - L2CA_Register() called for PSM: 0x1003
+07-05 17:15:42.787 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:15:42.787 17080 17105 W bt_btif : new conn_srvc id:26, app_id:1
+07-05 17:15:42.787 17080 17105 W bt_btif : new conn_srvc id:26, app_id:1 count:1
+07-05 17:15:42.787 17080 17105 W bt_btif : bta_dm_pm_ssr conn_srvc id:26, app_id:1
+07-05 17:15:42.787 17080 17105 W bt_btif : bta_dm_pm_ssr: 2, lat:1200
+07-05 17:15:42.787 17080 17136 D BluetoothOppL2capListener: Accepted connection from 1C:5F:FF:36:E7:23
+07-05 17:15:42.787 17080 17136 V BluetoothOppL2capListener: Accepting connection...
+07-05 17:15:42.788 17080 17080 D BtOppService: Get incoming connection
+07-05 17:15:42.788 17080 17080 I BtOppService: Start Obex Server
+07-05 17:15:42.788 17080 17080 D BtOppObexServer: Create ServerSession with transport com.android.bluetooth.BluetoothObexTransport@aa673fe
+07-05 17:15:42.788 17080 17080 D BtOppService: Get ServerSession com.android.bluetooth.opp.BluetoothOppObexServerSession@4aaf75f for incoming connectioncom.android.bluetooth.BluetoothObexTransport@aa673fe
+07-05 17:15:42.953 17080 20192 D BtOppObexServer: onConnect
+07-05 17:15:42.953 17080 20192 V BluetoothOpp: Dumping HeaderSet javax.obex.HeaderSet@6a475ac
+07-05 17:15:42.953 17080 20192 V BluetoothOpp: COUNT : 1
+07-05 17:15:42.953 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: NAME : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: TYPE : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: LENGTH : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: TIME_ISO_8601 : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: TIME_4_BYTE : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: DESCRIPTION : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: TARGET : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: HTTP : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: WHO : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: OBJECT_CLASS : null
+07-05 17:15:42.954 17080 20192 V BluetoothOpp: APPLICATION_PARAMETER : null
+07-05 17:15:42.954 17080 20192 V BtOppObexServer: onConnect(): uuid =null
+07-05 17:15:42.956 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:42.958 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:42.960 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:43.022 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:43.043 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:43.047 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:43.050 17080 20192 D BtOppObexServer: onPut javax.obex.ServerOperation@ee8b275
+07-05 17:15:43.050 17080 20192 V BluetoothOpp: Dumping HeaderSet javax.obex.HeaderSet@af1d20a
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: COUNT : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: NAME : Screenshot_2018-07-05-11-49-38.png
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: TYPE : image/png
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: LENGTH : 47689
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: TIME_ISO_8601 : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: TIME_4_BYTE : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: DESCRIPTION : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: TARGET : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: HTTP : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: WHO : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: OBJECT_CLASS : null
+07-05 17:15:43.051 17080 20192 V BluetoothOpp: APPLICATION_PARAMETER : null
+07-05 17:15:43.051 17080 20192 V BtOppObexServer: Mimetype guessed from extension png is image/png
+07-05 17:15:43.055 17080 17080 V BtOppService: onStartCommand
+07-05 17:15:43.055 17080 17080 V BtOppService: startListener
+07-05 17:15:43.056 17080 17080 V BtOppService: Starting a new thread
+07-05 17:15:43.058 17080 20193 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:15:43.060 17080 20193 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:15:43.079 17080 17080 V BtOppService: onStartCommand
+07-05 17:15:43.079 17080 17080 V BtOppService: startListener
+07-05 17:15:43.081 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:15:43.081 17080 20193 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@4b1aa7b on behalf of 
+07-05 17:15:43.083 17080 20192 D BtOppObexServer: acquire full WakeLock
+07-05 17:15:43.089 17080 20192 V BtOppObexServer: insert contentUri: content://com.android.bluetooth.opp/btopp/8
+07-05 17:15:43.090 17080 20192 V BtOppObexServer: mLocalShareInfoId = 8
+07-05 17:15:43.090 17080 20192 V BtOppObexServer: acquire partial WakeLock
+07-05 17:15:43.091 17080 17080 D BluetoothOppReceiver: Action :android.btopp.intent.action.INCOMING_FILE_NOTIFICATION
+07-05 17:15:43.091 17080 17080 D BluetoothUtils: callingUid =1002
+07-05 17:15:43.092 17080 17080 E BluetoothUtils: foregroundUser =0
+07-05 17:15:43.092 17080 17080 E BluetoothUtils: callingUser =0
+07-05 17:15:43.092 17080 17080 V BluetoothOppReceiver: android.btopp.intent.action.INCOMING_FILE_NOTIFICATION Intent received for active user
+07-05 17:15:43.092 17080 17080 V BluetoothOppReceiver: Receiver INCOMING_FILE_NOTIFICATION
+07-05 17:15:43.094 17080 20193 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:15:43.096 17080 20193 E BtOppService: insertShare found null URI at cursor!
+07-05 17:15:43.096 17080 20193 V BtOppService: Service adding new entry
+07-05 17:15:43.096 17080 20193 V BtOppService: ID      : 8
+07-05 17:15:43.096 17080 20193 V BtOppService: URI     : null
+07-05 17:15:43.096 17080 20193 V BtOppService: HINT    : Screenshot_2018-07-05-11-49-38.png
+07-05 17:15:43.096 17080 20193 V BtOppService: FILENAME: null
+07-05 17:15:43.096 17080 20193 V BtOppService: MIMETYPE: image/png
+07-05 17:15:43.097 17080 20193 V BtOppService: DIRECTION: 1
+07-05 17:15:43.097 17080 20193 V BtOppService: DESTINAT: 1C:5F:FF:36:E7:23
+07-05 17:15:43.097 17080 20193 V BtOppService: VISIBILI: 0
+07-05 17:15:43.097 17080 20193 V BtOppService: CONFIRM : 0
+07-05 17:15:43.097 17080 20193 V BtOppService: STATUS  : 190
+07-05 17:15:43.097 17080 20193 V BtOppService: TOTAL   : 47689
+07-05 17:15:43.097 17080 20193 V BtOppService: CURRENT : 0
+07-05 17:15:43.097 17080 20193 V BtOppService: TIMESTAMP : 1530782142954
+07-05 17:15:43.097 17080 20193 V BtOppService: SCANNED : false
+07-05 17:15:43.098 17080 20193 V BtOppBatch: New Batch created for info 8
+07-05 17:15:43.098 17080 20193 V BtOppService: Service create new Batch 2 for INBOUND info 8
+07-05 17:15:43.098 17080 20193 V BtOppService: Service start server transfer new Batch 2 for info 8
+07-05 17:15:43.099 17080 20193 V BtOppTransfer: Create handler thread for batch 2
+07-05 17:15:43.102 17080 20193 V BtOppTransfer: Start session for info 8 for batch 2
+07-05 17:15:43.102 17080 20193 V BtOppTransfer: Transfer has Server sessioncom.android.bluetooth.opp.BluetoothOppObexServerSession@4aaf75f
+07-05 17:15:43.102 17080 20193 D BtOppObexServer: Start!
+07-05 17:15:43.102 17080 20193 V BtOppTransfer: processCurrentShare8
+07-05 17:15:43.102 17080 20193 D BtOppObexServer: addShare for id 8
+07-05 17:15:43.102 17080 20193 D BtOppObexServer: processShareInfo() 8
+07-05 17:15:43.103 17080 20193 V BluetoothOppProvider: starting query, database is not null; projection[0] is hint; projection[1] is total_bytes; projection[2] is mimetype; selection is null; selectionArgs is null; sort is null.
+07-05 17:15:43.106 17080 20193 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@fe304d6 on behalf of 
+07-05 17:15:43.123 17080 20193 D BluetoothOpp: current user  1
+07-05 17:15:43.123 17080 20193 D BluetoothOpp: current user  10, root /storage/emulated/10
+07-05 17:15:43.125 17080 20193 V BluetoothOpp: getting filename from hint
+07-05 17:15:43.125 17080 20193 I BluetoothOpp:  File Name Screenshot_2018-07-05-11-49-38
+07-05 17:15:43.130 17080 20193 D BluetoothOpp: check canonical path  /storage/emulated/10/bluetooth, filename /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:15:43.130 17080 20193 V BluetoothOpp: Generated received filename /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:15:43.134 17080 20193 V BluetoothOpp: New display name Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:15:43.154 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:15:43.155 17080 20193 V BtOppObexServer: Generate BluetoothOppReceiveFileInfo:
+07-05 17:15:43.155 17080 20193 V BtOppObexServer: filename  :/storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:15:43.155 17080 20193 V BtOppObexServer: length    :47689
+07-05 17:15:43.155 17080 20193 V BtOppObexServer: status    :0
+07-05 17:15:43.157 17080 20193 V BtOppTransfer: Registered mBluetoothReceiver
+07-05 17:15:43.157 17080 20193 V BtOppService: Array update: inserting 8 @ 7
+07-05 17:15:43.157 17080 20193 V BluetoothOppNotification: send message
+07-05 17:15:43.158 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:15:43.158 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:15:43.159 17080 20193 V BtOppService: pendingUpdate is true keepUpdateThread is true sListenStarted is true
+07-05 17:15:43.160 17080 20195 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:15:43.160 17080 20193 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:15:43.163 17080 20195 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@44dce44 on behalf of 
+07-05 17:15:43.164 17080 20193 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@691bb2d on behalf of 
+07-05 17:15:43.164 17080 20195 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:15:43.166 17080 20195 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:15:43.166 17080 20195 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:15:43.167 17080 20195 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:15:43.169 17080 20195 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@4e29862 on behalf of 
+07-05 17:15:43.170 17080 20195 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:15:43.171 17080 20193 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:15:43.172 17080 20193 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:15:43.173 17080 20195 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:15:43.173 17080 20195 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:15:43.174 17080 20193 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:15:43.174 17080 20193 V BtOppService: ***returning from updatethread***
+07-05 17:15:43.176 17080 20195 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@cb4edf3 on behalf of 
+07-05 17:15:43.177 17080 20195 V BluetoothOppNotification: inbound: succ-0  fail-0
+07-05 17:15:43.180 17080 20195 V BluetoothOppNotification: inbound notification was removed.
+07-05 17:15:43.181 17080 20195 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:15:43.184 17080 20195 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@67b8ab0 on behalf of 
+07-05 17:15:43.246 17080 17096 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:43.258 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:15:43.259 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:15:43.261 17080 20206 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:15:43.263 17080 20206 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@afbdd29 on behalf of 
+07-05 17:15:43.265 17080 20206 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:15:43.267 17080 20206 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:15:43.267 17080 20206 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:15:43.268 17080 20206 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:15:43.270 17080 20206 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@155d8ae on behalf of 
+07-05 17:15:43.271 17080 20206 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:15:43.274 17080 20206 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:15:43.274 17080 20206 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:15:43.276 17080 20206 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@e26764f on behalf of 
+07-05 17:15:43.278 17080 20206 V BluetoothOppNotification: inbound: succ-0  fail-0
+07-05 17:15:43.281 17080 20206 V BluetoothOppNotification: inbound notification was removed.
+07-05 17:15:43.282 17080 20206 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:15:43.284 17080 20206 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@e86a1dc on behalf of 
+07-05 17:15:43.549 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:43.953 17080 17096 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:44.094 17080 20192 V BtOppObexServer: MSG_CONNECT_TIMEOUT sent
+07-05 17:15:44.559 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:45.563 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:45.616 17080 17096 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:15:46.571 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:47.581 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:47.963 17080 17105 D bt_btm_pm: btm_pm_snd_md_req switching from ACTIVE to SNIFF.
+07-05 17:15:47.972 17080 17105 D bt_btm_pm: btm_pm_proc_mode_change switched from ACTIVE to SNIFF.
+07-05 17:15:47.979 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:6050 opcode:21 cur count:0
+07-05 17:15:48.599 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:49.614 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:50.623 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:51.627 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:52.640 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:53.659 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:54.112 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=3 mRoam=0 mBatteryCharge=4
+07-05 17:15:54.112 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:15:54.666 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:55.685 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:57.703 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:58.706 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:15:59.717 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:00.724 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:01.744 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:02.749 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:03.759 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:04.356 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=1 mRoam=0 mBatteryCharge=4
+07-05 17:16:04.356 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:16:04.610 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=3 mRoam=0 mBatteryCharge=4
+07-05 17:16:04.611 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:16:04.677 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=3 mRoam=0 mBatteryCharge=4
+07-05 17:16:04.677 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:16:04.767 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:06.781 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:07.038 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=3 mRoam=0 mBatteryCharge=4
+07-05 17:16:07.038 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:16:07.797 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:08.805 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:09.817 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:10.826 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:13.854 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:14.868 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:15.876 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:16.886 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:17.900 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:19.918 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:20.924 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:21.939 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:22.946 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:23.958 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:24.964 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:25.978 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:27.997 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:29.014 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:30.019 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:32.041 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:33.359 17080 17105 D bt_btm_pm: btm_pm_snd_md_req switching from SNIFF to ACTIVE.
+07-05 17:16:33.367 17080 17105 W bt_l2cap: L2CA_DisconnectRsp()  CID: 0x0043
+07-05 17:16:33.367 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_DISC_RSP evt: 28
+07-05 17:16:33.383 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:16:33.383 17080 17105 W bt_l2cap: L2CA_DisconnectReq()  CID: 0x0043
+07-05 17:16:33.383 17080 17105 W bt_l2cap: L2CAP - no CCB for L2CA_disc_req, CID: 67
+07-05 17:16:33.384 17080 17105 E bt_btif : SOCK_LIST: free(id = 4) - NO app_fd!
+07-05 17:16:33.384 17080 17105 D bt_btm_pm: btm_pm_proc_mode_change switched from SNIFF to ACTIVE.
+07-05 17:16:34.059 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:34.194 17080 20194 V BtOppTransfer: receive MSG_CONNECT_TIMEOUT for batch 2
+07-05 17:16:34.241 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:16:34.242 17080 17080 V BtOppService: Starting a new thread
+07-05 17:16:34.244 17080 20347 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:16:34.245 17080 20347 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:16:34.247 17080 20347 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@baad1ba on behalf of 
+07-05 17:16:34.255 17080 20347 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:16:34.256 17080 20347 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:16:34.256 17080 20347 V BtOppService: Service handle info 8 confirmation updated
+07-05 17:16:34.256 17080 20347 V BtOppTransfer: confirmStatusChanged to unblock mSessioncom.android.bluetooth.opp.BluetoothOppObexServerSession@4aaf75f
+07-05 17:16:34.257 17080 20347 V BluetoothOppNotification: send message
+07-05 17:16:34.257 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:16:34.258 17080 20347 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:16:34.259 17080 20347 V BtOppService: ***returning from updatethread***
+07-05 17:16:34.259 17080 20192 D BtOppObexServer: Server unblocked 
+07-05 17:16:34.259 17080 20192 V BtOppObexServer: after confirm: userAccepted=4
+07-05 17:16:34.259 17080 20192 I BtOppObexServer: Rejected incoming request
+07-05 17:16:34.259 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:16:34.261 17080 20349 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:16:34.264 17080 20349 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@37e286b on behalf of 
+07-05 17:16:34.277 17080 20349 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:16:34.278 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:16:34.279 17080 17080 V BtOppService: Starting a new thread
+07-05 17:16:34.281 17080 20350 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:16:34.281 17080 20349 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:16:34.281 17080 20349 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:16:34.282 17080 20194 V BtOppTransfer: receive MSG_SHARE_INTERRUPTED for batch 2
+07-05 17:16:34.281 17080 20349 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: Exception occured - ignoring
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: java.io.IOException: Broken pipe
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at android.net.LocalSocketImpl.writeba_native(Native Method)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at android.net.LocalSocketImpl.access$600(LocalSocketImpl.java:33)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at android.net.LocalSocketImpl$SocketOutputStream.write(LocalSocketImpl.java:135)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at android.bluetooth.BluetoothSocket.write(BluetoothSocket.java:588)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at android.bluetooth.BluetoothOutputStream.write(BluetoothOutputStream.java:85)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at java.io.OutputStream.write(OutputStream.java:82)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at javax.obex.ServerSession.sendResponse(ServerSession.java:290)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at javax.obex.ServerSession.handlePutRequest(ServerSession.java:228)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at javax.obex.ServerSession.run(ServerSession.java:116)
+07-05 17:16:34.282 17080 20192 D Obex ServerSession: 	at java.lang.Thread.run(Thread.java:818)
+07-05 17:16:34.282 17080 20192 V BtOppObexServer: release WakeLock
+07-05 17:16:34.284 17080 20349 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@ac9ffc8 on behalf of 
+07-05 17:16:34.284 17080 17080 D BluetoothOppReceiver: Action :android.btopp.intent.action.TRANSFER_COMPLETE
+07-05 17:16:34.284 17080 20350 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:16:34.284 17080 17080 D BluetoothUtils: callingUid =1002
+07-05 17:16:34.285 17080 17080 E BluetoothUtils: foregroundUser =0
+07-05 17:16:34.285 17080 17080 E BluetoothUtils: callingUser =0
+07-05 17:16:34.285 17080 17080 V BluetoothOppReceiver: android.btopp.intent.action.TRANSFER_COMPLETE Intent received for active user
+07-05 17:16:34.286 17080 17080 V BluetoothOppReceiver: Receiver Transfer Complete Intent for content://com.android.bluetooth.opp/btopp/8
+07-05 17:16:34.286 17080 20349 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:16:34.286 17080 20194 V BtOppTransfer: Un Registered mBluetoothReceiver
+07-05 17:16:34.286 17080 20194 V BtOppTransfer: receive MSG_SESSION_COMPLETE for batch 2
+07-05 17:16:34.286 17080 17080 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is null.
+07-05 17:16:34.288 17080 20350 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@a10861 on behalf of 
+07-05 17:16:34.289 17080 17080 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@1244f86 on behalf of 
+07-05 17:16:34.290 17080 20349 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:16:34.290 17080 20349 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:16:34.309 17080 20349 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@454e047 on behalf of 
+07-05 17:16:34.310 17080 17080 V BluetoothOppUtility: Get data from db:Screenshot_2018-07-05-11-49-38-1.pngimage/png1C:5F:FF:36:E7:23
+07-05 17:16:34.310 17080 20349 V BluetoothOppNotification: inbound: succ-0  fail-1
+07-05 17:16:34.312 17080 17080 V BluetoothOppReceiver: Toast msg == 未收到文件
+07-05 17:16:34.316 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:16:34.322 17080 20350 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:16:34.323 17080 20350 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:16:34.324 17080 20350 V BtOppService: Batch 2 is finished
+07-05 17:16:34.324 17080 20350 V BtOppService:  Stopping Inbound Transfer 
+07-05 17:16:34.324 17080 20350 V BtOppTransfer: stop
+07-05 17:16:34.324 17080 20350 V BtOppTransfer: Stop mSession
+07-05 17:16:34.324 17080 20350 D BtOppObexServer: Stop!
+07-05 17:16:34.324 17080 20350 V BtOppService: Remove batch 2
+07-05 17:16:34.327 17080 20350 V BtOppService: pendingUpdate is true keepUpdateThread is true sListenStarted is true
+07-05 17:16:34.327 17080 20349 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:16:34.329 17080 20350 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:16:34.334 17080 20349 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@2635074 on behalf of 
+07-05 17:16:34.339 17080 20350 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@484c99d on behalf of 
+07-05 17:16:34.347 17080 20350 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:16:34.348 17080 20350 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:16:34.353 17080 20350 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:16:34.353 17080 20350 V BtOppService: ***returning from updatethread***
+07-05 17:16:34.373 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:16:34.373 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:16:34.375 17080 20351 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:16:34.376 17080 20351 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@e65de12 on behalf of 
+07-05 17:16:34.377 17080 20351 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:16:34.380 17080 20351 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:16:34.380 17080 20351 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:16:34.380 17080 20351 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:16:34.383 17080 20351 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@ef539e3 on behalf of 
+07-05 17:16:34.384 17080 20351 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:16:34.387 17080 20351 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:16:34.388 17080 20351 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:16:34.390 17080 20351 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@e9effe0 on behalf of 
+07-05 17:16:34.391 17080 20351 V BluetoothOppNotification: inbound: succ-0  fail-1
+07-05 17:16:34.402 17080 20351 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:16:34.407 17080 20351 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@2e96299 on behalf of 
+07-05 17:16:36.072 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:37.086 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:37.420 17080 17105 I bt_btm_sec: btm_sec_disconnected clearing pending flag handle:2 reason:22
+07-05 17:16:37.420 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:8099 opcode:21 cur count:0
+07-05 17:16:37.420 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:16:37.420 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:164 opcode:21 cur count:0
+07-05 17:16:37.420 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:165 opcode:21 cur count:0
+07-05 17:16:37.420 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:166 opcode:21 cur count:0
+07-05 17:16:37.422 17080 17097 E BluetoothRemoteDevices: state12newState1
+07-05 17:16:37.423 17080 17097 D BluetoothRemoteDevices: aclStateChangeCallback: sending ACL disconnected intent
+07-05 17:16:37.423 17080 17097 D BluetoothRemoteDevices: aclStateChangeCallback: State:DisConnected to Device:1C:5F:FF:36:E7:23
+07-05 17:16:37.427 17080 17080 D BluetoothMapService: onReceive
+07-05 17:16:37.427 17080 17080 D BluetoothMapService: onReceive: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:16:37.430 17080 17080 V BluetoothPbapService: action: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:16:37.436 17080 17080 V BluetoothFtpService: Ftp Service onStartCommand
+07-05 17:16:37.436 17080 17080 V BluetoothFtpService: PARSE INTENT action: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:16:37.441 17080 17080 D BluetoothDunService: parseIntent: action: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:16:38.099 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:39.105 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:40.111 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:41.129 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:42.140 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:45.167 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:46.180 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:47.194 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:49.216 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:50.215 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:51.222 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:52.232 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:53.244 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:54.258 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:55.032 17080 17080 D BluetoothOppReceiver: Action :android.btopp.intent.action.OPEN_INBOUND
+07-05 17:16:55.032 17080 17080 D BluetoothUtils: callingUid =1002
+07-05 17:16:55.038 17080 17080 E BluetoothUtils: foregroundUser =0
+07-05 17:16:55.038 17080 17080 E BluetoothUtils: callingUser =0
+07-05 17:16:55.038 17080 17080 V BluetoothOppReceiver: android.btopp.intent.action.OPEN_INBOUND Intent received for active user
+07-05 17:16:55.038 17080 17080 V BluetoothOppReceiver: Received ACTION_OPEN_INBOUND_TRANSFER.
+07-05 17:16:55.092 17080 17080 E ActivityThread: Activity created===-1
+07-05 17:16:55.104 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@e1e025b
+07-05 17:16:55.105 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@4e0eaf8
+07-05 17:16:55.110 17080 17080 V BluetoothOppProvider: starting query, database is not null; projection[0] is _id; projection[1] is hint; projection[2] is status; projection[3] is total_bytes; projection[4] is _data; projection[5] is timestamp; projection[6] is visibility; projection[7] is destination; projection[8] is direction; selection is status >= '200' AND (direction == 1) AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is timestamp DESC.
+07-05 17:16:55.122 17080 17080 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@750540d on behalf of 
+07-05 17:16:55.273 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:56.280 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:56.942 17080 17080 I art     : Starting a blocking GC Explicit
+07-05 17:16:56.968 17080 17080 I art     : Explicit concurrent mark sweep GC freed 66735(3MB) AllocSpace objects, 1(40KB) LOS objects, 49% free, 8MB/16MB, paused 224us total 24.175ms
+07-05 17:16:56.975 17080 17080 I art     : Starting a blocking GC Explicit
+07-05 17:16:56.990 17080 17080 I art     : Explicit concurrent mark sweep GC freed 5390(323KB) AllocSpace objects, 3(64KB) LOS objects, 50% free, 7MB/15MB, paused 211us total 14.549ms
+07-05 17:16:56.990 17080 17080 I art     : Starting a blocking GC Explicit
+07-05 17:16:56.999 17080 17080 I art     : Explicit concurrent mark sweep GC freed 1(32B) AllocSpace objects, 0(0B) LOS objects, 50% free, 7MB/15MB, paused 422us total 8.810ms
+07-05 17:16:57.287 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:16:58.118 17080 17080 D HeadsetPhoneState: sendDeviceStateChanged. mService=1 mSignal=4 mRoam=0 mBatteryCharge=4
+07-05 17:16:58.118 17080 17110 D HeadsetStateMachine: Disconnected process message: 11, size: 0
+07-05 17:16:58.299 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:00.322 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:01.331 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:02.347 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:03.354 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:04.363 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:05.373 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:07.393 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:08.965 17080 17105 W bt_btm  : btm_acl_role_changed: BDA: 1c-5f-ff-36-e7-23
+07-05 17:17:08.965 17080 17105 W bt_btm  : btm_acl_role_changed: New role: 0
+07-05 17:17:08.966 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:935 opcode:21 cur count:0
+07-05 17:17:08.966 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:168 opcode:21 cur count:0
+07-05 17:17:08.967 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:169 opcode:21 cur count:0
+07-05 17:17:08.967 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:170 opcode:21 cur count:0
+07-05 17:17:08.969 17080 17105 W bt_btm  : btm_acl_created hci_handle=3 link_role=1  transport=1
+07-05 17:17:08.979 17080 17105 W bt_btm  : btm_acl_created hci_handle=3 link_role=0  transport=1
+07-05 17:17:08.979 17080 17105 W bt_btif : bta_dm_acl_change info: 0x10
+07-05 17:17:08.980 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:17:08.980 17080 17097 D bt_btif_dm: remote version info [1c:5f:ff:36:e7:23]: 0, 0, 0
+07-05 17:17:08.985 17080 17097 E BluetoothRemoteDevices: state12newState0
+07-05 17:17:08.985 17080 17097 D BluetoothRemoteDevices: aclStateChangeCallback: State:Connected to Device:1C:5F:FF:36:E7:23
+07-05 17:17:09.009 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:171 opcode:21 cur count:0
+07-05 17:17:09.009 17080 17105 W bt_btm  : btm_read_remote_version_complete: BDA: 1c-5f-ff-36-e7-23
+07-05 17:17:09.009 17080 17105 W bt_btm  : btm_read_remote_version_complete lmp_version 8 manufacturer 29 lmp_subversion 2003
+07-05 17:17:09.021 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.028 17080 17105 W bt_l2cap: L2CAP - st: CLOSED evt: 10
+07-05 17:17:09.028 17080 17105 W bt_l2cap: L2CAP - st: TERM_W4_SEC_COMP evt: 7
+07-05 17:17:09.028 17080 17105 W bt_l2cap: L2CA_ErtmConnectRsp()  CID: 0x0044  Result: 0  Status: 0  BDA: 1c5fff36e723 p_ertm_info:0x00000000
+07-05 17:17:09.028 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_CON_RSP evt: 22
+07-05 17:17:09.028 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 24
+07-05 17:17:09.034 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 14
+07-05 17:17:09.034 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 25
+07-05 17:17:09.034 17080 17105 W bt_l2cap: L2CAP-Upper layer Config_Rsp,Local CID: 0x0044,Remote CID: 0x0046,PSM:1,our MTU present:1,our MTU:672
+07-05 17:17:09.034 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 15
+07-05 17:17:09.034 17080 17105 W bt_l2cap: L2CAP-peer_Config_Rsp,Local CID: 0x0044,Remote CID: 0x0046,PSM: 1,peer MTU present: 0,peer MTU: 672
+07-05 17:17:09.046 17080 17105 W bt_l2cap: L2CA_DisconnectRsp()  CID: 0x0044
+07-05 17:17:09.046 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_DISC_RSP evt: 28
+07-05 17:17:09.138 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:172 opcode:21 cur count:0
+07-05 17:17:09.139 17080 17105 W bt_l2cap: L2CAP - st: CLOSED evt: 10
+07-05 17:17:09.139 17080 17105 W bt_l2cap: L2CAP - st: TERM_W4_SEC_COMP evt: 7
+07-05 17:17:09.139 17080 17105 W bt_l2cap: L2CA_ErtmConnectRsp()  CID: 0x0045  Result: 0  Status: 0  BDA: 1c5fff36e723 p_ertm_info:0xe9020e30
+07-05 17:17:09.139 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_CON_RSP evt: 22
+07-05 17:17:09.139 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 24
+07-05 17:17:09.147 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 14
+07-05 17:17:09.147 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 25
+07-05 17:17:09.147 17080 17105 W bt_l2cap: L2CAP-Upper layer Config_Rsp,Local CID: 0x0045,Remote CID: 0x0047,PSM:4099,our MTU present:1,our MTU:8087
+07-05 17:17:09.150 17080 17105 W bt_l2cap: L2CAP - st: CONFIG evt: 15
+07-05 17:17:09.150 17080 17105 W bt_l2cap: L2CAP-peer_Config_Rsp,Local CID: 0x0045,Remote CID: 0x0047,PSM: 4099,peer MTU present: 0,peer MTU: 8087
+07-05 17:17:09.151 17080 17105 W bt_l2cap: L2CAP - L2CA_Register() called for PSM: 0x1003
+07-05 17:17:09.151 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:17:09.151 17080 17105 W bt_btif : new conn_srvc id:26, app_id:1
+07-05 17:17:09.151 17080 17105 W bt_btif : new conn_srvc id:26, app_id:1 count:1
+07-05 17:17:09.151 17080 17105 W bt_btif : bta_dm_pm_ssr conn_srvc id:26, app_id:1
+07-05 17:17:09.152 17080 17105 W bt_btif : bta_dm_pm_ssr: 2, lat:1200
+07-05 17:17:09.153 17080 17136 D BluetoothOppL2capListener: Accepted connection from 1C:5F:FF:36:E7:23
+07-05 17:17:09.153 17080 17136 V BluetoothOppL2capListener: Accepting connection...
+07-05 17:17:09.153 17080 17080 D BtOppService: Get incoming connection
+07-05 17:17:09.153 17080 17080 I BtOppService: Start Obex Server
+07-05 17:17:09.153 17080 17080 D BtOppObexServer: Create ServerSession with transport com.android.bluetooth.BluetoothObexTransport@9e10228
+07-05 17:17:09.155 17080 17080 D BtOppService: Get ServerSession com.android.bluetooth.opp.BluetoothOppObexServerSession@6664b41 for incoming connectioncom.android.bluetooth.BluetoothObexTransport@9e10228
+07-05 17:17:09.320 17080 20395 D BtOppObexServer: onConnect
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: Dumping HeaderSet javax.obex.HeaderSet@9c208e6
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: COUNT : 1
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: NAME : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: TYPE : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: LENGTH : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: TIME_ISO_8601 : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: TIME_4_BYTE : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: DESCRIPTION : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: TARGET : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: HTTP : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: WHO : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: OBJECT_CLASS : null
+07-05 17:17:09.320 17080 20395 V BluetoothOpp: APPLICATION_PARAMETER : null
+07-05 17:17:09.320 17080 20395 V BtOppObexServer: onConnect(): uuid =null
+07-05 17:17:09.322 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.325 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.327 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.331 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.395 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.414 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:09.414 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.417 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.422 17080 20395 D BtOppObexServer: onPut javax.obex.ServerOperation@e380e27
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: Dumping HeaderSet javax.obex.HeaderSet@b5818d4
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: COUNT : null
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: NAME : Screenshot_2018-07-05-11-49-38.png
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: TYPE : image/png
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: LENGTH : 47689
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: TIME_ISO_8601 : null
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: TIME_4_BYTE : null
+07-05 17:17:09.422 17080 20395 V BluetoothOpp: DESCRIPTION : null
+07-05 17:17:09.423 17080 20395 V BluetoothOpp: TARGET : null
+07-05 17:17:09.423 17080 20395 V BluetoothOpp: HTTP : null
+07-05 17:17:09.423 17080 20395 V BluetoothOpp: WHO : null
+07-05 17:17:09.423 17080 20395 V BluetoothOpp: OBJECT_CLASS : null
+07-05 17:17:09.423 17080 20395 V BluetoothOpp: APPLICATION_PARAMETER : null
+07-05 17:17:09.423 17080 20395 V BtOppObexServer: Mimetype guessed from extension png is image/png
+07-05 17:17:09.426 17080 17080 V BtOppService: onStartCommand
+07-05 17:17:09.426 17080 17080 V BtOppService: startListener
+07-05 17:17:09.427 17080 17080 V BtOppService: Starting a new thread
+07-05 17:17:09.428 17080 20396 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:17:09.429 17080 20396 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:09.449 17080 17080 V BtOppService: onStartCommand
+07-05 17:17:09.449 17080 17080 V BtOppService: startListener
+07-05 17:17:09.450 17080 20396 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@40b5a7d on behalf of 
+07-05 17:17:09.451 17080 20395 D BtOppObexServer: acquire full WakeLock
+07-05 17:17:09.452 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:09.455 17080 20395 V BtOppObexServer: insert contentUri: content://com.android.bluetooth.opp/btopp/9
+07-05 17:17:09.455 17080 20395 V BtOppObexServer: mLocalShareInfoId = 9
+07-05 17:17:09.455 17080 20395 V BtOppObexServer: acquire partial WakeLock
+07-05 17:17:09.456 17080 17080 D BluetoothOppReceiver: Action :android.btopp.intent.action.INCOMING_FILE_NOTIFICATION
+07-05 17:17:09.456 17080 17080 D BluetoothUtils: callingUid =1002
+07-05 17:17:09.457 17080 17080 E BluetoothUtils: foregroundUser =0
+07-05 17:17:09.457 17080 17080 E BluetoothUtils: callingUser =0
+07-05 17:17:09.457 17080 17080 V BluetoothOppReceiver: android.btopp.intent.action.INCOMING_FILE_NOTIFICATION Intent received for active user
+07-05 17:17:09.457 17080 17080 V BluetoothOppReceiver: Receiver INCOMING_FILE_NOTIFICATION
+07-05 17:17:09.460 17080 20396 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:09.462 17080 20396 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:09.464 17080 20396 E BtOppService: insertShare found null URI at cursor!
+07-05 17:17:09.465 17080 20396 V BtOppService: Service adding new entry
+07-05 17:17:09.465 17080 20396 V BtOppService: ID      : 9
+07-05 17:17:09.465 17080 20396 V BtOppService: URI     : null
+07-05 17:17:09.465 17080 20396 V BtOppService: HINT    : Screenshot_2018-07-05-11-49-38.png
+07-05 17:17:09.465 17080 20396 V BtOppService: FILENAME: null
+07-05 17:17:09.465 17080 20396 V BtOppService: MIMETYPE: image/png
+07-05 17:17:09.465 17080 20396 V BtOppService: DIRECTION: 1
+07-05 17:17:09.465 17080 20396 V BtOppService: DESTINAT: 1C:5F:FF:36:E7:23
+07-05 17:17:09.465 17080 20396 V BtOppService: VISIBILI: 0
+07-05 17:17:09.465 17080 20396 V BtOppService: CONFIRM : 0
+07-05 17:17:09.465 17080 20396 V BtOppService: STATUS  : 190
+07-05 17:17:09.465 17080 20396 V BtOppService: TOTAL   : 47689
+07-05 17:17:09.465 17080 20396 V BtOppService: CURRENT : 0
+07-05 17:17:09.465 17080 20396 V BtOppService: TIMESTAMP : 1530782229321
+07-05 17:17:09.465 17080 20396 V BtOppService: SCANNED : false
+07-05 17:17:09.465 17080 20396 V BtOppBatch: New Batch created for info 9
+07-05 17:17:09.465 17080 20396 V BtOppService: Service create new Batch 3 for INBOUND info 9
+07-05 17:17:09.465 17080 20396 V BtOppService: Service start server transfer new Batch 3 for info 9
+07-05 17:17:09.466 17080 20396 V BtOppTransfer: Create handler thread for batch 3
+07-05 17:17:09.468 17080 20396 V BtOppTransfer: Start session for info 9 for batch 3
+07-05 17:17:09.468 17080 20396 V BtOppTransfer: Transfer has Server sessioncom.android.bluetooth.opp.BluetoothOppObexServerSession@6664b41
+07-05 17:17:09.468 17080 20396 D BtOppObexServer: Start!
+07-05 17:17:09.468 17080 20396 V BtOppTransfer: processCurrentShare9
+07-05 17:17:09.468 17080 20396 D BtOppObexServer: addShare for id 9
+07-05 17:17:09.468 17080 20396 D BtOppObexServer: processShareInfo() 9
+07-05 17:17:09.469 17080 20396 V BluetoothOppProvider: starting query, database is not null; projection[0] is hint; projection[1] is total_bytes; projection[2] is mimetype; selection is null; selectionArgs is null; sort is null.
+07-05 17:17:09.472 17080 20396 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@1f82179 on behalf of 
+07-05 17:17:09.484 17080 20396 D BluetoothOpp: current user  1
+07-05 17:17:09.484 17080 20396 D BluetoothOpp: current user  10, root /storage/emulated/10
+07-05 17:17:09.485 17080 20396 V BluetoothOpp: getting filename from hint
+07-05 17:17:09.486 17080 20396 I BluetoothOpp:  File Name Screenshot_2018-07-05-11-49-38
+07-05 17:17:09.488 17080 20396 D BluetoothOpp: check canonical path  /storage/emulated/10/bluetooth, filename /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:09.488 17080 20396 V BluetoothOpp: Generated received filename /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:09.491 17080 20396 V BluetoothOpp: New display name Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:09.512 17080 20396 V BtOppObexServer: Generate BluetoothOppReceiveFileInfo:
+07-05 17:17:09.512 17080 20396 V BtOppObexServer: filename  :/storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:09.513 17080 20396 V BtOppObexServer: length    :47689
+07-05 17:17:09.513 17080 20396 V BtOppObexServer: status    :0
+07-05 17:17:09.515 17080 20396 V BtOppTransfer: Registered mBluetoothReceiver
+07-05 17:17:09.515 17080 20396 V BtOppService: Array update: inserting 9 @ 8
+07-05 17:17:09.515 17080 20396 V BluetoothOppNotification: send message
+07-05 17:17:09.516 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:09.516 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:09.517 17080 20396 V BtOppService: pendingUpdate is true keepUpdateThread is true sListenStarted is true
+07-05 17:17:09.517 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:09.519 17080 20396 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:09.519 17080 20398 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:09.521 17080 20396 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@7569b1f on behalf of 
+07-05 17:17:09.521 17080 20398 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@c1dae6c on behalf of 
+07-05 17:17:09.523 17080 20398 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:17:09.526 17080 20398 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:17:09.526 17080 20398 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:17:09.526 17080 20398 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:09.529 17080 20398 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@7505c35 on behalf of 
+07-05 17:17:09.530 17080 20398 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:17:09.531 17080 20396 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:09.532 17080 20396 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:09.532 17080 20398 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:17:09.533 17080 20396 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:09.533 17080 20398 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:09.535 17080 20398 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@f4d98ca on behalf of 
+07-05 17:17:09.535 17080 20396 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:17:09.535 17080 20396 V BtOppService: ***returning from updatethread***
+07-05 17:17:09.537 17080 20398 V BluetoothOppNotification: inbound: succ-0  fail-1
+07-05 17:17:09.546 17080 20398 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:09.548 17080 20398 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@ed3ca3b on behalf of 
+07-05 17:17:09.617 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:09.617 17080 17096 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:09.617 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:09.621 17080 20407 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:09.623 17080 20407 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@c6d4558 on behalf of 
+07-05 17:17:09.625 17080 20407 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:17:09.626 17080 20407 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:17:09.627 17080 20407 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:17:09.627 17080 20407 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:09.629 17080 20407 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@fb786b1 on behalf of 
+07-05 17:17:09.630 17080 20407 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:17:09.633 17080 20407 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:17:09.633 17080 20407 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:09.636 17080 20407 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@a147796 on behalf of 
+07-05 17:17:09.638 17080 20407 V BluetoothOppNotification: inbound: succ-0  fail-1
+07-05 17:17:09.653 17080 20407 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:09.658 17080 20407 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@b2acf17 on behalf of 
+07-05 17:17:10.320 17080 17096 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:10.458 17080 20395 V BtOppObexServer: MSG_CONNECT_TIMEOUT sent
+07-05 17:17:11.431 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:11.982 17080 17096 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:13.460 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:13.525 17080 17080 D BluetoothOppReceiver: Action :android.btopp.intent.action.CONFIRM
+07-05 17:17:13.525 17080 17080 D BluetoothUtils: callingUid =1002
+07-05 17:17:13.526 17080 17080 E BluetoothUtils: foregroundUser =0
+07-05 17:17:13.526 17080 17080 E BluetoothUtils: callingUser =0
+07-05 17:17:13.526 17080 17080 V BluetoothOppReceiver: android.btopp.intent.action.CONFIRM Intent received for active user
+07-05 17:17:13.526 17080 17080 V BluetoothOppReceiver: Receiver ACTION_INCOMING_FILE_CONFIRM
+07-05 17:17:13.550 17080 17080 V BluetoothOppReceiver: notMgr.cancel called
+07-05 17:17:13.558 17080 17080 E ActivityThread: Activity created===-1
+07-05 17:17:13.566 17080 17080 D BluetoothIncomingFileConfirmActivity: onCreate(): action = null
+07-05 17:17:13.567 17080 17080 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is null.
+07-05 17:17:13.570 17080 17080 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@38cdced on behalf of 
+07-05 17:17:13.572 17080 17080 V BluetoothOppUtility: Get data from db:Screenshot_2018-07-05-11-49-38-1.pngimage/png1C:5F:FF:36:E7:23
+07-05 17:17:13.574 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@d8345b3
+07-05 17:17:13.574 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@b936770
+07-05 17:17:13.578 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@c467e21
+07-05 17:17:13.578 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@2f7f246
+07-05 17:17:13.581 17080 17080 V BluetoothIncomingFileConfirmActivity: mTimeout: false
+07-05 17:17:13.581 17080 17080 V BluetoothIncomingFileConfirmActivity: BluetoothIncomingFileConfirmActivity: Got uri:content://com.android.bluetooth.opp/btopp/9
+07-05 17:17:14.322 17080 17105 D bt_btm_pm: btm_pm_proc_mode_change switched from ACTIVE to SNIFF.
+07-05 17:17:14.322 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:5549 opcode:21 cur count:0
+07-05 17:17:14.448 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:15.044 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.045 17080 17080 V BtOppService: Starting a new thread
+07-05 17:17:15.046 17080 20424 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:17:15.047 17080 20424 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:15.049 17080 20424 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@b8fd059 on behalf of 
+07-05 17:17:15.054 17080 20424 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:15.055 17080 20424 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:15.056 17080 20424 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:15.056 17080 20424 V BtOppService: Service handle info 9 confirmation updated
+07-05 17:17:15.057 17080 20424 V BtOppTransfer: confirmStatusChanged to unblock mSessioncom.android.bluetooth.opp.BluetoothOppObexServerSession@6664b41
+07-05 17:17:15.058 17080 20424 V BluetoothOppNotification: send message
+07-05 17:17:15.059 17080 20395 D BtOppObexServer: Server unblocked 
+07-05 17:17:15.059 17080 20395 V BtOppObexServer: after confirm: userAccepted=1
+07-05 17:17:15.062 17080 20424 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:17:15.063 17080 20424 V BtOppService: ***returning from updatethread***
+07-05 17:17:15.095 17080 17105 D bt_btm_pm: btm_pm_snd_md_req switching from SNIFF to ACTIVE.
+07-05 17:17:15.096 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:15.097 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:15.097 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.098 17080 17080 V BtOppService: Starting a new thread
+07-05 17:17:15.099 17080 20427 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:15.101 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.102 17080 20428 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:17:15.103 17080 20428 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:15.104 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.104 17080 20427 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@b8d041e on behalf of 
+07-05 17:17:15.105 17080 20427 V BluetoothOppNotification: mUpdateCompleteNotification = false
+07-05 17:17:15.105 17080 20427 V BluetoothOppNotification: ID=9; batchID=1530782229321; totoalCurrent0; totalTotal=47689
+07-05 17:17:15.105 17080 20428 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@f8014ff on behalf of 
+07-05 17:17:15.107 17080 20427 V BluetoothOppNotification: mCurrentBytes: 0 mTotalBytes: 47689 (0 %)
+07-05 17:17:15.108 17080 18277 D OpenGLRenderer: endAllStagingAnimators on 0xd40c7b00 (RippleDrawable) with handle 0xd454edf0
+07-05 17:17:15.115 17080 20428 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:15.115 17080 20427 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:17:15.118 17080 20427 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.120 17080 20428 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:15.120 17080 20427 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@3641915 on behalf of 
+07-05 17:17:15.121 17080 20427 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:17:15.123 17080 20428 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:15.124 17080 20428 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:17:15.124 17080 20428 V BtOppService: ***returning from updatethread***
+07-05 17:17:15.125 17080 20427 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:17:15.125 17080 20427 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.128 17080 20427 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@c81442a on behalf of 
+07-05 17:17:15.128 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.129 17080 17080 V BtOppService: Starting a new thread
+07-05 17:17:15.130 17080 20427 V BluetoothOppNotification: inbound: succ-0  fail-1
+07-05 17:17:15.130 17080 20429 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:17:15.131 17080 20429 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:15.132 17080 20429 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@84b021b on behalf of 
+07-05 17:17:15.136 17080 20427 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:15.136 17080 20429 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:15.137 17080 20429 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:15.138 17080 20427 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@e764fb8 on behalf of 
+07-05 17:17:15.138 17080 20429 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:15.138 17080 20429 V BluetoothOppNotification: update too frequent, put in queue
+07-05 17:17:15.139 17080 20429 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:17:15.139 17080 20429 V BtOppService: ***returning from updatethread***
+07-05 17:17:15.197 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:15.198 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:15.199 17080 20430 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:15.200 17080 20430 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@4fa3191 on behalf of 
+07-05 17:17:15.200 17080 20430 V BluetoothOppNotification: mUpdateCompleteNotification = false
+07-05 17:17:15.200 17080 20430 V BluetoothOppNotification: ID=9; batchID=1530782229321; totoalCurrent0; totalTotal=47689
+07-05 17:17:15.201 17080 20430 V BluetoothOppNotification: mCurrentBytes: 0 mTotalBytes: 47689 (0 %)
+07-05 17:17:15.204 17080 20430 V BluetoothOppNotification: No need to update complete notification
+07-05 17:17:15.204 17080 20430 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:15.205 17080 20430 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@c778f6 on behalf of 
+07-05 17:17:15.356 17080 17105 D bt_btm_pm: btm_pm_proc_mode_change switched from UNKNOWN to ACTIVE.
+07-05 17:17:15.400 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.420 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.424 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.428 17080 20395 V BtOppObexServer: Receive file position = 8076 readLength 8076 bytes took 333 ms
+07-05 17:17:15.428 17080 20395 V BtOppObexServer: Worker for Updation : Created
+07-05 17:17:15.428 17080 20431 V BtOppObexServer: Is ContentResolverUpdateThread Interrupted :false
+07-05 17:17:15.439 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.439 17080 17080 V BtOppService: Starting a new thread
+07-05 17:17:15.440 17080 20432 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:17:15.441 17080 20432 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:15.442 17080 20432 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@da4f7 on behalf of 
+07-05 17:17:15.443 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.446 17080 20432 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:15.446 17080 20432 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:15.447 17080 20432 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:15.447 17080 20432 V BluetoothOppNotification: send message
+07-05 17:17:15.447 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:15.447 17080 20432 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:17:15.447 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:15.447 17080 20432 V BtOppService: ***returning from updatethread***
+07-05 17:17:15.447 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.448 17080 20433 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:15.449 17080 20433 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@c1caf64 on behalf of 
+07-05 17:17:15.450 17080 20433 V BluetoothOppNotification: mUpdateCompleteNotification = false
+07-05 17:17:15.450 17080 20433 V BluetoothOppNotification: ID=9; batchID=1530782229321; totoalCurrent8076; totalTotal=47689
+07-05 17:17:15.451 17080 20433 V BluetoothOppNotification: mCurrentBytes: 8076 mTotalBytes: 47689 (16 %)
+07-05 17:17:15.453 17080 20433 V BluetoothOppNotification: No need to update complete notification
+07-05 17:17:15.453 17080 20433 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:15.454 17080 20433 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@ff55cd on behalf of 
+07-05 17:17:15.457 17080 20395 V BtOppObexServer: Receive file position = 16152 readLength 8076 bytes took 29 ms
+07-05 17:17:15.461 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:15.466 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.469 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.489 17080 20395 V BtOppObexServer: Receive file position = 24228 readLength 8076 bytes took 31 ms
+07-05 17:17:15.489 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.493 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.515 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.519 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.522 17080 20395 V BtOppObexServer: Receive file position = 32304 readLength 8076 bytes took 33 ms
+07-05 17:17:15.538 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.541 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.553 17080 20395 V BtOppObexServer: Receive file position = 40380 readLength 8076 bytes took 31 ms
+07-05 17:17:15.554 17080 20395 V BtOppObexServer: Receive file position = 47689 readLength 7309 bytes took 1 ms
+07-05 17:17:15.554 17080 20395 V BtOppObexServer: Worker for Updation : Destroying
+07-05 17:17:15.555 17080 20431 V BtOppObexServer: Server ContentResolverUpdateThread was interrupted (1), exiting
+07-05 17:17:15.570 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.570 17080 20395 D BtOppObexServer: Receiving file completed for /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png length 47689 Bytes. Approx. throughput is 803.18317 Kbps
+07-05 17:17:15.570 17080 17080 V BtOppService: Starting a new thread
+07-05 17:17:15.572 17080 20434 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:17:15.574 17080 20434 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:15.595 17080 20434 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@26a2e82 on behalf of 
+07-05 17:17:15.595 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.596 17080 20397 V BtOppTransfer: receive MSG_SHARE_COMPLETE for info 9
+07-05 17:17:15.598 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.598 17080 17080 D BluetoothOppReceiver: Action :android.btopp.intent.action.TRANSFER_COMPLETE
+07-05 17:17:15.598 17080 17080 D BluetoothUtils: callingUid =1002
+07-05 17:17:15.599 17080 17080 E BluetoothUtils: foregroundUser =0
+07-05 17:17:15.599 17080 17080 E BluetoothUtils: callingUser =0
+07-05 17:17:15.599 17080 17080 V BluetoothOppReceiver: android.btopp.intent.action.TRANSFER_COMPLETE Intent received for active user
+07-05 17:17:15.599 17080 17080 V BluetoothOppReceiver: Receiver Transfer Complete Intent for content://com.android.bluetooth.opp/btopp/9
+07-05 17:17:15.600 17080 17080 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is null.
+07-05 17:17:15.601 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.602 17080 17080 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@bed9993 on behalf of 
+07-05 17:17:15.604 17080 20434 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:15.605 17080 20434 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:15.606 17080 20434 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:15.606 17080 20434 D BtOppService: Scanning file /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:15.606 17080 20434 V BtOppService: Connecting to MediaScannerConnection 
+07-05 17:17:15.607 17080 17080 V BluetoothOppUtility: Get data from db:/storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.pngimage/png1C:5F:FF:36:E7:23
+07-05 17:17:15.609 17080 17080 V BluetoothOppReceiver: Toast msg == 蓝牙共享：已接收“/storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png”
+07-05 17:17:15.613 17080 20434 V BluetoothOppNotification: send message
+07-05 17:17:15.615 17080 20434 V BtOppService: pendingUpdate is true keepUpdateThread is true sListenStarted is true
+07-05 17:17:15.616 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:15.616 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:15.617 17080 17080 V BtOppService: MediaScannerConnection onMediaScannerConnected
+07-05 17:17:15.617 17080 20434 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:15.619 17080 20435 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:15.621 17080 20434 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@bb881c9 on behalf of 
+07-05 17:17:15.622 17080 20435 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@f90b0ce on behalf of 
+07-05 17:17:15.624 17080 20435 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:17:15.630 17080 20435 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:17:15.630 17080 20435 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:17:15.631 17080 20435 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.633 17080 20434 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:15.634 17080 20435 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@3ce3bef on behalf of 
+07-05 17:17:15.635 17080 20434 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:15.635 17080 20435 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:17:15.636 17080 20395 D BtOppObexServer: onDisconnect
+07-05 17:17:15.638 17080 20434 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:15.639 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.639 17080 20434 D BtOppService: Scanning file /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:15.641 17080 20435 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:17:15.641 17080 20435 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.642 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.644 17080 20435 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@eec86fc on behalf of 
+07-05 17:17:15.646 17080 17105 E BluetoothServiceJni: bool android::set_wake_alarm_callout(uint64_t, bool, alarm_cb, void*) setWakeAlarm failed:ret= 0 
+07-05 17:17:15.647 17080 20434 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:17:15.647 17080 20434 V BtOppService: ***returning from updatethread***
+07-05 17:17:15.648 17080 20435 V BluetoothOppNotification: inbound: succ-1  fail-1
+07-05 17:17:15.655 17080 20435 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:15.656 17080 20435 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@ebe7185 on behalf of 
+07-05 17:17:15.680 17080 17105 W bt_l2cap: L2CA_DisconnectRsp()  CID: 0x0045
+07-05 17:17:15.680 17080 17105 W bt_l2cap: L2CAP - st: W4_L2CA_DISC_RSP evt: 28
+07-05 17:17:15.680 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:17:15.686 17080 17126 V BtOppService: MediaScannerConnection onScanCompleted
+07-05 17:17:15.686 17080 17126 V BtOppService: MediaScannerConnection path is /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:15.686 17080 17126 V BtOppService: MediaScannerConnection Uri is content://media/external/images/media/349
+07-05 17:17:15.686 17080 17126 V BtOppService: MediaScannerConnection disconnect
+07-05 17:17:15.687 17080 17080 V BtOppService: Update mInfo.id 9 for data uri= content://media/external/images/media/349
+07-05 17:17:15.688 17080 17105 W bt_l2cap: L2CA_DisconnectReq()  CID: 0x0045
+07-05 17:17:15.688 17080 17105 W bt_l2cap: L2CAP - no CCB for L2CA_disc_req, CID: 69
+07-05 17:17:15.688 17080 17105 E bt_btif : SOCK_LIST: free(id = 5) - NO app_fd!
+07-05 17:17:15.688 17080 20395 V Obex ServerSession: Read request returned -1, exiting from loop
+07-05 17:17:15.688 17080 20395 V BtOppObexServer: release WakeLock
+07-05 17:17:15.694 17080 20397 V BtOppTransfer: Un Registered mBluetoothReceiver
+07-05 17:17:15.694 17080 20397 V BtOppTransfer: receive MSG_SESSION_COMPLETE for batch 3
+07-05 17:17:15.730 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:15.731 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:15.731 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.732 17080 17080 V BtOppService: Starting a new thread
+07-05 17:17:15.732 17080 20436 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:15.732 17080 17080 V BtOppService: ContentObserver received notification
+07-05 17:17:15.733 17080 20437 V BtOppService: pendingUpdate is true keepUpdateThread is false sListenStarted is true
+07-05 17:17:15.734 17080 20436 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@f8b0bda on behalf of 
+07-05 17:17:15.734 17080 20437 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is _id.
+07-05 17:17:15.735 17080 20436 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:17:15.737 17080 20437 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@6ca80b on behalf of 
+07-05 17:17:15.738 17080 20436 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:17:15.738 17080 20436 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:17:15.738 17080 20436 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.740 17080 20436 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@cf916e8 on behalf of 
+07-05 17:17:15.741 17080 20436 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:17:15.744 17080 20436 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:17:15.744 17080 20436 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.745 17080 20437 W BtOppService: updateShare() called for ID 7 with null URI
+07-05 17:17:15.746 17080 20437 W BtOppService: updateShare() called for ID 8 with null URI
+07-05 17:17:15.747 17080 20436 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@a79a101 on behalf of 
+07-05 17:17:15.747 17080 20437 W BtOppService: updateShare() called for ID 9 with null URI
+07-05 17:17:15.748 17080 20437 V BtOppService: Batch 3 is finished
+07-05 17:17:15.748 17080 20437 V BtOppService:  Stopping Inbound Transfer 
+07-05 17:17:15.748 17080 20437 V BtOppTransfer: stop
+07-05 17:17:15.748 17080 20437 V BtOppTransfer: Stop mSession
+07-05 17:17:15.748 17080 20437 D BtOppObexServer: Stop!
+07-05 17:17:15.748 17080 20437 V BtOppService: Remove batch 3
+07-05 17:17:15.749 17080 20436 V BluetoothOppNotification: inbound: succ-1  fail-1
+07-05 17:17:15.750 17080 20437 V BtOppService: pendingUpdate is false keepUpdateThread is true sListenStarted is true
+07-05 17:17:15.750 17080 20437 V BtOppService: ***returning from updatethread***
+07-05 17:17:15.757 17080 20436 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:15.759 17080 20436 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@c9e0ba6 on behalf of 
+07-05 17:17:15.831 17080 17080 V BluetoothOppNotification: new notify threadi!
+07-05 17:17:15.832 17080 17080 V BluetoothOppNotification: send delay message
+07-05 17:17:15.833 17080 20438 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is (status == '192') AND (visibility IS NULL OR visibility == '0') AND (confirm == '1' OR confirm == '2' OR confirm == '5'); selectionArgs is null; sort is _id.
+07-05 17:17:15.835 17080 20438 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@f3bb9e7 on behalf of 
+07-05 17:17:15.836 17080 20438 V BluetoothOppNotification: mUpdateCompleteNotification = true
+07-05 17:17:15.838 17080 20438 V BluetoothOppNotification: ongoing transfer notification was removed
+07-05 17:17:15.838 17080 20438 V BluetoothOppNotification: updateCompletedNotification, btTurningOff: false
+07-05 17:17:15.838 17080 20438 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 0); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.840 17080 20438 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@ebcb994 on behalf of 
+07-05 17:17:15.842 17080 20438 V BluetoothOppNotification: outbound: succ-0  fail-0
+07-05 17:17:15.844 17080 20438 V BluetoothOppNotification: outbound notification was removed.
+07-05 17:17:15.845 17080 20438 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is status >= '200' AND (visibility IS NULL OR visibility == '0') AND (confirm != '5') AND (direction == 1); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:15.847 17080 20438 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@35e4c3d on behalf of 
+07-05 17:17:15.848 17080 20438 V BluetoothOppNotification: inbound: succ-1  fail-1
+07-05 17:17:15.855 17080 20438 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is confirm == '0' AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is _id.
+07-05 17:17:15.857 17080 20438 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@e8f3c32 on behalf of 
+07-05 17:17:16.486 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:17.494 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:18.502 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:19.516 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:19.722 17080 17105 I bt_btm_sec: btm_sec_disconnected clearing pending flag handle:3 reason:22
+07-05 17:17:19.722 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:6574 opcode:21 cur count:0
+07-05 17:17:19.723 17080 17105 W bt_l2cap: L2CA_SetDesireRole() new:x0, disallow_switch:0
+07-05 17:17:19.723 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:175 opcode:21 cur count:0
+07-05 17:17:19.723 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:176 opcode:21 cur count:0
+07-05 17:17:19.723 17080 17105 E bt_l2cap: L2CAP - rcvd ACL for unknown handle:3804 ls:0 cid:177 opcode:21 cur count:0
+07-05 17:17:19.724 17080 17097 E BluetoothRemoteDevices: state12newState1
+07-05 17:17:19.724 17080 17097 D BluetoothRemoteDevices: aclStateChangeCallback: sending ACL disconnected intent
+07-05 17:17:19.725 17080 17097 D BluetoothRemoteDevices: aclStateChangeCallback: State:DisConnected to Device:1C:5F:FF:36:E7:23
+07-05 17:17:19.727 17080 17080 D BluetoothMapService: onReceive
+07-05 17:17:19.727 17080 17080 D BluetoothMapService: onReceive: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:17:19.732 17080 17080 V BluetoothPbapService: action: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:17:19.738 17080 17080 V BluetoothFtpService: Ftp Service onStartCommand
+07-05 17:17:19.738 17080 17080 V BluetoothFtpService: PARSE INTENT action: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:17:19.744 17080 17080 D BluetoothDunService: parseIntent: action: android.bluetooth.device.action.ACL_DISCONNECTED
+07-05 17:17:21.543 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:22.555 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:23.562 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:25.574 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:26.227 17080 17080 D BluetoothOppReceiver: Action :android.btopp.intent.action.OPEN_INBOUND
+07-05 17:17:26.227 17080 17080 D BluetoothUtils: callingUid =1002
+07-05 17:17:26.234 17080 17080 E BluetoothUtils: foregroundUser =0
+07-05 17:17:26.234 17080 17080 E BluetoothUtils: callingUser =0
+07-05 17:17:26.234 17080 17080 V BluetoothOppReceiver: android.btopp.intent.action.OPEN_INBOUND Intent received for active user
+07-05 17:17:26.234 17080 17080 V BluetoothOppReceiver: Received ACTION_OPEN_INBOUND_TRANSFER.
+07-05 17:17:26.269 17080 17080 E ActivityThread: Activity created===-1
+07-05 17:17:26.288 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@9dda72c
+07-05 17:17:26.288 17080 17080 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@457c5f5
+07-05 17:17:26.293 17080 17080 V BluetoothOppProvider: starting query, database is not null; projection[0] is _id; projection[1] is hint; projection[2] is status; projection[3] is total_bytes; projection[4] is _data; projection[5] is timestamp; projection[6] is visibility; projection[7] is destination; projection[8] is direction; selection is status >= '200' AND (direction == 1) AND (visibility IS NULL OR visibility == '0'); selectionArgs is null; sort is timestamp DESC.
+07-05 17:17:26.295 17080 17080 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@8ab15e2 on behalf of 
+07-05 17:17:26.577 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:27.587 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:28.617 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:29.621 17080 17110 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+07-05 17:17:30.583 17080 17080 V BluetoothOppTransferHistory: onItemClick: ContextMenu = false
+07-05 17:17:30.583 17080 17080 V BluetoothOppProvider: starting query, database is not null; projection is null; selection is null; selectionArgs is null; sort is null.
+07-05 17:17:30.588 17080 17080 V BluetoothOppProvider: created cursor android.database.sqlite.SQLiteCursor@69aad1d on behalf of 
+07-05 17:17:30.614 17080 17080 V BluetoothOppUtility: Get data from db:/storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.pngimage/png1C:5F:FF:36:E7:23
+07-05 17:17:30.650 17080 17080 D AndroidRuntime: Shutting down VM
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: FATAL EXCEPTION: main
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: Process: com.android.bluetooth, PID: 17080
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: java.lang.IllegalArgumentException: Failed to find configured root that contains /storage/emulated/10/bluetooth/Screenshot_2018-07-05-11-49-38-1.png
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.support.v4.content.FileProvider$SimplePathStrategy.getUriForFile(FileProvider.java:678)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.support.v4.content.FileProvider.getUriForFile(FileProvider.java:377)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at com.android.bluetooth.opp.BluetoothOppUtility.openReceivedFile(BluetoothOppUtility.java:216)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at com.android.bluetooth.opp.BluetoothOppTransferHistory.openCompleteTransfer(BluetoothOppTransferHistory.java:299)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at com.android.bluetooth.opp.BluetoothOppTransferHistory.onItemClick(BluetoothOppTransferHistory.java:277)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.widget.AdapterView.performItemClick(AdapterView.java:310)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.widget.AbsListView.performItemClick(AbsListView.java:1145)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.widget.AbsListView$PerformClick.run(AbsListView.java:3066)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.widget.AbsListView$3.run(AbsListView.java:3903)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:739)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:95)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+07-05 17:17:30.651 17080 17080 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+07-05 17:17:30.693 17080 17080 I Process : Sending signal. PID: 17080 SIG: 9
+07-05 17:17:30.891  1200  4361 I ActivityManager: Process com.android.bluetooth (pid 17080) has died
+07-05 17:17:30.892  1200  4361 D ActivityManager: cleanUpApplicationRecord -- 17080
+07-05 17:17:31.065  1200  3613 W InputMethodManagerService: Got RemoteException sending setActive(false) notification to pid 17080 uid 1002

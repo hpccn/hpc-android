@@ -1,0 +1,104 @@
+
+Android selinux配置和用法
+
+
+SELINUX相关的代码目录：
+1）kernel/msm-3.18/security/selinux/
+2）external/selinux/
+3）用BOARD_SEPOLICY_DIRS添加的各te文件和安全配置文件，主要包括device/<oem_name>/sepolicy/<product_name>/和system/sepolicy/，以及其他功能模块添加的配置文件。
+
+.te 配制文件路径
+device/qcom/sepolicy/[product_name]/*.te
+device/qcom/sepolicy/common/*.te
+
+
+Android中对SELINUX来说，有两个类型，一种是文件，一种是进程。用ps -Z可以查看当前进程所拥有的selinux的权限。
+LABEL                          USER     PID   PPID  NAME  
+u:r:init:s0                    root      1     0     /init  
+u:r:kernel:s0                  root      2     0     kthreadd
+u:r:kernel:s0                  root      258   2     irq/322-HPH_R O  
+u:r:logd:s0                    logd      259   1     /system/bin/logd  
+u:r:healthd:s0                 root      260   1     /sbin/healthd  
+u:r:lmkd:s0                    root      261   1     /system/bin/lmkd  
+u:r:servicemanager:s0          system    262   1     /system/bin/servicemanager  
+u:r:vold:s0                    root      263   1     /system/bin/vold  
+u:r:surfaceflinger:s0          system    264   1     /system/bin/surfaceflinger  
+u:r:tctd:s0                    root      265   1     /system/bin/tctd  
+u:r:rfs_access:s0              system    268   1     /system/bin/rfs_access  
+u:r:tee:s0                     system    271   1     /system/bin/qseecomd  
+u:r:kernel:s0                  root      280   2     kworker/3:1H  
+u:r:kernel:s0                  root      290   2     kauditd  
+u:r:rmt_storage:s0             nobody    291   1     /system/bin/rmt_storage  
+u:r:shell:s0                   shell     292   1     /system/bin/sh  
+u:r:netd:s0                    root      295   1     /system/bin/netd  
+u:r:debuggerd:s0               root      296   1     /system/bin/debuggerd  
+u:r:tee:s0                     system    297   271   /system/bin/qseecomd 
+上述的u为Android的唯一user（有待确认），第二个参数r表示进程，相对的object_r表示文件，第三个参数是这个进程的type，在andorid里面，定义了100多个type，第四个参数s0是一个安全的等级。
+想要查看相关SELINUX权限的话，需要去执行ls -Z
+drwxr-x--x root     sdcard_r          u:object_r:rootfs:s0 storage  
+drwx--x--x root     root              u:object_r:tmpfs:s0 synthesis  
+dr-xr-xr-x root     root              u:object_r:sysfs:s0 sys  
+drwxr-xr-x root     root              u:object_r:system_file:s0 system  
+drwxrwxr-x system   tctpersist        u:object_r:tct_persist_file:s0 tctpersist  
+lrwxrwxrwx root     root              u:object_r:rootfs:s0 tombstones -> /data/tombstones  
+-rw-r--r-- root     root              u:object_r:rootfs:s0 ueventd.qcom.rc  
+-rw-r--r-- root     root              u:object_r:rootfs:s0 ueventd.rc  
+上述的rootfs和system_file等为文件的type。
+
+SELINUX规则配置
+在te文件中，我们一般遇到的语法是这样的：
+rule_name source_type target_type:class perm_set
+解读为：为source_type设置一个rule_name的规则，规则是对target_type的class 进行 perm_set的操作
+
+selinux有两种工作模式（可通过adb shell getenforce查看）：
+permissive：所有操作都被允许（即没有MAC），但是如果有违反权限的话，会记录日志
+enforcing：所有操作都会进行权限检查
+
+type命令格式为：
+type type_id [alias alias_id,] [attribute_id]
+声明一个type_id（别名为alias）具有属性attribute。以后可以用attribute来管理包含相同的属性的type的安全权限。
+
+class命令的格式为：
+class class_name [ inherits common_name ] { permission_name ... }
+inherits表示继承了common定义的权限，然后自己额外实现了permission_name的权限
+
+在te文件中常见的四种命名的规则：
+allow：赋予某项权限。
+allowaudit：audit含义就是记录某项操作。默认情况下是SELinux只记录那些权限检查失败的操作。allowaudit则使得权限检查成功的操作也被记录。注意，allowaudit只是允许记录，它和赋予权限没关系。赋予权限必须且只能使
+用allow语句。
+dontaudit：对那些权限检查失败的操作不做记录。
+neverallow：不赋予某项权限。
+
+举例如下：
+type init, domain;  
+将init关联到domain，即将domain设置为init类型的属性
+
+allow init unlabeled:filesystem mount;  
+允许init类型对unlabeled类型的filesystem进行mount的操作
+
+allow init fotad:unix_stream_socket { bind create };  
+允许init类型对fotad类型的unix_stream_socket 进行bind和create的操作
+
+neverallow { appdomain -unconfineddomain } kmem_device:chr_file { read write };  
+绝对不允许app(除了有unconfineddomain属性的app)对kmem_device类型的字符设备进行读写的操作
+
+allow {user_t domain} {bin_t file_type sbin_t}:file execute ;  
+允许user_t和domain属性的类对bin_t, file_type, sbin_t类型的file进行可执行的操作
+
+type_transition system wifi_data_file:sock_file system_wpa_socket;  
+当一个类型为system的类别去进行wifi_data_file类型的sock_file访问时，类型默认切换到system_wpa_socket
+
+如果下面这条语句想要执行成功
+type_transition init_t apache_exec_t:process apache_t;
+至少首先声明下面的三条规则：
+allow init_t apache_exec_t:file execute;
+allow init_t apache_t:process transition;
+allow apache_t apache_exec_t:file entrypoint;
+注：type_transition和type_change的语法规则是一样的
+
+如果要配置的规则很多，可以先抓取运行时logcat的权限拒绝的log，并先用grep工具过滤一下：
+$ grep "avc: *denied" log.txt > denied.txt
+$ cat denied.txt
+<14>[  389.521062] avc:  denied  { set } for property=audio.ftm.rcv_reverse scontext=u:r:system_app:s0 tcontext=u:object_r:default_prop:s0 tclass=property_servic
+然后再使用pc工具生成安全策略，命令audit2allow用来一次性生成所有安全策略，输入为前面抓取的 log
+$ audit2allow -i denied.txt

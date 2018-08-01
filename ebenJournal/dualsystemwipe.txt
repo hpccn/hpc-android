@@ -1,0 +1,140 @@
+
+验证，
+手工删除相关文件，验证。
+
+packages/apps/ManagedProvisioning  系统首次启动后，初始化双系统
+
+user0
+1 验证应用安装：
+ 手工修改 /data/system/users/0/package-restrictions.xml
+
+手工修改 /data/system/users  无效。
+
+
+
+
+user10
+
+生成user10,
+EBridge?
+--------------------------------
+删除user10
+
+验证通过
+
+import android.os.UserHandle;
+import android.os.UserManager;
+
+import android.util.Log;
+import android.content.Intent;
+import android.content.ComponentName;
+import android.os.UserHandle;
+import android.content.pm.PackageManager;
+
+	private void clearUser10(){
+		String provisionPkg = "com.android.managedprovisioning";
+		String provisionCls = "com.android.managedprovisioning.InstallActivity";
+
+		ComponentName cn = new ComponentName(provisionPkg, provisionCls);
+		PackageManager pm = getPackageManager();
+		pm.setComponentEnabledSetting(cn, PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+				PackageManager.DONT_KILL_APP);
+		UserManager um = (UserManager)getSystemService(Context.USER_SERVICE);
+		List<UserHandle> users = um.getUserProfiles();
+		final int count = users.size();
+		boolean b;	
+		for(int i = 1; i < count; i++) {
+			b = um.removeUser(users.get(i).getIdentifier());
+			Log.d(tag, "removeUser " + users.get(i).getIdentifier() + ", " + b);
+		}
+		/*		
+				if(count > 1){
+				pm.setApplicationHiddenSettingAsUser("com.qti.dpmserviceapp",true,users.get(1));
+				}
+				*/
+		for(int i = 0; i < count; i++) {
+			b = pm.setApplicationHiddenSettingAsUser(provisionPkg, false, users.get(i));
+			Log.d(tag, "pm.setApplicationHiddenSettingAsUser " + users.get(i).getIdentifier() + ", " + b);
+		}
+		/*
+		   for(int i = 0; i < count; i++) {
+		   startLauncher(users.get(i));
+		   }
+		   */
+		Intent intent2 = new Intent(Intent.ACTION_REBOOT);
+		intent2.putExtra("nowait", 1);
+		intent2.putExtra("interval", 1);
+		intent2.putExtra("window", 0);
+		sendBroadcastAsUser(intent2, users.get(0)); 
+	}
+
+
+坑：
+此代码在settings masterclear中运行无效。
+生成新的Receiver，在Receiver 中以user0 的身份运行通过。 诡异
+--------------------------------
+
+rm /data/data/com.android.systemui
+rm /data/data/com.android.settings
+rm /data/data/com.android.launcher3
+删除后，系统无法启动，ManagedProvisioning 反复出始化。进度条反复。
+
+
+-------------------------------------------
+Android 实现首次开机启动wizardsetup程序
+
+
+Android Provision (Setup Wizard)
+
+
+
+
+Android 里面在pacakge/app/下面有个Provision程序，当Android第一次启动的时候它在Launcher启动前会被调用。所以如果我们想实现第一次开机自启动我们自己的引导设置程序
+
+我们可以在其代码中的DefaultActivity.java里面加入如下:
+
+    Intent intent = new Intent();  
+    ComponentName componentName = new ComponentName("com.xxx.xxx", "com.xxx.xxx.yourAcitvity");  
+    intent.setComponent(componentName);  
+    startactivity(intent);  
+
+
+其中com.xxx.xxx是我们自己应用的包名。这样就可以在第一次开机启动自己的程序了。
+
+也不用担心后续会一直开机自启动，因为Provision会自己把自己从Packagemanage中剔除。
+--------------------------------
+网络恢复出厂需要在Activity中进行，BroadcastReceiver中运行崩溃
+-----------------------------------------------
+user0 清除 
+锁定屏幕消息
+显示密码
+屏幕亮度
+锁屏时间
+屏幕壁纸
+
+
+
+-----------------------------------------------
+-----------------------------------------------
+
+private system 删除用户后，双系统设置无法清除。
+
+需要手动删除。
+//清除密码
+		android.provider.Settings.System.putStringForUser(context.getContentResolver(), 
+				com.ebensz.sec.password.SecPasswordKey.SEC_PASSWORD_KEY, "", UserHandle.USER_OWNER);
+
+//清除手势切换
+        android.provider.Settings.System.putIntForUser(context.getContentResolver(),
+                android.provider.Settings.System.EBENSZ_GESTURE_UNLOCK, 0, UserHandle.USER_OWNER);
+// 清除锁屏进入
+    DualSystemManager mDualSystemManager;
+	mDualSystemManager = new DualSystemManager(context);
+	mDualSystemManager.setKeyguardEnter(false);
+//清除显示通知 
+// 这个接口
+    boolean isEqualSystem = mDualSystemManager.isEqualSystemMode();
+	if (isEqualSystem) {
+		mDualSystemManager.switchSystemMode();
+	}
+-----------------------------------------------------------

@@ -1,0 +1,32 @@
+res/raw 和 assets 区别 
+*res/raw 和 assets 的相同点: 
+            1. 两者目录下的文件在打包后会原封不动的保存在 apk 包中,不会被编译成二进制。 
+ *res/raw 和 assets 的不同点: 
+            1. res/raw 中 的 文 件 会 被 映 射 到 R.java 文 件 中 , 访 问 的 时 候 直 接 使 用 资 源 ID 即R.id.filename ; assets 文 件 夹 下 的 文 件 不 会 被 映 射 到 R.java 中 , 访 问 的  时 候 需 要AssetManager 类。 
+            2.res/raw 不可以有目录结构,而 assets 则可以有目录结构,也就是 assets 目录下可以再建立文件夹 
+*读取文件资源: 
+1.读取 res/raw 下的文件资源,通过以下方式获取输入流来进行写操作InputStream is = getResources().openRawResource(R.id.filename); 
+2.读取 assets 下的文件资源,通过以下方式获取输入流来进行写操作 
+AssetManager am = null; 
+am = getAssets(); 
+InputStream is = am.open("filename"); 
+(用于内置文件但不知道文件名称,需要筛选出想要的文件然后拷贝到目标目录中,推荐内置在 assets 文件夹中) 
+1.res/raw 目录: 
+通过反射的方式得到 R.java 里面 raw 内部类里面所有的资源 ID 的名称,然后通过名称获取资源 ID 的值来读取我们想要的文件。 
+2.assets 目录: 
+getAssets().list("");来获取 assets 目录下所有文件夹和文件的名称,再通过这些名称读取我们想要的文件。另,在处理 asset 时,android 限制最大的数据是 1M,超出后会报错误。 
+
+public Package parsePackage(File sourceFile, String destCodePath, DisplayMetrics metrics, int 
+flags) 
+{ 
+          //解析/asset 下的文件 
+          assmgr = new AssetManager(); 
+          int cookie = assmgr.addAssetPath(mArchiveSourcePath); 
+          parser = assmgr.openXmlResourceParser(cookie, "AndroidManifest.xml"); 
+          //解析/Res 下的文件,通过 parsePackage 函数解析 AndroidManifest.xml 文件 
+          Resources res = new Resources(assmgr, metrics, null); 
+          pkg = parsePackage(res, parser, flags, errorText); 
+          // 设置代码路径和资源路径 
+          pkg.mPath = destCodePath; 
+          pkg.mScanPath = mArchiveSourcePath; 
+} 

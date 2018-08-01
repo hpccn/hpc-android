@@ -1,0 +1,110 @@
+ELauncher3
+
+Launcher3/src/com/android/launcher3/Launcher.java
+{
+	+3056  Launcher 中切换双系统。
+if (v == mAllAppsButton) {
+//            onClickAllAppsButton(v);
+            if(v.getTag() != null){
+                onClickAppShortcut(v);
+            } else {
+                Log.d(TAG, "onClick All App");
+//            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//            Bitmap bitmap = getRotateStartBitmap();
+//                showStatus(false);
+                final Context context = this;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+						// 切换
+                        UserManagerCompat.getInstance(context).toggleUser();
+                    }
+                }).start();
+            }
+}
+
+ELauncher3/src/com/android/launcher3/compat/UserManagerCompat.java
+ELauncher3/src/com/android/launcher3/compat/UserManagerCompatVL.java
+{
++112 切换
+    @Override
+    public void toggleUser() {
+        mDualSystemManager.switchDualSystemFromIcon();
+    }
+
+    @Override
+    public void toggleUser(boolean selectPrivate) {
+        if(selectPrivate){
+            mDualSystemManager.switchToSecureSystem();
+        } else {
+            mDualSystemManager.switchToNormalSystem();
+        }
+    }
+}
+
+
+
+EBride
+
+
+
+packages/apps/EBridge/src/com/ebensz/bridge/DualSystemManagerService.java
+{
++327 
+    @Override
+    public void switchToSecureSystem() {
+    	sendIntentAfterSwitchSys(getSecureSystemUserId(), null, true, false);
+    }
+    
+    @Override
+    public void switchToSecSystemNoPassword() throws RemoteException {
+    	switchSysAndSendIntent(getSecureSystemUserId(), null, true, false);
+    }
+
+    @Override
+    public void switchToNormalSystem() {
+    	sendIntentAfterSwitchSys(getNormalSystemUserId(), null, true, false);
+    }
+    
+    @Override
+    public void switchToNormalSystemNoAnimal() {
+    	sendIntentAfterSwitchSys(getNormalSystemUserId(), null, false, false);
+    }
+    
+    @Override
+    public void switchToSecureFromIcon(){
+    	sendIntentAfterSwitchSys(getSecureSystemUserId(), null, true, true);
+    }
+    
+    @Override
+    public void switchToNormalFromIcon(){
+    	sendIntentAfterSwitchSys(getNormalSystemUserId(), null, true, true);
+    }
+    
+
+}
+
+
+import com.ebensz.bridgeapi.DualSystem.DualSystemManager;
+
+
+private final DualSystemManager mDualSystemManager;
+mDualSystemManager = new DualSystemManager(context);
+
+
+// 切换系统。
+mDualSystemManager.switchDualSystemFromIcon();
+
+
+切换到隐私系统
+            mDualSystemManager.switchToSecureSystem();
+切换到正常系统
+            mDualSystemManager.switchToNormalSystem();
+
+
+
+com.ebensz.bridgeapi.DualSystem.DualSystemManager 在ebensz-support.jar中，路径如下
+vendor/3rd_App/PRC/EbenSystemApp/ebensz-support.jar
+vendor/3rd_App/PRC/EbenSystemApp/jars/ebensz-support.jar
+
+

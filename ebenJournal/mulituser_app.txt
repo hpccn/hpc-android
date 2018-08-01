@@ -1,0 +1,389 @@
+
+
+
+/data/system/*.xml 配制文件
+
+frameworks/base/services/core/java/com/android/server/pm/Settings.java +357
+
+frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java
+
+
+SystemServer 启动 PackageManagerService
+
+
+系统启动：
+
+frameworks/base/services/java/com/android/server/SystemServer.java
+
+com.android.server.SystemServer.startBootstrapServices(SystemServer.java:392)
+
+启动PackageManagerService
+
+        mPackageManagerService = PackageManagerService.main(mSystemContext, installer,
+                mFactoryTestMode != FactoryTest.FACTORY_TEST_OFF, mOnlyCore);
+
+
+// 获取系统已经安装的app
+pm.getInstalledApplications
+pm.getInstalledPackages
+
+
+frameworks/base/core/java/android/app/ApplicationPackageManager.java  extends frameworks/base/core/java/android/content/pm/PackageManager.java
+
+
+    public List<ApplicationInfo> getInstalledApplications(int flags) {
+        final int userId = mContext.getUserId();
+        try {
+            ParceledListSlice<ApplicationInfo> slice = mPM.getInstalledApplications(flags, userId);
+            return slice.getList();
+        } catch (RemoteException e) {
+            throw new RuntimeException("Package manager has died", e);
+        }
+    }
+
+
+    public List<PackageInfo> getInstalledPackages(int flags) {
+        return getInstalledPackages(flags, mContext.getUserId());
+    }
+
+    /** @hide */
+    @Override
+    public List<PackageInfo> getInstalledPackages(int flags, int userId) {
+        try {
+            ParceledListSlice<PackageInfo> slice = mPM.getInstalledPackages(flags, userId);
+            return slice.getList();
+        } catch (RemoteException e) {
+            throw new RuntimeException("Package manager has died", e);
+        }
+    }
+
+
+frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java
+
+
++5396
+    @Override
+    public ParceledListSlice<PackageInfo> getInstalledPackages(int flags, int userId) {
+        final boolean listUninstalled = (flags & PackageManager.GET_UNINSTALLED_PACKAGES) != 0;
+
+        enforceCrossUserPermission(Binder.getCallingUid(), userId, true, false, "get installed packages");
+...
+
+
++5503
+    public ParceledListSlice<ApplicationInfo> getInstalledApplications(int flags, int userId) {
+        if (!sUserManager.exists(userId)) return null;
+        final boolean listUninstalled = (flags & PackageManager.GET_UNINSTALLED_PACKAGES) != 0;
+...
+
+
+https://blog.csdn.net/Kitty_Landon/article/details/46503459
+分析android apk 按装流程：
+涉及的类
+frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java
+frameworks/base/core/java/com/android/internal/content/PackageHelper.java
+frameworks/base/core/java/android/content/pm/PackageStats.java
+frameworks/base/services/core/java/com/android/server/pm/PackageInstallerService.java
+frameworks/base/core/java/android/os/Environment.java
+frameworks/base/core/java/android/content/pm/PackageManager.java
+frameworks/base/core/java/android/app/ApplicationPackageManager.java
+
+
+0601
+分析
+frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java
+
+多用户管理 new 
++929
+    static UserManagerService sUserManager;
+
++1933
+	sUserManager = new UserManagerService(context, this, mInstallLock, mPackages);
+
+
+已经安装的应用注册表
+    final ArrayMap<String, PackageParser.Package> mPackages =
+    final private ArraySet<String> mExistingSystemPackages = new ArraySet<>();
+    final ActivityIntentResolver mReceivers =
+    final ActivityIntentResolver mActivities =
+    final ArrayMap<String, SharedLibraryEntry> mSharedLibraries =
+    final ActivityIntentResolver mReceivers =
+    final ServiceIntentResolver mServices = new ServiceIntentResolver();
+    final ProviderIntentResolver mProviders = new ProviderIntentResolver();
+
+
+目标:验证动态修改注册表，达到不同帐号动态添加自个的APP，移除其它帐号的APP
+
+
+切换用户时，将指定的包名从mPackages中动态移除， 
+桌面上依然显示移除的APP， 但是点击无法启动。
+
+下一步继续，验证。 从Activites, Receivers 等容器中移除APP注册信息。
+
+
+--------------------
+20180604
+切换用户时，动态增加移除 mPackages, mActivities 中的APP， kill launcher 后，桌面上的应用图标依然存在。点击图标应用无法启动， 提示应用未按装。
+
+同时修改，mSettings.mPackages 也无效，现象同上，点击图标应用无法启动， 提示应用未按装。
+
+导致services died, zygote重启。
+
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: *** FATAL EXCEPTION IN SYSTEM PROCESS: PackageManager
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: java.lang.NullPointerException: Attempt to read from field 'java.lang.String com.android.server.pm.PackageSettingBase.primaryCpuAbiString' on a null object reference
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.pm.InstructionSets.getAppDexInstructionSets(InstructionSets.java:54)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.pm.PackageManagerService.getPackageSizeInfoLI(PackageManagerService.java:14269)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.pm.PackageManagerService.access$3400(PackageManagerService.java:290)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.pm.PackageManagerService$MeasureParams.handleStartCopy(PackageManagerService.java:10798)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.pm.PackageManagerService$HandlerParams.startCopy(PackageManagerService.java:10753)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.pm.PackageManagerService$PackageHandler.doHandleMessage(PackageManagerService.java:1204)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.pm.PackageManagerService$PackageHandler.handleMessage(PackageManagerService.java:1146)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at android.os.HandlerThread.run(HandlerThread.java:61)
+06-04 14:52:50.734 22375 22421 E AndroidRuntime: 	at com.android.server.ServiceThread.run(ServiceThread.java:46)
+
+06-04 14:52:50.743 26914 26914 D SimStateReceiver: received broadcast android.intent.action.SIM_STATE_CHANGED
+06-04 14:52:50.746 24323 24323 D SimContactsService: deleteDatabaseSimContacts
+06-04 14:52:50.748 22375 22421 I Process : Sending signal. PID: 22375 SIG: 9
+06-04 14:52:50.755 26914 26914 D SimStateReceiver: ACTION_SIM_STATE_CHANGED intent received on sub = 0SIM STATE IS NOT_READY
+06-04 14:52:50.939   606   606 E installd: eof
+06-04 14:52:50.939   606   606 E installd: failed to read size
+06-04 14:52:50.939   606   606 I installd: closing connection
+06-04 14:52:50.942   480   480 I lowmemorykiller: ActivityManager disconnected
+06-04 14:52:50.942   480   480 I lowmemorykiller: Closing Activity Manager data connection
+06-04 14:52:50.968 26100 26252 E WifiManager: Channel connection lost
+06-04 14:52:50.968 23339 29304 E WifiManager: Channel connection lost
+06-04 14:52:50.969 23402 23502 E WifiManager: Channel connection lost
+06-04 14:52:50.970 23300 23500 E WifiManager: Channel connection lost
+06-04 14:52:50.970 23920 24125 E WifiManager: Channel connection lost
+06-04 14:52:50.970   481   481 I ServiceManager: service 'com.qualcomm.location.izat.IzatService' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'telecom' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'packageoption' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'media_session' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'media_router' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'trust' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'fingerprint' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'launcherapps' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'media_projection' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'imms' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'wifip2p' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'wifi' died
+06-04 14:52:50.971 27823 27869 E WifiManager: Channel connection lost
+06-04 14:52:50.971   481   481 I ServiceManager: service 'wifiscanner' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'rttmanager' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'ethernet' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'connectivity' died
+06-04 14:52:50.971   481   481 I ServiceManager: service 'servicediscovery' died
+06-04 14:52:50.972   481   481 I ServiceManager: service 'updatelock' died
+06-04 14:52:50.972   481   481 I ServiceManager: service 'package' died
+06-04 14:52:50.972   481   481 I ServiceManager: service 'user' died
+06-04 14:52:50.972   481   481 I ServiceManager: service 'activity' died
+06-04 14:52:50.973 28891 28929 E WifiManager: Channel connection lost
+06-04 14:52:50.975 32287 32487 E WifiManager: Channel connection lost
+06-04 14:52:50.976   489   507 E PerMgrSrv: GPS registered for modem has died
+06-04 14:52:50.976   489   507 D PerMgrSrv: modem num voters is 3
+06-04 14:52:50.976   489   507 D PerMgrSrv: modem state: is on-line, remove client GPS
+06-04 14:52:50.977   482   482 D SurfaceFlinger: Set power mode=2, type=0 flinger=0x7f89d83c00
+06-04 14:52:50.977   482   482 D SurfaceFlinger: Screen type=0 is already mode=2
+06-04 14:52:50.979 22797 22936 E WifiManager: Channel connection lost
+06-04 14:52:50.980   719   875 W Sensors : sensorservice died [0x7fa2b9e780]
+06-04 14:52:50.981   719   875 W slim_daemon: [NDK] binderDied: Binder service disconnected, reinitializing.
+06-04 14:52:50.981   719   719 I slim_daemon: [QMISLIM] slim_QSQmiSvcTask_HandleIpc: IPC_SLIM_QS_TO_TASK_SLIM_CALLBACK_MSG
+06-04 14:52:50.981   719   719 I slim_daemon: [QMISLIM] QSQmiSvcClt_HandleSlimIndication: INDICATION: status=0 msg=2
+06-04 14:52:50.982   719   719 I slim_daemon: [SLIM] slim_ProviderConfigure: Updated available providers for service 0: 00000000.
+06-04 14:52:50.983 22262 22725 W AudioFlinger: power manager service died !!!
+06-04 14:52:50.983 22262 22725 W AudioFlinger: power manager service died !!!
+06-04 14:52:50.983 22262 22725 W AudioFlinger: power manager service died !!!
+06-04 14:52:50.983 22262 22725 W AudioFlinger: power manager service died !!!
+06-04 14:52:50.985 26914 26914 D AndroidRuntime: Shutting down VM
+06-04 14:52:50.986 22797 28889 W Sensors : sensorservice died [0x7f84220e60]
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: FATAL EXCEPTION: main
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: Process: com.qualcomm.telephony, PID: 26914
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: java.lang.RuntimeException: Unable to start receiver com.qualcomm.simcontacts.SimStateReceiver: java.lang.RuntimeException: Failure from system
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:2775)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ActivityThread.access$1800(ActivityThread.java:155)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1426)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:148)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:5478)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: Caused by: java.lang.RuntimeException: Failure from system
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ContextImpl.startServiceCommon(ContextImpl.java:1278)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ContextImpl.startService(ContextImpl.java:1244)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.content.ContextWrapper.startService(ContextWrapper.java:590)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.content.ContextWrapper.startService(ContextWrapper.java:590)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at com.qualcomm.simcontacts.SimStateReceiver.sendSimState(SimStateReceiver.java:78)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at com.qualcomm.simcontacts.SimStateReceiver.onReceive(SimStateReceiver.java:54)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ActivityThread.handleReceiver(ActivityThread.java:2768)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	... 8 more
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: Caused by: android.os.DeadObjectException
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.os.BinderProxy.transactNative(Native Method)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.os.BinderProxy.transact(Binder.java:503)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ActivityManagerProxy.startService(ActivityManagerNative.java:3715)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	at android.app.ContextImpl.startServiceCommon(ContextImpl.java:1262)
+06-04 14:52:50.991 26914 26914 E AndroidRuntime: 	... 14 more
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: Error reporting crash
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: android.os.DeadObjectException
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: 	at android.os.BinderProxy.transactNative(Native Method)
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: 	at android.os.BinderProxy.transact(Binder.java:503)
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: 	at android.app.ActivityManagerProxy.handleApplicationCrash(ActivityManagerNative.java:4460)
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: 	at com.android.internal.os.RuntimeInit$UncaughtHandler.uncaughtException(RuntimeInit.java:90)
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: 	at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:693)
+06-04 14:52:50.992 26914 26914 E AndroidRuntime: 	at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:690)
+06-04 14:52:50.992 26914 26914 I Process : Sending signal. PID: 26914 SIG: 9
+
+
+
+
+
+
+06-04 14:52:52.053   719   877 E slim_daemon: [NDK] bindNDKSensors: Sensor server is unavailable.
+06-04 14:52:52.090 32636 32636 D AndroidRuntime: >>>>>> START com.android.internal.os.ZygoteInit uid 0 <<<<<<
+06-04 14:52:52.098 32636 32636 D AndroidRuntime: CheckJNI is OFF
+06-04 14:52:52.099 32636 32636 I art     : option[0]=-Xzygote
+06-04 14:52:52.099 32636 32636 I art     : option[1]=-Xstacktracefile:/data/anr/traces.txt
+06-04 14:52:52.099 32636 32636 I art     : option[2]=exit
+06-04 14:52:52.099 32636 32636 I art     : option[3]=vfprintf
+06-04 14:52:52.099 32636 32636 I art     : option[4]=sensitiveThread
+06-04 14:52:52.099 32636 32636 I art     : option[5]=-verbose:gc
+06-04 14:52:52.099 32636 32636 I art     : option[6]=-Xms16m
+06-04 14:52:52.099 32636 32636 I art     : option[7]=-Xmx512m
+06-04 14:52:52.100 32636 32636 I art     : option[8]=-XX:HeapGrowthLimit=192m
+06-04 14:52:52.100 32636 32636 I art     : option[9]=-XX:HeapMinFree=4m
+06-04 14:52:52.100 32636 32636 I art     : option[10]=-XX:HeapMaxFree=8m
+06-04 14:52:52.100 32636 32636 I art     : option[11]=-XX:HeapTargetUtilization=0.75
+06-04 14:52:52.100 32636 32636 I art     : option[12]=-agentlib:jdwp=transport=dt_android_adb,suspend=n,server=y
+06-04 14:52:52.100 32636 32636 I art     : option[13]=-Xlockprofthreshold:500
+06-04 14:52:52.100 32636 32636 I art     : option[14]=-Ximage-compiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[15]=--runtime-arg
+06-04 14:52:52.100 32636 32636 I art     : option[16]=-Ximage-compiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[17]=-Xms64m
+06-04 14:52:52.100 32636 32636 I art     : option[18]=-Ximage-compiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[19]=--runtime-arg
+06-04 14:52:52.100 32636 32636 I art     : option[20]=-Ximage-compiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[21]=-Xmx64m
+06-04 14:52:52.100 32636 32636 I art     : option[22]=-Ximage-compiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[23]=--image-classes=/system/etc/preloaded-classes
+06-04 14:52:52.100 32636 32636 I art     : option[24]=-Xcompiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[25]=--runtime-arg
+06-04 14:52:52.100 32636 32636 I art     : option[26]=-Xcompiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[27]=-Xms64m
+06-04 14:52:52.100 32636 32636 I art     : option[28]=-Xcompiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[29]=--runtime-arg
+06-04 14:52:52.100 32636 32636 I art     : option[30]=-Xcompiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[31]=-Xmx512m
+06-04 14:52:52.100 32636 32636 I art     : option[32]=-Ximage-compiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[33]=--instruction-set-variant=generic
+06-04 14:52:52.100 32636 32636 I art     : option[34]=-Xcompiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[35]=--instruction-set-variant=generic
+06-04 14:52:52.100 32636 32636 I art     : option[36]=-Ximage-compiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[37]=--instruction-set-features=default
+06-04 14:52:52.100 32636 32636 I art     : option[38]=-Xcompiler-option
+06-04 14:52:52.100 32636 32636 I art     : option[39]=--instruction-set-features=default
+06-04 14:52:52.100 32636 32636 I art     : option[40]=-Duser.locale=zh-CN
+06-04 14:52:52.100 32636 32636 I art     : option[41]=--cpu-abilist=arm64-v8a
+06-04 14:52:52.100 32636 32636 I art     : option[42]=-Xfingerprint:ErenEben/80008/80008:6.0.1/S100/1.0.201:userdebug/test-keys
+
+
+
+--------------
+frameworks/base/services/core/java/com/android/server/SystemServiceManager.java
+
+
+frameworks/base/services/core/java/com/android/server/SystemService.java
+public abstract class SystemService {
+...
+
+    /**
+     * Called when a new user is starting, for system services to initialize any per-user
+     * state they maintain for running users.
+     * @param userHandle The identifier of the user.
+     */
+    public void onStartUser(int userHandle) {}
+
+    /**
+     * Called when switching to a different foreground user, for system services that have
+     * special behavior for whichever user is currently in the foreground.  This is called
+     * before any application processes are aware of the new user.
+     * @param userHandle The identifier of the user.
+     */
+    public void onSwitchUser(int userHandle) {}
+
+    /**
+     * Called when an existing user is stopping, for system services to finalize any per-user
+     * state they maintain for running users.  This is called prior to sending the SHUTDOWN
+     * broadcast to the user; it is a good place to stop making use of any resources of that
+     * user (such as binding to a service running in the user).
+     * @param userHandle The identifier of the user.
+     */
+    public void onStopUser(int userHandle) {}
+
+    /**
+     * Called when an existing user is stopping, for system services to finalize any per-user
+     * state they maintain for running users.  This is called after all application process
+     * teardown of the user is complete.
+     * @param userHandle The identifier of the user.
+     */
+    public void onCleanupUser(int userHandle) {}
+
+
+...
+
+}
+
+
+SystemService 子类：
+
+
+frameworks/base/services/core/java/com/android/server/webkit/WebViewUpdateService.java:public class WebViewUpdateService extends SystemService {
+frameworks/base/services/core/java/com/android/server/BatteryService.java:public final class BatteryService extends SystemService {
+frameworks/base/services/core/java/com/android/server/UiModeManagerService.java:final class UiModeManagerService extends SystemService {
+frameworks/base/services/core/java/com/android/server/media/projection/MediaProjectionManagerService.java:public final class MediaProjectionManagerService extends SystemService
+frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java:public class MediaSessionService extends SystemService implements Monitor {
+frameworks/base/services/core/java/com/android/server/trust/TrustManagerService.java:public class TrustManagerService extends SystemService {
+frameworks/base/services/core/java/com/android/server/telecom/TelecomLoaderService.java:public class TelecomLoaderService extends SystemService {
+frameworks/base/services/core/java/com/android/server/PersistentDataBlockService.java:public class PersistentDataBlockService extends SystemService {
+frameworks/base/services/core/java/com/android/server/twilight/TwilightService.java:public final class TwilightService extends SystemService {
+frameworks/base/services/core/java/com/android/server/storage/DeviceStorageMonitorService.java:public class DeviceStorageMonitorService extends SystemService {
+frameworks/base/services/core/java/com/android/server/BluetoothService.java:class BluetoothService extends SystemService {
+frameworks/base/services/core/java/com/android/server/DockObserver.java:final class DockObserver extends SystemService {
+frameworks/base/services/core/java/com/android/server/display/DisplayManagerService.java:public final class DisplayManagerService extends SystemService {
+frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java:    public static final class Lifecycle extends SystemService {
+frameworks/base/services/core/java/com/android/server/tv/TvInputManagerService.java:public final class TvInputManagerService extends SystemService {
+frameworks/base/services/core/java/com/android/server/AlarmManagerService.java:class AlarmManagerService extends SystemService {
+frameworks/base/services/core/java/com/android/server/hdmi/HdmiControlService.java:public final class HdmiControlService extends SystemService {
+frameworks/base/services/core/java/com/android/server/MmsServiceBroker.java:public class MmsServiceBroker extends SystemService {
+frameworks/base/services/core/java/com/android/server/notification/NotificationManagerService.java:public class NotificationManagerService extends SystemService {
+frameworks/base/services/core/java/com/android/server/camera/CameraService.java:public class CameraService extends SystemService
+frameworks/base/services/core/java/com/android/server/pm/LauncherAppsService.java:public class LauncherAppsService extends SystemService {
+frameworks/base/services/core/java/com/android/server/pm/Installer.java:public final class Installer extends SystemService {
+frameworks/base/services/core/java/com/android/server/fingerprint/FingerprintService.java:public class FingerprintService extends SystemService implements IBinder.DeathRecipient {
+frameworks/base/services/core/java/com/android/server/lights/LightsService.java:public class LightsService extends SystemService {
+frameworks/base/services/core/java/com/android/server/DeviceIdleController.java:public class DeviceIdleController extends SystemService
+frameworks/base/services/core/java/com/android/server/MountService.java:    public static class Lifecycle extends SystemService {
+frameworks/base/services/core/java/com/android/server/GestureLauncherService.java:public class GestureLauncherService extends SystemService {
+frameworks/base/services/core/java/com/android/server/SystemServiceManager.java:    public <T extends SystemService> T startService(Class<T> serviceClass) {
+frameworks/base/services/core/java/com/android/server/power/PowerManagerService.java:public final class PowerManagerService extends SystemService
+frameworks/base/services/core/java/com/android/server/dreams/DreamManagerService.java:public final class DreamManagerService extends SystemService {
+frameworks/base/services/usb/java/com/android/server/usb/UsbService.java:    public static class Lifecycle extends SystemService {
+frameworks/base/services/backup/java/com/android/server/backup/BackupManagerService.java:    public static final class Lifecycle extends SystemService {
+frameworks/base/services/usage/java/com/android/server/usage/UsageStatsService.java:public class UsageStatsService extends SystemService implements
+frameworks/base/services/voiceinteraction/java/com/android/server/voiceinteraction/VoiceInteractionManagerService.java:public class VoiceInteractionManagerService extends SystemService {
+frameworks/base/services/print/java/com/android/server/print/PrintManagerService.java:public final class PrintManagerService extends SystemService {
+frameworks/base/services/restrictions/java/com/android/server/restrictions/RestrictionsManagerService.java:public final class RestrictionsManagerService extends SystemService {
+frameworks/base/services/appwidget/java/com/android/server/appwidget/AppWidgetService.java:public class AppWidgetService extends SystemService {
+frameworks/base/services/midi/java/com/android/server/midi/MidiService.java:    public static class Lifecycle extends SystemService {
+frameworks/base/services/devicepolicy/java/com/android/server/devicepolicy/DevicePolicyManagerService.java:    public static final class Lifecycle extends SystemService {
+
+
+
+关注用户切换的SystemService子类
+frameworks/base/services/core/java/com/android/server/SystemService.java:    public void onSwitchUser(int userHandle) {}
+frameworks/base/services/core/java/com/android/server/media/MediaSessionService.java:    public void onSwitchUser(int userHandle) {
+frameworks/base/services/core/java/com/android/server/BluetoothService.java:    public void onSwitchUser(int userHandle) {
+frameworks/base/services/core/java/com/android/server/camera/CameraService.java:    public void onSwitchUser(int userHandle) {
+frameworks/base/services/core/java/com/android/server/MountService.java:        public void onSwitchUser(int userHandle) {
+frameworks/base/services/voiceinteraction/java/com/android/server/voiceinteraction/VoiceInteractionManagerService.java:    public void onSwitchUser(int userHandle) {

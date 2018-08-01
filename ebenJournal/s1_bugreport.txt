@@ -1,0 +1,194 @@
+
+
+使用到bmob 
+https://www.bmob.cn/
+后端数据存储
+
+bmob appid :
+		  APPID = SystemProperties.getBoolean("ro.bmob_appid.is_dev", false) ? "17084d0c05f4d472b23aceba4e80d04e":"34e5b4e507ef6c8d830def28cbe5eb82";
+
+
+<receiver android:name=".PushReceiver">
+            <intent-filter>
+                <action android:name="intent.action.update.configuration" />
+            </intent-filter>
+        </receiver>
+功能实现，接收配制信息，将上日志上传的服务器地址保存在本地。未找到发送此action 之处。
+
+		<activity
+            android:name=".UEActivity"
+            android:process="com.eben.bugreport"
+WebView 打开问卷调查
+		URL = "http://120.25.246.128/feedback/wenjuan.html";
+
+
+
+返馈类型：
+	public static final int TYPE_REBOOT = 0;
+	public static final int TYPE_POWER = 1;
+	public static final int TYPE_SIGNAL = 2;
+	public static final int TYPE_WIFI = 3;
+	public static final int TYPE_BLUETOOTH = 4;
+	public static final int TYPE_CAMERA = 5;
+	public static final int TYPE_APP = 15;
+	public static final int TYPE_SUGGESTION = 6;
+	public static final int TYPE_MORE = 10;
+	
+
+
+        <service
+            android:name=".LogZipService"
+            android:exported="true"/>
+// 此方法不使用了
+	private String getRemoteDir(int type){
+		switch (type) {
+		case Constant.TYPE_REBOOT:
+			return "reboot";
+		case Constant.TYPE_APP:
+			return "app";
+		case Constant.TYPE_BLUETOOTH:
+			return "bluetooth";
+		case Constant.TYPE_CAMERA:
+			return "camera";
+		case Constant.TYPE_MORE:
+			return "more";
+		case Constant.TYPE_POWER:
+			return "power";
+		case Constant.TYPE_SIGNAL:
+			return "signal";
+		case Constant.TYPE_SUGGESTION:
+			return "suggestion";
+		case Constant.TYPE_WIFI:
+			return "wifi";
+		}
+		return "other";
+	}
+
+
+public class FeedbackAppService extends Service{
+    private static final String TAG = "feedback";
+    private IBinder binder;
+    public FeedbackAppService(){
+        com.eben.bugreport.util.FeedbackLogUtil.log(TAG, "BmobService");
+    }
+    @Override
+    public void onCreate() {
+        // TODO Auto-generated method stub
+        super.onCreate();
+        Bmob.initialize(this,com.eben.bugreport.util.Constant.APPID);
+        AVOSCloud.initialize(this,"GbrEW8Mfth1uwl6fHa9lcq9k-gzGzoHsz","LOuDWh5b2JhWfKiAauvAgxM9");
+//        AVOSCloud.setDebugLogEnabled(true);
+        binder = new BmobStubService(this);
+	}
+}
+
+
+
+s1  pc 模式编译进，导致bugreport 未上传日志文件。
+frameworks/base/cmds/pricmd/Android.mk
+源代码中有此工程，但未编译进系统。
+
+修改后pc 编译打包进系统依然无法运行，
+发现无此设备/dev/socket/pricmd
+对比T10， T10中pc pricmd 为二进制文件， 
+vender/byd/pc
+vender/byd/pricmd
+
+
+需要修改初始化文件
+system/core/rootdir/init.rc
+
+--- a/rootdir/init.rc
++++ b/rootdir/init.rc
+@@ -765,3 +765,49 @@ service logcatd /system/bin/logcat -b all -v threadtime -v usec -v printable -D
+     user logd
+     group log
+     writepid /dev/cpuset/system-background/tasks
++
++
++
++service pricmd /system/bin/pricmd
++    class main
++    user root
++
++    #begin
++on property:persist.service.apklogfs.enable=1
++    mkdir /data/tombstones 0755 system system
++    mkdir /data/system/    0775 system system
++    mkdir /data/system/dropbox 0700 system system
++    mkdir /data/misc/logd/modemcrash 0775 system system
++    mkdir /data/misc/logd/stats 0775 system system
++    mkdir /data/misc/logd/gps 0775 system system
++    mkdir /data/misc/logd/core 0775 system log
++    mkdir /data/misc/logd 0775 logd log
++    chown system log /data/misc/logd
++    chmod 0777 /data/misc/logd
++    chmod 0777 /data/misc/logd/aplogs
++    chmod 0777 /data/misc/logd/kernel_kmsg
++    #exec - logd log -- /system/bin/logcat -L -b system -b events -b main -b radio -b crash  -v threadtime -f /data/misc/logd/aplogs -r 10000 -n 2000
++    restart apk_logfs
++    restart kmsg_logfs
++    restart crashlogd
++
++on property:persist.service.apklogfs.enable=0
++    stop apk_logfs
++    stop kmsg_logfs
++    stop crashlogd
++    chmod 0777 /data/misc/logd/aplogs
++    chmod 0777 /data/misc/logd/kernel_kmsg
++
++service apk_logfs /system/bin/logcat -b system -b events -b main -b radio -b crash -v threadtime -f /data/misc/logd/aplogs -r 10240 -n 200
++    class main
++    # disabled
++    
++service crashlogd /system/bin/crashlogd
++    class main
++    # disabled
++
++service kmsg_logfs /system/bin/kernel_kmsg -K -v threadtime -f /data/misc/logd/kernel_kmsg -r 10240 -n 200
++    class main
++    # disabled
++
++#end
+-------------------------------------------------------
+
+
+selinux 导致  pc  无法运行
+
+
+selinux 编译后的完整配制：
+out/target/product/msm8952_64/obj/ETC/sepolicy_intermediates/policy.conf
+
+
+修改  selinux 需要完整编译。增量编译无法通过。
+external/sepolicy/app.te
+
+--- a/app.te
++++ b/app.te
+@@ -256,7 +256,9 @@ neverallow appdomain
+ neverallow appdomain domain:netlink_kobject_uevent_socket { write append };
+ 
+ # Sockets under /dev/socket that are not specifically typed.
+-neverallow appdomain socket_device:sock_file write;
++#hpc fix pricmd
++#neverallow appdomain socket_device:sock_file write;
++neverallow non_system_app_set socket_device:sock_file write;
+ 
+ # Unix domain sockets.
+ neverallow appdomain adbd_socket:sock_file write;
+
+
+external/sepolicy/system_app.te
+
+--- a/system_app.te
++++ b/system_app.te
+@@ -30,6 +30,8 @@ auditallow system_app system_data_file:file { create setattr append write link u
+ # Access to vold-mounted storage for measuring free space
+ allow system_app mnt_media_rw_file:dir search;
+ # Added by corpse for debug
++# hpc fix 
++allow system_app socket_device:sock_file write; 
+ allow system_app pricmd_socket:sock_file write;
+ allow system_app pricmd:unix_stream_socket connectto;
+ #for dumpstate
+

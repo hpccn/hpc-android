@@ -1,0 +1,675 @@
+Dialer代码目录
+
+
+06-29 11:40:25.192  1214  3574 I ActivityManager: START u0 {act=android.provider.action.QUICK_CONTACT dat=content://com.android.contacts/contacts/lookup/3585r29-2C2C56447F3B/29 flg=0x4000000 pkg=com.android.contacts cmp=com.android.contacts/.quickcontact.QuickContactActivity (has extras)} from uid 10001 on display 0
+
+06-29 11:40:26.701  1214  4703 I ActivityManager: START u0 {act=android.intent.action.CALL dat=tel:xxxxxxxxxxxxx flg=0x10000000 cmp=com.android.server.telecom/.components.UserCallActivity (has extras)} from uid 10001 on display 0
+
+06-29 11:40:26.800  1214  1229 I ActivityManager: Start proc 15443:com.android.server.telecom:ui/1000 for activity com.android.server.telecom/.components.UserCallActivity
+
+
+06-29 11:40:32.425  1214  3658 I ActivityManager: START u0 {act=android.intent.action.VIEW dat=content://com.android.contacts/data/386 typ=vnd.android.cursor.item/vnd.com.xdja.actoma.voip.profile flg=0x10000000 cmp=com.xdja.actoma/com.xdja.presenter_mainframe.presenter.activity.LauncherPresenter} from uid 10001 on display 0
+
+
+06-29 11:40:32.540  1214  4812 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10008000 cmp=com.xdja.actoma/com.xdja.presenter_mainframe.presenter.activity.SplashPresenter (has extras)} from uid 10115 on display 0
+
+
+Dialer上层代码主要有以下部分组成：
+
+    /packages/apps/Dialer/ –拨号应用主入口
+    /packages/apps/ContactsCommon –与Contacts共用的代码
+    /packages/apps/PhoneCommon
+    /packages/apps/InCallUI –通话界面
+
+Dialer主界面
+
+下面我们就对Dialer主界面进行分析，界面如下图：
+
+由Dialer应用的AndroidManifest文件得知，Dialer的主activity为DialtactsActivity：
+
+
+android/packages/apps/Dialer
+
+	DialtactsActivity 
+		ListsFragment
+			AllContactsFragment
+
+
+				
+packages/apps/Dialer/src/com/android/dialer/list/AllContactsFragment.java
+
+{
+
+new adapter 所有联系人的
++129
+
+   @Override
+    protected ContactEntryListAdapter createListAdapter() {
+        final DefaultContactListAdapter adapter = new DefaultContactListAdapter(getActivity()) {
+            @Override
+            protected void bindView(View itemView, int partition, Cursor cursor, int position) {
+                super.bindView(itemView, partition, cursor, position);
+                itemView.setTag(this.getContactUri(partition, cursor));
+            }
+        };
+        adapter.setDisplayPhotos(true);
+        adapter.setFilter(ContactListFilter.createFilterWithType(
+                ContactListFilter.FILTER_TYPE_DEFAULT));
+        adapter.setSectionHeaderDisplayEnabled(isSectionHeaderDisplayEnabled());
+        return adapter;
+    }
+
++149  点击联系人弹出界面
+   @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final Uri uri = (Uri) view.getTag();
+        if (uri != null) {
+            QuickContact.showQuickContact(getContext(), view, uri, null,
+                    Phone.CONTENT_ITEM_TYPE);
+        }
+    }
+
+
+}
+
+
+点击联系人弹出界面
+frameworks/base/core/java/android/provider/ContactsContract.java
+{
+
++8190
+
+    public static final class QuickContact {
+		+8347
+        public static void showQuickContact(Context context, View target, Uri lookupUri, int mode,
+                String[] excludeMimes) {
+            // Trigger with obtained rectangle
+            Intent intent = composeQuickContactsIntent(context, target, lookupUri, mode,
+                    excludeMimes);
+            ContactsInternal.startQuickContactWithErrorToast(context, intent);
+        }
+		+8413
+        public static void showQuickContact(Context context, View target, Uri lookupUri,
+                String[] excludeMimes, String prioritizedMimeType) {
+            // Use MODE_LARGE instead of accepting mode as a parameter. The different mode
+            // values defined in ContactsContract only affect very old implementations
+            // of QuickContacts.
+            Intent intent = composeQuickContactsIntent(context, target, lookupUri, MODE_DEFAULT,
+                    excludeMimes);
+            intent.putExtra(EXTRA_PRIORITIZED_MIMETYPE, prioritizedMimeType);
+            ContactsInternal.startQuickContactWithErrorToast(context, intent);
+        }
+
++8275
+        public static Intent composeQuickContactsIntent(Context context, Rect target,
+                Uri lookupUri, int mode, String[] excludeMimes) {
+            // When launching from an Activiy, we don't want to start a new task, but otherwise
+            // we *must* start a new task.  (Otherwise startActivity() would crash.)
+            Context actualContext = context;
+            while ((actualContext instanceof ContextWrapper)
+                    && !(actualContext instanceof Activity)) {
+                actualContext = ((ContextWrapper) actualContext).getBaseContext();
+            }
+            final int intentFlags = ((actualContext instanceof Activity)
+                    ? 0 : Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    // Workaround for b/16898764. Declaring singleTop in manifest doesn't work.
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP;
+
+            // Launch pivot dialog through intent for now
+            final Intent intent = new Intent(ACTION_QUICK_CONTACT).addFlags(intentFlags);
+
+            // NOTE: This logic and rebuildManagedQuickContactsIntent() must be in sync.
+            intent.setData(lookupUri);
+            intent.setSourceBounds(target);
+            intent.putExtra(EXTRA_MODE, mode);
+            intent.putExtra(EXTRA_EXCLUDE_MIMES, excludeMimes);
+            return intent;
+        }
+
+
+
+
+	}
+}
+
+
+// ACTION_QUICK_CONTACT 
+
+android.provider.action.QUICK_CONTACT
+        <activity
+            android:name=".quickcontact.QuickContactActivity"
+            android:label="@string/launcherActivityLabel"
+            android:theme="@style/Theme.QuickContact"
+            android:launchMode="singleTop"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:windowSoftInputMode="stateUnchanged">
+
+            <intent-filter>
+                <action android:name="com.android.contacts.action.QUICK_CONTACT" />
+                <action android:name="android.provider.action.QUICK_CONTACT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="vnd.android.cursor.item/contact" />
+                <data android:mimeType="vnd.android.cursor.item/person" />
+            </intent-filter>
+
+packages/apps/Contacts/src/com/android/contacts/quickcontact/QuickContactActivity.java
+{
+
+
++388 电话号码条目的点击响应
+   final OnClickListener mEntryClickHandler = new OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+	+418
+           try {// 电话呼出，短信等 Action
+                ImplicitIntentsUtil.startActivityInAppIfPossible(
+                        QuickContactActivity.this, intent);
+}
+
+联系人电话号码，IM，等条目：
+
+packages/apps/Contacts/src/com/android/contacts/quickcontact/ExpandingEntryCardView.java
+{
+电话号码右侧短信icon R.id.icon_alternate
+
++972 
+	 final ImageView alternateIcon = (ImageView) view.findViewById(R.id.icon_alternate);
+
+}
+
+
+联系人
+
+
+packages/apps/Contacts/src/com/android/contacts/activities/PeopleActivity.java
+PeopleActivity extends ContactsActivity
+{
+// 所有联系人 
+import com.android.contacts.list.MultiSelectContactsListFragment;
+
+}
+
+
+public class MultiSelectContactsListFragment extends DefaultContactBrowseListFragment
+{
+
+}
+
+
+DefaultContactBrowseListFragment {
+	
++103
+    @Override
+    protected ContactListAdapter createListAdapter() {
+        DefaultContactListAdapter adapter = new DefaultContactListAdapter(getContext());
+        adapter.setSectionHeaderDisplayEnabled(isSectionHeaderDisplayEnabled());
+        adapter.setDisplayPhotos(true);
+        adapter.setPhotoPosition(
+                ContactListItemView.getDefaultPhotoPosition(/* opposite = */ false));
+        return adapter;
+    }
+
+    private void configureSelection(
+            CursorLoader loader, long directoryId, ContactListFilter filter) {
+        if (filter == null) {
+            return;
+        }
+... ...
+ 
++236
+		// hpc hide 安通+ com.xdja.actoma.account  
+		if (selection.length() > 1){
+			selection.append(" ) AND ( " );//+ ContactsContract.RawContacts.ACCOUNT_TYPE + "<>'com.xdja.actoma.account'");
+		}
+		//selection.append(" ) AND ( " + ContactsContract.RawContacts.ACCOUNT_TYPE + "<>'com.xdja.actoma.account'");
+		selection.append(" " + ContactsContract.RawContacts.ACCOUNT_TYPE + "<>'com.xdja.actoma.account'");
+		//selection.append(RawContacts.ACCOUNT_TYPE + "<>'com.xdja.actoma.account'");
+		Log.d(TAG,  "selection: " + selection.toString() + ", " + selectionArgs.toString());
+ 
+}
+
+
+filter: [filter type: -2 (FILTER_TYPE_ALL_ACCOUNTS)
+
+
+// 日志 中  sql 查询
+SELECT _id, display_name, agg_presence.mode AS contact_presence, contacts_status_updates.status AS contact_status, photo_id, photo_thumb_uri, lookup, is_user_profile, account_type, account_name FROM view_contacts LEFT OUTER JOIN agg_presence ON (_id = agg_presence.presence_contact_id) LEFT OUTER JOIN status_updates contacts_status_updates ON (status_update_id=contacts_status_updates.status_update_data_id) WHERE ((_id IN default_directory) AND ( account_type<>'com.xdja.actoma.account')) ORDER BY phonebook_bucket, sort_key
+
+
+SELECT _id, display_name, agg_presence.mode AS contact_presence, contacts_status_updates.status AS contact_status, photo_id, photo_thumb_uri, lookup, is_user_profile, account_type, account_name FROM view_contacts LEFT OUTER JOIN agg_presence ON (_id = agg_presence.presence_contact_id) LEFT OUTER JOIN status_updates contacts_status_updates ON (status_update_id=contacts_status_updates.status_update_data_id) WHERE ((_id IN default_directory) AND ( account_type<>'com.xdja.actoma.account')) ORDER BY phonebook_bucket, sort_key
+
+SELECT _id, display_name, agg_presence.mode AS contact_presence, contacts_status_updates.status AS contact_status, photo_id, photo_thumb_uri, lookup, is_user_profile, account_type, account_name FROM view_contacts LEFT OUTER JOIN agg_presence ON (_id = agg_presence.presence_contact_id) LEFT OUTER JOIN status_updates contacts_status_updates ON (status_update_id=contacts_status_updates.status_update_data_id) WHERE ((_id IN default_directory)) AND ( (account_type<>'com.xdja.actoma.account')) ORDER BY phonebook_bucket, sort_key
+
+AllContactsFragment extends com.android.contacts.common.list.ContactEntryListFragment
+
+
+com.android.contacts.common.list.DefaultContactListAdapter;
+
+com.android.contacts.common.list.ContactListAdapter;
+com.android.contacts.common.list.ContactEntryListAdapter;
+
+public class DefaultContactListAdapter extends ContactListAdapter {
+
++72
+
+    @Override
+    public void configureLoader(CursorLoader loader, long directoryId) {
+        if (loader instanceof ProfileAndContactsLoader) {
+            ((ProfileAndContactsLoader) loader).setLoadProfile(shouldIncludeProfile());
+        }
+
+        ContactListFilter filter = getFilter(); //AllContactsFragment中设置的filter
+	}
+
+...
+
++166
+
+    private void configureSelection(
+            CursorLoader loader, long directoryId, ContactListFilter filter) {
+ 
+
+	} 
+
+}
+public abstract class ContactListAdapter extends ContactEntryListAdapter {
+
+
+public abstract class ContactEntryListAdapter extends IndexerListAdapter {
+
++698
+    public ContactListFilter getFilter() {
+        return mFilter;
+    }
++702
+    public void setFilter(ContactListFilter filter) {
+        mFilter = filter;
+    }
+}
+
++166
+    private void configureSelection(
+            CursorLoader loader, long directoryId, ContactListFilter filter) {
+ 
+
+公共库	
+packages/apps/ContactsCommon
+	ContactEntryListFragment
+
+
+
+加载联系人
+
+
+
+packages/apps/ContactsCommon/src/com/android/contacts/common/list/PhoneNumberListAdapter.java
+此方法在dialer中无效，重新编译
+使用过滤条件：
++263
+    private void applyFilter(CursorLoader loader, Uri.Builder uriBuilder, long directoryId,
+            ContactListFilter filter) {
+        if (filter == null || directoryId != Directory.DEFAULT) {
+            return;
+        }
+
+        final StringBuilder selection = new StringBuilder(); // query selection 条件，过滤显示的联系人。
+        final List<String> selectionArgs = new ArrayList<String>();
+
+        switch (filter.filterType) {
+            case ContactListFilter.FILTER_TYPE_CUSTOM: {
+                selection.append(Contacts.IN_VISIBLE_GROUP + "=1");
+                selection.append(" AND " + Contacts.HAS_PHONE_NUMBER + "=1");
+                break;
+            }
+            case ContactListFilter.FILTER_TYPE_ACCOUNT: {
+                filter.addAccountQueryParameterToUrl(uriBuilder);
+                break;
+            }
+            case ContactListFilter.FILTER_TYPE_ALL_ACCOUNTS:
+            case ContactListFilter.FILTER_TYPE_DEFAULT:
+                break; // No selection needed.
+            case ContactListFilter.FILTER_TYPE_WITH_PHONE_NUMBERS_ONLY:
+                break; // This adapter is always "phone only", so no selection needed either.
+            default:
+                Log.w(TAG, "Unsupported filter type came " +
+                        "(type: " + filter.filterType + ", toString: " + filter + ")" +
+                        " showing all contacts.");
+                // No selection.
+                break;
+        }
+        loader.setSelection(selection.toString());
+        loader.setSelectionArgs(selectionArgs.toArray(new String[0]));
+    }
+
+
+// im 定义：
+
+frameworks/base/core/java/android/provider/ContactsContract.java
+{
+	+6455
+        public static final class Im implements DataColumnsWithJoins, CommonColumns, ContactCounts {
+            /**
+             * This utility class cannot be instantiated
+             */
+            private Im() {}
+
+            /** MIME type used when storing this in data table. */
+            public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/im";
+
+            public static final int TYPE_HOME = 1;
+            public static final int TYPE_WORK = 2;
+            public static final int TYPE_OTHER = 3;
+
+
+
+			/*
+             * The predefined IM protocol types.
+             */
+            public static final int PROTOCOL_CUSTOM = -1;
+            public static final int PROTOCOL_AIM = 0;
+            public static final int PROTOCOL_MSN = 1;
+            public static final int PROTOCOL_YAHOO = 2;
+            public static final int PROTOCOL_SKYPE = 3;
+            public static final int PROTOCOL_QQ = 4;
+            public static final int PROTOCOL_GOOGLE_TALK = 5;
+            public static final int PROTOCOL_ICQ = 6;
+            public static final int PROTOCOL_JABBER = 7;
+            public static final int PROTOCOL_NETMEETING = 8;
+
+
+}
+
+打开联系人, IM
+packages/apps/ContactsCommon/src/com/android/contacts/common/model/account/BaseAccountType.java
+{
+
+        protected int getTypeLabelResource(Integer type) {
+            if (type == null) return R.string.chat;
+            switch (type) {
+                case Im.PROTOCOL_AIM: return R.string.chat_aim;
+                case Im.PROTOCOL_MSN: return R.string.chat_msn;
+                case Im.PROTOCOL_YAHOO: return R.string.chat_yahoo;
+                case Im.PROTOCOL_SKYPE: return R.string.chat_skype;
+                case Im.PROTOCOL_QQ: return R.string.chat_qq;
+                case Im.PROTOCOL_GOOGLE_TALK: return R.string.chat_gtalk;
+                case Im.PROTOCOL_ICQ: return R.string.chat_icq;
+                case Im.PROTOCOL_JABBER: return R.string.chat_jabber;
+                case Im.PROTOCOL_NETMEETING: return R.string.chat;
+                default: return R.string.chat;
+            }
+ 
+}
+
+im action:
+
+ packages/apps/Contacts/src/com/android/contacts/quickcontact/DataAction.java:
+ {
+ +203
+	final Uri imUri = new Uri.Builder().scheme(ContactsUtils.SCHEME_IMTO).authority(authority).appendPath(data).build();
+	mIntent = new Intent(Intent.ACTION_SENDTO, imUri);
+
+
+
+ }
+
+
+
+安通+数据
+
+ import android.provider.ContactsContract.Data;
+
+
+		String[] projection = new String[] { Data._ID, Data.DATA1, Data.DATA2, Data.DATA3, Data.DATA4, Data.DATA5, Data.DISPLAY_NAME, Data.MIMETYPE };//{"mimetype_id", "data1", "data2", "data3", "data4", "data5"};
+_id    417, action data content://com.android.contacts/data/417
+data1 手机号 有空格
+data2 安通+
+data3 加密电话/加密消息
+data4  com.xdja.actoma.account
+data5  手机号
+mimatype "vnd.android.cursor.item/vnd.com.xdja.actoma.chatting.profile";
+		"vnd.android.cursor.item/vnd.com.xdja.actoma.voip.profile";
+		uri = android.provider.ContactsContract.Data.CONTENT_URI;
+		Cursor cursor = null;
+		try {
+			cursor = context.getContentResolver().query(uri, projection, null, null, null);
+		} catch (Exception e) {
+
+		}
+
+
+打安通+电话
+
+ Action: "android.intent.action.VIEW"
+ Category: "android.intent.category.DEFAULT"
+ Type: "vnd.android.cursor.item/vnd.com.xdja.actoma.voip.profile"
+ AutoVerify=false
+START u0 {act=android.intent.action.VIEW dat=content://com.android.contacts/data/417 typ=vnd.android.cursor.item/vnd.com.xdja.actoma.voip.profile flg=0x13000000 cmp=com.xdja.actoma/com.xdja.presenter_mainframe.presenter.activity.LauncherPresenter} from uid 10001 on display 0
+
+==========================================
+
+
+android/packages/apps/Dialer
+android/packages/apps/Contacts
+android/packages/apps/ContactsCommon
+android/packages/providers/ContactsProvider
+android/packages/providers/CallLogProvider
+android/vendor/qcom/proprietary/telephony-apps/SimContacts
+data/data/com.android.dialer/databases/dialer.db
+data/data/com.android.providers.contacts/databases/contacts2.db
+data/data/com.android.providers.contacts/databases/profile.db 机主信息数据库
+
+ContactsDatabaseHelper.java 数据库创建类
+ContactsProvider2.java 数据库操作类
+ContactContract.java 数据库定义类
+
+
+
+一个contact对应多个row contact，一个row contact 对应多个data。
+各个表中对应数据的含义
+contacts表
+
+    name_raw_contact_id:对应raw_contacts表中的id,即界面显示的contact
+    photo_id:模糊大头贴id
+    photo_file_id:清晰大头贴id
+    custom_ringtone:个人铃声
+    send_to_voicemail:来电转接语音信箱（0 false，1 true）
+    times_contacted:联系人联系次数
+    last_time_contacted:最近一次联系的时间
+    starred:是否收藏
+    pinned:是否被固定
+    has_phone_number:是否有号码（至少一个）
+    lookup:查找此联系人的key值
+    contact_last_updated_timestamp:联系人最后修改时间
+
+raw_contacts表
+
+    account_id:记录所属账户id
+    sourceid:数据源id
+    backupid:数据备份时产生的id
+    raw_contact_is_read_only：是否只读（1只读，0可删除）M中没用
+    version：数据发送变化时改变
+    dirty: version变化，值为1，需同步数据
+    deleted:标记是否为删除的记录
+    contact_id:对应contacts表中的id
+    aggregation_mode:标记是否需要合并（default:0?immediate:1 suspended:2 disabled:3 ）
+    aggregation_needed：是否需要合并（1需要，0不需要）
+    custom_rington：与该记录相关的手机铃声
+    send_to_voicemail:来电转接语音信箱
+    times_contacted:与该联系人联系的次数
+    last_time_connected:最近一次联系时间
+    starred:是否收藏（1收藏，0没收藏）
+    pinned:是否被固定
+    display_name:联系人显示名称
+    display_name_alt:联系人显示名称的替代表示（如西方名字“名在前”）
+    display_name_source:名字显示数据类型：email、phone、name
+    phonetic_name: 发音名字
+    phonetic_name_style:名字不同发音风格（undefined=0,pinyin=3,japanese=4,korean=5）
+    sort_key：排序字段
+    phonebook_label：首字母
+    phonebook_bucket：对应首字母的排序
+    sync1、2、3、4：同步相关，保存uri，同步状态，服务器版本，错误代码等等
+
+data表
+
+    mimetype_id:数据类型id，对应mimetypes表
+    raw_contact_id:对应raw_contact的id
+    is_primary,is_super_primay:是否为默认号码
+    data_version:此数据记录的版本，每当数据行更改版本上升，此值单调递增
+    data1-data15 :同类数据的不同形式的表达方式
+    carrier_presence：载波信息
+    - 
+
+accounts表
+
+存储当前联系人有哪些账户信息，比如：SIM、Google、localphone等等。
+
+calls表
+
+记录了dialer里面的通话信息，包括：通话时间，号码，次数，类型，等等。
+
+mimetypes表
+
+里面记录了数据库中所有数据的类型。
+
+其它
+
+还有一些相关的view，比如：view_contacts、view_data、view_row_contacts等等，这些视图包含了上面的多个表的数据，一般的查询操作都是对view的操作。
+
+
+
+
+//添加联系人  
+public void insertContact() {  
+	ContentResolver resolver = getContext().getContentResolver();  
+	Uri uri = Uri.parse("content://com.android.contacts/raw_contacts");  
+	ContentValues values = new ContentValues();  
+	// 向raw_contacts插入一条除了ID之外, 其他全部为NULL的记录, ID是自动生成的  
+	long id = ContentUris.parseId(resolver.insert(uri, values));   
+	//添加联系人姓名  
+	uri = Uri.parse("content://com.android.contacts/data");  
+	values.put("raw_contact_id", id);  
+	values.put("data2", "FHM");  
+	values.put("mimetype", "vnd.android.cursor.item/name");  
+	resolver.insert(uri, values);  
+	//添加联系人电话  
+	values.clear(); // 清空上次的数据  
+	values.put("raw_contact_id", id);  
+	values.put("data1", "18600000000");  
+	values.put("data2", "2");  
+	values.put("mimetype", "vnd.android.cursor.item/phone_v2");  
+	resolver.insert(uri, values);  
+	//添加联系人邮箱  
+	values.clear();  
+	values.put("raw_contact_id", id);  
+	values.put("data1", "zxx@itcast.cn");  
+	values.put("data2", "1");  
+	values.put("mimetype", "vnd.android.cursor.item/email_v2");  
+	resolver.insert(uri, values);  
+}
+
+
+
+log
+--------------------------------
+
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: android.database.sqlite.SQLiteException: near "ORDER": syntax error (code 1): , while compiling: SELECT _id, display_name, agg_presence.mode AS contact_presence, contacts_status_updates.status AS contact_status, photo_id, photo_thumb_uri, lookup, is_user_profile, account_type, account_name FROM view_contacts LEFT OUTER JOIN agg_presence ON (_id = agg_presence.presence_contact_id) LEFT OUTER JOIN status_updates contacts_status_updates ON (status_update_id=contacts_status_updates.status_update_data_id) WHERE ((_id IN default_directory)) AND (( (account_type<>'com.xdja.actoma.account')) ORDER BY phonebook_bucket, sort_key
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.database.sqlite.SQLiteConnection.nativePrepareStatement(Native Method)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.database.sqlite.SQLiteConnection.acquirePreparedStatement(SQLiteConnection.java:887)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.database.sqlite.SQLiteConnection.prepare(SQLiteConnection.java:498)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.database.sqlite.SQLiteSession.prepare(SQLiteSession.java:588)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.database.sqlite.SQLiteQueryBuilder.validateQuerySql(SQLiteQueryBuilder.java:412)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.database.sqlite.SQLiteQueryBuilder.query(SQLiteQueryBuilder.java:389)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at com.android.providers.contacts.ContactsProvider2.doQuery(ContactsProvider2.java:6705)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at com.android.providers.contacts.ContactsProvider2.queryLocal(ContactsProvider2.java:6655)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at com.android.providers.contacts.ContactsProvider2.query(ContactsProvider2.java:5169)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.content.ContentProvider$Transport.query(ContentProvider.java:238)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.content.ContentProviderNative.onTransact(ContentProviderNative.java:112)
+07-03 17:52:58.321 23116  4479 E DatabaseUtils: 	at android.os.Binder.execTransact(Binder.java:453)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: FATAL EXCEPTION: AsyncTask #3
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: Process: com.android.contacts, PID: 11680
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: java.lang.RuntimeException: An error occurred while executing doInBackground()
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.os.AsyncTask$3.done(AsyncTask.java:309)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at java.util.concurrent.FutureTask.finishCompletion(FutureTask.java:354)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at java.util.concurrent.FutureTask.setException(FutureTask.java:223)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at java.util.concurrent.FutureTask.run(FutureTask.java:242)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1113)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:588)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at java.lang.Thread.run(Thread.java:818)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: Caused by: android.database.sqlite.SQLiteException: near "ORDER": syntax error (code 1): , while compiling: SELECT _id, display_name, agg_presence.mode AS contact_presence, contacts_status_updates.status AS contact_status, photo_id, photo_thumb_uri, lookup, is_user_profile, account_type, account_name FROM view_contacts LEFT OUTER JOIN agg_presence 6.20180704ON (_id = agg_presence.presence_contact_id) LEFT OUTER JOIN status_updates contacts_status_updates ON (status_update_id=contacts_status_updates.status_update_data_id) WHERE ((_id IN default_directory)) AND (( (account_type<>'com.xdja.actoma.account')) ORDER BY phonebook_bucket, sort_key
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.database.DatabaseUtils.readExceptionFromParcel(DatabaseUtils.java:179)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.database.DatabaseUtils.readExceptionFromParcel(DatabaseUtils.java:135)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.content.ContentProviderProxy.query(ContentProviderNative.java:421)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.content.ContentResolver.query(ContentResolver.java:496)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.content.CursorLoader.loadInBackground(CursorLoader.java:64)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at com.android.contacts.common.list.ProfileAndContactsLoader.loadInBackground(ProfileAndContactsLoader.java:63)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at com.android.contacts.common.list.ProfileAndContactsLoader.loadInBackground(ProfileAndContactsLoader.java:34)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.content.AsyncTaskLoader.onLoadInBackground(AsyncTaskLoader.java:312)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.content.AsyncTaskLoader$LoadTask.doInBackground(AsyncTaskLoader.java:69)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.content.AsyncTaskLoader$LoadTask.doInBackground(AsyncTaskLoader.java:57)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at android.os.AsyncTask$2.call(AsyncTask.java:295)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+07-03 17:52:58.324 11680 11703 E AndroidRuntime: 	... 3 more
+07-03 17:52:58.325  1210  1226 W ActivityManager:   Force finishing activity com.android.contacts/.activities.PeopleActivity
+07-03 17:52:58.325 11680 11706 D OpenGLRenderer: Use EGL_SWAP_BEHAVIOR_PRESERVED: true
+
+============
+安通+
+版本3.0.6.20180704
+
+清空系统通讯录
+1 删除好友 A
+2 重新将A 加为好友
+	系统通讯录增加一条姓名为A的联系人。
+重复1,2步10次。 系统通讯录增加10条相同姓名的联系人。
+系统不显示安通+的联系条目。
+登录安通+，安通+联系人不会同步到系统通讯录。
+
+
+安通+可行性评估：
+ 
+当前在 宋岩的T10，测试验证：基于V3.0.3.20180518实现了不显示安通+帐号的联系人。 可以拨打加密电话。
+
+
+安通+多个版本 评估中遇到的疑惑：
+
+1 V3.0.3.20180518,  V3.0.5.20180621, V3.0.6.20180704
+
+测试中 V3.0.3  可以将使用接口调起安通+加密通话界面。
+
+    V3.0.5,V3.0.6 提示找不到联系人，无法启动安通+加密通话界面。
+
+2 不同的机子表现不同，文毅成的T10（user）可以正常显示安通+帐号的联系人。
+    宋贮岩T10(eng)不显示安通+的联系人。
+
+    底层Contact 数据表中有安通+的数据。
+
+
+后续：
+需要确认不同版本接口是否有变？当前测试中，不同版本运行结果不同。
+安通+是否支持双系统？如果支持安装在哪个系统？需要做什么改动？
+
+
+考虑不周之处再讨论补充。
+
+=================================================================
+
+dial 拨号盘
+布局文件
+packages/apps/Dialer/res/layout/dialpad_fragment.xml
+
+功能
+
+packages/apps/Dialer/src/com/android/dialer/dialpad/DialpadFragment.java
+{
++1158 
+   @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+        // hpc 
+	        case R.id.dialpad_floating_action_button_secure:
+加密通话
+
+
+}

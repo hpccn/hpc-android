@@ -1,0 +1,432 @@
+启动悬浮窗管理的action:
+
+Log.d(TAG,Log.getStackTraceString(new Throwable()));
+// 打印调用堆栈
+
+frameworks/base/core/java/android/provider/Settings.java
++568
+    public static final String ACTION_MANAGE_OVERLAY_PERMISSION =
+            "android.settings.action.MANAGE_OVERLAY_PERMISSION";
+
+
+
+	  Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+	  startActivityForResult(intent, 12);
+
+
+
+请求应用悬浮窗列表action
+ ActivityManager: START u0 {act=android.settings.action.MANAGE_OVERLAY_PERMISSION flg=0x10008000 cmp=com.android.settings/.Settings$OverlaySettingsActivity} from uid 10093 on display 0
+
+
+点击应用条目显示悬浮窗权限
+ActivityManager: START u0 {act=android.intent.action.MAIN cmp=com.android.settings/.SubSettings (has extras)} from uid 1000 on display 0
+
+
+
+Settings$OverlaySettingsActivity
+
+
+关联到
+res/xml/advanced_apps.xml
++45 
+    <PreferenceScreen
+        android:key="system_alert_window"
+        android:title="@string/system_alert_window_settings"
+        android:fragment="com.android.settings.applications.ManageApplications"
+        settings:keywords="@string/keywords_system_alert_window">
+      <extra
+          android:name="classname"
+          android:value="com.android.settings.Settings$OverlaySettingsActivity" />
+    </PreferenceScreen>
+
+
+
+com.android.settings.applications.ManageApplications.java
+system_alert_window  对应 
+        AppStateOverlayBridge.FILTER_SYSTEM_ALERT_WINDOW,   // Apps that can draw overlays
+
+com.android.settings.applications.AppStateOverlayBridge.java
+{
+	+76
+    public static final AppFilter FILTER_SYSTEM_ALERT_WINDOW = new AppFilter() {
+        @Override
+        public void init() {
+        }
+
+        @Override
+        public boolean filterApp(AppEntry info) {
+			if (null != info){
+				//Log.d(TAG, info.info.packageName);
+				// hpc 信大捷安 安通+的应用 禁用悬浮窗
+				if (info.info.packageName.startsWith("com.xdja")){
+					return false;
+				}
+			}
+            return info.extraInfo != null;
+        }
+    };
+
+}
+
+
+安通+
+
+测试中发现安通+有多个悬浮窗口：
+
+1 通讯录
+	设置-》 选择 安通+ 悬浮窗 弹出。
+2 通话中
+	语音通话中弹出。将当前能话最小化为悬浮窗口。
+...
+且所有的悬浮窗都跨双系统。
+
+目前可做到：
+1 不给安通+授权悬浮窗权限达到，禁止安通+弹出悬浮窗口。
+后果：触发显示悬浮窗时，安通+会再次弹出请求对话框。
+
+
+
+弹出请求悬浮窗权限对话框的请求， 在安通+ app 中实现。 系统无法控制。
+安通+自定义的对话框。
+
+证实：
+
+反编译 安通+
+
+dialog layout view
+
+res/layout/view_normal_dialog.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/custom_dialog_bg" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/blade_font_16" android:textColor="@color/blade_black_95" android:gravity="center|left" android:id="@id/dialog_title" android:paddingLeft="@dimen/blade_16" android:paddingRight="@dimen/blade_16" android:layout_width="wrap_content" android:layout_height="@dimen/blade_dialog_message_height" android:text="@string/delete_record" />
+    <LinearLayout android:orientation="vertical" android:id="@id/contentview" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <LinearLayout android:gravity="center_vertical" android:paddingLeft="@dimen/blade_16" android:paddingRight="@dimen/blade_16" android:paddingBottom="@dimen/blade_8" android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:textSize="@dimen/blade_font_14" android:textColor="@color/blade_black_65" android:id="@id/dialog_message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/delete_record" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/contentmiddle_view" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <RelativeLayout android:id="@id/buttonlayout" android:paddingLeft="@dimen/blade_16" android:paddingTop="@dimen/blade_16" android:paddingRight="@dimen/blade_16" android:paddingBottom="@dimen/blade_20" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentRight="true">
+            <TextView android:textSize="@dimen/blade_font_14" android:textColor="?BaseBottomGold" android:id="@id/dialog_cancel" android:padding="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/blade_32" android:text="@string/cancel_text" />
+            <TextView android:textSize="@dimen/blade_font_14" android:textColor="?BaseBottomGold" android:id="@id/dialog_ok" android:padding="8.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginRight="@dimen/blade_32" android:text="@string/ok_text" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+// 从View 获取 context, uid
+
+		View view;
+		Context context = view.getContext().getApplicationContext();
+		String text = "android.os.Process.myUid() " + android.os.Process.myUid() + ", gid " +
+				view.getContext().getPackageName();
+		view.getContext().getApplicationContext();
+		try {
+			android.content.pm.PackageManager pm = context.getPackageManager();
+		    String pkg = view.getContext().getPackageName();
+		    android.content.pm.ApplicationInfo ai = pm.getApplicationInfo(pkg, 0);
+//		    Toast.makeText(MainActivity.this, Integer.toString(ai.uid,10), Toast.LENGTH_SHORT).show();
+		    text += ", pkg " + pkg + ", uid " + ai.uid;
+
+
+push frameworks.jar 
+之后需要删除预加载的 /system/frameworks/arm , arm64 , oat 
+
+
+安通+中有多个对话框显示，系统不能全部阻止安通+弹出对话。
+
+弹出对话框，需要安通+修改：
+
+
+安通+可以在应用中增加一个判断条件：如果设备型是EBEN，则不处理弹框。这样不需要单独给我们定制版本。
+
+
+悬浮窗口， 涉及的系统类：
+   frameworks/base/core/java/android/view/WindowManagerImpl.java
+    modified:   frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java
+    modified:   frameworks/base/services/core/java/com/android/server/wm/WindowState.java
+
+
+
+
+屏蔽黑名单中的View
+   frameworks/base/core/java/android/view/WindowManagerImpl.java
+{
+
+    private final ArraySet<String> blackViews = new ArraySet<String>();
+
+	private void init(){
+		blackViews.add("com.xdja.comm.widget.FloatingWindowView");
+	}
+
+
++97
+
+    @Override
+    public void addView(@NonNull View view, @NonNull ViewGroup.LayoutParams params) {
+/*		
+		android.util.Log.i("WindowManager", " hpc add view " + view.getContext().getPackageName() 
+				+ "view class " + view.getClass().getName()
+				+ "view " + view + ""
+				+ "params " + params
+				+ "mParentWindow " + mParentWindow
+				+ "mDisplay " + mDisplay);
+*/
+		// hpc 过滤View
+		//
+		//if ("com.xdja.comm.widget.FloatingWindowView".equals(view.getClass().getName())){
+		if (blackViews.contains(view.getClass().getName())){
+			return;
+		}
+...
+	}
+    @Override
+    public void updateViewLayout(@NonNull View view, @NonNull ViewGroup.LayoutParams params) {
+
+		//Log.d(TAG, " hpc WindowManagerGlobal updateViewLayout " + Log.getStackTraceString(new Throwable()));
+
+		//if ("com.xdja.comm.widget.FloatingWindowView".equals(view.getClass().getName())){
+		if (blackViews.contains(view.getClass().getName())){
+			return;
+		}
+/
+
+
+
+}
+
+
+动态权限总共有三个方法：
+
+ContextCompat.checkSelfPermission() 检查权限是否已经授权
+
+ActivityCompat.requestPermissions()动态申请权限，并弹出对话框。
+
+onRequestPermissionsResult()在activity里面重写该方法该方法是权限申请之后的回调方法。
+
+当然。动态权限申请也要在AndroidManifest.xml里面写明。附上代码
+
+{ 
+    public void applypermission(){
+        if(Build.VERSION.SDK_INT>=23){
+            //检查是否已经给了权限
+            int checkpermission= ContextCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION);
+            if(checkpermission!=PackageManager.PERMISSION_GRANTED){//没有给权限
+                Log.e("permission","动态申请");
+                //参数分别是当前活动，权限字符串数组，requestcode 动态申请权限，并弹出对话框。
+
+                ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+            }
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //grantResults数组与权限字符串数组对应，里面存放权限申请结果
+        if(grantResults[0]== PackageManager.PERMISSION_GRANTED){
+            Toast.makeText(MainActivity.this,"已授权",Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(MainActivity.this,"拒绝授权",Toast.LENGTH_SHORT).show();
+        }
+    }
+}
+
+
+悬浮窗口：
+调用
+
+通过Context.getSystemService(Context.WINDOW_SERVICE)可以获得 WindowManager对象。
+
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+// mWindowManager  addView 后，view list 工作在应用进程中，并不是Windows_service进程中。所以无法全屏管理
+
+
+服务获取和基本参数设置
+
+    // 获取应用的Context
+    mContext= context.getApplicationContext();
+    // 获取WindowManager
+    mWindowManager=(WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+
+                    WindowUtils.hidePopupWindow();
+
+
+系统注册  (Context.WINDOW_SERVICE) 服务
+frameworks/base/services/java/com/android/server/SystemServer.java +528
+{
+
+import com.android.server.wm.WindowManagerService;
+
+	+ 525
+            wm = WindowManagerService.main(context, inputManager,
+                    mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL,
+                    !mFirstBoot, mOnlyCore);
+            ServiceManager.addService(Context.WINDOW_SERVICE, wm);
+ 
+}
+
+
+
+---------------------------------------------------------
+
+import android.content.Context;
+import android.graphics.PixelFormat;
+import android.graphics.Rect;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
+import android.view.WindowManager;
+import android.view.View.OnClickListener;
+import android.view.WindowManager.LayoutParams;
+import android.widget.Button;
+/**
+ * 弹窗辅助类
+ *
+ * @ClassName WindowUtils
+ *
+ *
+ */
+public class WindowUtils {
+    private static final String LOG_TAG = "WindowUtils";
+    private static View mView = null;
+    private static WindowManager mWindowManager = null;
+    private static Context mContext = null;
+    public static Boolean isShown = false;
+    /**
+     * 显示弹出框
+     *
+     * @param context
+     * @param view
+     */
+    public static void showPopupWindow(final Context context) {
+        if (isShown) {
+            LogUtil.i(LOG_TAG, "return cause already shown");
+            return;
+        }
+        isShown = true;
+        LogUtil.i(LOG_TAG, "showPopupWindow");
+        // 获取应用的Context
+        mContext = context.getApplicationContext();
+        // 获取WindowManager
+        mWindowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
+        mView = setUpView(context);
+        final WindowManager.LayoutParams params = new WindowManager.LayoutParams();
+        // 类型
+        params.type = windowmanager.layoutparams.type_system_alert;
+        // WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
+        // 设置flag
+        int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+        // | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
+        // 如果设置了WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE，弹出的View收不到Back键的事件
+        params.flags = flags;
+        // 不设置这个弹出框的透明遮罩显示为黑色
+        params.format = PixelFormat.TRANSLUCENT;
+        // FLAG_NOT_TOUCH_MODAL不阻塞事件传递到后面的窗口
+        // 设置 FLAG_NOT_FOCUSABLE 悬浮窗口较小时，后面的应用图标由不可长按变为可长按
+        // 不设置这个flag的话，home页的划屏会有问题
+        params.width = LayoutParams.MATCH_PARENT;
+        params.height = LayoutParams.MATCH_PARENT;
+        params.gravity = Gravity.CENTER;
+        mWindowManager.addView(mView, params);
+        LogUtil.i(LOG_TAG, "add view");
+    }
+    /**
+     * 隐藏弹出框
+     */
+    public static void hidePopupWindow() {
+        LogUtil.i(LOG_TAG, "hide " + isShown + ", " + mView);
+        if (isShown && null != mView) {
+            LogUtil.i(LOG_TAG, "hidePopupWindow");
+            mWindowManager.removeView(mView);
+            isShown = false;
+        }
+    }
+    private static View setUpView(final Context context) {
+        LogUtil.i(LOG_TAG, "setUp view");
+        View view = LayoutInflater.from(context).inflate(R.layout.popupwindow,
+                null);
+        Button positiveBtn = (Button) view.findViewById(R.id.positiveBtn);
+        positiveBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.i(LOG_TAG, "ok on click");
+                // 打开安装包
+                // 隐藏弹窗
+                WindowUtils.hidePopupWindow();
+            }
+        });
+        Button negativeBtn = (Button) view.findViewById(R.id.negativeBtn);
+        negativeBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogUtil.i(LOG_TAG, "cancel on click");
+                WindowUtils.hidePopupWindow();
+            }
+        });
+        // 点击窗口外部区域可消除
+        // 这点的实现主要将悬浮窗设置为全屏大小，外层有个透明背景，中间一部分视为内容区域
+        // 所以点击内容区域外部视为点击悬浮窗外部
+        final View popupWindowView = view.findViewById(R.id.popup_window);// 非透明的内容区域
+        view.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                LogUtil.i(LOG_TAG, "onTouch");
+                int x = (int) event.getX();
+                int y = (int) event.getY();
+                Rect rect = new Rect();
+                popupWindowView.getGlobalVisibleRect(rect);
+                if (!rect.contains(x, y)) {
+                    WindowUtils.hidePopupWindow();
+                }
+                LogUtil.i(LOG_TAG, "onTouch : " + x + ", " + y + ", rect: "
+                        + rect);
+                return false;
+            }
+        });
+        // 点击back键可消除
+        view.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                switch (keyCode) {
+                case KeyEvent.KEYCODE_BACK:
+                    WindowUtils.hidePopupWindow();
+                    return true;
+                default:
+                    return false;
+                }
+            }
+        });
+        return view;
+    }
+}
+
+---------------------------------------------------------
+
+
+
+设置-》通用-》悬浮窗
+08-01 16:48:27.701  7090  7090 I WindowManager:  hpc add view com.xdja.actomaview class com.xdja.comm.widget.FloatingWindowViewview com.xdja.comm.widget.FloatingWindowView{9724284 V.E...... ......I. 0,0-0,0}params WM.LayoutParams{(1080,111)(wrapxwrap) gr=#800033 ty=2005 fl=#80028 fmt=1}mParentWindow nullmDisplay Display id 0: DisplayInfo{"内置屏幕", uniqueId "local:0", app 1080 x 1920, real 1080 x 1920, largest app 1920 x 1845, smallest app 1080 x 1005, mode 1, defaultMode 1, modes [{id=1, width=1080, height=1920, fps=60.0}], colorTransformId 1, defaultColorTransformId 1, supportedColorTransforms [{id=1, colorTransform=0}], rotation 0, density 480 (160.421 x 159.895) dpi, layerStack 0, appVsyncOff 0, presDeadline 17666667, type BUILT_IN, state ON, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS}, DisplayMetrics{density=3.0, width=1080, height=1920, scaledDensity=3.0, xdpi=160.421, ydpi=159.895}, isValid=true
+
+
+
+
+
+通话中悬浮窗
+
+08-01 16:49:33.939  7090  7090 I WindowManager:  hpc add view com.xdja.actomaview class com.xdja.comm.widget.FloatingWindowViewview com.xdja.comm.widget.FloatingWindowView{36f5131 V.E...... ......I. 0,0-0,0}params WM.LayoutParams{(1080,111)(wrapxwrap) gr=#800033 ty=2005 fl=#80028 fmt=1}mParentWindow nullmDisplay Display id 0: DisplayInfo{"内置屏幕", uniqueId "local:0", app 1080 x 1920, real 1080 x 1920, largest app 1920 x 1845, smallest app 1080 x 1005, mode 1, defaultMode 1, modes [{id=1, width=1080, height=1920, fps=60.0}], colorTransformId 1, defaultColorTransformId 1, supportedColorTransforms [{id=1, colorTransform=0}], rotation 0, density 480 (160.421 x 159.895) dpi, layerStack 0, appVsyncOff 0, presDeadline 17666667, type BUILT_IN, state ON, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS}, DisplayMetrics{density=3.0, width=1080, height=1920, scaledDensity=3.0, xdpi=160.421, ydpi=159.895}, isValid=true
+
+
+
+08-01 17:37:33.481 16872 16872 I WindowManager:  hpc add view com.hpc.myapplicationview class android.widget.LinearLayoutview android.widget.LinearLayout{132fe9a V.E...... ......I. 0,0-0,0}params WM.LayoutParams{(0,0)(fillxfill) gr=#11 ty=2005 fl=#28 fmt=-3}mParentWindow nullmDisplay Display id 0: DisplayInfo{"内置屏幕", uniqueId "local:0", app 1080 x 1920, real 1080 x 1920, largest app 1920 x 1845, smallest app 1080 x 1005, mode 1, defaultMode 1, modes [{id=1, width=1080, height=1920, fps=60.0}], colorTransformId 1, defaultColorTransformId 1, supportedColorTransforms [{id=1, colorTransform=0}], rotation 0, density 480 (160.421 x 159.895) dpi, layerStack 0, appVsyncOff 0, presDeadline 17666667, type BUILT_IN, state ON, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS}, DisplayMetrics{density=3.0, width=1080, height=1920, scaledDensity=3.0, xdpi=160.421, ydpi=159.895}, isValid=true
+
+08-01 17:49:10.061 27904 27904 I WindowManager:  hpc add view com.hpc.myapplicationview class android.widget.LinearLayoutview android.widget.LinearLayout{b2c2ed5 V.E...... ......I. 0,0-0,0}params WM.LayoutParams{(0,0)(wrapxwrap) gr=#800033 ty=2005 fl=#80028 fmt=1}mParentWindow nullmDisplay Display id 0: DisplayInfo{"内置屏幕", uniqueId "local:0", app 1080 x 1920, real 1080 x 1920, largest app 1920 x 1845, smallest app 1080 x 1005, mode 1, defaultMode 1, modes [{id=1, width=1080, height=1920, fps=60.0}], colorTransformId 1, defaultColorTransformId 1, supportedColorTransforms [{id=1, colorTransform=0}], rotation 0, density 480 (160.421 x 159.895) dpi, layerStack 0, appVsyncOff 0, presDeadline 17666667, type BUILT_IN, state ON, FLAG_SECURE, FLAG_SUPPORTS_PROTECTED_BUFFERS}, DisplayMetrics{density=3.0, width=1080, height=1920, scaledDensity=3.0, xdpi=160.421, ydpi=159.895}, isValid=true

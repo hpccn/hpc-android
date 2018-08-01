@@ -1,0 +1,22 @@
+adb root (获取root权限)之后,执行adb remount (为系统文件/system, /vendor,/oem加上读写权限)报出:
+remount of /system failed: Read-only file system错误.
+解决办法:
+
+1.adb disable-verity 会出现
+Verity disabled on /system
+Now reboot your device for settings to take effect
+2.adb reboot重启设备.
+然后再remout就可以成功了.
+
+可能出现的情况:
+但是有时候终端不能识别adb disable-verity命令,一个可能的原因是adb版本太低了,adb version查看一下版本,然后更新到最新就好了.
+原因:
+
+只知道执行了adb disable-verity, adb reboot之后就能够remount成功,但是adb disable-verity具体做了什么呢?
+官方给出adb disable-verity的解释是这样的:disable dm-verity checking on USERDEBUG builds
+大致意思就是不使用dm-verity验证userdebug版本.可以理解为userdebug版本有些system分区被verity标识.
+
+所以会出现上述错误是因为某些分区被系统标识,必须要验证数据签名,我们只需要忽略验证就行了.
+
+上面可以看到签名是否需要验证主要是由dm-verity决定的,那它又做了什么呢?
+它的作用和工作流程可以移步http://blog.csdn.net/u011280717/article/details/51867673

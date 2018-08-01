@@ -1,0 +1,19 @@
+ repo 的几个使用理解
+
+1. repo sync
+
+同步最新本地工作文件，更新成功，这本地文件和 server 的代码是一样的。可以指定需要更新的project ，如果不指定任何参数，会同步整个所有的项目。
+
+如果是第一次运行 repo sync ，则这个命令相当于 git clone，会把server所有内容都拷贝到本地。根据manifests中的xml文件中git的commit进行同步，这个再repo init的时候指定使用哪个xml；
+
+如果不是第一次运行 repo sync ，则相当于 git remote update ;  git rebase origin/branch .将server上的code与本地合并；repo sync 会更新 .repo 下面的文件。如果在merge 的过程中出现冲突，这需要手动运行：git  rebase --continue
+
+2. repo branch
+
+repo分支：这里通过repo init -b <branch>，中的-b所指定的分支，是manifests的分支，不同分支，其中的文件清单内容有所不同。 
+
+xml分支：通过清单文件manifest.xml中的default实体的revision属性，指定版本库默认的分支为revision属性值，该属性值做为repo sync之后工作目录中所有git项目的公共起点分支，也就是说，该manifest对应所有的git项目都有一个以revision属性值为名的分支，repo sync之后，在任意一个repo工作目录下的git库中，使用git branch或者repo start创建的分支，都是基于该git库中revision属性值为名的分支来创建。我们可以将这个分支设置为和repo分支类似的名字。
+
+3. repo start
+
+使用repo start -all创建分支，基于xml文件的commit和branch进行创建，使用repo checkout 之后将会变成以repo init 初始化指定的xml文件的所有时期软件的commit，相当于恢复到之前的一个软件版本；

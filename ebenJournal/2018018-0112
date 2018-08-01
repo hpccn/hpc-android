@@ -1,0 +1,3 @@
+修改Settings， 打开了双系统通知开关。
+
+packages/apps/Settings/res/xml/eben_sec_system_switch_settings.xml

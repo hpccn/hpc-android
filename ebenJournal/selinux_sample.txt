@@ -1,0 +1,131 @@
+
+seliux 实例：
+
+处理 pc avc 
+
+
+$ logcat | grep avc
+
+ pc      : type=1400 audit(0.0:1429): avc: denied { write } for name="pricmd" dev="tmpfs" ino=13777 scontext=u:r:system_app:s0 tcontext=u:object_r:socket_device:s0 tclass=sock_file permissive=0
+ pc      : type=1400 audit(0.0:1430): avc: denied { write } for name="pricmd" dev="tmpfs" ino=13777 scontext=u:r:system_app:s0 tcontext=u:object_r:socket_device:s0 tclass=sock_file permissive=0
+ Binder_9: type=1400 audit(0.0:1431): avc: denied { ioctl } for path="socket:[64960]" dev="sockfs" ino=64960 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+ Binder_9: type=1400 audit(0.0:1432): avc: denied { ioctl } for path="socket:[64960]" dev="sockfs" ino=64960 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+
+
+
+pc 连接至 pricmd
+
+日志中  pricmd 被拒绝 -->  socket_device     sock_file
+
+
+查看SELinux配制
+
+
+
+external/sepolicy/app.te
+
+diff --git a/app.te b/app.te
+index a7d5dc4..41138e6 100755
+--- a/app.te
++++ b/app.te
+@@ -262,7 +262,9 @@ neverallow appdomain
+ neverallow appdomain domain:netlink_kobject_uevent_socket { write append };
+ 
+ # Sockets under /dev/socket that are not specifically typed.
+-neverallow appdomain socket_device:sock_file write;
++#hpc fix pricmd
++#neverallow appdomain socket_device:sock_file write;
++neverallow non_system_app_set socket_device:sock_file write;
+
+
+---------------------------------
+app.te
+appdomain 不允许write  socket_device:sock_file
+修改为  non_system_app_set  非系统应用  禁止写
+non_system_app_set 定义在 文件te_macros
+---------------------------------
+
+
+external/sepolicy/system_app.te
+
+diff --git a/system_app.te b/system_app.te
+index 7dde063..103fb3b 100755
+--- a/system_app.te
++++ b/system_app.te
+@@ -30,6 +30,8 @@ auditallow system_app system_data_file:file { create setattr append write link u
+ # Access to vold-mounted storage for measuring free space
+ allow system_app mnt_media_rw_file:dir search;
+ # Added by corpse for debug
++# hpc fix 
++allow system_app socket_device:sock_file write; 
+ allow system_app pricmd_socket:sock_file write;
+ allow system_app pricmd:unix_stream_socket connectto;
+ #for dumpstate
+
+---------------------------------
+在 system_app.te 中增加 
+
+允许  system_app 写 socket_device:sock_file
+---------------------------------
+
+
+
+system/core/roodir/init.rc
+
+
+
+
+diff --git a/rootdir/init.rc b/rootdir/init.rc
+index 6149eb7..a5b9874 100755
+--- a/rootdir/init.rc
++++ b/rootdir/init.rc
+@@ -776,3 +776,49 @@ service logcatd /system/bin/logcat -b all -v threadtime -v usec -v printable -D
+     user logd
+     group log
+     writepid /dev/cpuset/system-background/tasks
++
++
++    #begin   add pricmd.  by hpc
++
++service pricmd /system/bin/pricmd
++    class main
++    user root
++
++on property:persist.service.apklogfs.enable=1
++    mkdir /data/tombstones 0755 system system
++    mkdir /data/system/    0775 system system
++    mkdir /data/system/dropbox 0700 system system
++    mkdir /data/misc/logd/modemcrash 0775 system system
++    mkdir /data/misc/logd/stats 0775 system system
++    mkdir /data/misc/logd/gps 0775 system system
++    mkdir /data/misc/logd/core 0775 system log
++    mkdir /data/misc/logd 0775 logd log
++    chown system log /data/misc/logd
++    chmod 0777 /data/misc/logd
++    chmod 0777 /data/misc/logd/aplogs
++    chmod 0777 /data/misc/logd/kernel_kmsg
++    #exec - logd log -- /system/bin/logcat -L -b system -b events -b main -b radio -b crash  -v threadtime -f /data/misc/logd/aplogs -
++    restart apk_logfs
++    restart kmsg_logfs
++    restart crashlogd
++
++on property:persist.service.apklogfs.enable=0
++    stop apk_logfs
++    stop kmsg_logfs
++    stop crashlogd
++    chmod 0777 /data/misc/logd/aplogs
++    chmod 0777 /data/misc/logd/kernel_kmsg
++
++service apk_logfs /system/bin/logcat -b system -b events -b main -b radio -b crash -v threadtime -f /data/misc/logd/aplogs -r 10240 -n
++    class main
++    # disabled
++    
++service crashlogd /system/bin/crashlogd
++    class main
++    # disabled
++
++service kmsg_logfs /system/bin/kernel_kmsg -K -v threadtime -f /data/misc/logd/kernel_kmsg -r 10240 -n 200
++    class main
++    # disabled
++
++#end

@@ -1,0 +1,65 @@
+
+打开SD卡的
+
+DocumentUI
+
+frameworks/base/packages/DocumentsUI
+
+frameworks/base/packages/DocumentsUI/src/com/android/documentsui/BaseActivity.java
+
+设置中有格式化
++ 226
+        } else if (id == R.id.menu_settings) {
+            final RootInfo root = getCurrentRoot();
+            final Intent intent = new Intent(DocumentsContract.ACTION_DOCUMENT_ROOT_SETTINGS);
+            intent.setDataAndType(DocumentsContract.buildRootUri(root.authority, root.rootId),
+                    DocumentsContract.Root.MIME_TYPE_ITEM);
+            startActivity(intent);
+            return true;
+        }
+
+action:
+
+frameworks/base/core/java/android/provider/DocumentsContract.java
+
++125
+    public static final String
+            ACTION_DOCUMENT_ROOT_SETTINGS = "android.provider.action.DOCUMENT_ROOT_SETTINGS";
+
+
+查找 上述action 
+
+
+find packages/ -name AndroidManifest.xml | xargs grep -rn "android.provider.action.DOCUMENT_ROOT_SETTINGS"
+packages/apps/Settings/AndroidManifest.xml:1648:
+
+        <activity android:name="Settings$PublicVolumeSettingsActivity"
+                android:label="@string/storage_settings_title"
+                android:taskAffinity="com.android.settings"
+                android:parentActivityName="Settings$StorageSettingsActivity">
+            <intent-filter>
+                <action android:name="android.provider.action.DOCUMENT_ROOT_SETTINGS" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data
+                    android:scheme="content"
+                    android:host="com.android.externalstorage.documents"
+                    android:mimeType="vnd.android.document/root" />
+            </intent-filter>
+            <meta-data android:name="com.android.settings.FRAGMENT_CLASS"
+                android:value="com.android.settings.deviceinfo.PublicVolumeSettings" />
+            <meta-data android:name="com.android.settings.TOP_LEVEL_HEADER_ID"
+                android:resource="@id/storage_settings" />
+        </activity>
+
+
+
+
+
+packages/apps/Settings/src/com/android/settings/Settings.java:38:    public static class PublicVolumeSettingsActivity extends SubSettings { /* empty */ }
+
+
+
+
+
+grep -rn ACTION_DOCUMENT_ROOT_SETTINGS  packages/apps/Settings/
+packages/apps/Settings/src/com/android/settings/deviceinfo/PublicVolumeSettings.java:90:        if (DocumentsContract.ACTION_DOCUMENT_ROOT_SETTINGS.equals(

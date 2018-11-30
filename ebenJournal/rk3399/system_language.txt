@@ -1,0 +1,71 @@
+Android系统默认语言改为中文
+
+第一种方法：
+
+修改 build/tools/buildinfo.sh
+echo "ro.product.locale.language=zh"
+echo "ro.product.locale.region=CN"
+
+就可以修改Android系统默认语言为中文。
+
+
+第二种方法：
+
+
+build/target/product/full_base.mk
+修改PRODUCT_LOCALES := zh_CN 就OK。
+
+
+
+
+
+ 设置默认输入法为EBen
+               frameworks\base\packages\SettingsProvider\res\values\defaults.xml           
+
+     com.android.inputmethod.pinyin/.PinyinIME</string>   
+
+    <string name="default_input_method" translatable="false">com.ebensz.softkeyboard/.SoftKeyboard</string>
+
+  
+           frameworks\base\packages\SettingsProvider\src\com\android\providers\settings\DatabaseHelper.java
+                   在loadSecureSettings()中增加一条语句，制定默认使能的输入法             
+
+
+loadStringSetting(stmt, Settings.Secure.DEFAULT_INPUT_METHOD, R.string.default_input_method);           
+
+
+上面的不行
+
+frameworks/base/core/res/res/values/config.xml
+
+  <string-array name="config_disabledUntilUsedPreinstalledImes" translatable="false">
+        <item>com.android.inputmethod.latin</item>
+    </string-array>
+
++++
+	<string name="config_default_input_method" translatable="false">com.ebensz.softkeyboard/.SoftKeyboard</string>
+
+
+frameworks/base/services/core/java/com/android/server/InputMethodManagerService.java
+{
+void buildInputMethodListLocked(boolean resetDefaultEnabledIme) {
+    ...
+    //add start
+    String defaultIme = Settings.Secure.getString(mContext.getContentResolver(),
+        Settings.Secure.DEFAULT_INPUT_METHOD);
+
+    if (defaultIme == null) {
+       final Resources res = mContext.getResources();
+           try {
+               //frameworks\base\core\res\res\values\config.xml
+               String myIME = res.getString(com.android.internal.R.string.config_default_input_method);
+                if (myIME != null && myIME.length() > 0) {
+                    Settings.Secure.putString( mContext.getContentResolver(),
+                         Settings.Secure.DEFAULT_INPUT_METHOD, myIME);
+                }
+            } catch (Exception e) {
+            }
+        }
+    // add end
+}
+}

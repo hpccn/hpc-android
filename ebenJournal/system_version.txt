@@ -1,0 +1,27 @@
+
+LINUX/android/build/tools/supplier_buildinfo.mk
+@@ -21,7 +21,7 @@ SUPPLIER_PRODUCT_PLATFORM_VERSION := R6.0
+ ####################################################
+ PRODUCT_MAJOR_VERSION := 1
+ PRODUCT_MINOR_VERSION := 0
+-PRODUCT_POINT_VERSION := 214
++PRODUCT_POINT_VERSION := 0_T10m
+ PRODUCT_STAGE := beta
+ 
+
+
+删除文件不行
+build.prop
+
+
+out/target/product/msm8952_64/obj/ETC/system_build_prop_intermediates/build.prop
+out/target/product/msm8952_64/obj/PACKAGING/target_files_intermediates/msm8952_64-target_files-eng.hpc/SYSTEM/build.prop
+out/target/product/msm8952_64/system/build.prop
+
+
+
+手动修改文件：
+
+out/target/product/msm8952_64/system/build.prop
+
+make snod 打包

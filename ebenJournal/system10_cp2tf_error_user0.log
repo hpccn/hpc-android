@@ -1,0 +1,24 @@
+
+: avc: denied { ioctl } for path="socket:[108687]" dev="sockfs" ino=108687 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[108687]" dev="sockfs" ino=108687 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[107431]" dev="sockfs" ino=107431 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[107431]" dev="sockfs" ino=107431 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[107491]" dev="sockfs" ino=107491 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[107491]" dev="sockfs" ino=107491 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[107886]" dev="sockfs" ino=107886 ioctlcmd=7704 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:r:platform_app:s0:c512,c768 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[107886]" dev="sockfs" ino=107886 ioctlcmd=7704 scontext=u:r:platform_app:s0:c512,c768 tcontext=u:r:platform_app:s0:c512,c768 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[62822]" dev="sockfs" ino=62822 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+

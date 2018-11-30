@@ -1,0 +1,32 @@
+加密能话：
+
+libvoip/src/main/java/com/ebensz/activate/AgreeMentActivity.java
+{
+//https://118.178.239.105/secret.call/warn.html
++29
+    public static String url = "https://118.178.239.105/secret.call/warn.html";
+
++ 38
+            host = AppUtil.readVoipUrlFromSD();
+            if (host != null) {
+                url = "https://" + host + "/secret.call/warn.html";
+			}
+
+
+}
+
+libvoip/src/main/java/com/ebensz/util/AppUtil.java:238
+{
+	+238 本地SD卡中存文件，指定用户协议url
+//   /storage/emulated/0/voipManagerURl.txt
+    public static String readVoipUrlFromSD() {
+        FileInputStream fis = null;
+        try {
+            File file = new File(Environment.getExternalStorageDirectory(), "voipManagerURl.txt");
+ 
+
+
+libvoip/src/main/java/com/ebensz/client/Client.java
+{
+// 加密电话注册，查询
+}

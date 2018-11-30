@@ -1,0 +1,12 @@
+frameworks/base/core/java/android/app/ActivityThread.java
+
+
+
+adb push out/target/product/msm8952_64/system/framework/ext.jar /system/framework/ext.jar
+adb push out/target/product/msm8952_64/system/framework/framework.jar /system/framework/framework.jar
+adb push out/target/product/msm8952_64/system/framework/arm/boot.art /system/framework/arm/boot.art
+adb push out/target/product/msm8952_64/system/framework/arm/boot.oat /system/framework/arm/boot.oat
+adb push out/target/product/msm8952_64/system/framework/arm64/boot.art /system/framework/arm64/boot.art
+adb push out/target/product/msm8952_64/system/framework/arm64/boot.oat /system/framework/arm64/boot.oat 
+
+

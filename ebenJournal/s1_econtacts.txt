@@ -5,3 +5,36 @@ S1 未系统系统联系人
 
 拨号功能
  packages/apps/EbenSystemApk/EContacts/src/com/ebensz/contacts/data/Utilities.java
+
+
+packages/apps/Contacts/AndroidManifest.xml:253
+
+        <activity
+            android:name=".activities.ShowOrCreateActivity"
+            android:label="@string/launcherActivityLabel"
+            android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar">
+
+            <intent-filter>
+                <action android:name="com.android.contacts.action.SHOW_OR_CREATE_CONTACT" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="mailto" />
+                <data android:scheme="tel" />
+            </intent-filter>
+        </activity>
+
+
+                <action android:name="com.android.contacts.action.SHOW_OR_CREATE_CONTACT" />
+				此功能在 EContacts中未实现，导致外部无法添加联系人
+
+
+
+将T10， M3 的/system/priv-app/contactProvider.apk oat 移植到S1均无法使用。
+
+
+
+拨打电话中， 显示 “拨号键盘” 改为“键盘” 所有的资源 在vender 下
+
+
+gvim vendor/qcom/proprietary/qrdplus/globalization/multi-language/res-overlay/packages/apps/Dialer/res/values-zh/strings.xml +181
+gvim vendor/qcom/proprietary/qrdplus/globalization/multi-language/res-overlay/packages/apps/InCallUI/res/values-zh/strings.xml +242
+gvim vendor/qcom/proprietary/qrdplus/globalization/multi-language/res-overlay/packages/services/Telephony/res/values-zh/strings.xml +993

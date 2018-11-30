@@ -13,3 +13,59 @@ c -> a 拨打加密通话     c 提示 加密通话等待接通。   a 显示无
 c -> d 拨打加密通话     c 提示 加密通话等待接通。   d 显示无法区别来电是否加密
 
 
+
+Removes private phone number options for product requirements
+
+
+android textView调整字体的间距和行间距
+1、android:lineSpacingExtra
+设置行间距，如”3dp”。
+
+2、android:lineSpacingMultiplier
+设置行间距的倍数，如”1.2″。
+
+
+1 修改
+
+获取M3加密通话源码，重新编译。
+AndroidStudio工程。电脑内存较小使用Android Studio导至系统卡死，非常缓慢。
+
+使用gradle 编译。
+遇到的坑：
+
+gradle 编译中，用到系统framework.jar 解决编译中使用外部jar,而不打入apk中。
+gradle 开始配制为1G无法编译通过。 编译最低需要1536M内存。修改编译脚本，改为2G编译通过。
+
+需求：
+1 最近运行不显示加密通话。
+2 移除加密通话去电号码显示选项。 修改界面。
+3 移除桌面快图标， 图标为应用内创建的快捷方式。并非AndroidManifest.xml中的配制。
+#2
+由 韩 鹏程 更新于 一分钟内 之前
+Comment Edit
+
+设置-》系统应用 -》电话 中需要移除 -【去电显号】选项。
+
+此功能不在EPhone模块。需要修改Telephoney模块。
+
+
+Telephony 模块：
+
+布局文件
+packages/services/Telephony/res/xml/phone_setting.xml
+
+
+packages/services/Telephony/src/com/android/phone/PhoneSetting.java
+
+		// hpc Remove private_call_category_key
+       getPreferenceScreen().removePreference(findPreference("private_call_category_key"));//这是 删除整个 一级节点
+
+ Preference test = findPreference("ttts");
+        ((PreferenceGroup)findPreference("thirdC")).removePreference(findPreference("ttts"));//这是删除 二级节点
+
+       getPreferenceScreen().removePreference(findPreference("thirdC"));//这是 删除整个 一级节点
+
+      ((PreferenceGroup)findPreference("thirdC")).removeAll();//这是 删除整个 一级节点下 所有的二级节点，但不会 删除 一级 节点的 节点名，
+
+
+       // getPreferenceScreen().removePreference(findPreference("ttts"));//这样 无效，这样 只能删除一级节点

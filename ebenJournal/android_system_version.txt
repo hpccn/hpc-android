@@ -1,0 +1,6 @@
+t10
+
+build/tools/supplier_buildinfo.mk
+
+S1
+build/tools/buildinfo.sh

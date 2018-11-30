@@ -1,0 +1,100 @@
+ frameworks/base/services/core/java/com/android/server/MountService.java
+ packages/apps/PackageInstaller/src/com/android/packageinstaller/PackageInstallerActivity.java
+ {
++620
+
+			// hanpengcheng
+			// black white list
+			int installMode = getInstallMode();
+			String pkgName = mPkgInfo.packageName;
+			if (localLOGV) Log.i(TAG, " installMode " + installMode + ", pkg " + pkgName);
+			switch (installMode){
+				case EbenSystemService.INSTALL_MODE_BLACK: {
+					List <String> list = ebenService.getRefuseInstalls();
+					if (localLOGV) Log.i(TAG, " black list contains" + list.contains(pkgName));
+					if (list != null && list.contains(pkgName)){
+						showDialogInner(DLG_ADMIN_RESTRICTS_UNKNOWN_SOURCES);
+					}
+				}
+					break;
+				case EbenSystemService.INSTALL_MODE_WHITE:{
+					List <String> list = ebenService.getPermitInstalls();
+					if (localLOGV) Log.i(TAG, "white list contains" + list.contains(pkgName));
+					if (list == null || (!list.contains(pkgName))){
+						showDialogInner(DLG_ADMIN_RESTRICTS_UNKNOWN_SOURCES);
+					}
+				}
+					break;
+				case EbenSystemService.INSTALL_MODE_NULL:
+				default:
+			}
+			// end
+
+
+ }
+
+
+
+ frameworks/base/core/java/android/content/pm/PackageManager.java
+ {
+public abstract class PackageManager {
+
+ }
+
+
+
+ frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java +17228
+ {
++9927
+    @Override
+    public void installPackage(String originPath, IPackageInstallObserver2 observer,
+            int installFlags, String installerPackageName, VerificationParams verificationParams,
+            String packageAbiOverride) {
+        android.util.SeempLog.record(90);
+        installPackageAsUser(originPath, observer, installFlags, installerPackageName,
+                verificationParams, packageAbiOverride, UserHandle.getCallingUserId());
+    }
+
+    @Override
+    public void installPackageAsUser(String originPath, IPackageInstallObserver2 observer,
+            int installFlags, String installerPackageName, VerificationParams verificationParams,
+            String packageAbiOverride, int userId) {
+        mContext.enforceCallingOrSelfPermission(android.Manifest.permission.INSTALL_PACKAGES, null);
+
+        final int callingUid = Binder.getCallingUid();
+        enforceCrossUserPermission(callingUid, userId, true, true, "installPackageAsUser");
+
+
+ }
+ frameworks/base/core/java/android/app/ApplicationPackageManager.java
+ {
+	 +1381
+  @Override
+    public void installPackageWithVerificationAndEncryption(Uri packageURI,
+            PackageInstallObserver observer, int flags, String installerPackageName,
+            VerificationParams verificationParams, ContainerEncryptionParams encryptionParams) {
+        installCommon(packageURI, observer, flags, installerPackageName, verificationParams,
+                encryptionParams);
+    }
+
+    private void installCommon(Uri packageURI,
+            PackageInstallObserver observer, int flags, String installerPackageName,
+            VerificationParams verificationParams, ContainerEncryptionParams encryptionParams) {
+        if (!"file".equals(packageURI.getScheme())) {
+            throw new UnsupportedOperationException("Only file:// URIs are supported");
+        }
+        if (encryptionParams != null) {
+            throw new UnsupportedOperationException("ContainerEncryptionParams not supported");
+        }
+
+        final String originPath = packageURI.getPath();
+        try {
+            mPM.installPackage(originPath, observer.getBinder(), flags, installerPackageName,
+                    verificationParams, null);
+        } catch (RemoteException ignored) {
+        }
+    }
+
+
+
+ }

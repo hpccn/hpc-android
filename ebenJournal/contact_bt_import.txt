@@ -1,0 +1,18 @@
+蓝牙导入联系人：
+
+入口：
+
+packages/apps/EbenSystemApk/EContacts/src/com/ebensz/contacts/BluetoothNavigationActivity.java +56
+
+
+
+
+packages/apps/EbenSystemApk/EContacts/src/com/ebensz/contacts/SilentTaskService.java
+{
++347 
+
+    private void importOneContacts(Account account, VCardEntry entry) {
+		... ...
+	}
+
+}

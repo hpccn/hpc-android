@@ -1,0 +1,118 @@
+从T8S_8939_a1 移植  
+
+
+参考李伟超实现的一个服务，这三个文件都已经提交到最新代码中
+frameworks/base/core/java/android/os/IEbenSystemService.aidl
+frameworks/base/core/java/android/app/EbenSystemManager.java
+frameworks/base/services/core/java/com/android/server/EbenSystemService.java
+ 
+说明如下：
+1       EbenSystemManager.java 是为上层应用提供的接口文件，里面的方法是调用的IEbenSystemService.aidl 的接口
+2       EbenSystemService.java 是具体实现IEbenSystemService.aidl 里的方法
+3       EbenSystemManager.java 这个文件可以写空方法提供给客户
+4       我们封装的管控接口，需要在上述三个文件里依次添加。
+
+
+
+k9 中的实现
+AppPrivateManager
+
+android4.4 to 6.0
+
+frameworks/base/services/java/com/android/server/am/AppPrivateManagerService.java
+
+frameworks/base/core/java/android/app/IAppPrivateManager.aidl
+
+frameworks/base/core/java/android/app/AppPrivateManager.java
+
+
+
+// T10中 BYD实现的一部分，未调用，
+先在这上面上修改试试：
+frameworks/base/core/java/android/app/AppPrivManager.java
+
+frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java
+{
++13642
+    private boolean deletePackageLI(String packageName, UserHandle user,
+            boolean deleteCodeAndResources, int[] allUserHandles, boolean[] perUserInstalled,
+            int flags, PackageRemovedInfo outInfo,
+            boolean writeSettings) {
+        if (packageName == null) {
+            Slog.w(TAG, "Attempt to delete null packageName.");
+            return false;
+        }
+		// add by hpc
+		//
+
+        //refuse delete
+		android.app.AppPrivManager.getInstance().setContext(mContext);
+		if (android.app.AppPrivManager.getInstance().isPackageDeleteRefused(packageName)){
+			return false;
+		}
+		// end hpc
+ 
+
+BYD 实现方法有BUG
+insert 有Bug
+isPackageDeleteRefused  错误。
+
+
+git 库编译后，无法启动：
+
+10-01 03:19:15.567   688   719 E QCALOG  : [MessageQ] ProcessNewMessage: [XT-CS] unknown deliver target [OS-Agent]
+10-01 03:19:15.573   751   856 W XTCC-5.1.0.13: [CS-RIL-LISTENER] timerCallback fired for ril update registering, re-register
+10-01 03:19:15.573   688   719 E QCALOG  : [MessageQ] ProcessNewMessage: [XT-CS] unknown deliver target [OS-Agent]
+10-01 03:19:15.573   688   719 E QCALOG  : [MessageQ] ProcessNewMessage: [XTWiFi-PE] unknown deliver target [OS-Agent]
+10-01 03:19:16.525   752   896 E slim_daemon: [NDK] bindNDKSensors: Sensor server is unavailable.
+10-01 03:19:17.525   752   896 E slim_daemon: [NDK] bindNDKSensors: Sensor server is unavailable.
+10-01 03:19:18.526   752   896 E slim_daemon: [NDK] bindNDKSensors: Sensor server is unavailable.
+10-01 03:19:19.526   752   896 E slim_daemon: [NDK] bindNDKSensors: Sensor server is unavailable.
+10-01 03:19:20.526   752   896 E slim_daemon: [NDK] bindNDKSensors: Sensor server is unavailable.
+
+
+
+
+回滚到 f3762a65ae9329ce87cdb6a6797433e058b14af3
+
+编译后还是无法启动
+
+日志同上
+
+更新到 e4b3bc409c5f2f33bb04cf1d7c3b4162394b74a7
+
+编译后还是无法启动
+
+日志同上
+
+
+
+回滚至  fac5c0eac96d850033d7402af684a6e512fe84e4
+再编译
+这个版本可启动
+
+
+
+ git diff fac5c0eac96d850033d7402af684a6e512fe84e4 e4b3bc409c5f2f33bb04cf1d7c3b4162394b74a7 --stat
+ LINUX/android/frameworks/base/core/java/android/app/EbenSystemManager.java            | 644 ++++++++++++++++++++-----------------
+ .../frameworks/base/core/java/android/eaihardwareinterface/HardwareInterface.java     |  57 +++-
+ LINUX/android/frameworks/base/core/java/android/os/IEbenSystemService.aidl            |  51 +--
+ LINUX/android/frameworks/base/media/java/android/media/MediaRecorder.java             |  17 +-
+ .../base/packages/SystemUI/src/com/android/systemui/recents/RecentsActivity.java      |  39 ++-
+ LINUX/android/frameworks/base/services/core/Android.mk                                |   2 +-
+ .../frameworks/base/services/core/java/com/android/server/EbenSystemService.java      | 119 ++++++-
+ .../base/services/core/java/com/android/server/am/ActivityManagerService.java         |  29 +-
+ .../base/services/core/java/com/android/server/eben/EbenAppWhiteListManage.java       | 697 +++++++++++++++++++++++++++++++++++++++++
+ .../base/services/core/java/com/android/server/eben/WhiteListXmlManage.java           | 118 +++++++
+ .../base/services/core/java/com/android/server/policy/PhoneWindowManager.java         |  34 +-
+ .../packages/services/Telephony/src/com/android/phone/MobileNetworkSettings.java      |   5 +
+
+删除 ebensz-support.jar 相关， 还是无法启动，
+
+ LINUX/android/frameworks/base/services/core/Android.mk                                |   2 +-
+
+
+	修改:         LINUX/android/frameworks/base/services/core/Android.mk
+	修改:         LINUX/android/frameworks/base/services/core/java/com/android/server/EbenSystemService.java
+	删除:         LINUX/android/frameworks/base/services/core/java/com/android/server/eben/EbenAppWhiteListManage.java
+

@@ -1,0 +1,30 @@
+
+安装 Lantern (Arch Linux)
+
+Lantern 是一个免费的应用程序，它能帮助你随时随地快速、可靠、安全地访问互联网。
+
+首先配置 Arch Linux 中文社区仓库，然后：
+
+$ sudo pacman -S lantern
+
+安装完成后，点击“应用程序 → 其他 → lantern”就可以启动 Lantern，此时在任务栏通知区域会出现 Lantern 程序图标。
+
+
+
+
+
+Arch Linux 中文社区仓库是由 Arch Linux 中文社区驱动的非官方用户仓库，包含中文用户常用软件、工具、字体/美化包等。
+
+仓库地址：repo.archlinuxcn.org
+
+使用方法：在 /etc/pacman.conf 文件末尾添加以下三行：
+
+[archlinuxcn]
+SigLevel = Optional TrustedOnly
+Server = http://repo.archlinuxcn.org/$arch
+
+然后：
+
+    $ sudo pacman -Syy
+    $ sudo pacman -Syu
+    $ sudo pacman -S archlinuxcn-keyring

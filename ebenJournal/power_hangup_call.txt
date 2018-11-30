@@ -1,0 +1,35 @@
+
+Setting
+
+packages/services/Telephony/res/xml/phone_setting.xml +34
+{
+  <SwitchPreference
+            android:key="button_power_hangup_key"
+            android:persistent="false"
+            android:summary="@string/power_hangup_summary"
+            android:title="@string/power_hangup_title" />
+}
+
+
+packages/services/Telephony/src/com/android/phone/PhoneSetting.java +77
+{
++319
+  if (mButtonPower != null) {
+            int power = Settings.Secure.getInt(getContentResolver(),
+                    Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR,
+                    Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR_DEFAULT);
+            mButtonPower
+                    .setChecked(power == Settings.Secure.INCALL_POWER_BUTTON_BEHAVIOR_HANGUP);
+        }
+
+}
+
+
+电源键挂电话动作
+
+frameworks/base/services/core/java/com/android/server/policy/PhoneWindowManager.java:985
+{
+
+}
+
+

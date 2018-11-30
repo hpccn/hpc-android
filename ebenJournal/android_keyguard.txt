@@ -1,0 +1,45 @@
+
+锁屏界面上显示Activity
+
+在Android中，有些比较强的提醒，需要用户紧急处理的内容。需要唤醒屏幕，甚至在锁定屏幕的情况下，也要显示出来。例如，来电界面和闹钟提醒界面。这是怎样实现的呢？
+
+其实，实现起来非常简单。只要给Activity的Window添加如下属性即可：
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {  
+    super.onCreate(savedInstanceState);
+    getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
+        | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+    ...
+}
+
+注意这里的FLAG_SHOW_WHEN_LOCKED和FLAG_TURN_SCREEN_ON，从名字上就能看出其作用。FLAG_TURN_SCREEN_ON使Activity启动的时候能够点亮屏幕。FLAG_SHOW_WHEN_LOCKED能够在屏幕锁定的时候，也能显示。
+
+关于FLAG_SHOW_WHEN_LOCKED这个flag，官方文档说明如下：
+
+    Window flag: special flag to let windows be shown when the screen is locked. This will let application windows take precedence over key guard or any other lock screens. Can be used with FLAG_KEEP_SCREEN_ON to turn screen on and display windows directly before showing the key guard window. Can be used with FLAG_DISMISS_KEYGUARD to automatically fully dismisss non-secure keyguards. This flag only applies to the top-most full-screen window.
+
+这段话的大概意思是，这个Flag能够让windown在锁屏的时候，在锁屏之上显示。可以配合FLAG_KEEP_SCREEN_ON（保持屏幕常亮）和FLAG_DISMISS_KEYGUARD（解锁屏幕）等Flag使用。需要特别注意的是最后一句话，意思就是这个flag只有是全屏幕的window才起作用。例如，对你的Activity使用了Dialog的Theme，如下：
+
+<activity android:theme="@android:style/Theme.Dialog" />  
+
+这时，你的Activity将不能显示在锁屏之上。
+
+另外，在锁屏上显示Activity，为了不让界面显得太突兀，你可能还想能够使用系统的屏保作为你的Activity背景，系统闹钟就是这么做的。要实现这样的功能也特别容易，只要把Activity的背景设为透明即可，例如你可以为你的Activity定义如下Theme：
+
+<style name="FullScreenTheme" parent="@android:style/Theme.Light.NoTitle">  
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:colorBackgroundCacheHint">@null</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="miui:windowTranslucentStatus">transparentDark</item>
+</style>
+
+<activity android:theme="@style/FullScreenTheme" />  
+
+题外话，我们可以通过如下方法判断，系统是否处在锁屏状态：
+
+KeyguardManager km =  
+    (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+boolean showingLocked = km.inKeyguardRestrictedInputMode();  
+

@@ -1,0 +1,13 @@
+
+
+grep -rn "进入安全系统可查看该通知详情" frameworks/base/packages/SystemUI/
+frameworks/base/packages/SystemUI/res/values-zh-rCN/strings.xml:496:    <string name="notification_prompt_title">"进入安全系统可查看该通知详情"</string>
+hpc@scm-eben:/mnt/disk2T/hpc/hpc-dev/s1/s1$ grep -rn "notification_prompt_title" frameworks/base/packages/SystemUI/
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java:5507:        mCustomDialog.setTitle(R.string.notification_prompt_title);
+frameworks/base/packages/SystemUI/res/layout/activity_prompt.xml:23:            android:text="@string/notification_prompt_title">
+
+
+
+图片资源：
+
+/mnt/28disk2T/hpc-dev/s1/s1/frameworks/base/packages/SystemUI/res/drawable-xxhdpi/notification_prompt_img.png

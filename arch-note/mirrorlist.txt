@@ -1,0 +1,11 @@
+将镜像按速度排序
+
+    使用rankmirrors
+    备份现在的镜像文件
+
+cp mirrorlist mirrorlist.backup
+
+
+使用rankmirrors将mirrorlist.back里的镜像按速度排序,找出前6个放到镜像文件里
+
+rankmirrors -n 6 mirrorlist.backup > mirrorlist

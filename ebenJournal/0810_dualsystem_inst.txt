@@ -1,0 +1,29 @@
+
+双系统中com.android.server.telecom 未开启
+
+user10
+安全系统未注册 通话管理包
+com.android.server.telecom
+
+/data/system/users/10/package-restrictions.xml
+
+<pkg name="com.android.server.telecom" inst="false" stopped="true" nl="true" />
+
+测试手动修改为 inst="true" 功能正常
+
+
+修改文件：
+
+
+grep -rn "com.android.server.telecom" packages/apps/
+packages/apps/EbenSystemApk/EBridge/src/com/ebensz/bridge/UpgradeHelper.java:86:        sAppNames.add("com.android.server.telecom");
+packages/apps/Settings/src/com/android/settings/notification/AppNotificationSettings.java:176:        if ("com.android.server.telecom".equals(pkg)){
+packages/apps/Settings/src/com/ebensz/app/util/AppUtils.java:39:        sNotificationAppNames.add("com.android.server.telecom");
+
+修改这里生效：
+packages/apps/ManagedProvisioning/res/values/disallowed_apps_managed_profile.xml:22:        <item>com.android.server.telecom</item>
+packages/apps/ManagedProvisioning/res/values/packages_to_delete_new_managed_profile.xml:22:        <item>com.android.server.telecom</item>
+
+
+在T10中user10禁用app在此： 
+packages/apps/Settings/src/com/android/settings/ManagedProfileSetup.java

@@ -1,6 +1,6 @@
 启动悬浮窗管理的action:
 
-Log.d(TAG,Log.getStackTraceString(new Throwable()));
+Log.d(TAG, Log.getStackTraceString(new Throwable()));
 // 打印调用堆栈
 
 frameworks/base/core/java/android/provider/Settings.java

@@ -84,7 +84,6 @@ packages/apps/EBridge/src/com/ebensz/bridge/DualSystemManagerService.java
 
 }
 
-
 import com.ebensz.bridgeapi.DualSystem.DualSystemManager;
 
 
@@ -108,3 +107,18 @@ vendor/3rd_App/PRC/EbenSystemApp/ebensz-support.jar
 vendor/3rd_App/PRC/EbenSystemApp/jars/ebensz-support.jar
 
 
+
+
+
+// 
+
+
+import com.ebensz.bridgeapi.BridgeConstant;
+import com.ebensz.bridgeapi.DualSystem.DualSystemManager;
+
+
+protected DualSystemManager mDualSystemManager;
+
+
+mDualSystemManager = new DualSystemManager(mContext);
+mDualSystemManager.sendIntentAfterSwitchSys(sbn.getUserId(), intent);

@@ -1,0 +1,14 @@
+
+./device/qcom/msm8952_32/vold.fstab
+./device/qcom/msm8952_64/vold.fstab
+
+
+./device/qcom/msm8952_32/init.target.rc
+./device/qcom/msm8952_64/init.target.rc
+挂载custom分区
+# hpc add 
+    wait /dev/block/bootdevice/by-name/custom
+    mount ext4 /dev/block/bootdevice/by-name/custom /custom nosuid nodev barrier=1
+#end hpc
+ 
+

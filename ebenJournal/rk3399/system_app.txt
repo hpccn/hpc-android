@@ -1,0 +1,27 @@
+build/target/product/core.mk
+
+不打包系统应用
+
+
+
+vendor/rockchip/common/apps/apps.mk
+不打包rk3399应用
+
+
+device/rockchip/rk3399/rk3399_mid/
+修改系统分区， 从1.5 调整为3G
+
+
+device/rockchip/rk3399/rk3399_mid/system.prop
+
+#set default lcd density for rk3399 tablet
+#ro.sf.lcd_density=280
+#hpc eben 
+ro.sf.lcd_density=320
+
+#ro.rk.systembar.voiceicon=true
+# hpc disable 
+
+
+
+

@@ -1,0 +1,79 @@
+配置
+
+使用外部aar 
+?       ELauncher3/libs/ActionBar.aar
+?       ELauncher3/libs/Standard.aar
+?       ELauncher3/libs/Templates.aar
+
+
++++ ELauncher3/build.gradle	
+@@ -1,7 +1,7 @@
+ apply plugin: 'com.android.application'
+ android {
+     compileSdkVersion 23
+-    buildToolsVersion '25.0.0'
++    buildToolsVersion '26.0.1'
+ 
+     lintOptions {
+         checkReleaseBuilds false
+@@ -53,15 +53,25 @@
+     compile fileTree(dir: 'libs', include: ['*.jar'])
+ }*/
+ 
++repositories {
++	flatDir {
++		dirs 'libs'
++	}
++
++}
++
+ dependencies {
+-    compile 'com.android.support:support-v4:23.1.0'
+-    compile 'com.android.support:recyclerview-v7:23.1.0'
++    compile 'com.android.support:support-v4:23.4.0'
++    compile 'com.android.support:recyclerview-v7:23.4.0'
++    compile (name:'Standard', ext:'aar')
++    compile (name:'ActionBar', ext:'aar')
++    compile (name:'Templates', ext:'aar')
+     compile files('libs/protobuf.jar')
+     compile files('libs/universal-image-loader-1.9.4.jar')
+     compile project(':BridgeAPI')
+-    compile project(':Standard')
++    //compile project(':Standard')
+     //provided files('libs/classes.jar')
+     compile 'com.android.support:appcompat-v7:23.4.0'
+-    compile project(':Templates')
++    //compile project(':Templates')
+ }
+
+
+
+底部定制
+
+ELauncher3/res/xml/default_workspace_6x5.xml
+{
+
+
+    <!-- Hotseat (We use the screen as the position of the item in the hotseat) -->
+
+}
+
+
+切换壁纸崩溃：
+ELauncher3/src/com/android/launcher3/editor/WallpaperChooserPanel.java
+{
+
+@@ -156,9 +156,10 @@
+             WallpaperManager wpm = (WallpaperManager) getContext().getSystemService(Context.WALLPAPER_SERVICE);
+             //modify by chenchangliang, not use different wallpaper
+             wpm.setResource(mImages.get(position)/*, userId*/);
+-            wpm.updateUserWallpaper(userId);
++			// modify by hanpengcheng  android7
++            //wpm.updateUserWallpaper(userId);
+             LastP = position;
+-        } catch (IOException e) {
++        } catch (Exception e) {
+             Log.e(TAG, "Failed to set wallpaper: " + e);
+         }
+     }
+}

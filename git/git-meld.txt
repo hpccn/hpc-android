@@ -1,0 +1,25 @@
+
+meld做git的diff工具
+I think Meld is a good gui tool for git diff.
+
+setp 1:Ubuntu install meld
+    
+    sudo apt-get install meld
+
+step 2:create a shell script named git_meld.sh
+
+    vim ~/bin/ngit-meld.sh
+
+    #!/bin/sh
+    meld $2 $5
+
+step 3: chang git_meld.sh permissions
+
+    chmod +x ~/bin/git_meld.sh
+
+step 4: config git diff tool
+
+    git config --global diff.external ~/bin/git-meld.sh
+
+
+

@@ -1,0 +1,10 @@
+锁屏页面，遮挡左上角显示页面
+
+
+/mnt/28disk2T/hpc-dev/s1/s1/frameworks/base/core/res/res/drawable-xxhdpi/proximity_lock_view_phone.png
+
+
+
+联系人客服 8848
+
+/mnt/28disk2T/hpc-dev/s1/s1/packages/providers/ContactsProvider/res/drawable-xxhdpi/default_contacts_photo.png

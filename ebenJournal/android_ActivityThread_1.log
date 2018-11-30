@@ -1,0 +1,512 @@
+
+11-09 13:45:30.290 11214 11214 I ServiceManager: Waiting for service AtCmdFwd...
+11-09 13:45:30.332  4532  4532 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+11-09 13:45:30.335  4532  4532 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+11-09 13:45:31.291 11214 11214 I ServiceManager: Waiting for service AtCmdFwd...
+11-09 13:45:31.374   783   783 I MSM-irqbalance: Decided to move IRQ321 from CPU1 to CPU3
+11-09 13:45:32.291 11214 11214 W Atfwd_Sendcmd: AtCmdFwd service not published, waiting... retryCnt : 5
+11-09 13:45:32.837  1415  4730 I ActivityManager: START u10 {flg=0x34000000 cmp=com.tencent.mm/.plugin.voip.ui.VideoActivity (has extras)} from uid 1010054 on display 0
+11-09 13:45:32.838  5338  5342 E ANDR-PERF-MPCTL: Invalid profile no. 0, total profiles 0 only
+11-09 13:45:32.843  1415  4730 D ActivityManager: startPausingLocked jumpOtherApk = true,needFreeze = false,isFreeze = false,top = ActivityRecord{60601a8 u10 com.tencent.mm/.plugin.voip.ui.VideoActivity t238}
+11-09 13:45:32.844  5188  5206 V EAppManagerProgress: unregisterCallback
+11-09 13:45:32.846  5188  5188 W EAppManagerProgress: ProgressService onDestroy.
+11-09 13:45:32.847  1415  4678 I FunctionManagerService: Check com.tencent.mm args 2
+11-09 13:45:32.851  1415  4443 D ActivityManager: notifyAppLock packageName = com.tencent.mm
+11-09 13:45:32.851  1415  4443 D ActivityManager: removeOddTask ignoreTopTask:TaskRecord{50d0a3e #238 A=com.tencent.mm U=10 sz=1},mTopPkg=com.tencent.mm
+11-09 13:45:32.851  1415  4443 D ActivityManager: removeOddTask taketime = 0
+11-09 13:45:32.855 10793 10793 E ActivityThread: Activity created===-1
+11-09 13:45:32.863 10793 10793 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@6c4089d
+11-09 13:45:32.863 10793 10793 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@285b112
+11-09 13:45:32.878  1415  4280 I MediaFocusControl:  AudioFocus  requestAudioFocus() from android.media.AudioManager@27d6e04com.tencent.mm.compatible.util.c$1@616dad1 req=2flags=0x0
+11-09 13:45:32.883  4116  4116 D ImageWallpaper: onVisibilityChanged: mVisible, visible=true, false
+11-09 13:45:32.883  4116  4116 D ImageWallpaper: Visibility changed to visible=false
+11-09 13:45:32.883  4116  4116 D ImageWallpaper: Suppressed drawFrame since redraw is not needed and offsets have not changed.
+11-09 13:45:32.884 10793 10793 E ExtMediaPlayer-JNI: env->IsInstanceOf fails
+11-09 13:45:32.884 10793 10793 E MediaPlayer-JNI: JNIMediaPlayerFactory: bIsQCMediaPlayerPresent 0
+11-09 13:45:32.884 10793 10793 E ExtMediaPlayer-JNI: env->IsInstanceOf fails
+11-09 13:45:32.884 10793 10793 E MediaPlayer-JNI: JNIMediaPlayerFactory: bIsQCMediaPlayerPresent 0
+11-09 13:45:32.885   590  4528 I ExtendedNuUtils: printFileName fd(45) -> /system/app/EWeixin/EWeixin.apk
+11-09 13:45:32.888  1415  4522 E         : In legacy send it!!
+11-09 13:45:32.891   590 11686 E MM_OSAL : Data is not sufficient to validate AAC
+11-09 13:45:32.891   590 11686 E MM_OSAL : ValidateAACFile data not sufficient
+11-09 13:45:32.892   590 11686 I QComExtractorFactory: Sniff: Set key to use qti parser
+11-09 13:45:32.892   590 11686 I ExtendedExtractor: QTIParser is prefered
+11-09 13:45:32.892   590 11686 E MMParserExtractor: Set buffers is disabled by property
+11-09 13:45:32.892   590 11686 D MMParserExtractor: using bigger parser buffers
+11-09 13:45:32.892   590 11686 I ExtendedExtractor: ExtendedExtractor::create 0xeb63f780
+11-09 13:45:32.892   590 11686 I ExtendedExtractor: ExtendedExtractor::updateExtractor: Use default QTI parser 
+11-09 13:45:32.892   590 11686 E MM_OSAL : FileSource::FileSource
+11-09 13:45:32.892   590 11686 E MM_OSAL : FileSource::FileSource m_bEveryThingOK 1
+11-09 13:45:32.892   590 11686 E MM_OSAL : MM_File_Create failed .Efs Error No -1 , File Name /data/mmosal_logmask.cfg , Mode 0
+11-09 13:45:32.892   590 11686 E MM_OSAL : Open or read fail on /data/mmosal_logmask.cfg. Possible permission denied issue. Looking for /data/misc/media/mmosal_logmask.cfg
+11-09 13:45:32.892   590 11686 E MM_OSAL : MM_File_Create failed .Efs Error No -1 , File Name /data/misc/media/mmosal_logmask.cfg , Mode 0
+11-09 13:45:32.892   590 11686 D MMParserExtractor: Overiding Parser out buffer size  = 262144 
+11-09 13:45:32.892   590 11684 D NuPlayerDriver: notifyListener_l(0xebc82000), (1, 0, 0, 4)
+11-09 13:45:32.893 10793 10793 D MediaPlayer: setSubtitleAnchor in MediaPlayer
+11-09 13:45:32.895   590   590 D NuPlayerDriver: start(0xebc82000), state is 4, eos is 0
+11-09 13:45:32.895   590 11684 I GenericSource: start
+11-09 13:45:32.897   590 11689 D audio_hw_extn: audio_extn_get_parameters: returns 
+11-09 13:45:32.897   590 11689 I str_params: key: 'is_hw_dec_session_available' value: 'audio/mpeg'
+11-09 13:45:32.899   590 11690 E OMXNodeInstance: setConfig(56:google.mp3.decoder, ConfigPriority(0x6f800002)) ERROR: Undefined(0x80001001)
+11-09 13:45:32.899   590 11690 I ACodec  : codec does not support config priority (err -2147483648)
+11-09 13:45:32.899   590 11690 E OMXNodeInstance: setConfig(56:google.mp3.decoder, ConfigPriority(0x6f800002)) ERROR: Undefined(0x80001001)
+11-09 13:45:32.899   590 11690 I ACodec  : codec does not support config priority (err -2147483648)
+11-09 13:45:32.900   590 11690 I MediaCodec: MediaCodec will operate in async mode
+11-09 13:45:32.897  4745  4745 W Binder_E: type=1400 audit(0.0:1595): avc: denied { ioctl } for path="socket:[69500]" dev="sockfs" ino=69500 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:32.897  4745  4745 W Binder_E: type=1400 audit(0.0:1596): avc: denied { ioctl } for path="socket:[69500]" dev="sockfs" ino=69500 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:32.901   590 11689 I ExtendedNuUtils: Both src and dst missing for durationUs
+11-09 13:45:32.901   590 11689 I ExtendedNuUtils: Both src and dst missing for channel-mask
+11-09 13:45:32.902   590 11688 D AudioPolicyManagerCustom: virtual android::status_t android::AudioPolicyManagerCustom::getOutputForAttr(const audio_attributes_t*, audio_io_handle_t*, audio_session_t, audio_stream_type_t*, uid_t, uint32_t, audio_format_t, audio_channel_mask_t, audio_output_flags_t, audio_port_handle_t, const audio_offload_info_t*):: attribute is NULL .. no usage set
+11-09 13:45:32.902   590 11688 D compress_voip: voice_extn_compress_voip_out_get_parameters: enter
+11-09 13:45:32.902  1415  4079 D OprationMonitorService: clientname to package:com.tencent.m
+11-09 13:45:32.902  1415  4079 I OprationMonitorService: Use Pressure Sensor uid:1010054 packagename:com.tencent.mm pid:10793
+11-09 13:45:32.902   590  3784 D audio_hw_primary: out_set_parameters: enter: usecase(1: low-latency-playback) kvpairs: routing=2
+11-09 13:45:32.903   590  3784 D audio_hw_extn: audio_extn_set_anc_parameters: anc_enabled:0
+11-09 13:45:32.903   590 11684 D NuPlayerDriver: notifyListener_l(0xebc82000), (6, 0, 0, 5)
+11-09 13:45:32.913   590  3784 D audio_hw_primary: start_output_stream: enter: stream(0xeed91d80)usecase(1: low-latency-playback) devices(0x2)
+11-09 13:45:32.913   590  3784 D msm8916_platform: platform_get_output_snd_device: exit: snd_device(speaker)
+11-09 13:45:32.913   590  3784 D audio_hw_primary: select_devices: out_snd_device(2: speaker) in_snd_device(0: )
+11-09 13:45:32.913   590  3784 I msm8916_platform: platform_check_and_set_codec_backend_cfg: Usecase bitwidth 16, samplerate 48000, backend_idx 0
+11-09 13:45:32.913   590  3784 I msm8916_platform: platform_check_codec_backend_cfg Codec selected backend: 0 current bit width: 16 and sample rate: 48000
+11-09 13:45:32.913   590  3784 D msm8916_platform: platform_check_codec_backend_cfg: resetting sample_rate back to default, backend_idx: 0
+11-09 13:45:32.913   590  3784 I msm8916_platform: platform_check_codec_backend_cfg Codec selected backend: 0 updated bit width: 16 and sample rate: 48000
+11-09 13:45:32.913   590  3784 D hardware_info: hw_info_append_hw_type : device_name = speaker
+11-09 13:45:32.913   590  3784 D audio_hw_primary: enable_snd_device: snd_device(2: speaker)
+11-09 13:45:32.913   590  3784 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0x2 of type 0 for Event 1, with Raise=0
+11-09 13:45:32.913   590  3784 I audio_hw_primary: select_devices Selected apptype: 69937
+11-09 13:45:32.913   590  3784 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_id 1 of type 0 for Event 3, with Raise=0
+11-09 13:45:32.913   590  3784 I audio_hw_utils: audio_extn_utils_send_app_type_cfg app_type 69937, acdb_dev_id 14, sample_rate 48000
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_audio_cal, acdb_id = 14, path =  0
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_asm_topology
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TOPOLOGY_ID
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_adm_topology
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TOPOLOGY_ID
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_audtable
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TABLE_SIZE
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TABLE
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_CAL
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_audvoltable
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_GAIN_DEP_STEP_TABLE
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_VOL_CAL
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_audstrmtable
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TABLE_V2
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> audstrm_cal->cal_type.cal_data.cal_size = 32
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_afe_topology
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_TOPOLOGY_ID
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> GET_AFE_TOPOLOGY_ID for adcd_id 14, Topology Id 1025e
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_afe_cal
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_COMMON_TABLE
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> AUDIO_SET_AFE_CAL
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> send_hw_delay : acdb_id = 14 path = 0
+11-09 13:45:32.913   590  3784 D ACDB-LOADER: ACDB -> ACDB_AVSYNC_INFO: ACDB_CMD_GET_DEVICE_PROPERTY
+11-09 13:45:32.913   590  3784 D audio_hw_primary: enable_audio_route: apply mixer and update path: low-latency-playback
+11-09 13:45:32.914   590  3784 D audio_hw_primary: select_devices: done
+11-09 13:45:32.916   590  3784 D msm8916_platform: platform_set_channel_map mixer_ctl_name:Playback Channel Map12
+11-09 13:45:32.916   590  3784 D msm8916_platform: platform_set_channel_map: set mapping(1 2 0 0 0 0 0 0) for channel:2
+11-09 13:45:32.940   590  3784 D audio_hw_primary: start_output_stream: exit
+11-09 13:45:32.942  1415  1426 I ActivityManager: moveTaskToBack: TaskRecord{50d0a3e #238 A=com.tencent.mm U=10 sz=1}
+11-09 13:45:32.943  1415  1426 I ActivityManager: moveTaskToBack: prevIsHome ---> true, canGoHome ---> true, numTasks ---> 2, isOnHomeDisplay ---> true, mResumedActivity ---> ActivityRecord{60601a8 u10 com.tencent.mm/.plugin.voip.ui.VideoActivity t238}
+11-09 13:45:32.955  1415  1426 D ActivityManager: startPausingLocked jumpOtherApk = true,needFreeze = false,isFreeze = false,top = ActivityRecord{6caaf33 u0 com.android.launcher3/.Launcher t228}
+11-09 13:45:32.956  1415  1426 D ActivityManager: removeOddTask ignoreTopTask:TaskRecord{b9dcb23 #228 I=com.android.launcher3/.Launcher U=0 sz=1},mTopPkg=com.android.launcher3
+11-09 13:45:32.957  1415  1426 D ActivityManager: notifyAppLock packageName = com.android.launcher3
+11-09 13:45:32.958 10793 10793 I ActivityThread: across launching app. moveTaskToBack()
+11-09 13:45:32.959 10793 10793 I ActivityThread: UserHandle.myUserId() 10, Process.myUid() 1010054, dual system 0, r.activity.getApplicationInfo().uid 1010054, r.activity com.tencent.mm.plugin.voip.ui.VideoActivity@e9b1cdc, appUid 10054
+11-09 13:45:32.959 10793 10793 D AndroidRuntime: Shutting down VM
+11-09 13:45:32.959 10793 10793 E CrashHandler: In thread: Thread[main,5,main]
+11-09 13:45:32.959 10793 10793 E CrashHandler: UncaughtException detected: java.lang.NullPointerException: Attempt to invoke virtual method 'boolean android.content.Intent.migrateExtraStreamToClipData()' on a null object reference
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.PendingIntent.getActivity(PendingIntent.java:309)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.PendingIntent.getActivity(PendingIntent.java:272)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.ActivityThread.buildNotication(ActivityThread.java:2479)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2462)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2570)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.ActivityThread.access$900(ActivityThread.java:160)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1354)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.os.Looper.loop(Looper.java:148)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at android.app.ActivityThread.main(ActivityThread.java:5516)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at java.lang.reflect.Method.invoke(Native Method)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+11-09 13:45:32.959 10793 10793 E CrashHandler: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+11-09 13:45:32.959 10793 10793 I crash_recorder: recordTbsCrash:
+11-09 13:45:32.959 10793 10793 I crash_recorder:  {java.lang.NullPointerException: Attempt to invoke virtual method 'boolean android.content.Intent.migrateExtraStreamToClipData()' on a null object reference
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.PendingIntent.getActivity(PendingIntent.java:309)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.PendingIntent.getActivity(PendingIntent.java:272)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.ActivityThread.buildNotication(ActivityThread.java:2479)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2462)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2570)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.ActivityThread.access$900(ActivityThread.java:160)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1354)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.os.Looper.loop(Looper.java:148)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at android.app.ActivityThread.main(ActivityThread.java:5516)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at java.lang.reflect.Method.invoke(Native Method)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+11-09 13:45:32.959 10793 10793 I crash_recorder: 	at com.android.internal.os.ZygoteInit.main(Zygot
+11-09 13:45:32.960 10793 10793 I crash_recorder: isInTbsContext, webviewType: unknown, isLoading: 0
+11-09 13:45:32.978  4759  4759 E TAGOOD  : <<==>> Statistics Enabled: true
+11-09 13:45:32.979  4759  4759 V Launcher: onResume for state = NONEgesture type : 0, userGestureUnlock = false
+11-09 13:45:32.984  5188  5188 W EAppManagerProgress: mHandler onCreate.
+11-09 13:45:32.985  5188 11696 V EAppManagerProgress: loadDownloadStatus
+11-09 13:45:32.990  4116  4116 V PhoneStatusBar: [RD1]onResume->packageName: com.android.launcher3 className: com.android.launcher3.Launcher isDialerView: false isShowPhone: false mInCallShowPhone: false
+11-09 13:45:32.991  1415  4730 W InputMethodManagerService: Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@ecf43c5 attribute=null, token = android.os.BinderProxy@63b10f6
+11-09 13:45:33.001  5188  5203 V EAppManagerProgress: registerCallback
+11-09 13:45:33.001  5188  5188 I TAG     : callback.onAllStatusComplete
+11-09 13:45:33.002  4116  4116 D ImageWallpaper: onVisibilityChanged: mVisible, visible=false, true
+11-09 13:45:33.002  4116  4116 D ImageWallpaper: Visibility changed to visible=true
+11-09 13:45:33.002  4759  4771 V Launcher.Download: onAllStatusComplete...................
+11-09 13:45:33.002  4116  4116 D ImageWallpaper: Suppressed drawFrame since redraw is not needed and offsets have not changed.
+11-09 13:45:33.009  4759  4759 V Launcher.Download: handleAllStatus......user = UserHandle{0}, statusList.size = 0
+11-09 13:45:33.119  1415  4280 I ActivityManager: Start proc 11700:com.tencent.mm:sandbox/u10a54 for service com.tencent.mm/.sandbox.monitor.ExceptionMonitorService
+11-09 13:45:33.122 10793 10793 I Process : Sending signal. PID: 10793 SIG: 9
+11-09 13:45:33.151 11700 11700 W System  : ClassLoader referenced unknown path: /system/app/EWeixin/lib/arm
+11-09 13:45:33.180  1415  4758 E         : In legacy send it!!
+11-09 13:45:33.180  1415  4443 W MediaFocusControl:   AudioFocus   audio focus client died
+11-09 13:45:33.180  1415  4678 I WindowState: WIN DEATH: Window{49bab69 u10 com.tencent.mm/com.tencent.mm.ui.LauncherUI}
+11-09 13:45:33.180   590  4528 D NuPlayerDriver: reset(0xebc82000)
+11-09 13:45:33.180   590  4528 D NuPlayerDriver: notifyListener_l(0xebc82000), (8, 0, 0, 5)
+11-09 13:45:33.180   590  4528 W NuPlayerDriver: Media stopped
+11-09 13:45:33.180  1415  4443 I MediaFocusControl: AudioFocus  removeFocusStackEntry(): removing entry for android.os.BinderProxy@c672a40
+11-09 13:45:33.180  1415  4280 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ id=19, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ], android.os.BinderProxy@44cad79)
+11-09 13:45:33.181  1415  4027 D ConnectivityService: releasing NetworkRequest NetworkRequest [ id=19, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:33.182  1415  4027 E ConnectivityService: RemoteException caught trying to send a callback msg for NetworkRequest [ id=19, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:33.184   590 11688 W AudioFlinger: session id 86 not found for pid 10793
+11-09 13:45:33.185   590 11684 D NuPlayerDriver: notifyResetComplete(0xebc82000)
+11-09 13:45:33.191  1415  4727 I ActivityManager: Process com.tencent.mm (pid 10793) has died
+11-09 13:45:33.192  1415  4727 D ActivityManager: cleanUpApplicationRecord -- 10793
+11-09 13:45:33.192  1415  1432 I OprationMonitorService: onPidKill:10793
+11-09 13:45:33.192  1415  4727 W ActivityManager: Scheduling restart of crashed service com.tencent.mm/.booter.NotifyReceiver$NotifyService in 1000ms
+11-09 13:45:33.192  1415  4727 W ActivityManager: Scheduling restart of crashed service com.tencent.mm/.plugin.appbrand.ipc.AppBrandMainProcessService in 11000ms
+11-09 13:45:33.192  1415  4727 W ActivityManager: Scheduling restart of crashed service com.tencent.mm/.ipcinvoker.wx_extension.service.MainProcessIPCService in 21000ms
+11-09 13:45:33.205  1415  4725 I ActivityManager: Start proc 11714:com.tencent.mm/u10a54 for service com.tencent.mm/.plugin.appbrand.ipc.AppBrandMainProcessService
+11-09 13:45:33.221 11700 11700 E ActivityThread: Failed to find provider info for com.tencent.mm.coolassist.debugprovider
+11-09 13:45:33.221  4116  4116 D PhoneStatusBar: addNotification: when=1541741745417 ongoing=true contentView=android.widget.RemoteViews@7cb53ab bigContentView=null publicView=null tickerText=null
+11-09 13:45:33.233  6040 11682 W art     : Native thread exiting without having called DetachCurrentThread (maybe it's going to use a pthread_key_create destructor?): Thread[32,tid=11682,Native,Thread*=0xd1c2ac00,peer=0x12dbd0a0,"default"]
+11-09 13:45:33.242 11714 11714 W System  : ClassLoader referenced unknown path: /system/app/EWeixin/lib/arm
+11-09 13:45:33.253  4116  4116 V PhoneStatusBar: [RD1]updateNotificationShade.........count = 4
+11-09 13:45:33.287 11700 11700 W jni crash monitor: JNI_OnLoad
+11-09 13:45:33.309 11714 11714 E ActivityThread: Failed to find provider info for com.tencent.mm.coolassist.debugprovider
+11-09 13:45:33.339  4532  4532 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+11-09 13:45:33.341  4532  4532 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+11-09 13:45:33.381 11714 11714 W jni crash monitor: JNI_OnLoad
+11-09 13:45:33.510  4759  5197 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+11-09 13:45:33.510  4759  5197 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+11-09 13:45:33.546 11714 11761 V BoostFramework: mAcquireFunc method = public int com.qualcomm.qti.Performance.perfLockAcquire(int,int[])
+11-09 13:45:33.546 11714 11761 V BoostFramework: mReleaseFunc method = public int com.qualcomm.qti.Performance.perfLockRelease()
+11-09 13:45:33.546 11714 11761 V BoostFramework: mAcquireTouchFunc method = public int com.qualcomm.qti.Performance.perfLockAcquireTouch(android.view.MotionEvent,android.util.DisplayMetrics,int,int[])
+11-09 13:45:33.546 11714 11761 V BoostFramework: mIOPStart method = public int com.qualcomm.qti.Performance.perfIOPrefetchStart(int,java.lang.String)
+11-09 13:45:33.546 11714 11761 V BoostFramework: mIOPStop method = public int com.qualcomm.qti.Performance.perfIOPrefetchStop()
+11-09 13:45:33.547 11714 11761 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@145ebe8
+11-09 13:45:33.577 11714 11761 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@c5b856a
+11-09 13:45:33.577 11714 11761 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@f9a4a5b
+11-09 13:45:33.618 11714 11743 E art     : No implementation found for void com.tencent.wcdb.database.SQLiteGlobal.nativeSetDefaultPageSize(int) (tried Java_com_tencent_wcdb_database_SQLiteGlobal_nativeSetDefaultPageSize and Java_com_tencent_wcdb_database_SQLiteGlobal_nativeSetDefaultPageSize__I)
+11-09 13:45:33.632 11714 11743 I WCDB    : Initialize JNI module (1/11) CursorWindow...
+11-09 13:45:33.632 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/CursorWindow natives
+11-09 13:45:33.632 11714 11743 I WCDB    : Initialize JNI module (2/11) ChunkedCursorWindow...
+11-09 13:45:33.632 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/ChunkedCursorWindow natives
+11-09 13:45:33.632 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteAsyncQuery natives
+11-09 13:45:33.632 11714 11743 I WCDB    : Initialize JNI module (3/11) SQLiteConnection...
+11-09 13:45:33.633 11714 11743 I WCDB    : Initialize JNI module (4/11) SQLiteDebug...
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteDebug natives
+11-09 13:45:33.633 11714 11743 I WCDB    : Initialize JNI module (5/11) SQLiteDirectCursor...
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteDirectQuery natives
+11-09 13:45:33.633 11714 11743 I WCDB    : Initialize JNI module (6/11) SQLiteGlobal...
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteGlobal natives
+11-09 13:45:33.633 11714 11743 I WCDB    : Initialize JNI module (7/11) FileUtils...
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/FileUtils natives
+11-09 13:45:33.633 11714 11743 I WCDB    : Initialize JNI module (8/11) DBBackup...
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/BackupKit natives
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/RecoverKit natives
+11-09 13:45:33.633 11714 11743 I WCDB    : Initialize JNI module (9/11) DBDumpUtil...
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/DBDumpUtil natives
+11-09 13:45:33.633 11714 11743 I WCDB    : Initialize JNI module (10/11) DBRepair...
+11-09 13:45:33.633 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/RepairKit$RepairCursor natives
+11-09 13:45:33.634 11714 11743 I WCDB    : Initialize JNI module (11/11) Log...
+11-09 13:45:33.634 11714 11743 V WCDB.JNIHelp: Registering com/tencent/wcdb/support/Log natives
+11-09 13:45:33.653 11714 11743 E art     : No implementation found for java.util.ArrayList com.tencent.mars.smc.SmcLogic.getLoadLibraries() (tried Java_com_tencent_mars_smc_SmcLogic_getLoadLibraries and Java_com_tencent_mars_smc_SmcLogic_getLoadLibraries__)
+11-09 13:45:33.671  1415  1426 I FunctionManagerService: Check com.tencent.mm args 1
+11-09 13:45:33.667  1440  1440 W Binder_3: type=1400 audit(0.0:1597): avc: denied { ioctl } for path="socket:[78673]" dev="sockfs" ino=78673 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:33.667  1440  1440 W Binder_3: type=1400 audit(0.0:1598): avc: denied { ioctl } for path="socket:[78673]" dev="sockfs" ino=78673 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:33.676 11700 11780 I DpmTcmClient: RegisterTcmMonitor from: org.apache.http.impl.conn.TcmIdleTimerMonitor
+11-09 13:45:33.687  7600  7600 W Binder_5: type=1400 audit(0.0:1599): avc: denied { ioctl } for path="socket:[72236]" dev="sockfs" ino=72236 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:33.687  7600  7600 W Binder_5: type=1400 audit(0.0:1600): avc: denied { ioctl } for path="socket:[72236]" dev="sockfs" ino=72236 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:34.053  1415  1428 V ActivityManager: Attempted to start a foreground service (ComponentInfo{com.tencent.mm/com.tencent.mm.booter.NotifyReceiver$NotifyService}) with a broken notification (no icon: Notification(pri=0 contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 vis=PRIVATE))
+11-09 13:45:34.060  1415  4443 I FunctionManagerService: Check com.tencent.mm args 2
+11-09 13:45:34.061  1415  1428 V ActivityManager: Attempted to start a foreground service (ComponentInfo{com.tencent.mm/com.tencent.mm.booter.NotifyReceiver$NotifyService$InnerService}) with a broken notification (no icon: Notification(pri=0 contentView=null vibrate=null sound=null defaults=0x0 flags=0x40 color=0x00000000 vis=PRIVATE))
+11-09 13:45:34.062  1415  1425 I FunctionManagerService: Check com.tencent.mm args 1
+11-09 13:45:34.065  4116  4116 V PhoneStatusBar: [RD1]updateNotificationShade.........count = 4
+11-09 13:45:34.077  4116  4116 V PhoneStatusBar: [RD1]updateNotificationShade.........count = 4
+11-09 13:45:34.084  4116  4116 V PhoneStatusBar: [RD1]updateNotificationShade.........count = 3
+11-09 13:45:34.361 11714 11835 I OMXClient: Using client-side OMX mux.
+11-09 13:45:34.366   590  4034 I OMX-VENC: Video encode perflock acquired,handle=77
+11-09 13:45:34.368  1415  1434 D BluetoothManagerService: Message: 20
+11-09 13:45:34.368  1415  1434 D BluetoothManagerService: Added callback: android.bluetooth.IBluetoothManagerCallback$Stub$Proxy@164ad01:true
+11-09 13:45:34.414  1415  1425 I FunctionManagerService: Check com.tencent.mm args 1
+11-09 13:45:34.439 11714 11845 I crash_recorder: JNI_OnLoad at vm:0xee1fc000
+11-09 13:45:34.439 11714 11845 I crash_recorder: starting registerNativeSignalAction...
+11-09 13:45:34.446   590  4034 I OMX-VENC: Component_init : OMX.qcom.video.encoder.avc : return = 0x0
+11-09 13:45:34.449   590   590 I OMX-VENC: Component Deinit
+11-09 13:45:34.449   590   590 I OMX-VENC: Video encode perflock released
+11-09 13:45:34.453 11714 11845 W System  : ClassLoader referenced unknown path: /data/user/10/com.tencent.mm/app_tbs/share/plugins/com.tencent.qb.plugin.videodecode
+11-09 13:45:34.453 11714 11862 I OMXClient: Using client-side OMX mux.
+11-09 13:45:34.455   590  4528 I OMX-VENC: Video encode perflock acquired,handle=78
+11-09 13:45:34.458   590  4528 I OMX-VENC: Component_init : OMX.qcom.video.encoder.hevc : return = 0x0
+11-09 13:45:34.463   590  3794 I OMX-VENC: Component Deinit
+11-09 13:45:34.463   590  3794 I OMX-VENC: Video encode perflock released
+11-09 13:45:34.475 11714 11748 W Settings: Setting android_id has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.
+11-09 13:45:34.524 11714 11872 W art     : Before Android 4.1, method void android.webview.chromium.tencent.TencentWebViewContentsClientAdapter.setDownloadListener(com.tencent.tbs.core.webkit.DownloadListener) would have incorrectly overridden the package-private method in android.webview.chromium.WebViewContentsClientAdapter
+11-09 13:45:34.524 11714 11872 W art     : Before Android 4.1, method void android.webview.chromium.tencent.TencentWebViewContentsClientAdapter.setWebChromeClient(com.tencent.tbs.core.webkit.WebChromeClient) would have incorrectly overridden the package-private method in android.webview.chromium.WebViewContentsClientAdapter
+11-09 13:45:34.524 11714 11872 W art     : Before Android 4.1, method void android.webview.chromium.tencent.TencentWebViewContentsClientAdapter.setWebViewClient(com.tencent.tbs.core.webkit.WebViewClient) would have incorrectly overridden the package-private method in android.webview.chromium.WebViewContentsClientAdapter
+11-09 13:45:34.549 11714 11733 W AudioCapabilities: Unsupported mime audio/evrc
+11-09 13:45:34.551 11714 11733 W AudioCapabilities: Unsupported mime audio/qcelp
+11-09 13:45:34.558 11714 11733 W VideoCapabilities: Unrecognized profile 2130706433 for video/avc
+11-09 13:45:34.562 11714 11745 E ActivityThread: Failed to find provider info for com.huawei.android.launcher.settings
+11-09 13:45:34.563 11714 11745 E ActivityThread: Failed to find provider info for com.android.badge
+11-09 13:45:34.567 11714 11733 W Utils   : could not parse long range '175-174'
+11-09 13:45:34.567 11714 11874 D WonderPlayer-JNI: WDP: CPU Feature is  :
+11-09 13:45:34.567 11714 11874 D WonderPlayer-JNI: WDP: CPU family is  :
+11-09 13:45:34.570 11714 11733 W AudioCapabilities: Unsupported mime audio/qcelp
+11-09 13:45:34.571 11714 11733 W AudioCapabilities: Unsupported mime audio/evrc
+11-09 13:45:34.583 11714 11733 W VideoCapabilities: Unrecognized profile/level 0/3 for video/mpeg2
+11-09 13:45:34.588 11714 11733 W VideoCapabilities: Unrecognized profile/level 0/3 for video/mpeg2
+11-09 13:45:34.595 11714 11733 W VideoCapabilities: Unsupported mime video/x-ms-wmv
+11-09 13:45:34.596 11714 11733 W VideoCapabilities: Unsupported mime video/x-ms-wmv
+11-09 13:45:34.600 11714 11733 W VideoCapabilities: Unsupported mime video/wvc1
+11-09 13:45:34.605 11714 11873 I Adreno  : QUALCOMM build                   : 9fd6603, Id624ced7ea
+11-09 13:45:34.605 11714 11873 I Adreno  : Build Date                       : 02/28/17
+11-09 13:45:34.605 11714 11873 I Adreno  : OpenGL ES Shader Compiler Version: XE031.07.00.05
+11-09 13:45:34.605 11714 11873 I Adreno  : Local Branch                     : 
+11-09 13:45:34.605 11714 11873 I Adreno  : Remote Branch                    : quic/LA.BR.1.3.5_rb1.13
+11-09 13:45:34.605 11714 11873 I Adreno  : Remote Branch                    : NONE
+11-09 13:45:34.605 11714 11873 I Adreno  : Reconstruct Branch               : NOTHING
+11-09 13:45:34.605 11714 11733 W VideoCapabilities: Unsupported mime video/wvc1
+11-09 13:45:34.609 11714 11733 W VideoCapabilities: Unsupported mime video/divx
+11-09 13:45:34.612 11714 11733 W VideoCapabilities: Unsupported mime video/divx311
+11-09 13:45:34.614 11714 11733 W VideoCapabilities: Unsupported mime video/divx4
+11-09 13:45:34.623 11714 11733 W VideoCapabilities: Unsupported mime video/mp4v-esdp
+11-09 13:45:34.640 11714 11733 I VideoCapabilities: Unsupported profile 4 for video/mp4v-es
+11-09 13:45:34.677 11714 11886 I DpmTcmClient: RegisterTcmMonitor from: com.android.okhttp.TcmIdleTimerMonitor
+11-09 13:45:34.694  6040 11569 W art     : Native thread exiting without having called DetachCurrentThread (maybe it's going to use a pthread_key_create destructor?): Thread[28,tid=11569,Native,Thread*=0xd1c2a200,peer=0x133550a0,"default"]
+11-09 13:45:34.733 11714 11714 I icumtt  : ICU load finished. 55
+11-09 13:45:34.737 11714 11714 I Adreno  : QUALCOMM build                   : 9fd6603, Id624ced7ea
+11-09 13:45:34.737 11714 11714 I Adreno  : Build Date                       : 02/28/17
+11-09 13:45:34.737 11714 11714 I Adreno  : OpenGL ES Shader Compiler Version: XE031.07.00.05
+11-09 13:45:34.737 11714 11714 I Adreno  : Local Branch                     : 
+11-09 13:45:34.737 11714 11714 I Adreno  : Remote Branch                    : quic/LA.BR.1.3.5_rb1.13
+11-09 13:45:34.737 11714 11714 I Adreno  : Remote Branch                    : NONE
+11-09 13:45:34.737 11714 11714 I Adreno  : Reconstruct Branch               : NOTHING
+11-09 13:45:34.809 11714 11714 I memcheck: RenderProcessHostImpl
+11-09 13:45:34.818  1415  4079 D ConnectivityService: listenForNetwork for Listen from uid/pid:1010054/11714 for NetworkRequest [ id=20, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:34.847  6040 11902 W art     : Native thread exiting without having called DetachCurrentThread (maybe it's going to use a pthread_key_create destructor?): Thread[32,tid=11902,Native,Thread*=0xd1e9c900,peer=0x12dd7100,"default"]
+11-09 13:45:34.859  1415  4727 D ConnectivityService: listenForNetwork for Listen from uid/pid:1010054/11714 for NetworkRequest [ id=21, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:34.867  6040 11910 W art     : Native thread exiting without having called DetachCurrentThread (maybe it's going to use a pthread_key_create destructor?): Thread[32,tid=11910,Native,Thread*=0xd1c2b600,peer=0x12dd72e0,"default"]
+11-09 13:45:34.871  1415  4522 I FunctionManagerService: Check com.tencent.mm args 2
+11-09 13:45:34.955 11714 11945 I DpmTcmClient: RegisterTcmMonitor from: org.apache.http.impl.conn.TcmIdleTimerMonitor
+11-09 13:45:35.086  6040 11941 W art     : Native thread exiting without having called DetachCurrentThread (maybe it's going to use a pthread_key_create destructor?): Thread[32,tid=11941,Native,Thread*=0xd1e9c900,peer=0x12dd74c0,"default"]
+11-09 13:45:35.342  6040 11950 W art     : Native thread exiting without having called DetachCurrentThread (maybe it's going to use a pthread_key_create destructor?): Thread[32,tid=11950,Native,Thread*=0xd1c2b600,peer=0x12f6d400,"default"]
+11-09 13:45:35.419  1415  4727 I ActivityManager: START u10 {flg=0x34000000 cmp=com.tencent.mm/.plugin.voip.ui.VideoActivity (has extras)} from uid 1010054 on display 0
+11-09 13:45:35.423  1415  4727 D ActivityManager: startPausingLocked jumpOtherApk = true,needFreeze = false,isFreeze = false,top = ActivityRecord{60601a8 u10 com.tencent.mm/.plugin.voip.ui.VideoActivity t238}
+11-09 13:45:35.424  5188  5487 V EAppManagerProgress: unregisterCallback
+11-09 13:45:35.426  5188  5188 W EAppManagerProgress: ProgressService onDestroy.
+11-09 13:45:35.429  1415  4443 D ActivityManager: notifyAppLock packageName = com.tencent.mm
+11-09 13:45:35.430  1415  4443 D ActivityManager: removeOddTask ignoreTopTask:TaskRecord{50d0a3e #238 A=com.tencent.mm U=10 sz=1},mTopPkg=com.tencent.mm
+11-09 13:45:35.432 11714 11714 E ActivityThread: Activity created===-1
+11-09 13:45:35.456 11714 11714 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@f48098
+11-09 13:45:35.457 11714 11714 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@4d940f1
+11-09 13:45:35.457  4116  4116 D ImageWallpaper: onVisibilityChanged: mVisible, visible=true, false
+11-09 13:45:35.457  4116  4116 D ImageWallpaper: Visibility changed to visible=false
+11-09 13:45:35.458  4116  4116 D ImageWallpaper: Suppressed drawFrame since redraw is not needed and offsets have not changed.
+11-09 13:45:35.489  1415  1425 I MediaFocusControl:  AudioFocus  requestAudioFocus() from android.media.AudioManager@e629074com.tencent.mm.compatible.util.c$1@5b3099d req=2flags=0x0
+11-09 13:45:35.492 11714 11714 E ExtMediaPlayer-JNI: env->IsInstanceOf fails
+11-09 13:45:35.492 11714 11714 E MediaPlayer-JNI: JNIMediaPlayerFactory: bIsQCMediaPlayerPresent 0
+11-09 13:45:35.492 11714 11714 E ExtMediaPlayer-JNI: env->IsInstanceOf fails
+11-09 13:45:35.492 11714 11714 E MediaPlayer-JNI: JNIMediaPlayerFactory: bIsQCMediaPlayerPresent 0
+11-09 13:45:35.495   590   590 I ExtendedNuUtils: printFileName fd(45) -> /system/app/EWeixin/EWeixin.apk
+11-09 13:45:35.499  1415  4745 E         : In legacy send it!!
+11-09 13:45:35.501   590 11962 E MM_OSAL : Data is not sufficient to validate AAC
+11-09 13:45:35.501   590 11962 E MM_OSAL : ValidateAACFile data not sufficient
+11-09 13:45:35.502   590 11962 I QComExtractorFactory: Sniff: Set key to use qti parser
+11-09 13:45:35.502   590 11962 I ExtendedExtractor: QTIParser is prefered
+11-09 13:45:35.502   590 11962 E MMParserExtractor: Set buffers is disabled by property
+11-09 13:45:35.502   590 11962 D MMParserExtractor: using bigger parser buffers
+11-09 13:45:35.502   590 11962 I ExtendedExtractor: ExtendedExtractor::create 0xeb63f680
+11-09 13:45:35.502   590 11962 I ExtendedExtractor: ExtendedExtractor::updateExtractor: Use default QTI parser 
+11-09 13:45:35.502   590 11962 E MM_OSAL : FileSource::FileSource
+11-09 13:45:35.502   590 11962 E MM_OSAL : FileSource::FileSource m_bEveryThingOK 1
+11-09 13:45:35.502   590 11962 E MM_OSAL : MM_File_Create failed .Efs Error No -1 , File Name /data/mmosal_logmask.cfg , Mode 0
+11-09 13:45:35.502   590 11962 E MM_OSAL : Open or read fail on /data/mmosal_logmask.cfg. Possible permission denied issue. Looking for /data/misc/media/mmosal_logmask.cfg
+11-09 13:45:35.502   590 11962 E MM_OSAL : MM_File_Create failed .Efs Error No -1 , File Name /data/misc/media/mmosal_logmask.cfg , Mode 0
+11-09 13:45:35.502   590 11962 D MMParserExtractor: Overiding Parser out buffer size  = 262144 
+11-09 13:45:35.502   590 11960 D NuPlayerDriver: notifyListener_l(0xed312820), (1, 0, 0, 4)
+11-09 13:45:35.502 11714 11714 D MediaPlayer: setSubtitleAnchor in MediaPlayer
+11-09 13:45:35.505   590  4034 D NuPlayerDriver: start(0xed312820), state is 4, eos is 0
+11-09 13:45:35.505   590 11960 I GenericSource: start
+11-09 13:45:35.507   590 11966 D audio_hw_extn: audio_extn_get_parameters: returns 
+11-09 13:45:35.507   590 11966 I str_params: key: 'is_hw_dec_session_available' value: 'audio/mpeg'
+11-09 13:45:35.509   590 11967 E OMXNodeInstance: setConfig(59:google.mp3.decoder, ConfigPriority(0x6f800002)) ERROR: Undefined(0x80001001)
+11-09 13:45:35.509   590 11967 I ACodec  : codec does not support config priority (err -2147483648)
+11-09 13:45:35.509   590 11967 E OMXNodeInstance: setConfig(59:google.mp3.decoder, ConfigPriority(0x6f800002)) ERROR: Undefined(0x80001001)
+11-09 13:45:35.509   590 11967 I ACodec  : codec does not support config priority (err -2147483648)
+11-09 13:45:35.509   590 11967 I MediaCodec: MediaCodec will operate in async mode
+11-09 13:45:35.507  4522  4522 W Binder_7: type=1400 audit(0.0:1601): avc: denied { ioctl } for path="socket:[72375]" dev="sockfs" ino=72375 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:35.507  4522  4522 W Binder_7: type=1400 audit(0.0:1602): avc: denied { ioctl } for path="socket:[72375]" dev="sockfs" ino=72375 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:35.512  1415  4727 D OprationMonitorService: clientname to package:com.tencent.m
+11-09 13:45:35.512  1415  4727 I OprationMonitorService: Use Pressure Sensor uid:1010054 packagename:com.tencent.mm pid:11714
+11-09 13:45:35.514   590 11966 I ExtendedNuUtils: Both src and dst missing for durationUs
+11-09 13:45:35.514   590 11966 I ExtendedNuUtils: Both src and dst missing for channel-mask
+11-09 13:45:35.514   590 11964 D AudioPolicyManagerCustom: virtual android::status_t android::AudioPolicyManagerCustom::getOutputForAttr(const audio_attributes_t*, audio_io_handle_t*, audio_session_t, audio_stream_type_t*, uid_t, uint32_t, audio_format_t, audio_channel_mask_t, audio_output_flags_t, audio_port_handle_t, const audio_offload_info_t*):: attribute is NULL .. no usage set
+11-09 13:45:35.514   590 11964 D compress_voip: voice_extn_compress_voip_out_get_parameters: enter
+11-09 13:45:35.526   590  3784 D audio_hw_primary: out_set_parameters: enter: usecase(1: low-latency-playback) kvpairs: routing=2
+11-09 13:45:35.526   590  3784 D msm8916_platform: platform_get_output_snd_device: exit: snd_device(speaker)
+11-09 13:45:35.526   590  3784 D audio_hw_extn: audio_extn_set_anc_parameters: anc_enabled:0
+11-09 13:45:35.526   590 11960 D NuPlayerDriver: notifyListener_l(0xed312820), (6, 0, 0, 5)
+11-09 13:45:35.563   590  3784 D AudioFlinger: mixer(0xec980000) throttle end: throttle time(4)
+11-09 13:45:35.571  1415  1425 I ActivityManager: moveTaskToBack: TaskRecord{50d0a3e #238 A=com.tencent.mm U=10 sz=1}
+11-09 13:45:35.572  1415  1425 I ActivityManager: moveTaskToBack: prevIsHome ---> true, canGoHome ---> true, numTasks ---> 2, isOnHomeDisplay ---> true, mResumedActivity ---> ActivityRecord{60601a8 u10 com.tencent.mm/.plugin.voip.ui.VideoActivity t238}
+11-09 13:45:35.584  1415  1425 D ActivityManager: startPausingLocked jumpOtherApk = true,needFreeze = false,isFreeze = false,top = ActivityRecord{6caaf33 u0 com.android.launcher3/.Launcher t228}
+11-09 13:45:35.585  1415  1425 D ActivityManager: removeOddTask ignoreTopTask:TaskRecord{b9dcb23 #228 I=com.android.launcher3/.Launcher U=0 sz=1},mTopPkg=com.android.launcher3
+11-09 13:45:35.586  1415  1425 D ActivityManager: notifyAppLock packageName = com.android.launcher3
+11-09 13:45:35.587 11714 11714 I ActivityThread: across launching app. moveTaskToBack()
+11-09 13:45:35.588 11714 11714 I ActivityThread: UserHandle.myUserId() 10, Process.myUid() 1010054, dual system 0, r.activity.getApplicationInfo().uid 1010054, r.activity com.tencent.mm.plugin.voip.ui.VideoActivity@480be03, appUid 10054
+11-09 13:45:35.588 11714 11714 D AndroidRuntime: Shutting down VM
+11-09 13:45:35.588 11714 11714 E CrashHandler: In thread: Thread[main,5,main]
+11-09 13:45:35.588 11714 11714 E CrashHandler: UncaughtException detected: java.lang.NullPointerException: Attempt to invoke virtual method 'boolean android.content.Intent.migrateExtraStreamToClipData()' on a null object reference
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.PendingIntent.getActivity(PendingIntent.java:309)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.PendingIntent.getActivity(PendingIntent.java:272)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.ActivityThread.buildNotication(ActivityThread.java:2479)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2462)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2570)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.ActivityThread.access$900(ActivityThread.java:160)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1354)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.os.Looper.loop(Looper.java:148)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at android.app.ActivityThread.main(ActivityThread.java:5516)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at java.lang.reflect.Method.invoke(Native Method)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+11-09 13:45:35.588 11714 11714 E CrashHandler: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:616)
+11-09 13:45:35.588 11714 11714 I crash_recorder: recordTbsCrash:
+11-09 13:45:35.588 11714 11714 I crash_recorder:  {java.lang.NullPointerException: Attempt to invoke virtual method 'boolean android.content.Intent.migrateExtraStreamToClipData()' on a null object reference
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.PendingIntent.getActivity(PendingIntent.java:309)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.PendingIntent.getActivity(PendingIntent.java:272)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.ActivityThread.buildNotication(ActivityThread.java:2479)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2462)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2570)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.ActivityThread.access$900(ActivityThread.java:160)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1354)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.os.Looper.loop(Looper.java:148)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at android.app.ActivityThread.main(ActivityThread.java:5516)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at java.lang.reflect.Method.invoke(Native Method)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:726)
+11-09 13:45:35.588 11714 11714 I crash_recorder: 	at com.android.internal.os.ZygoteInit.main(Zygot
+11-09 13:45:35.588 11714 11714 I crash_recorder: isInTbsContext, webviewType: unknown, isLoading: 0
+11-09 13:45:35.599  4759  4759 E TAGOOD  : <<==>> Statistics Enabled: true
+11-09 13:45:35.599  4759  4759 V Launcher: onResume for state = NONEgesture type : 0, userGestureUnlock = false
+11-09 13:45:35.605  5188  5188 W EAppManagerProgress: mHandler onCreate.
+11-09 13:45:35.606  5188 11975 V EAppManagerProgress: loadDownloadStatus
+11-09 13:45:35.609  4116  4116 V PhoneStatusBar: [RD1]onResume->packageName: com.android.launcher3 className: com.android.launcher3.Launcher isDialerView: false isShowPhone: false mInCallShowPhone: false
+11-09 13:45:35.610  1415  4730 W InputMethodManagerService: Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@d63404c attribute=null, token = android.os.BinderProxy@63b10f6
+11-09 13:45:35.623  5188  5487 V EAppManagerProgress: registerCallback
+11-09 13:45:35.623  5188  5188 I TAG     : callback.onAllStatusComplete
+11-09 13:45:35.623  4116  4116 D ImageWallpaper: onVisibilityChanged: mVisible, visible=false, true
+11-09 13:45:35.623  4116  4116 D ImageWallpaper: Visibility changed to visible=true
+11-09 13:45:35.623  4759  4772 V Launcher.Download: onAllStatusComplete...................
+11-09 13:45:35.623  4759  4759 V Launcher.Download: handleAllStatus......user = UserHandle{0}, statusList.size = 0
+11-09 13:45:35.623  4116  4116 D ImageWallpaper: Suppressed drawFrame since redraw is not needed and offsets have not changed.
+11-09 13:45:35.634  1415  1422 W JavaBinder: Binder has been finalized when calling linkToDeath() with recip=0x7f90580ef8)
+11-09 13:45:35.709 11714 11714 I Process : Sending signal. PID: 11714 SIG: 9
+11-09 13:45:35.743  1415  4708 I FunctionManagerService: Check com.tencent.mm args 1
+11-09 13:45:35.745 11700 11976 I DpmTcmClient: RegisterTcmMonitor from: org.apache.http.impl.conn.TcmIdleTimerMonitor
+11-09 13:45:35.750  1415  1426 W MediaFocusControl:   AudioFocus   audio focus client died
+11-09 13:45:35.750  1415  4079 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ id=21, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ], android.os.BinderProxy@3324877)
+11-09 13:45:35.750  1415  4531 D ConnectivityService: ConnectivityService NetworkRequestInfo binderDied(NetworkRequest [ id=20, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ], android.os.BinderProxy@1874ce4)
+11-09 13:45:35.750   590   590 D NuPlayerDriver: reset(0xed312820)
+11-09 13:45:35.750   590   590 D NuPlayerDriver: notifyListener_l(0xed312820), (8, 0, 0, 5)
+11-09 13:45:35.750  1415  1426 I MediaFocusControl: AudioFocus  removeFocusStackEntry(): removing entry for android.os.BinderProxy@c61654d
+11-09 13:45:35.750   590   590 W NuPlayerDriver: Media stopped
+11-09 13:45:35.750  1415  4443 E         : In legacy send it!!
+11-09 13:45:35.750  1415  4027 D ConnectivityService: releasing NetworkRequest NetworkRequest [ id=21, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:35.751  1415  4027 E ConnectivityService: RemoteException caught trying to send a callback msg for NetworkRequest [ id=21, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:35.752  1415  4027 D ConnectivityService: releasing NetworkRequest NetworkRequest [ id=20, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:35.752  1415  4027 E ConnectivityService: RemoteException caught trying to send a callback msg for NetworkRequest [ id=20, legacyType=-1, [ Capabilities: INTERNET&NOT_RESTRICTED&TRUSTED] ]
+11-09 13:45:35.753   590 11964 W AudioFlinger: session id 88 not found for pid 11714
+11-09 13:45:35.753   590 11960 D NuPlayerDriver: notifyResetComplete(0xed312820)
+11-09 13:45:35.755  1415  4725 I ActivityManager: Process com.tencent.mm (pid 11714) has died
+11-09 13:45:35.755  1415  4725 D ActivityManager: cleanUpApplicationRecord -- 11714
+11-09 13:45:35.756  1415  1432 I OprationMonitorService: onPidKill:11714
+11-09 13:45:35.756  1415  4725 W ActivityManager: Scheduling restart of crashed service com.tencent.mm/.booter.NotifyReceiver$NotifyService in 1000ms
+11-09 13:45:35.756  1415  4725 W ActivityManager: Scheduling restart of crashed service com.tencent.mm/.plugin.appbrand.ipc.AppBrandMainProcessService in 1000ms
+11-09 13:45:35.756  1415  4725 W ActivityManager: Force removing ActivityRecord{60601a8 u10 com.tencent.mm/.plugin.voip.ui.VideoActivity t238}: app died, no saved state
+11-09 13:45:35.768  1415  4678 I ActivityManager: Start proc 11978:com.tencent.mm/u10a54 for service com.tencent.mm/.plugin.appbrand.ipc.AppBrandMainProcessService
+11-09 13:45:35.798 11978 11978 W System  : ClassLoader referenced unknown path: /system/app/EWeixin/lib/arm
+11-09 13:45:35.799  6040 11956 W art     : Native thread exiting without having called DetachCurrentThread (maybe it's going to use a pthread_key_create destructor?): Thread[32,tid=11956,Native,Thread*=0xd1e9c900,peer=0x12f6d520,"default"]
+11-09 13:45:35.856 11978 11978 E ActivityThread: Failed to find provider info for com.tencent.mm.coolassist.debugprovider
+11-09 13:45:35.927 11978 11978 W jni crash monitor: JNI_OnLoad
+11-09 13:45:36.076 11978 12005 V BoostFramework: mAcquireFunc method = public int com.qualcomm.qti.Performance.perfLockAcquire(int,int[])
+11-09 13:45:36.076 11978 12005 V BoostFramework: mReleaseFunc method = public int com.qualcomm.qti.Performance.perfLockRelease()
+11-09 13:45:36.076 11978 12005 V BoostFramework: mAcquireTouchFunc method = public int com.qualcomm.qti.Performance.perfLockAcquireTouch(android.view.MotionEvent,android.util.DisplayMetrics,int,int[])
+11-09 13:45:36.076 11978 12005 V BoostFramework: mIOPStart method = public int com.qualcomm.qti.Performance.perfIOPrefetchStart(int,java.lang.String)
+11-09 13:45:36.076 11978 12005 V BoostFramework: mIOPStop method = public int com.qualcomm.qti.Performance.perfIOPrefetchStop()
+11-09 13:45:36.077 11978 12005 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@24368a6
+11-09 13:45:36.104 11978 12005 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@8adac09
+11-09 13:45:36.104 11978 12005 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@4532e0e
+11-09 13:45:36.131  4759  5197 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+11-09 13:45:36.131  4759  5197 W OpenGLRenderer: Incorrectly called buildLayer on View: ShortcutAndWidgetContainer, destroying layer...
+11-09 13:45:36.141 11978 12001 E art     : No implementation found for void com.tencent.wcdb.database.SQLiteGlobal.nativeSetDefaultPageSize(int) (tried Java_com_tencent_wcdb_database_SQLiteGlobal_nativeSetDefaultPageSize and Java_com_tencent_wcdb_database_SQLiteGlobal_nativeSetDefaultPageSize__I)
+11-09 13:45:36.151 11978 12001 I WCDB    : Initialize JNI module (1/11) CursorWindow...
+11-09 13:45:36.151 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/CursorWindow natives
+11-09 13:45:36.152 11978 12001 I WCDB    : Initialize JNI module (2/11) ChunkedCursorWindow...
+11-09 13:45:36.152 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/ChunkedCursorWindow natives
+11-09 13:45:36.152 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteAsyncQuery natives
+11-09 13:45:36.152 11978 12001 I WCDB    : Initialize JNI module (3/11) SQLiteConnection...
+11-09 13:45:36.152 11978 12001 I WCDB    : Initialize JNI module (4/11) SQLiteDebug...
+11-09 13:45:36.152 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteDebug natives
+11-09 13:45:36.152 11978 12001 I WCDB    : Initialize JNI module (5/11) SQLiteDirectCursor...
+11-09 13:45:36.152 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteDirectQuery natives
+11-09 13:45:36.152 11978 12001 I WCDB    : Initialize JNI module (6/11) SQLiteGlobal...
+11-09 13:45:36.152 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/database/SQLiteGlobal natives
+11-09 13:45:36.152 11978 12001 I WCDB    : Initialize JNI module (7/11) FileUtils...
+11-09 13:45:36.152 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/FileUtils natives
+11-09 13:45:36.152 11978 12001 I WCDB    : Initialize JNI module (8/11) DBBackup...
+11-09 13:45:36.152 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/BackupKit natives
+11-09 13:45:36.153 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/RecoverKit natives
+11-09 13:45:36.153 11978 12001 I WCDB    : Initialize JNI module (9/11) DBDumpUtil...
+11-09 13:45:36.153 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/DBDumpUtil natives
+11-09 13:45:36.153 11978 12001 I WCDB    : Initialize JNI module (10/11) DBRepair...
+11-09 13:45:36.153 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/repair/RepairKit$RepairCursor natives
+11-09 13:45:36.153 11978 12001 I WCDB    : Initialize JNI module (11/11) Log...
+11-09 13:45:36.153 11978 12001 V WCDB.JNIHelp: Registering com/tencent/wcdb/support/Log natives
+11-09 13:45:36.171 11978 12001 E art     : No implementation found for java.util.ArrayList com.tencent.mars.smc.SmcLogic.getLoadLibraries() (tried Java_com_tencent_mars_smc_SmcLogic_getLoadLibraries and Java_com_tencent_mars_smc_SmcLogic_getLoadLibraries__)
+11-09 13:45:36.197   512   512 W Binder_2: type=1400 audit(0.0:1603): avc: denied { ioctl } for path="socket:[79236]" dev="sockfs" ino=79236 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:36.197   512   512 W Binder_2: type=1400 audit(0.0:1604): avc: denied { ioctl } for path="socket:[79236]" dev="sockfs" ino=79236 ioctlcmd=7704 scontext=u:r:surfaceflinger:s0 tcontext=u:r:surfaceflinger:s0 tclass=unix_stream_socket permissive=0
+11-09 13:45:36.343  4532  4532 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+11-09 13:45:36.345  4532  4532 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+11-09 13:45:36.345  1415  4027 D ConnectivityService: notifyType CAP_CHANGED for NetworkAgentInfo [WIFI () - 100]
+11-09 13:45:36.350  4116  4116 D wifi    : WifiTile WifiSignalCallback setWifiIndicators refreshState
+11-09 13:45:36.350  4116  4116 D QSTile.WifiTile: onWifiSignalChanged enabled=true
+11-09 13:45:36.354  4116  5153 D TelephonyManager: getDataEnabled: retVal=false
+11-09 13:45:36.356  4116  5153 D TelephonyManager: getDataEnabled: retVal=false
+11-09 13:45:36.356  4116  5153 D QSTile.WifiTile: handleUpdateState arg=CallbackInfo[enabled=true,connected=true,wifiSignalIconId=2130837772,enabledDesc="EBEN",activityIn=true,activityOut=true,wifiSignalContentDescription=WLAN 信号满格。]
+11-09 13:45:36.370   783   783 I MSM-irqbalance: Decided to move IRQ104 from CPU2 to CPU0
+11-09 13:45:36.861 11978 12058 I OMXClient: Using client-side OMX mux.
+11-09 13:45:36.862   590  4528 I OMX-VENC: Video encode perflock acquired,handle=81
+11-09 13:45:36.866   590  4528 I OMX-VENC: Component_init : OMX.qcom.video.encoder.avc : return = 0x0
+11-09 13:45:36.867   590  4034 I OMX-VENC: Component Deinit
+11-09 13:45:36.867   590  4034 I OMX-VENC: Video encode perflock released
+11-09 13:45:36.871 11978 12063 I OMXClient: Using client-side OMX mux.
+11-09 13:45:36.873   590  4034 I OMX-VENC: Video encode perflock acquired,handle=82
+11-09 13:45:36.876   590  4034 I OMX-VENC: Component_init : OMX.qcom.video.encoder.hevc : return = 0x0
+11-09 13:45:36.878   590  3794 I OMX-VENC: Component Deinit
+11-09 13:45:36.878   590  3794 I OMX-VENC: Video encode perflock released
+11-09 13:45:36.912 11978 11991 W AudioCapabilities: Unsupported mime audio/evrc
+11-09 13:45:36.913 11978 11991 W AudioCapabilities: Unsupported mime audio/qcelp
+11-09 13:45:36.917 11978 11991 W VideoCapabilities: Unrecognized profile 2130706433 for video/avc
+11-09 13:45:36.920  1415  4745 I FunctionManagerService: Check com.tencent.mm args 1
+11-09 13:45:36.923 11978 11991 W Utils   : could not parse long range '175-174'
+11-09 13:45:36.924 11978 11991 W AudioCapabilities: Unsupported mime audio/qcelp
+11-09 13:45:36.925 11978 11991 W AudioCapabilities: Unsupported mime audio/evrc
+11-09 13:45:36.934 11978 11991 W VideoCapabilities: Unrecognized profile/level 0/3 for video/mpeg2
+11-09 13:45:36.937 11978 11991 W VideoCapabilities: Unrecognized profile/level 0/3 for video/mpeg2
+11-09 13:45:36.951 11978 11991 W VideoCapabilities: Unsupported mime video/x-ms-wmv
+11-09 13:45:36.958 11978 11991 W VideoCapabilities: Unsupported mime video/x-ms-wmv
+11-09 13:45:36.961 11978 11991 W VideoCapabilities: Unsupported mime video/wvc1
+11-09 13:45:36.964 11978 11998 W Settings: Setting android_id has moved from android.provider.Settings.System to android.provider.Settings.Secure, returning read-only value.

@@ -1,0 +1,219 @@
+frameworks/base/services/core/java/com/android/server/EbenSystemService.java
+
+       public List<String> getAntiKills(){
+         Log.i(TAG, "getAntiKills ");
+-               
++               return ebenAppWhiteListManage.getProcessWhiteList();
++
++       /*      
+                HashMap<String, String> processWhiteList = ebenAppWhiteListManage.getProcessWhiteList();
+                List<String> list = new ArrayList<String>();
+                Set<Entry<String, String>> eSet  =  processWhiteList.entrySet();
+@@ -463,7 +465,7 @@ public class EbenSystemService extends IEbenSystemService.Stub{
+                        list.add(it3.next().getKey());
+                }
+                return list;
+-               
++               */
+        }
+
+frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java
+
++16097
+    private final boolean cleanUpApplicationRecordLocked(ProcessRecord app,
+            boolean restarting, boolean allowRestart, int index, boolean replacingPid) {
+        Slog.d(TAG, "cleanUpApplicationRecord -- " + app.pid);
+		// hanpengcheng
+		if(app.isAntiKill()) {
+			Slog.d(TAG, "anti kill cleanUpApplicationRecord -- " + app.pid);
+			return false;
+		}
+ 
+frameworks/base/services/core/java/com/android/server/am/ActivityStack.java
+
++2919
+    final boolean finishActivityLocked(ActivityRecord r, int resultCode, Intent resultData,
+            String reason, boolean oomAdj) {
+        if (r.finishing) {
+            Slog.w(TAG, "Duplicate finish request for " + r);
+            return false;
+        }
+
+		// hanpengcheng
+		if (null != r.app && r.app.isAntiKill()) {
+            Slog.w(TAG, "anti kill finishActivityLocked " + r);
+			return false;
+		}
+
+
+frameworks/base/services/core/java/com/android/server/am/ProcessRecord.java
++571
+	//hanpengcheng
+	public boolean isAntiKill(){
+		EbenAppWhiteListManage ebenAppWhiteListManage = EbenAppWhiteListManage.getWhiteListManage();
+		if (null != ebenAppWhiteListManage && ebenAppWhiteListManage.processWhiteSetContains(processName)) {
+			return true;
+		}
+		return false;
+	}
+
+    void kill(String reason, boolean noisy) {
+        if (!killedByAm) {
+            Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, "kill");
+            if (noisy) {
+                Slog.i(TAG, "Killing " + toShortString() + " (adj " + setAdj + "): " + reason);
+            }
+            EventLog.writeEvent(EventLogTags.AM_KILL, userId, pid, processName, setAdj, reason);
+
+			EbenAppWhiteListManage ebenAppWhiteListManage = EbenAppWhiteListManage.getWhiteListManage();
+			Slog.i(TAG, "anti Kill  " + toShortString() + " (adj " + setAdj + "): " + ebenAppWhiteListManage);
+			if (null != ebenAppWhiteListManage && ebenAppWhiteListManage.processWhiteSetContains(processName)) {
+                Slog.i(TAG, "anti Kill  " + toShortString() + " (adj " + setAdj + "): " + reason);
+			} else  {
+	
+frameworks/base/services/core/java/com/android/server/am/ActiveServices.java
++2787
+					// hanpengcheng
+					if (service.app.isAntiKill()){
+						Slog.i(TAG, " anti  Force stopping service " + service);
+						continue;
+					}
+ 
+
+
+vim packages/apps/Settings/src/com/android/settings/applications/InstalledAppDetails.java
+
++699
+   private void updateForceStopButton(boolean enabled) {
+		//hanpengcheng
+		
+	//	EbenAppWhiteListManage ebenAppWhiteListManage = EbenAppWhiteListManage.getWhiteListManage();
+	//	if (mAppControlRestricted ||
+	//		   	(null != ebenAppWhiteListManage && ebenAppWhiteListManage.processWhiteSetContains(mPackageInfo.packageName)) 
+	//	   ) {
+	//
+		List <String> list = null;
+		try {
+			EbenSystemService ebenService;
+			ebenService = (EbenSystemService) getSystemService("eben_system");
+			list = ebenService.getAntiKills();
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+
+		if (null != list && list.contains(mPackageInfo.packageName)){
+            mForceStopButton.setEnabled(false);
+			return;
+		}
+        if (mAppControlRestricted) {
+            mForceStopButton.setEnabled(false);
+        } else {
+            mForceStopButton.setEnabled(enabled);
+            mForceStopButton.setOnClickListener(InstalledAppDetails.this);
+        }
+    }
+
+frameworks/base/services/core/java/com/android/server/eben/EbenAppWhiteListManage.java
+
+
+
+@@ -62,6 +62,8 @@ public class EbenAppWhiteListManage {
+     private final static String NETWORK_IP_WHITE_LIST_FILE = "network_ip_white_list.xml";
+        // 禁止ip
+     private final static String NETWORK_IP_BLACK_LIST_FILE = "network_ip_black_list.xml";
++       // process White list
++    private final static String PROCESS_WHITE_LIST_FILE = "process_white_list.xml";
+ 
+ 
+     private final static String BOOT_WHITE_LIST_FILE = "boot_white_list.xml";
+@@ -114,7 +116,7 @@ public class EbenAppWhiteListManage {
+         share = mContext.getSharedPreferences(WHITE_LIST_SHARE_FILE,
+                 Context.MODE_PRIVATE);
+ 
+-
++               readProcessWhiteList();
+                readInstallerWhiteList();
+                readInstallWhiteList();
+                readInstallBlackList();
+@@ -181,6 +183,9 @@ public class EbenAppWhiteListManage {
+        }
+ 
+ 
++    public static EbenAppWhiteListManage getWhiteListManage() {
++        return whiteListManage;
++       }
+     public static EbenAppWhiteListManage getWhiteListManage(Context context) {
+         if (whiteListManage == null)
+             whiteListManage = new EbenAppWhiteListManage(context);
+@@ -269,28 +274,56 @@ public class EbenAppWhiteListManage {
+         }
+     }
+ 
++
++       private Set<String> processWhiteSet = new LinkedHashSet<String>();
+     public void addProcessWhite(String packageName) {
+-       if ("com.ebensz.enote.calendar".equals(packageName)){
+-               processWhiteList.put("com.android.providers.calendar", "com.android.providers.calendar");
+-       }
+-        processWhiteList.put(packageName, packageName);
+-        writeProcessWhite();
++    // if ("com.ebensz.enote.calendar".equals(packageName)){
++    //         processWhiteList.put("com.android.providers.calendar", "com.android.providers.calendar");
++    // }
++    //    processWhiteList.put(packageName, packageName);
++        //writeProcessWhite();
++               processWhiteSet.add(packageName);
++        writeFile(processWhiteSet, FILE + PROCESS_WHITE_LIST_FILE);
+     }
+ 
+     public void removeProcessWhite(String packageName) {
+-       if ("com.ebensz.enote.calendar".equals(packageName)){
+-               processWhiteList.remove("com.android.providers.calendar");
+-       }
+-        processWhiteList.remove(packageName);
+-        writeProcessWhite();
++//     if ("com.ebensz.enote.calendar".equals(packageName)){
++//             processWhiteList.remove("com.android.providers.calendar");
++//     }
++//        processWhiteList.remove(packageName);
++        //writeProcessWhite();
++        processWhiteSet.remove(packageName);
++        writeFile(processWhiteSet, FILE + PROCESS_WHITE_LIST_FILE);
++    }
++    private void readProcessWhiteList() {
++
++               try {
++                       Set<String> defaultSet = WhiteListXmlManage.getWhiteList(FILE + PROCESS_WHITE_LIST_FILE);
++                       if (defaultSet == null) {
++                               processWhiteSet = new LinkedHashSet<String>();
++                       } else {
++                               processWhiteSet = new LinkedHashSet<String>(defaultSet);
++                       }
++
++
++               } catch(Exception e){
++                       Log.e(TAG, e.getMessage());
++               }
++
+     }
+ 
+     public ArrayList<PowerApp> getWhiteListApps() {
+         return whiteListApps;
+     }
+ 
+-    public HashMap<String, String> getProcessWhiteList() {
+-        return processWhiteList;
++       public boolean processWhiteSetContains(String packageName){
++               return processWhiteSet.contains(packageName);
++       }
++
++       // hanpengcheng
++    //public HashMap<String, String> getProcessWhiteList() {
++    public List<String> getProcessWhiteList() {
++               return new ArrayList(processWhiteSet);
+     }
+ 
+     public ArrayList<PowerApp> getOtherList() {
+
+
+

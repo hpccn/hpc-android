@@ -1,0 +1,13 @@
+增加指纹检查接口，编译EBridge需要，用完需要回滚。
+
+frameworks/base/core/java/android/hardware/fingerprint/FingerprintManager.java
+{
+	+ 973
+	@RequiresPermission(MANAGE_FINGERPRINT)
+	public boolean GetEnrolledByUserIDs(int userid) {
+        boolean result = true;
+        return result;
+    }
+
+}
+

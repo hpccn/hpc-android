@@ -1,0 +1,54 @@
+T10m项目代码继续使用原有T10 Git库，只需要新建分支------以后T10和T10m需要注意在开发时切换分支
+
+git push <远程主机名> <本地分支名>:<远程分支名>
+
+git pull <远程分支>:<本地分支>
+
+访问方法：
+1.     在原T10目录创建新分支：
+git fetch origin t11:t11
+       git checkout t11
+2.     新建t11目录
+git clone ssh://XXX@10.10.134.54:29418/T10 -b t11 ./
+ 
+T11下拉和提交方法：
+       git pull –rebase origin t11
+git push origin HEAD:refs/for/t11
+
+       Gerrit页面上审核通过
+ 
+
+原T10目录下
+
+git fetch origin t10m:t10m
+
+git checkout t10m
+
+git pull origin t10m
+
+git push origin HEAD:refs/for/t10m
+
+ 
+
+ 
+
+ebent10分支代码T10，
+
+t10m分支代表T10m
+
+
+
+github上已经有master分支 和dev分支
+
+在本地
+
+git checkout -b dev 新建并切换到本地dev分支
+
+git pull origin dev 本地分支与远程分支相关联
+
+在本地新建分支并推送到远程
+
+git checkout -b test
+
+git push origin test   这样远程仓库中也就创建了一个test分支
+ 

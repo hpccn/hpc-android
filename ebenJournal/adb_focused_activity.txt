@@ -1,0 +1,8 @@
+
+adb 查看最顶层activity名称
+
+
+windows环境下:
+adb shell dumpsys activity | findstr “mFocusedActivity”
+linux:
+adb shell dumpsys activity | grep “mFocusedActivity”

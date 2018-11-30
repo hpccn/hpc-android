@@ -1,0 +1,13 @@
+通话中，拨号中，显示的 
+静音  等待  免提
+录音 “拨号键盘” 添加通话
+
+系统原生在 packages/apps/InCallUI
+
+packages/apps/InCallUI/res/values-zh-rCN/strings.xml:141
+
+packages/apps/InCallUI/res/layout/call_button_fragment.xml:116:
+
+并未编译进系统。
+
+资源在vender  vendor/qcom/proprietary/qrdplus/globalization下

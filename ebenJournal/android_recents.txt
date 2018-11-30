@@ -1,0 +1,24 @@
+android不让程序显示在最近程序列表中
+
+Android:excludeFromRecents属性用于控制程序在不在recent列表中显示。
+
+true时不显示；false显示，其中false为默认值。
+
+运行如下activity后，不会显示在recent列表中。
+
+
+ 运行如下activity后，不会显示在recent列表中。
+
+程序正在运行或者退出，在长按HOME键的最近程序列表中不显示该应用以达到隐藏进程的目的。
+
+解决办法如下：
+
+在主activity处设置属性：android:excludeFromRecents=“true”
+
+
+<activity
+            android:name="com.ebensz.activate.SplashActivity"
+            android:screenOrientation="portrait"
+			android:excludeFromRecents="true"
+            >
+

@@ -1,0 +1,72 @@
+
+setttings 
+
+
+packages/apps/Settings/res/values-zh-rCN/strings.xml:3020:  <string name="dial_click_vibration">拨号盘按键振动</string>
+
+
+packages/apps/Settings/res/xml/notification_settings.xml:72:            android:title="@string/dial_click_vibration" />
+{
+        <SwitchPreference
+            android:key="button_dail_vibration_key"
+            android:persistent="false"
+            android:title="@string/dial_click_vibration" />
+}
+
+packages/apps/Settings/src/com/android/settings/notification/NotificationSettings.java
+{
++75
+
+    private static final String KEY_BTN_DIAL_VIBRATION = "button_dail_vibration_key";
+
++233
+            int show = com.ebensz.framework.utils.Settings.System.getInt(getContentResolver(), KEY_BTN_DIAL_VIBRATION, 0);
+
++351
+            return com.ebensz.framework.utils.Settings.System.putInt(getContentResolver(), KEY_BTN_DIAL_VIBRATION, val ? 1 : 0);
+
+ }
+
+EContacts/src/com/ebensz/contacts/views/KeyboardT9View.java
+{
++553
+// 原来振动1 ms , 改为10
+                if (mVibrator != null) {
+                    mVibrator.vibrate(100);
+                }
+}
+
+
+
+
+振动强度
+packages/apps/Settings/res/xml/notification_settings.xml:76:                android:title="@string/vibratuin_intensity_settings"
+
+       <com.android.settings.notification.VibratorSeekBarPreference
+                android:key="vibrate_intensity"
+                android:title="@string/vibratuin_intensity_settings"
+                android:persistent="false" />
+
+packages/apps/Settings/src/com/android/settings/notification/VibratorSeekBarPreference.java
+{
+
++261
+		mVibratorVoltage = Settings.System.getIntForUser(mContext.getContentResolver(), Settings.System.VIBRATE_VOLTAGE, 3, UserHandle.USER_CURRENT) * 30 + 50;
+
+	private int mVibratorVoltage = 100;
+    private ContentObserver mVibratorVoltageObserver = new ContentObserver(null) {
+        @Override
+        public void onChange(boolean selfChange) {
+
+		mVibratorVoltage = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.VIBRATE_VOLTAGE, 3, UserHandle.USER_CURRENT) * 30 + 50;
+		//	mVibratorVoltage = Settings.System.getIntForUser(mContext.getContentResolver(),
+        //        Settings.System.VIBRATE_VOLTAGE, 3, UserHandle.USER_CURRENT);
+		//	Log.d(TAG, "mVibratorVolage " + mVibratorVoltage);
+        }
+    };
+
+
+}
+ S1马达振动不敏感，当前振动时间为 1ms. 未关联振动强度。导致人手感觉不到。 增强振动时间 当前振动时间为 1ms. 修改振动时间与设置中的振动强动 关联 共5级 1--5 振动时间修改为 n * 30 + 50
+

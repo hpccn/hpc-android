@@ -1,0 +1,49 @@
+gradle 使用framework.jar , 编译时使用jar 中的类，但不将jar 打包进apk
+
+打开主工程的build.gradle
+
+allprojects {
+
+    repositories {
+        jcenter()
+    }
+ //添加以下代码，使classes-full-debug.jar包编译先于android.jar
+    gradle.projectsEvaluated {
+        tasks.withType(JavaCompile) {
+            //options.compilerArgs.add('-Xbootclasspath/p:setting\\libs\\classes-full-debug.jar')
+            options.compilerArgs.add('-Xbootclasspath/p:../android-libs/android.jar')
+
+			//            options.compilerArgs.add('-Xbootclasspath/p:app/libs/framework.jar;app/libs/core.jar')
+			// 多个jar 用; 分别加入
+        }
+
+//-Xbootclasspath是设定在指定路径中装载系统运行时类，我们一般不会怎么用，除非我们能写一个自己的运行时，所以我们一般会用到下面两个参数：
+
+//-Xbootclasspath/a:path，先搜索缺省路径在搜索path中的路径。
+
+//-Xbootclasspath/p:path，先搜索path中的路径在搜索缺省路径。
+		...
+    }
+
+
+子工程中就不需要修改了。
+
+以下是过时的方法：
+
+    dependencies {
+        provided files('libs/framework.jar')
+    }
+	老版本中 使用provided 关键字。
+
+
+
+
+
+
+    在 gradle3.0之前,gradle 依赖项目配置有 compile,apk,provided三种方式
+
+1    compile:指定编译时依赖项。Gradle 将此配置的依赖项添加到类路径和应用的 APK。这是默认配置。
+
+2    apk: 指定 Gradle 需要将其与应用的 APK 一起打包的仅运行时依赖项。您可以将此配置与 JAR 二进制依赖项一起使用，而不能与其他库模块依赖项或 AAR 二进制依赖项一起使用。
+
+3    provided:指定 Gradle 不与应用的 APK 一起打包的编译时依赖项。如果运行时无需此依赖项，这将有助于缩减 APK 的大小。您可以将此配置与 JAR 二进制依赖项一起使用，而不能与其他库模块依赖项或 AAR 二进制依赖项一起使用。

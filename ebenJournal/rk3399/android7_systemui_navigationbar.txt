@@ -1,0 +1,42 @@
+
+
+navigationbar 显示按键
+
+显示内容不在layout中，通在配制文件控制显示。
+
+多个配制文件：
+frameworks/base/packages/SystemUI/res/values/config.xml +283
+
+frameworks/base/packages/SystemUI/res/values-sw900dp/config.xml:22:    <string name="config_navBarLayout" translatable="false">space;volume_sub,back,home,recent,volume_add,eben_memo,eben_penpanel,screenshot;menu_ime</string>
+frameworks/base/packages/SystemUI/res/values-sw600dp/config.xml:37:    <string name="config_navBarLayout" translatable="false">space;volume_sub,back,home,recent,volume_add,eben_memo,eben_penpanel,screenshot;menu_ime</string>
+frameworks/base/packages/SystemUI/res/values/config.xml:283:    <string name="config_navBarLayout" translatable="false">space;volume_sub,back,home,recent,volume_add,eben_memo,eben_penpanel,screenshot;menu_ime</string>
+
+
+
+ NavBarInflater: 	at com.android.systemui.statusbar.phone.NavigationBarInflaterView.inflateButtons(NavigationBarInflaterView.java:250)
+ NavBarInflater: 	at com.android.systemui.statusbar.phone.NavigationBarInflaterView.inflateLayout(NavigationBarInflaterView.java:241)
+ NavBarInflater: 	at com.android.systemui.statusbar.phone.NavigationBarInflaterView.onTuningChanged(NavigationBarInflaterView.java:161)
+ NavBarInflater: 	at com.android.systemui.tuner.TunerService.addTunable(TunerService.java:147)
+ NavBarInflater: 	at com.android.systemui.tuner.TunerService.addTunable(TunerService.java:131)
+ NavBarInflater: 	at com.android.systemui.statusbar.phone.NavigationBarInflaterView.onAttachedToWindow(NavigationBarInflaterView.java:147)
+
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/NavigationBarInflaterView.java
+
+
+    protected void inflateLayout(String newLayout) {
++ 218
+	解析导航按键
+
+	}
+
+
+点击响应：
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java
++1458
+    private void prepareNavigationBarView() {
+
+
+	}
+

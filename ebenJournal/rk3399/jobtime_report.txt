@@ -1,0 +1,158 @@
+20180827
+
+	Android 7.0 系统编译最低需求12G内存，建议 16G。目前内存只有8G，通过增加4G硬盘缓存，才能完成系统编译，编译非常缓慢。影响项目进度。
+
+	编译Android 7 需要较大的内存，发送邮件，请增加内存。
+
+20180828
+	刷机工具在linux下无法运行，需要在Windows上运行。借Windows电脑刷机.
+	
+20180829
+	修改屏幕显示密度
+		device/rockchip/rk3399/rk3399_mid/system.prop
+		T10的密度320, 
+		临时修改方法：
+			更改屏幕密度，首先要你的系统允许你更改
+			步骤：
+			cmd 进入命令行
+			adb shell （已配置环境变量）
+			wm density 320 （后面是密度值）
+			reboot （重启）
+	更新T10M的ELauncher， 移除 E键
+	修改ELauncher 移除 桌面icon右下角小标
+
+
+	移植 FunctionManager
+		frameworks/base/core/java/com/ebensz/
+
+
+	20:00 思维混乱 删除了 frameworks/opt 
+		回家明天再恢复。
+
+20180830
+
+	现在军工小屋主人嫌弃编译主机声音大，多人三番五次要求将主机搬离。今天早来将主机从那原军工小屋搬到会议室，发现会议室无法连网，暂进在在会议室门口的工位。
+	恢复昨天的错误
+
+		查看.repo/manifest.xml 打到库路径，
+		重新 同步即可
+
+  <project groups="pdk-fs" name="android/platform/frameworks/opt/net/pppoe" path="frameworks/opt/net/pppoe" remote="rk" revision="ed0209c090aee3244e0902380a2e6c33693ba5bc" upstream="rk33/mid/7.0/develop"/>
+		repo sync -l  android/platform/frameworks/opt/net/pppoe
+
+
+		移植 frameworks/opt/ebensz
+
+20180831
+
+	移植FunctionManager 中，navigationBar 控制显示隐藏 pen icon 的功能。
+
+	修改重编译Framework.jar 直接删除 /system/Framework/arm arm64 oat , 导致系统无法启动。
+
+20180902
+
+	问题出在selinux 
+	
+	ServiceManager.addService(FunctionManager.SERVICE_NAVIGATION, mBinder);
+	selinux 限制添加系统服务，导致systemui 崩溃
+
+	按照T10的Selinux配制，还是不行
+
+	重新修改selinux 配制，再编译
+
+20180903
+	昨天编译失败，1小时后出错，selinux 配制问题
+	重新修改selinux 配制，再编译
+
+	修改 Provision ,首次开机之后禁用Launcher3。使开机引导做为桌面，之后再将Launcher3启用做为桌面。
+	
+	修正手写so 库配制， 修改SELINUX配制
+
+
+20180904
+
+	验证 手写库， 开机引导可以正常运行。昨天的手写库配制正确。
+	设置默认语言中文
+	设置默认输入法 Eben
+	下午出去开会未测试
+
+20180905
+	验证昨天的开动，无效，重新编译
+	分析导航栏换笔icon的功能。动态显隐
+
+	默认输入法生效，默认系统语言无效
+
+20180906
+	验证导航栏换笔icon 功能，成功，可以定制icon，功能
+	修改开机默认语言，默认中文
+
+	打入patch 导致系统无法启动，开机只能进入bootloader刷机模式。
+	make clean 重新编译
+
+20180907
+	刷入编译的完整固件仍无法启动
+	主机内存变4G， 拆开后发现6条内存，均为2G，清理灰尘后，恢复为12G
+	编译最始的基线，
+
+	收到新版的开机板，测试可以进入系统，支持手写笔。
+	刷入自编译的system.img 无法启动。死在第一屏
+	再次刷入parameter，boot system   可以启动，
+
+	使用有明的完整固件，刷入后系统可以开机，
+	再次刷入自己编译的parameter，boot system  系统可以启动，应该是基线有问题， uboot kernel recovery。
+
+	 
+	 系统有时可以启动，有时启不来，无规律
+
+	排查function service 未启动
+
+
+20180909
+	
+	从有明那里拿回原来那一台，对比相同的固件可以启动。支持手写笔的这一台不稳定，无法启动。
+	function service 也未启动，继续修改
+	
+        fm = (FunctionManager) getSystemService(FunctionManager.SERVICE_NAME);
+
+		fm 始终为null,
+		修改，在systemui 重新注册FunctionManager.SERVICE_NAME 服务.
+
+
+20180914
+
+	编译ELauncher3 通过
+
+	梁总开会，双系统，
+		可信： 可信华泰可适配信在捷安， 国民技术自己的芯片
+		WLAN APN  NFC Bluetooth
+		android6.0 安全补丁,如何下载，打入
+
+20180918
+	修改ELauncher3
+	移除小图标，
+	修正高设置桌面壁纸崩溃。
+
+20180919	
+	同步rk 服务器完整代码，
+	打入移除鼠标指针补丁，
+	编译完整包
+
+	
+20180920 
+	刷入完整包，开机黑屏，刷回0927的版本，依然黑屏，暂不追
+	
+	打入之前的补丁，重新编译
+
+20180921
+	刷机，机器启动，
+	手写笔还有鼠标指针
+	申请的内存到了，加入到主机中，
+	确认补丁打入，再make clean 
+
+20180925
+	Android 系统安全补丁检测
+	360 透视镜可以检测一些，但是比较旧
+	APP安全性检测，python 的webservice, 自己搭建WebServer检测
+	home/hpc/android/Mobile-Security-Framework-MobSF-0.9.5.5/
+	python manage.py runserver 0.0.0.0:8000
+

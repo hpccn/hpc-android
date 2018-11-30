@@ -1,0 +1,829 @@
+FunctionManagerService
+
+将FunctionManagerService增加到系统服务
+
+frameworks/base/services/java/com/android/server/SystemServer.java
+{
+
+import com.ebensz.internal.IFunctionManager; //add by limingming 2017.04.21
+import com.android.server.FunctionManagerService; //add by limingming 2017.04.21
+
+
+
+
+    private void startOtherServices() {
+
+...
+
+            //add by limingming 2017.04.21
+            Slog.i(TAG, "Function Service");
+            FunctionManagerService function = null;
+            function = new FunctionManagerService(context);
+            ServiceManager.addService(Context.FUNCTION_SERVICE, function);
+            //add end
+
+             //Add for Side Button Manager by songyan start
+			PackageOption packageOption = null;
+			packageOption = new PackageOption(context);
+			try {
+				Slog.i(TAG, "Side Button Manager Service");
+				ServiceManager.addService("sidebutton", new SideButtonManagerService(context));
+			} catch (Throwable e) {
+				reportWtf("starting TwilightService", e);
+			}
+			//Add for Side Button Manager by songyan start
+
+	}
+
+
+}
+
+
+移植类文件：
+frameworks/base/core/java/com/ebensz/
+
+frameworks/base/services/core/java/com/android/server/FunctionManagerService.java
+frameworks/base/services/core/java/com/android/server/SideButtonManagerService.java
+
+frameworks/base/services/core/java/com/android/server/eben/
+
+frameworks/base/core/java/android/os/ConstantEben.java
+
+
+修改配制， 编译 aidl
+frameworks/base/Android.mk
+
+        core/java/com/ebensz/internal/IFunctionManager.aidl \
+        core/java/com/ebensz/internal/INavigationService.aidl \
+        core/java/com/ebensz/internal/IPowerManager.aidl \
+		core/java/com/ebensz/internal/IOprationMonitorService.aidl \
+
+		core/java/android/view/ISideButtonManager.aidl \
+
+	core/java/android/content/pm/IPackageOption.aidl \
+----------
+编译出错：
+
+Error: out/target/common/obj/JAVA_LIBRARIES/framework_intermediates/classes.jar: unknown package name of class file com/ebensz/internal/FunctionManager.class
+
+编译android源码时如果出现标题类似错误
+需要到build/core/tasks/check_boot_jars/package_whitelist.txt
+文件中追加对应的类或者包
+
+这里注意下添加的格式
+例如:新增加代码包名com.ebensz.internal
+可在白名单增加一行 com\.ebensz\..*
+重新编译即可无需make clean
+
+
+
+~ frameworks/base/core/java/android/provider/Settings.java
+
+    public static final class System extends NameValueTable {
+        private static final float DEFAULT_FONT_SCALE = 1.0f;
+
+
+///////////////////////////////////////////////////////////////
+//add by hanpengcheng  20180829
+        public static final String SCREEN_OFF_TIMEOUT = "screen_off_timeout";
+
+        //begin add navigtionbar state 
+        public static final String BACK_STATE = "back_state";
+        public static final String HOME_STATE = "home_state";
+        public static final String RECENT_STATE = "recent_state";
+        //end
+         //change to T10_P004204  
+        public static final String DATS_STATISTICS_TIME = "data_statistics_time";
+        public static final String DATS_STATISTICS_VALUE = "data_statistics_value";
+         //end
+        //begin add application_lock_list 
+        public static final String APPLICATION_LOCK_LIST = "application_lock_list";
+        private static final Validator SCREEN_OFF_TIMEOUT_VALIDATOR = sNonNegativeIntegerValidator;
+
+        public static final String SIDE_BUTTON_DISABLE = "side_button_disable"; // add, 
+ 
+///////////////////////////////////////////////////////////////
+
+
+
+
+
+frameworks/base/core/java/android/os/Bundle.java
+{
+	// add by hanpengcheng 20180829
+    /*for test*/
+    public void put(ArrayMap<String, Object> map) {
+        //unparcel();
+        mMap.putAll(map);
+    }
+}
+
+
+frameworks/base/services/core/java/com/android/server/eben/OprationMonitorService.java:434
+
+
+
+
+
+
+frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java
+{
+
+////////////////////////////////////////
+
+    static final int WAIT_FOR_CONFIRM_MSG = 7;
+//add by hanpengcheng 20180830
+//
+//    public FreezeAppService freezeService;
+    public class FilterServiceItem {
+    	String bannedItem = "";
+    	String callingPkg = "";
+    	public FilterServiceItem(){}
+    	public FilterServiceItem(String callingPkg,String bannedItem){
+    		this.callingPkg = callingPkg;
+    		this.bannedItem = bannedItem;
+    	}
+    	@Override
+    	public String toString() {
+    		// TODO Auto-generated method stub
+    		return callingPkg + "---->" + bannedItem;
+    	}
+    	@Override
+    	public boolean equals(Object obj) {
+    		if(obj == null || !(obj instanceof FilterServiceItem)) return false;
+    		FilterServiceItem item = (FilterServiceItem) obj;
+    		if(item.callingPkg.equals("*") && item.bannedItem.equals("*")) return true;
+    		if(item.callingPkg.equals("*")) return item.bannedItem.equals(bannedItem);
+    		if(item.bannedItem.equals("*")) return item.callingPkg.equals(callingPkg);
+    		return item.callingPkg.equals(callingPkg) && item.bannedItem.equals(bannedItem);
+    	}
+    }
+    public static android.os.LogUtil logUtil = new android.os.LogUtil("am_service.log","persist.sys.log.am",android.os.Build.IS_DEBUGGABLE/*Log.isLogEnable()*/);
+    public static void log(String tag,String msg){
+        if(android.os.Build.IS_DEBUGGABLE) logUtil.d(tag,msg);
+    }
+    public static void logI(String tag,String msg){
+        logUtil.d(tag,msg);
+    }
+    private final String BLACK_ACTIVITY_COMPONENT = ConstantEben.getValue(ConstantEben.BLACK_ACTIVITY_COMPONENT) != null ? ConstantEben.getValue(ConstantEben.BLACK_ACTIVITY_COMPONENT) : "|com.igexin.sdk.GActivity|";
+    public EbenSecureManagerService mEbenSecureServie;
+
+
+
+  //format:uid|pkg1/pk2/pk3 
+    @Override
+    public String[] getAllProcess(){
+        List<String> list = new ArrayList<String>();
+        synchronized (mPidsSelfLocked) {
+            for (int idx = mPidsSelfLocked.size() - 1; idx >= 0; idx--){
+                ProcessRecord pr = mPidsSelfLocked.valueAt(idx);
+                if(pr == null || pr.pkgList == null) continue;
+				/* modify by chenchangliang, 2017-08-25 */
+//                if(pr.isFreeze) continue;
+//                if(pr.info.packageName.equals(mRecentTasks.mTopTaskPkg)/*recentIdx != -1 && recentIdx < MAX_RETAIN*/){
+//                    Slog.d(TAG,"run process ignore top pkg:" + pr.info.packageName);
+//                    continue;
+//                }
+                StringBuilder sb = new StringBuilder();
+                sb.append(pr.userId);
+                sb.append("|");
+                sb.append(pr.info.packageName);
+                list.add(sb.toString());
+            }
+        }
+        String[] outProcessInfo = new String[list.size()];
+        list.toArray(outProcessInfo);
+        //if(DEBUG) Slog.d(TAG, "getAllProcess=" + java.util.Arrays.toString(outProcessInfo) + ",list=" + list);
+        return outProcessInfo;
+    }
+
+    @Override
+    public boolean getWaitingForConfirmDialogStatus(IApplicationThread who)
+        throws RemoteException {
+        // TODO Auto-generated method stub
+        boolean isShow = false;
+        synchronized (this) {
+            ProcessRecord app = who != null ? getRecordForAppLocked(who):null;
+            if(null == app || app.waitConfirmDialog == null) return isShow;
+            isShow = app.waitConfirmDialog.isShowing();
+        }
+        return isShow;
+    }
+    @Override
+    public void showWaitingForC(IApplicationThread who, boolean waiting, String packageName) {
+        synchronized (this) {
+            ProcessRecord app = who != null ? getRecordForAppLocked(who) : null;
+            if (app == null) return;
+
+            Message msg = Message.obtain();
+            msg.what = WAIT_FOR_CONFIRM_MSG;
+            msg.obj = app;
+            msg.arg1 = waiting ? 1 : 0;
+            Bundle bl = new Bundle();
+            bl.putString("packagename", packageName);
+            msg.setData(bl);
+            mUiHandler.sendMessage(msg);
+        }
+    }
+
+
+
+////////////////////////////////////
+//end hanpengcheng
+
+
+}
+
+
+
+
+
+
+
+frameworks/base/core/java/android/view/ISideButtonManager.aidl
+frameworks/base/core/java/android/os/LogUtil.java
+
+
+frameworks/base/core/java/com/android/server/pm/PackageOption.java
+
+frameworks/base/core/java/android/content/pm/IPackageOption.aidl
+
+
+-----------------------------
+frameworks/opt/ebensz/eben-secure-service/
+device/rockchip/rk3399/rk3399_mid.mk
+{
+
+#for eben-secure
+PRODUCT_COPY_FILES += frameworks/opt/ebensz/eben_secure.xml:system/etc/eben_secure.xml
+PRODUCT_COPY_FILES += frameworks/opt/ebensz/eben_service.xml:system/etc/eben_service.xml
+PRODUCT_COPY_FILES += frameworks/opt/ebensz/collection.conf:system/etc/collection.conf
+PRODUCT_COPY_FILES += frameworks/opt/ebensz/cpulimit:system/bin/cpulimit
+PRODUCT_BOOT_JARS += eben-secure
+
+
+# end hpc
+
+}
+
+frameworks/base/services/core/Android.mk
+
+#modify begin by hanpengcheng
+LOCAL_JAVA_LIBRARIES := services.net telephony-common eben-secure
+LOCAL_STATIC_JAVA_LIBRARIES := tzdata_update services-eben-secure ebensz-utils
+#modify end by hanpengcheng
+
+
+
+frameworks/base/core/java/android/app/ActivityManager.java
+{
+
+/* add begin by hanpengcheng, 2018-08-30*/
+    /**
+     * @hide
+     * @return
+     */
+    public void showWaitingForC(IApplicationThread who, boolean waiting, String packageName) {
+        try {
+            ActivityManagerNative.getDefault().showWaitingForC(who, waiting, packageName);
+        } catch (RemoteException e) {
+        }
+    }
+  public String[] getAllProcess() {
+        try {
+            return ActivityManagerNative.getDefault().getAllProcess();
+        } catch (RemoteException e) {
+            return null;
+        }
+    }
+    /* add end by hanpengcheng, 2018-08-30 */
+
+}
+
+
+frameworks/base/core/java/android/provider/Settings.java
+{
+	// frameworks/opt/ebensz
+		//  eben-secure
+		/**
+         * @hide
+         */
+        public static final String TOGGLE_POWER_SAVE = "toggle_power_save";
+
+        /**
+         * ALLOW_CHANGE_DEFAULT_SMS Whether user can change the default sms app.
+         * @hide
+         */
+		public static final String ALLOW_CHANGE_DEFAULT_SMS = "allow_change_default_sms";
+
+        /**
+         * @hide
+         */
+		public static final String BUTTON_BACKLIGHT_TIMEOUT = "button_backlight_timeout";
+
+        /**
+         * @hide
+         */
+		public static final String BUTTON_BACKLIGHT_BRIGHTNESS = "button_backlight_brightness";
+		
+}
+
+
+gvim frameworks/base/core/res/res/values/symbols.xml
+{
+   <!-- hanpengcheng add  start-->
+  <java-symbol type="array" name="system_black_protect_app" />
+  <java-symbol type="array" name="system_black_app" />
+  <java-symbol type="drawable" name="ic_corp_icon_badge_bg" />
+  <!-- hanpengcheng add  end-->
+
+}
+
+
+frameworks/base/core/res/res/values/arrays.xml
+{
+
+    <!-- system app which not been protected hanpengcheng -->
+	<array name="system_black_protect_app">
+	    <item>com.hf.custom</item>
+	    <item>com.dianfenghui</item>
+	</array>
+    <!-- system app which not been protected and auto-running. hanpengcheng-->
+    <!-- add begin by hanpengcheng, 2018-08-30-->
+	<array name="system_black_app">
+	    <item>com.baidu.BaiduMap</item>
+	    <!-- <item>com.netease.newsreader.activity</item> -->
+	    <item>com.baidu.browser.apps_mr</item>
+	</array>
+    
+        <string-array translatable="false" name="toast_filter_texts">
+	    <item>请检查你的网络或稍后重试</item>
+	    <item>网络连接不可用</item>
+	</string-array>
+    <!-- add end by hanpengcheng, 2018-08-30  -->
+
+
+
+}
+
+frameworks/base/core/res/res/drawable-xxhdpi/ic_corp_icon_badge_bg.png
+
+
+frameworks/base/core/java/android/app/IActivityManager.java
+{
+	/* add begin by hanpengcheng, 2018-08-30*/
+    int IS_NORMAL_FOCUS_APP = IBinder.FIRST_CALL_TRANSACTION+399;
+    int GET_ALL_PROCESS_INFO = IBinder.FIRST_CALL_TRANSACTION+400;
+    int GET_PROCESS_INFO_FOR_PID = IBinder.FIRST_CALL_TRANSACTION+302;//add by weijingyuan for OprationMonitor
+    int GET_TOP_TASKID_BY_USER = IBinder.FIRST_CALL_TRANSACTION + 303; //add by shuguang.wen for dualSystem
+    /* add end by hanpengcheng, 2018-08-30 */
+ 
+    public void showWaitingForC(IApplicationThread who, boolean waiting, String packageName)
+            throws RemoteException;
+
+    public boolean getWaitingForConfirmDialogStatus(IApplicationThread who)
+ }
+
+frameworks/base/core/java/android/app/ActivityManagerNative.java
+{
+
+
+    @Override
+    public boolean onTransact(int code, Parcel data, Parcel reply, int flags)
+            throws RemoteException {
+        switch (code) {
+ 
+    /* add begin by hanpengcheng, 2018-08-30*/
+        case IS_SHOW_WAITING_FOR_CONFIRM: {
+            data.enforceInterface(IActivityManager.descriptor);
+            IBinder token = data.readStrongBinder();
+            IApplicationThread app = ApplicationThreadNative.asInterface(token);
+            boolean res = getWaitingForConfirmDialogStatus(app);
+            reply.writeNoException();
+            reply.writeInt(res ? 1 : 0);
+            return true;
+        }
+
+        case GET_ALL_PROCESS_INFO: {
+            data.enforceInterface(IActivityManager.descriptor);
+            String[] result = getAllProcess();
+            reply.writeNoException();
+            reply.writeStringArray(result);
+            return true;
+        }
+		/* add end by , 2018-08-30 */
+	}
+
+
+	class ActivityManagerProxy implements IActivityManager{
+
+
+    //add by hanpengcheng   2018-08-30
+    public String[] getAllProcess() throws RemoteException {
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+        data.writeInterfaceToken(IActivityManager.descriptor);
+        mRemote.transact(GET_ALL_PROCESS_INFO, data, reply, 0);
+        reply.readException();
+        String[] res = reply.readStringArray();
+        data.recycle();
+        reply.recycle();
+        return res;
+    }
+	public void showWaitingForC(IApplicationThread who, boolean waiting, String packageName)
+            throws RemoteException {
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+        data.writeInterfaceToken(IActivityManager.descriptor);
+        data.writeStrongBinder(who.asBinder());
+        data.writeInt(waiting ? 1 : 0);
+        data.writeString(packageName);
+        mRemote.transact(SHOW_WAITING_FOR_CONFIRM, data, reply, 0);
+        reply.readException();
+        data.recycle();
+        reply.recycle();
+    }
+
+    public boolean getWaitingForConfirmDialogStatus(IApplicationThread who) throws RemoteException {
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+        data.writeInterfaceToken(IActivityManager.descriptor);
+        data.writeStrongBinder(who.asBinder());
+        mRemote.transact(IS_SHOW_WAITING_FOR_CONFIRM, data, reply, 0);
+        reply.readException();
+        int res = reply.readInt();
+        data.recycle();
+        reply.recycle();
+        return res != 0;
+    }
+    /* add end by hanpengcheng, 2018-08-30*/
+
+
+	}
+
+}
+
+
+
+
+frameworks/base/services/core/java/com/android/server/am/ProcessRecord.java
+{
+
+    Dialog waitConfirmDialog;
+
+
+}
+
+frameworks/base/services/core/java/com/android/server/am/WaitingConfirmDialog.java
+
+
+frameworks/base/core/java/android/content/Context.java
+{
+
+
+    public static final String FUNCTION_SERVICE = "function"; //add by hanpengcheng
+}
+
+
+//应用启动时发送广播，显示，隐藏 navigtionbar pen icon
+frameworks/base/core/java/android/app/ActivityThread.java
+{
+
+    public final ActivityClientRecord performResumeActivity(IBinder token,
+            boolean clearHide, String reason) {
+	+3453
+          Intent intent = new Intent(FunctionManager.ACTION_ACTIVITY_RESUME);
+            if (localLOGV) Slog.d(TAG, "Performing resume package:  " + r.packageInfo.getPackageName() + " class: " + r.activity.getClass().getName());
+            intent.putExtra(FunctionManager.EXTRA_PACKAGENAME, r.packageInfo.getPackageName());
+            intent.putExtra(FunctionManager.EXTRA_CLASSNAME, r.activity.getClass().getName());
+            getSystemContext().sendBroadcast(intent);
+            //Added for eben requirement by hanpengcheng 20180831 end
+
+	}
+}
+
+
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/NavigationBarView.java
+{
+
+		//注册NavigationService
+        ServiceManager.addService(FunctionManager.SERVICE_NAVIGATION, mBinder);
+自定义ICON图片，自定义Action
+
+// add by hanpengcheng
+     public PendingIntent mPenIntent;
+     public PendingIntent mNoteIntent;
+     public PendingIntent mCustomIntent;
+    private boolean mPenVis, mCustomVis, mNoteVis = true;
+     public static INavigationService.Stub sBinder;
+    private final INavigationService.Stub mBinder = new INavigationService.Stub() {
+        @Override        
+        public void removeCustomNavigationIcon(int type, int id) throws RemoteException { 
+
+			Log.d(TAG, Log.getStackTraceString(new Throwable()));
+           final int Ftype = type;  
+           getHandler().post(new Runnable() {   
+             @Override  
+             public void run() {
+                    ButtonDispatcher button = null;
+                 if (Ftype == FunctionManager.STBTN_TYPE_ALL) {
+                        //getCustomButton().setVisibility(GONE);
+                      getEbenPenpanelButton().setVisibility(GONE);
+                      getEbenMemoButton().setVisibility(GONE);
+                      mCustomVis = false;
+                      mPenVis = false;
+                      mNoteVis = false;
+                     return;
+                 } 
+                switch (Ftype) {
+                    case FunctionManager.STBTN_TYPE_CUSTOM:
+                       // button =  getCustomButton();
+                       mCustomVis = false;
+                        break; 
+                   case FunctionManager.STBTN_TYPE_PENPANEL:
+                        button =  getEbenPenpanelButton();
+                        mPenVis = false;
+                        break;
+                   case FunctionManager.STBTN_TYPE_MEMO:
+                        button =  getEbenMemoButton();
+                        mNoteVis = false;
+                        break;
+                    } 
+                   button.setVisibility(GONE);
+                }
+            });
+            Log.d(TAG, "remove Button type: " + type + " id: " + id);
+        }
+        @Override
+        public int insertCustomNavigationIcon(int type, Bitmap icon, PendingIntent intent) throws RemoteException {
+
+			Log.d(TAG, Log.getStackTraceString(new Throwable()));
+            ButtonDispatcher button = null;
+            if (type == FunctionManager.STBTN_TYPE_ALL) return -1;
+            switch (type) {
+            case FunctionManager.STBTN_TYPE_CUSTOM:
+               // button =  getCustomButton();
+                mCustomIntent = intent;
+                mCustomVis = true;
+                break;
+            case FunctionManager.STBTN_TYPE_PENPANEL:
+                button =  getEbenPenpanelButton();
+                mPenIntent = intent;
+                mPenVis = true;
+                break;
+            case FunctionManager.STBTN_TYPE_MEMO:
+                button = getEbenMemoButton();
+                mNoteIntent = intent;
+                mNoteVis = true;
+                break;
+            }
+            final Bitmap Ficon = icon;
+            final PendingIntent Fintent = intent;
+            final ButtonDispatcher Fbutton = button;
+            getHandler().post(new Runnable() {
+                @Override
+                public void run() {
+                    //Fbutton.setImageBitmap(Ficon);
+                    Fbutton.setVisibility(VISIBLE);
+                }
+            });
+            button.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try{
+                        Log.d(TAG, "Fintent.send() " + Fintent);
+                        Fintent.send();
+                    } catch (Exception e) {}
+                }
+            });
+            Log.d(TAG, "insert Button type: " + type + " bitmap: " + icon + " intent: " + intent); 
+            return type == FunctionManager.STBTN_TYPE_CUSTOM ? type : 0;
+        }
+    };
+
+}
+
+// 此行触发SELINUX 权限
+        ServiceManager.addService(FunctionManager.SERVICE_NAVIGATION, mBinder);
+
+
+01-18 09:11:26.626   230   230 E ServiceManager: add_service('eben_navigation',77) uid=10023 - PERMISSION DENIED
+add_service() uid=10023 - PERMISSION DENIED
+
+
+
+
+修改selinux 
+
+结构与6.0 不同
+
+下面是T10的配制，
+
+grep -rn "eben_navigation" external/sepolicy/
+external/sepolicy/platform_app.te:45:allow platform_app eben_navigation:service_manager add;
+external/sepolicy/service.te:111:type eben_navigation, system_api_service, system_server_service, service_manager_type;
+external/sepolicy/service_contexts:137:eben_navigation                           u:object_r:eben_navigation:s0
+
+
+
+device/rockchip/common/sepolicy/platform_app.te{
+
+allow platform_app eben_navigation:service_manager add;
+}
+device/rockchip/common/sepolicy/service.te
+{
+
+# add by hanpengcheng
+type eben_navigation, system_api_service, system_server_service, service_manager_type;
+type eben_service, app_api_service, system_api_service, system_server_service, service_manager_type;
+}
+
+device/rockchip/common/sepolicy/service_contexts
+{
+
+#add by hanpengcheng
+
+ebenservice                               u:object_r:eben_servant_service:s0
+ebensz-function                           u:object_r:eben_service:s0
+eben_oprationmonitor                      u:object_r:eben_service:s0
+eben_secure                               u:object_r:eben_service:s0
+eben_navigation                           u:object_r:eben_navigation:s0
+}
+
+
+
+///////////新的Selinux配制
+
+
+device/rockchip/common/sepolicy/platform_app.te{
+
+allow platform_app hpc_eben_navigation:service_manager add;
+}
+device/rockchip/common/sepolicy/service.te
+{
+
+# add by hanpengcheng
+type hpc_eben_navigation, system_api_service, system_server_service, service_manager_type;
+type hpc_eben_service, app_api_service, system_api_service, system_server_service, service_manager_type;
+}
+
+device/rockchip/common/sepolicy/service_contexts
+{
+
+#add by hanpengcheng
+
+ebensz-function                           u:object_r:hpc_eben_service:s0
+eben_oprationmonitor                      u:object_r:hpc_eben_service:s0
+eben_secure                               u:object_r:hpc_eben_service:s0
+eben_navigation                           u:object_r:hpc_eben_navigation:s0
+}
+
+
+
+重新修改
+
+In Android 7.1.1 the service_contexts file has moved to system/sepolicy
+
+to add A service "foo" to the policy add to the file service_contexts
+
+    foo u:object_r:foo_service:s0
+
+And in service.te add:
+
+    type foo_service, app_api_service, system_server_service, service_manager_type;
+
+A device specific policy can be created by adding a service_contexts & service.te file in the devices sepolicy directory: device/myDevice/versionName/sepolicy
+
+
+
+
+
+
+这个问题出在下面：
+AID_APP = 10000, systemui 的uid = 10023 所以导致服务无法加入，
+
+
+ ServiceManager: add_service('eben_navigation',77) uid=10023 - PERMISSION DENIED
+
+
+frameworks/native/cmds/servicemanager/service_manager.c
+
+
+直接修改
+
+在service_manager.c中的如下方法是导致我们无法成功添加service的原因。
+请核对一下这部分是否是系统原生的还是你们平台增加的。我暂时修改为return １；后可以成功添加服务。
+
+static int svc_can_register(const uint16_t *name, size_t name_len, pid_t spid, uid_t uid)
+{
+    const char *perm = "add";
+　//导致服务添加失败的判定条件及返回值。
+     if (multiuser_get_app_id(uid) >= AID_APP) {
+      //return 0; /* Don't allow apps to register services */ 
+      return 1; /* Don't allow apps to register services */ 
+    }
+　...
+}
+
+
+navigtionbar pen icon 显示隐藏的控制
+
+拉口定义
+
+
+从日志分析：
+INavigationService
+frameworks/base/core/java/com/ebensz/internal/INavigationService.aidl
+
+其中一个实现：
+
+frameworks/base/services/core/java/com/android/server/eben/NavigationServiceProxy.java
+这个不用
+
+
+最后调用：
+
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/NavigationBarView.java{
+	
+	+721:    private final INavigationService.Stub mBinder = new INavigationService.Stub() {
+	}
+
+}
+
+
+
+
+	排查function service 未启动
+
+
+增加 selinux 配制
+
+
+system/sepolicy/service_contexts{
+
+#add by hanpengcheng
+
+function                                  u:object_r:function_service:s0
+eben_navigation                           u:object_r:eben_navigation:s0
+ebensz-function                           u:object_r:eben_service:s0
+eben_oprationmonitor                      u:object_r:eben_service:s0
+eben_secure                               u:object_r:eben_service:s0
+EGuardsManager                            u:object_r:eguards_mgr_service:s0
+Tsecure                                   u:object_r:tsecure_service:s0
+Tservant                                  u:object_r:tservant_service:s0
+ebenservice                               u:object_r:eben_servant_service:s0
+securePasswordManager                     u:object_r:secure_pswd_service:s0
+
+}
+
+
+system/sepolicy/service.te{
+# add by hanpengcheng
+type function_service, app_api_service, system_server_service, service_manager_type;
+type eben_navigation, app_api_service, system_api_service, system_server_service, service_manager_type;
+type eben_service, app_api_service, system_api_service, system_server_service, service_manager_type;
+
+type tsecure_service, system_api_service, system_server_service, service_manager_type;
+type tservant_service, system_api_service, system_server_service, service_manager_type;
+type eben_servant_service, system_api_service, system_server_service, service_manager_type;
+type secure_pswd_service, system_api_service, system_server_service, service_manager_type;
+type eguards_mgr_service, system_api_service, system_server_service, service_manager_type;
+}
+
+
+增加调试日志
+
+
+
+注册服务
+
+getSystemService()可以找到
+
+frameworks/base/core/java/android/app/SystemServiceRegistry.java
+{
+
+// add by hanpengcheng
+import com.ebensz.internal.IFunctionManager;
+import com.ebensz.internal.FunctionManager;
+
+
+    static {
+		...
+        //add by hanpengcheng 20180909
+        registerService(Context.FUNCTION_SERVICE, FunctionManager.class,
+                new CachedServiceFetcher<FunctionManager>() {
+            @Override
+            public FunctionManager createService(ContextImpl ctx) {
+                IBinder b = ServiceManager.getService(Context.FUNCTION_SERVICE);
+                IFunctionManager service = IFunctionManager.Stub.asInterface(b);
+                if (service == null) {
+                    Log.wtf(TAG, "Failed to get function manager service.");
+                }
+                return new FunctionManager(ctx.getOuterContext(), service);
+            }});
+        //add end
+
+	}
+
+}

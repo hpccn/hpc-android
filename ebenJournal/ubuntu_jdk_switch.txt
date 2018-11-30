@@ -1,0 +1,86 @@
+ubuntu 配置 java jdk1.8 环境，增加多版本 jdk 和切换方法
+
+
+一、安装java jdk1.8
+
+1.添加软件源
+
+sudo add-apt-repository ppa:webupd8team/java
+
+2.更新软件源
+
+sudo apt-get update
+
+3.安装jdk1.8
+
+sudo apt-get install oracle-java8-installer
+
+安装器会提示你同意 oracle 的服务条款,选择 ok
+
+然后选择yes 即可
+
+二、查看java的安装路径
+
+sudo update-alternatives --config java
+sudo update-alternatives --config javac
+
+三、查看java版本
+
+java -version
+
+ps：更新 jdk1.7 到 jdk1.8 直接执行安装第一步覆盖就ok.
+
+四、增加多版本 jdk 和切换方法 （安装 jdk 6 或 7）
+
+1.安装jdk6和jdk7
+
+   安装 jdk 6
+
+sudo apt-get install oracle-java6-installer
+
+   安装jdk7
+
+sudo apt-get install oracle-java7-installer
+
+2.查看所有 jdk 安装版本
+
+sudo update-java-alternatives -l
+java-6-oracle 3 /usr/lib/jvm/java-6-oracle
+java-7-oracle 4 /usr/lib/jvm/java-7-oracle
+java-8-oracle 2 /usr/lib/jvm/java-8-oracle
+
+3.通过-s参数可以方便的切换到其它的java版本
+
+$ sudo update-java-alternatives -s java-6-oracle
+
+or
+
+$ sudo update-java-alternatives -s java-7-oracle
+
+or
+
+$ sudo update-java-alternatives -s java-8-oracle
+
+再次查看 java jkd 版本
+
+java -version
+java version "1.6.0_45"
+Java(TM) SE Runtime Environment (build 1.6.0_45-b06)
+Java HotSpot(TM) 64-Bit Server VM (build 20.45-b01, mixed mode)
+
+注：之前通过解压配置环境变量的方式安装jdk8，切换jdk时不能使用 sudo update-java-alternatives -s 命令，使用sudo update-alternatives --config java命令选择java版本时候，java版本虽然改变了，但是javac、javah、jar等文件的路径还是openjdk7的，
+
+如果希望一直，得将文件一一映射，经实践，那种方法不可靠。用上述方法，安装的多个jdk，不需要配置环境变量，通过切换命令，即可达到目的。
+
+ 
+
+另外ubuntu安装openjdk7的命令：
+
+ 
+
+sudo apt-get install openjdk-7-jdk
+
+ 查看openjdk的安装路径：
+
+dpkg -L openjdk-7-jdk
+

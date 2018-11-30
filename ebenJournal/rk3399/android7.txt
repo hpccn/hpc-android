@@ -1,0 +1,34 @@
+
+编译android 7.0 出现Try increasing heap size with java option '-Xmx<size>'错误解决方案
+
+
+出现这个错误是由于电脑内存不足，在命令行分别执行以下三条语句，然后继续编译
+
+export JACK_SERVER_VM_ARGUMENTS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4g"
+./prebuilts/sdk/tools/jack-admin kill-server
+./prebuilts/sdk/tools/jack-admin start-server
+
+
+
+
+Ubuntu下多版本JDK切换
+多版本JDK是可以共存的，只需要使用update-alternatives工具就可以随时将它们切换。
+
+sudo update-alternatives --config java 
+
+
+第二种方法
+配置切换多个JDK
+网上很多教程都是使用 update-alternatives 的方式，但这种方式在我的这种情况下并不生效，因此自己在 ~/.bashrc 中配置了两个命令用来从默认的Oracle JDK切换成 OpenJDK 7 或 OpenJDK 8。
+
+
+
+alias openjdk7='export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64 && export CLASSPATH=.:${JAVA_HOME}/lib:${JAVA_HOME}/jre/lib && export PATH=${JAVA_HOME}/bin:${JAVA_HOME}/jre/bin:$PATH && java -version'
+alias openjdk8='export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 && export CLASSPATH=.:${JAVA_HOME}/lib:${JAVA_HOME}/jre/lib && export PATH=${JAVA_HOME}/bin:${JAVA_HOME}/jre/bin:$PATH && java -version'
+
+
+这样在终端中使用 openjdk7 命令和 openjdk8 命令就能自由切换JDK了。
+
+android 系统签名：
+
+build/target/product/security/

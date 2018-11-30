@@ -1,0 +1,22 @@
+
+: avc: denied { ioctl } for path="socket:[111970]" dev="sockfs" ino=111970 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[111970]" dev="sockfs" ino=111970 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[108136]" dev="sockfs" ino=108136 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[108136]" dev="sockfs" ino=108136 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[108147]" dev="sockfs" ino=108147 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[108147]" dev="sockfs" ino=108147 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+: avc: denied { ioctl } for path="socket:[65334]" dev="sockfs" ino=65334 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=1
+

@@ -1,0 +1,494 @@
+make otapackage
+
+        我们知道，在Android源码整编后执行make otapackage命令即可生成OTA整包，但除此之外它还完成了哪些功能？具体又是如何完成的呢？事实上，在OTA升级过程中命令make otapackage完成了三件事情：
+
+    重新对system.img文件进行了打包；
+    生成差分资源包，路径为out/target/product/<product-name>/obj/PACKAGING/target_files_from_intermedias/<product-name>-target_files-<version-name>.zip，差分资源包用于生成整包和差分包；
+    生成OTA整包，路径为out/target/product/<product-name>/<product-name>-ota-<version-name>.zip
+
+        本文将对此命令的执行过程进行分析。
+
+# -----------------------------------------------------------------
+# OTA update package
+
+name := $(TARGET_PRODUCT)
+ifeq ($(TARGET_BUILD_TYPE),debug)
+  name := $(name)_debug
+endif
+name := $(name)-ota-$(FILE_NAME_TAG)
+
+INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
+
+$(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR := $(DEFAULT_KEY_CERT_PAIR)
+
+$(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(OTATOOLS)
+	@echo "Package OTA: $@"
+	$(hide) ./build/tools/releasetools/ota_from_target_files -v \
+	   -n \
+	   -p $(HOST_OUT) \
+           -k $(KEY_CERT_PAIR) \
+           $(BUILT_TARGET_FILES_PACKAGE) $@
+
+.PHONY: otapackage
+otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+
+# -----------------------------------------------------------------
+# The update package
+
+name := $(TARGET_PRODUCT)
+ifeq ($(TARGET_BUILD_TYPE),debug)
+  name := $(name)_debug
+endif
+name := $(name)-img-$(FILE_NAME_TAG)
+
+代码段1 Makefile文件中目标otapackage的执行代码
+
+       
+
+        首先，make otapackage命令会执行Makefile(./build/core/Makefile)中otapackage的目标代码(如代码1所示)。由代码可知，otapackage目标的执行只依赖于$(INTERNAL_OTA_PACKAGE_TARGET)，而不存在任何规则(根据Makefile语法，规则必须以TAB键开始，而目标otapackage的定义之后却是变量name的声明，因此不存在规则)，因此只需要关注目标$(INTERNAL_OTA_PACKAGE_TARGET)的生成。显然，此目标的生成依赖于目标文件：$(BUILT_TARGET_FILES_PACKAGE)和$(OTATOOLS)，且其执行的命令为./build/tools/releasetools/ota_from_target_files。也就是说，make otapackage所完成的功能全是通过这两个目标文件和执行的命令完成的，我们将分别对这三个关键点进行分析。
+
+1 $(OTATOOLS)
+
+        目标文件OTATOOLS的编译规则如下所示
+
+OTATOOLS :=  $(HOST_OUT_EXECUTABLES)/minigzip \
+	  $(HOST_OUT_EXECUTABLES)/mkbootfs \
+	  $(HOST_OUT_EXECUTABLES)/mkbootimg \
+	  $(HOST_OUT_EXECUTABLES)/fs_config \
+	  $(HOST_OUT_EXECUTABLES)/mkyaffs2image \
+	  $(HOST_OUT_EXECUTABLES)/zipalign \
+	  $(HOST_OUT_EXECUTABLES)/aapt \
+	  $(HOST_OUT_EXECUTABLES)/bsdiff \
+	  $(HOST_OUT_EXECUTABLES)/imgdiff \
+	  $(HOST_OUT_JAVA_LIBRARIES)/dumpkey.jar \
+	  $(HOST_OUT_JAVA_LIBRARIES)/signapk.jar \
+	  $(HOST_OUT_EXECUTABLES)/mkuserimg.sh \
+	  $(HOST_OUT_EXECUTABLES)/genext2fs \
+	  $(HOST_OUT_EXECUTABLES)/tune2fs \
+	  $(HOST_OUT_EXECUTABLES)/e2fsck \
+	  $(HOST_OUT_EXECUTABLES)/make_ext4fs
+
+.PHONY: otatools
+otatools: $(OTATOOLS)
+
+代码段2 $(OTATOOLS)的编译规则
+
+        可以看出变量OTATOOLS为系统中一系列文件的集合。那么这些文件又有什么用处呢？ 事实上，这些文件用于压缩(minigzip：用于gzip文件；make_ext4fs：将文件转换为ext4类型；mkyaffs2image：用于yaffs文件系统；......)、解压缩、差分(bsdiff，imgdiff)、签名(singapk.jar)等功能，结合代码段1可得到如下结论：目标$(INTERNAL_OTA_PACKAGE_TARGET)的执行依赖于这一系列系统工具－－仅此而已。也就是说，目标文件$(OTATOOLS)仅仅指定了命令执行所需要的工具，并未执行任何操作。
+
+        注：变量$(HOST_OUT_EXECUTABLES)指代的是out/host/linux-x86/bin目录，而变量$(HOST_OUT_JAVA_LIBRARIES)/表示的是out/host/linux-x86/framework目录，这意味着我们可以从此目录下找到上述工具，并为我们所用。
+
+1.2$(BUILT_TARGET_FILES_PACKAGE)
+
+        目标OTATOOLS指明了执行make otapackage命令所需要的系统工具，而目标$(BUILT_TARGE_FILES_PACKAGE)的生成则完成了两件事：重新打包system.img文件和生成差分资源包。$(BUILT_TARGE_FILES_PACKAGE)的编译规则如下所示：
+
+# -----------------------------------------------------------------
+# A zip of the directories that map to the target filesystem.
+# This zip can be used to create an OTA package or filesystem image
+# as a post-build step.
+#
+name := $(TARGET_PRODUCT)
+ifeq ($(TARGET_BUILD_TYPE),debug)
+  name := $(name)_debug
+endif
+name := $(name)-target_files-$(FILE_NAME_TAG)
+
+intermediates := $(call intermediates-dir-for,PACKAGING,target_files)
+BUILT_TARGET_FILES_PACKAGE := $(intermediates)/$(name).zip
+$(BUILT_TARGET_FILES_PACKAGE): intermediates := $(intermediates)
+$(BUILT_TARGET_FILES_PACKAGE): \
+		zip_root := $(intermediates)/$(name)
+
+# $(1): Directory to copy
+# $(2): Location to copy it to
+# The "ls -A" is to prevent "acp s/* d" from failing if s is empty.
+define package_files-copy-root
+  if [ -d "$(strip $(1))" -a "$$(ls -A $(1))" ]; then \
+    mkdir -p $(2) && \
+    $(ACP) -rd $(strip $(1))/* $(2); \
+  fi
+endef
+
+built_ota_tools := \
+	$(call intermediates-dir-for,EXECUTABLES,applypatch)/applypatch \
+	$(call intermediates-dir-for,EXECUTABLES,applypatch_static)/applypatch_static \
+	$(call intermediates-dir-for,EXECUTABLES,check_prereq)/check_prereq \
+	$(call intermediates-dir-for,EXECUTABLES,sqlite3)/sqlite3 \
+	$(call intermediates-dir-for,EXECUTABLES,updater)/updater
+$(BUILT_TARGET_FILES_PACKAGE): PRIVATE_OTA_TOOLS := $(built_ota_tools)
+
+$(BUILT_TARGET_FILES_PACKAGE): PRIVATE_RECOVERY_API_VERSION := $(RECOVERY_API_VERSION)
+
+ifeq ($(TARGET_RELEASETOOLS_EXTENSIONS),)
+# default to common dir for device vendor
+$(BUILT_TARGET_FILES_PACKAGE): tool_extensions := $(TARGET_DEVICE_DIR)/../common
+else
+$(BUILT_TARGET_FILES_PACKAGE): tool_extensions := $(TARGET_RELEASETOOLS_EXTENSIONS)
+endif
+
+# Depending on the various images guarantees that the underlying
+# directories are up-to-date.
+
+ifeq ($(TARGET_USERIMAGES_USE_EXT4),true)
+$(BUILT_TARGET_FILES_PACKAGE): $(INSTALLED_CACHEIMAGE_TARGET)
+endif
+
+$(BUILT_TARGET_FILES_PACKAGE): \
+		$(INSTALLED_BOOTIMAGE_TARGET) \
+		$(INSTALLED_RADIOIMAGE_TARGET) \
+		$(INSTALLED_RECOVERYIMAGE_TARGET) \
+		$(INSTALLED_FACTORYIMAGE_TARGET) \
+		$(INSTALLED_SYSTEMIMAGE) \
+		$(INSTALLED_CACHEIMAGE_TARGET) \
+		$(INSTALLED_USERDATAIMAGE_TARGET) \
+		$(INSTALLED_SECROIMAGE_TARGET) \
+		$(INSTALLED_ANDROID_INFO_TXT_TARGET) \
+		$(built_ota_tools) \
+		$(APKCERTS_FILE) \
+		$(HOST_OUT_EXECUTABLES)/fs_config \
+		| $(ACP)
+	@echo "Package target files: $@"
+	$(hide) rm -rf $@ $(zip_root)
+	$(hide) mkdir -p $(dir $@) $(zip_root)
+	@# Components of the recovery image
+	$(hide) mkdir -p $(zip_root)/RECOVERY
+	$(hide) $(call package_files-copy-root, \
+		$(TARGET_RECOVERY_ROOT_OUT),$(zip_root)/RECOVERY/RAMDISK)
+ifdef INSTALLED_KERNEL_TARGET
+	$(hide) $(ACP) $(INSTALLED_KERNEL_TARGET) $(zip_root)/RECOVERY/kernel
+	$(hide) $(ACP) $(recovery_ramdisk) $(zip_root)/RECOVERY/ramdisk
+endif
+ifdef INSTALLED_2NDBOOTLOADER_TARGET
+	$(hide) $(ACP) \
+		$(INSTALLED_2NDBOOTLOADER_TARGET) $(zip_root)/RECOVERY/second
+endif
+ifdef BOARD_KERNEL_CMDLINE
+	$(hide) echo "$(BOARD_KERNEL_CMDLINE)" > $(zip_root)/RECOVERY/cmdline
+endif
+ifdef BOARD_KERNEL_BASE
+	$(hide) echo "$(BOARD_KERNEL_BASE)" > $(zip_root)/RECOVERY/base
+endif
+	@# Components of the factory image
+	$(hide) mkdir -p $(zip_root)/FACTORY
+	$(hide) $(call package_files-copy-root, \
+		$(TARGET_FACTORY_ROOT_OUT),$(zip_root)/FACTORY/RAMDISK)
+ifdef INSTALLED_KERNEL_TARGET
+	$(hide) $(ACP) $(INSTALLED_KERNEL_TARGET) $(zip_root)/FACTORY/kernel
+endif
+ifdef BOARD_KERNEL_PAGESIZE
+	$(hide) echo "$(BOARD_KERNEL_PAGESIZE)" > $(zip_root)/RECOVERY/pagesize
+endif
+ifdef INSTALLED_2NDBOOTLOADER_TARGET
+	$(hide) $(ACP) \
+		$(INSTALLED_2NDBOOTLOADER_TARGET) $(zip_root)/FACTORY/second
+endif
+ifdef BOARD_KERNEL_CMDLINE
+	$(hide) echo "$(BOARD_KERNEL_CMDLINE)" > $(zip_root)/FACTORY/cmdline
+endif
+ifdef BOARD_KERNEL_BASE
+	$(hide) echo "$(BOARD_KERNEL_BASE)" > $(zip_root)/FACTORY/base
+endif
+	@# Components of the boot image
+	$(hide) mkdir -p $(zip_root)/BOOT
+	$(hide) $(call package_files-copy-root, \
+		$(TARGET_ROOT_OUT),$(zip_root)/BOOT/RAMDISK)
+ifdef INSTALLED_KERNEL_TARGET
+	$(hide) $(ACP) $(INSTALLED_KERNEL_TARGET) $(zip_root)/BOOT/kernel
+	$(hide) $(ACP) $(INSTALLED_RAMDISK_TARGET) $(zip_root)/BOOT/ramdisk
+endif
+ifdef INSTALLED_2NDBOOTLOADER_TARGET
+	$(hide) $(ACP) \
+		$(INSTALLED_2NDBOOTLOADER_TARGET) $(zip_root)/BOOT/second
+endif
+ifdef BOARD_KERNEL_CMDLINE
+	$(hide) echo "$(BOARD_KERNEL_CMDLINE)" > $(zip_root)/BOOT/cmdline
+endif
+ifdef BOARD_KERNEL_BASE
+	$(hide) echo "$(BOARD_KERNEL_BASE)" > $(zip_root)/BOOT/base
+endif
+ifdef BOARD_KERNEL_PAGESIZE
+	$(hide) echo "$(BOARD_KERNEL_PAGESIZE)" > $(zip_root)/BOOT/pagesize
+endif
+#wschen
+ifneq "" "$(CUSTOM_BUILD_VERNO)"
+	$(hide) echo "$(CUSTOM_BUILD_VERNO)" > $(zip_root)/BOOT/board
+endif
+
+#[eton begin]: added by LiuDekuan for u-boot update
+	$(hide) $(ACP) $(PRODUCT_OUT)/uboot_eyang77_ics2.bin $(zip_root)/uboot.bin
+#[eton end]
+
+	$(hide) $(foreach t,$(INSTALLED_RADIOIMAGE_TARGET),\
+	            mkdir -p $(zip_root)/RADIO; \
+	            $(ACP) $(t) $(zip_root)/RADIO/$(notdir $(t));)
+	@# Contents of the system image
+	$(hide) $(call package_files-copy-root, \
+		$(SYSTEMIMAGE_SOURCE_DIR),$(zip_root)/SYSTEM)
+	@# Contents of the data image
+	$(hide) $(call package_files-copy-root, \
+		$(TARGET_OUT_DATA),$(zip_root)/DATA)
+	@# Extra contents of the OTA package
+	$(hide) mkdir -p $(zip_root)/OTA/bin
+	$(hide) $(ACP) $(INSTALLED_ANDROID_INFO_TXT_TARGET) $(zip_root)/OTA/
+	$(hide) $(ACP) $(PRIVATE_OTA_TOOLS) $(zip_root)/OTA/bin/
+	@# Security information of the OTA package
+	@echo "[SEC OTA] Adding Security information to OTA package"
+	@echo "[SEC OTA] path : mediatek/custom/$(MTK_PROJECT)/security/recovery/SEC_VER.txt"
+	$(hide) $(ACP) mediatek/custom/$(MTK_PROJECT)/security/recovery/SEC_VER.txt $(zip_root)/OTA/
+	@# Files that do not end up in any images, but are necessary to
+	@# build them.
+	$(hide) mkdir -p $(zip_root)/META
+	$(hide) $(ACP) $(APKCERTS_FILE) $(zip_root)/META/apkcerts.txt
+	$(hide)	echo "$(PRODUCT_OTA_PUBLIC_KEYS)" > $(zip_root)/META/otakeys.txt
+	$(hide) echo "recovery_api_version=$(PRIVATE_RECOVERY_API_VERSION)" > $(zip_root)/META/misc_info.txt
+ifdef BOARD_FLASH_BLOCK_SIZE
+	$(hide) echo "blocksize=$(BOARD_FLASH_BLOCK_SIZE)" >> $(zip_root)/META/misc_info.txt
+endif
+ifdef BOARD_BOOTIMAGE_PARTITION_SIZE
+	$(hide) echo "boot_size=$(BOARD_BOOTIMAGE_PARTITION_SIZE)" >> $(zip_root)/META/misc_info.txt
+endif
+ifdef BOARD_RECOVERYIMAGE_PARTITION_SIZE
+	$(hide) echo "recovery_size=$(BOARD_RECOVERYIMAGE_PARTITION_SIZE)" >> $(zip_root)/META/misc_info.txt
+endif
+ifdef BOARD_SYSTEMIMAGE_PARTITION_SIZE
+	$(hide) echo "system_size=$(BOARD_SYSTEMIMAGE_PARTITION_SIZE)" >> $(zip_root)/META/misc_info.txt
+endif
+ifdef BOARD_SECROIMAGE_PARTITION_SIZE
+	$(hide) echo "secro_size=$(BOARD_SECROIMAGE_PARTITION_SIZE)" >> $(zip_root)/META/misc_info.txt
+endif
+ifdef BOARD_CACHEIMAGE_PARTITION_SIZE
+	$(hide) echo "cache_size=$(BOARD_CACHEIMAGE_PARTITION_SIZE)" >> $(zip_root)/META/misc_info.txt
+endif
+ifdef BOARD_USERDATAIMAGE_PARTITION_SIZE
+	$(hide) echo "userdata_size=$(BOARD_USERDATAIMAGE_PARTITION_SIZE)" >> $(zip_root)/META/misc_info.txt
+endif
+	$(hide) echo "tool_extensions=$(tool_extensions)" >> $(zip_root)/META/misc_info.txt
+ifdef mkyaffs2_extra_flags
+	$(hide) echo "mkyaffs2_extra_flags=$(mkyaffs2_extra_flags)" >> $(zip_root)/META/misc_info.txt
+endif
+ifdef INTERNAL_USERIMAGES_SPARSE_EXT_FLAG
+	$(hide) echo "extfs_sparse_flag=$(INTERNAL_USERIMAGES_SPARSE_EXT_FLAG)" >> $(zip_root)/META/misc_info.txt
+endif
+	$(hide) echo "default_system_dev_certificate=$(DEFAULT_KEY_CERT_PAIR)" >> $(zip_root)/META/misc_info.txt
+ifdef PRODUCT_EXTRA_RECOVERY_KEYS
+	$(hide) echo "extra_recovery_keys=$(PRODUCT_EXTRA_RECOVERY_KEYS)" >> $(zip_root)/META/misc_info.txt
+endif
+	@# Zip everything up, preserving symlinks
+	$(hide) (cd $(zip_root) && zip -qry ../$(notdir $@) .)
+	@# Run fs_config on all the system, boot ramdisk, and recovery ramdisk files in the zip, and save the output
+	$(hide) zipinfo -1 $@ | awk 'BEGIN { FS="SYSTEM/" } /^SYSTEM\// {print "system/" $$2}' | $(HOST_OUT_EXECUTABLES)/fs_config > $(zip_root)/META/filesystem_config.txt
+	$(hide) zipinfo -1 $@ | awk 'BEGIN { FS="BOOT/RAMDISK/" } /^BOOT\/RAMDISK\// {print $$2}' | $(HOST_OUT_EXECUTABLES)/fs_config > $(zip_root)/META/boot_filesystem_config.txt
+	$(hide) zipinfo -1 $@ | awk 'BEGIN { FS="RECOVERY/RAMDISK/" } /^RECOVERY\/RAMDISK\// {print $$2}' | $(HOST_OUT_EXECUTABLES)/fs_config > $(zip_root)/META/recovery_filesystem_config.txt
+	$(hide) (cd $(zip_root) && zip -q ../$(notdir $@) META/*filesystem_config.txt)
+
+
+target-files-package: $(BUILT_TARGET_FILES_PACKAGE)
+
+
+ifneq ($(TARGET_PRODUCT),sdk)
+ifeq ($(filter generic%,$(TARGET_DEVICE)),)
+ifneq ($(TARGET_NO_KERNEL),true)
+ifneq ($(recovery_fstab),)
+
+代码段3 $(BUILT_TARGE_FILES_PACKAGE)目标的编译规则
+
+         system.img文件的重新打包是通过$(BUILT_TARGE_FILES_PACKAGE)的依赖条件$(INSTALLED_SYSTEMIMAGE)目标文件的编译来完成的，而$(BUILT_TARGE_FILES_PACKAGE)所有的执行命令(代码第66行至最后)都只为完成一件事，生成差分资源包所对应的目录并将其打包为ZIP包。具体的操作包括：
+
+    创建$(zip_root)目录(代码第66~68行)，$(zip_root)即out/target/product/<product-name>/obj/PACKAGING/target_files_from_intermedias/<product-name>-target_files-<version-name>；
+    创建/$(zip_root)/RECOVERY目录并将COPY相关文件(代码69~86)；
+    创建/$(zip_root)/FACTORY目录并将COPY相关文件(代码87~106)；
+    创建/$(zip_root)/BOOT目录并将COPY相关文件(代码107~131)；
+    创建其他目录并COPY文件(代码132~191)；
+    将$(zip_root)目录压缩为资源差分包(代码192~198)等。
+
+        经过目标文件$(BUILT_TARGE_FILES_PACKAGE)的执行后，system.img已经被重新打包，且差分资源包也已经生成，剩下的工作就是将差分资源包传递给ota_target_from_files代码，由它来生成OTA整包。
+
+1.3 ota_target_from_files
+
+         ota_target_from_files为python代码所写的一个可执行文件，其路径为./build/tools/releasetools/ota_target_from_files。在此目录中其他python代码文件的辅助下，ota_target_from_files主要完成两个功能：生成OTA整包和OTA差分包，分别是通过函数WriteFullOTAPackage和WriteIncrementalOTAPackage来实现的。显然make otapackage命令调用的就是函数WriteFullOTAPackage来生成OTA整包。
+
+    def main(argv):
+     
+      def option_handler(o, a):
+        if o in ("-b", "--board_config"):
+          pass   # deprecated
+        elif o in ("-k", "--package_key"):
+          OPTIONS.package_key = a
+        elif o in ("-i", "--incremental_from"):
+          print "LiuDekuan: incremental_source = ", a
+          OPTIONS.incremental_source = a
+        elif o in ("-w", "--wipe_user_data"):
+          OPTIONS.wipe_user_data = True
+        elif o in ("-n", "--no_prereq"):
+          OPTIONS.omit_prereq = True
+        elif o in ("-e", "--extra_script"):
+          OPTIONS.extra_script = a
+        elif o in ("-a", "--aslr_mode"):
+          if a in ("on", "On", "true", "True", "yes", "Yes"):
+            OPTIONS.aslr_mode = True
+          else:
+            OPTIONS.aslr_mode = False
+        elif o in ("--worker_threads"):
+          OPTIONS.worker_threads = int(a)
+        elif o in ("-r", "--preloader"):
+          OPTIONS.preloader = a
+        elif o in ("-l", "--logo"):
+          OPTIONS.logo = a
+        elif o in ("-u", "--uboot"):
+          OPTIONS.uboot = a
+        elif o in ("-d", "--dsp"):
+          OPTIONS.dsp = a
+        else:
+          return False
+        return True
+     
+      args = common.ParseOptions(argv, __doc__,
+                                 extra_opts="b:k:i:d:wne:r:l:u:d:a:",
+                                 extra_long_opts=["board_config=",
+                                                  "package_key=",
+                                                  "incremental_from=",
+                                                  "wipe_user_data",
+                                                  "no_prereq",
+                                                  "extra_script=",
+                                                  "preloader=",
+                                                  "logo=",
+                                                  "uboot=",
+                                                  "dsp=",
+                                                  "worker_threads=",
+                                                  "aslr_mode=",
+                                                  ],
+                                 extra_option_handler=option_handler)
+     
+      if len(args) != 2:
+        common.Usage(__doc__)
+        sys.exit(1)
+      if OPTIONS.extra_script is not None:
+        OPTIONS.extra_script = open(OPTIONS.extra_script).read()
+     
+      print "unzipping target target-files..."
+      OPTIONS.input_tmp, input_zip = common.UnzipTemp(args[0])
+     
+      OPTIONS.target_tmp = OPTIONS.input_tmp
+      OPTIONS.info_dict = common.LoadInfoDict(input_zip)
+      if OPTIONS.verbose:
+        print "--- target info ---"
+        common.DumpInfoDict(OPTIONS.info_dict)
+     
+      if OPTIONS.device_specific is None:
+        OPTIONS.device_specific = OPTIONS.info_dict.get("tool_extensions", None)
+      if OPTIONS.device_specific is not None:
+        OPTIONS.device_specific = os.path.normpath(OPTIONS.device_specific)
+        print "using device-specific extensions in", OPTIONS.device_specific
+     
+      temp_zip_file = tempfile.NamedTemporaryFile()
+      output_zip = zipfile.ZipFile(temp_zip_file, "w",
+                                   compression=zipfile.ZIP_DEFLATED)
+     
+      if OPTIONS.incremental_source is None:
+        WriteFullOTAPackage(input_zip, output_zip)
+        if OPTIONS.package_key is None:
+          OPTIONS.package_key = OPTIONS.info_dict.get(
+              "default_system_dev_certificate",
+              "build/target/product/security/testkey")
+      else:
+        print "unzipping source target-files..."
+        OPTIONS.source_tmp, source_zip = common.UnzipTemp(OPTIONS.incremental_source)
+        OPTIONS.target_info_dict = OPTIONS.info_dict
+        OPTIONS.source_info_dict = common.LoadInfoDict(source_zip)
+        if OPTIONS.package_key is None:
+          OPTIONS.package_key = OPTIONS.source_info_dict.get(
+              "default_system_dev_certificate",
+              "build/target/product/security/testkey")
+        if OPTIONS.verbose:
+          print "--- source info ---"
+          common.DumpInfoDict(OPTIONS.source_info_dict)
+        WriteIncrementalOTAPackage(input_zip, source_zip, output_zip)
+     
+      output_zip.close()
+     
+      SignOutput(temp_zip_file.name, args[1])
+      temp_zip_file.close()
+     
+      common.Cleanup()
+     
+      print "done."
+
+代码段4 ota_from_target_files中的main函数
+
+        目标$(INTERNAL_OTA_PACKAGE_TARGET)的执行中调用到ota_from_target_files(如代码段1所示)，程序便会跳转到ota_from_target_files的main函数中(代码段4)，main函数首先解析Makefile(或终端)传递过来的参数(代码3~51)，之后将代码段3中生成的差分资源包赋给变量input_zip(代码第60行)并创建需要输出的ZIP包(整包或差分包)；之后判断当前命令是生成整包还是差分包(代码78)。如是整包升级则调用函数WriteFullOTAPackage函数(代码79)，其中参数input_zip是差分资源包，而output_zip即OTA整包；如是差分包升级则执行else分支(85~96)，调用函数WriteIncrementalOTAPackage。
+
+    def WriteFullOTAPackage(input_zip, output_zip):
+      # TODO: how to determine this?  We don't know what version it will
+      # be installed on top of.  For now, we expect the API just won't
+      # change very often.
+      script = edify_generator.EdifyGenerator(3, OPTIONS.info_dict)
+     
+      metadata = {"post-build": GetBuildProp("ro.build.fingerprint", input_zip),
+                  "pre-device": GetBuildProp("ro.product.device", input_zip),
+                  "post-timestamp": GetBuildProp("ro.build.date.utc", input_zip),
+                  }
+     
+      device_specific = common.DeviceSpecificParams(
+          input_zip=input_zip,
+          input_version=OPTIONS.info_dict["recovery_api_version"],
+          output_zip=output_zip,
+          script=script,
+          input_tmp=OPTIONS.input_tmp,
+          metadata=metadata,
+          info_dict=OPTIONS.info_dict)
+     
+      if not OPTIONS.omit_prereq:
+        ts = GetBuildProp("ro.build.date.utc", input_zip)
+        script.AssertOlderBuild(ts)
+     
+      AppendAssertions(script, input_zip)
+      device_specific.FullOTA_Assertions()
+     
+      script.ShowProgress(0.5, 0)
+     
+      if OPTIONS.wipe_user_data:
+        script.FormatPartition("/data")
+     
+      if OPTIONS.selinux_fc is not None:
+        WritePolicyConfig(OPTIONS.selinux_fc, output_zip)
+     
+      script.FormatPartition("/system")
+      script.Mount("/system")
+      script.UnpackPackageDir("recovery", "/system")
+      script.UnpackPackageDir("system", "/system")
+     
+      (symlinks, retouch_files) = CopySystemFiles(input_zip, output_zip)
+      script.MakeSymlinks(symlinks)
+      if OPTIONS.aslr_mode:
+        script.RetouchBinaries(retouch_files)
+      else:
+        script.UndoRetouchBinaries(retouch_files)
+     
+      boot_img = common.GetBootableImage("boot.img", "boot.img",
+                                         OPTIONS.input_tmp, "BOOT")
+      recovery_img = common.GetBootableImage("recovery.img", "recovery.img",
+                                             OPTIONS.input_tmp, "RECOVERY")
+      MakeRecoveryPatch(output_zip, recovery_img, boot_img)
+     
+      Item.GetMetadata(input_zip)
+      Item.Get("system").SetPermissions(script)
+     
+      common.CheckSize(boot_img.data, "boot.img", OPTIONS.info_dict)
+      common.ZipWriteStr(output_zip, "boot.img", boot_img.data)
+      script.ShowProgress(0.2, 0)
+     
+      script.ShowProgress(0.2, 10)
+      script.WriteRawImage("/boot", "boot.img")
+     
+      script.ShowProgress(0.1, 0)
+      device_specific.FullOTA_InstallEnd()
+     
+      if OPTIONS.extra_script is not None:
+        script.AppendExtra(OPTIONS.extra_script)
+     
+      script.UnmountAll()
+      script.AddToZip(input_zip, output_zip)
+      WriteMetadata(metadata, output_zip)
+
+代码段5 ota_from_target_files文件中的WriteFullOTAPackage函数
+
+        代码段5为WriteFullOTAPackage函数的定义，它所完成的功能便是将整包所需要的文件从差分资源包中读出并写入到整包中。同时，它还会向整包中的META-INFO/com/google/android/updater-script文件中写入一些操作命令(极其重要)，在recovery模式下系统会根据这些命令并执行相应的操作以完成系统的升级功能。

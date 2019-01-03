@@ -1,0 +1,57 @@
+动态开启关闭LOG的方法:
+
+class classA {
+	//代码中定义 Log 的TAG, 
+    public static final String TAG = "HANPENGCHENG_TAG";
+
+	// 控制变量
+    public static final boolean DEBUG = Log.isLoggable(TAG, Log.DEBUG);
+
+
+
+	method() {
+		...
+		//使用方法
+		if (DEBUG) Log.i(TAG, "out log msg");
+		...
+	}
+
+}
+
+控制方法:
+
+adb shell
+$ su
+# setprop log.tag.HANPENGCHENG_TAG V   // 开启Log, 一次性有效, 设置重启后失效.
+
+setprop log.tag.hanpengcheng V
+
+setprop log.tag.UsbHostManager V
+setprop log.tag.MountService V
+
+V Log 级别
+
+ -------------------------------
+
+
+网络adb
+
+
+adb tcpip 5555 （端口号）
+adb connect 192.168.1.199 （Android设备IP地址）
+ 
+
+// 通知栏下拉:
+		//
+		// hanpengcheng  control dropPannelNotificationPanelView
+		int dropPannel = android.os.SystemProperties.getInt("persist.sys.droppannel", android.os.eben.Default.DROP_PANNEL);
+        com.android.systemui.recents.misc.Utilities.LogJ("hpc","NotificationPanelView control " + dropPannel);
+		if (0 == dropPannel){
+			mNotificationPanel.setTouchDisabled(true);
+		} else {
+			mNotificationPanel.setTouchDisabled(false);
+		}
+		// hanpengcheng
+
+
+

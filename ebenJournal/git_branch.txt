@@ -12,7 +12,7 @@ git fetch origin t11:t11
 git clone ssh://XXX@10.10.134.54:29418/T10 -b t11 ./
  
 T11下拉和提交方法：
-       git pull –rebase origin t11
+       git pull --rebase origin t11
 git push origin HEAD:refs/for/t11
 
        Gerrit页面上审核通过

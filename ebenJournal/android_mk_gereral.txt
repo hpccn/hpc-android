@@ -1,0 +1,119 @@
+android.mk中几个常见配置
+
+1.LOCAL_JACK_ENABLED
+
+这个变量可以禁止使用Jack编译工具链编译该模块。在工作中，个人感觉目前jack工具链不是很稳定，经常会出现一些错误，比如：
+ERROR: Security problem, see Jack server log (/tmp/jack-liujinwei/jack-8072.log)
+这个时候，我就会在Android.mk中禁止该工具链。
+
+禁止方法如下：
+
+LOCAL_JACK_ENABLED := disabled
+
+
+2.LOCAL_DEX_PREOPT
+
+这个变量设置为false可以使整个系统使用提前优化的时候，某个app不使用提前优化。在Android.mk中给该变量赋值为false,则编译生成的文件没有oat文件，也就意味着没有被提前优化。
+
+LOCAL_DEX_PREOPT := false
+
+
+3.WITH_DEXPREOPT
+
+这个变量的使能导致system image中的所有东西都被提前优化（pre-optimized）。这可能导致system image非常大。
+
+WITH_DEXPREOPT := true
+
+
+4.DONT_DEXPREOPT_PREBUILTS
+
+    WITH_DEXPREOPT := true
+    DONT_DEXPREOPT_PREBUILTS := true
+
+
+这两个组合使用，可以使那些 prebuild的app不会被提前优化（pre-optimized）,即就是那些在Android.mk中包含intclude $(BUILD_PREBUILT)的app都不会被提前优化
+
+5.WITH_DEXPREOPT_BOOT_IMG_ONLY
+
+    WITH_DEXPREOPT := true
+    WITH_DEXPREOPT_BOOT_IMG_ONLY := true
+
+
+这两个组合使用只会优化boot image。
+
+6.LOCAL_MODULE_TAGS
+
+LOCAL_MODULE_TAGS ：=user eng tests optional
+
+user: 指该模块只在user版本下才编译
+
+eng: 指该模块只在eng版本下才编译
+
+tests: 指该模块只在tests版本下才编译
+
+optional:指该模块在所有版本下都编译
+
+
+7.LOCAL_PATH
+
+当前目录，使用LOCAL_PATH := $(call my-dir)获取当前目录，
+
+LOCAL_PATH不会被include $(CLEAR_VARS) 清理。
+
+
+8.LOCAL_MODULE
+
+模块名，在模块编译的时候，LOCAL_MODULE的值会被赋予ALL_MODULE,ALL_MODULE包含了系统所有模块，这些模块会更具系统的其他配置进一步筛选，最终筛选出来的模块会被编译。
+
+
+9.LOCAL_SHARED_LIBRARIES
+
+要连接到本模块的共享库。
+
+
+10.LOCAL_CERTIFICATE := platform
+
+使用平台签名文件签名。
+
+
+11.include $(BUILD_STATIC_JAVA_LIBRARY)
+
+构建一个静态的jar包
+
+
+12.include $(BUILD_PACKAGE)
+
+编译生成apk
+
+
+13.include $(BUILD_EXECUTABLE)
+
+编译生成可执行文件
+
+
+14.include $(BUILD_SHARED_LIBRARY)
+
+编译生成动态共享库
+
+
+15.include $(BUILD_STATIC_LIBRARY)
+
+编译生成静态库
+
+
+16.LOCAL_JAVA_LIBRARIES
+
+例如：LOCAL_JAVA_LIBRARIES := hello.jar,用于指明依赖的共享Jar包
+
+
+17.LOCAL_STATIC_JAVA_LIBRARIES
+
+用于指明依赖的静态jar包
+
+
+18.LOCAL_LDLIBS
+
+链接选项，指明链接的参数，LOCAL_SHARED_LIBRARIES 会生成依赖关系，当库不存在时会去编译这个库，LOCAL_LDLIBS则不会，它只是指明链接需要的参数。
+
+如：LOCAL_LDLIBS += -lm –lz –lc -lcutils –lutils –llog …
+

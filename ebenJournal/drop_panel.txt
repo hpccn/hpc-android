@@ -1,0 +1,51 @@
+
+1 方法1 需要锁屏重开后,才生效.
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PhoneStatusBar.java 
+
+
+/**
+     * Disable QS if device not provisioned.
+     * If the user switcher is simple then disable QS during setup because
+     * the user intends to use the lock screen user switcher, QS in not needed.
+     */
+    private void updateQsExpansionEnabled() {
+		// hanpengcheng  control dropPannelNotificationPanelView
+		int dropPannel = android.os.SystemProperties.getInt("persist.sys.droppannel", android.os.eben.Default.DROP_PANNEL);
+        com.android.systemui.recents.misc.Utilities.LogJ("hpc","NotificationPanelView control " + dropPannel);
+		if (0 == dropPannel){
+			mNotificationPanel.setTouchDisabled(true);
+			return;
+		} 
+		// end hanpengcheng
+
+        mNotificationPanel.setQsExpansionEnabled(isDeviceProvisioned()
+                && (mUserSetup || mUserSwitcherController == null
+                        || !mUserSwitcherController.isSimpleUserSwitcher())
+                && ((mDisabled2 & StatusBarManager.DISABLE2_QUICK_SETTINGS) == 0)
+                && !ONLY_CORE_APPS);
+    }
+
+
+2 方法2 立即生效.
+需求
+frameworks/base/packages/SystemUI/src/com/android/systemui/statusbar/phone/PanelBar.java
+startOpeningPanel(panel);
+
+
+  @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        // Allow subclasses to implement enable/disable semantics
+
+		... ...
+			int dropPanel = android.os.SystemProperties.getInt("persist.sys.droppanel", android.os.eben.Default.DROP_PANEL);
+			com.android.systemui.recents.misc.Utilities.LogJ("hpc","NotificationPanelView control " + dropPanel);
+            if (!enabled || 0 == dropPanel) {
+                // panel is disabled, so we'll eat the gesture
+                Log.v(TAG, String.format(
+                        "onTouch: panel (%s) is disabled, ignoring touch at (%d,%d)",
+                        panel, (int) event.getX(), (int) event.getY()));
+                mTouchingPanel = null;
+                return true;
+            }
+            startOpeningPanel(panel);
+ 

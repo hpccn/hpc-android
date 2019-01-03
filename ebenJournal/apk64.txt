@@ -1,0 +1,67 @@
+ LOCAL_MULTILIB := 32 
+
+如果 Android.mk 中再加上 LOCAL_MULTILIB := 32  就可以指定只 link 32bit so 了
+
+在 64bit 主控上面， 进程是如何确定 native 库是用 32bit 还是 64bit ?
+比如 mediaserver， Android.mk 中就是 LOCAL_32_BIT_ONLY := true ，
+
+======================= =======================
+解决方法：
+
+在应用的Android.mk 中，加入以下语句
+
+LOCAL_MULTILIB := both＃同时生成32位和64位的目录和odex
+
+
+LOCAL_MODULE_TARGET_ARCH:= arm64  #目标ＣＰＵ架构名。如果为　“arm” 则声称ARM兼容的指令。与CPU架构版本无关。
+
+======================= =======================
+
+
+这时会报错，因为gradle的配置中，并不知道是否要做操作系统的兼容，这时只要在gradle.properties文件中加上
+
+android.useDeprecatedNdk=true
+
+
+
+======================= =======================
+
+
+看到 com.ovvi.android.xtime/1000 1000 是android.uid.system 的， 然后找了下下面的这些包名，发现都是android.uid.system的。
+看来同一个uid的应用不能32位和64位混着用。
+
+解决方法：
+
+1..在apk对应的android.mk中
+
+LOCAL_DEX_PREOPT := nostripping
+
+2.  /device/qcom/msmxxxx/BoardConfig.mk,
+DEX_PREOPT_DEFAULT := nostripping 
+
+
+
+
+======================= =======================
+
+编译预优化可能的问题
+
+一类问题是64bit处理器上遇到的ABI的适用性问题。
+共享UID问题
+
+在64bit机器上共享UID非常复杂：
+
+    在64bit机器上，32bit和64bit app都能运行，有两种Zygote进程：“Zygote”和“Zygote64”。“Zygote”用于fork 32bit应用进程，“Zygote64”用于fork 64bit进程。
+    如果应用共享UID（在AndroidManifest.xml文件中使用android.shareUserId），尤其是当它们共享进程时（使用“android：process”指定app运行的目标进程），则所有的共享UID相同的进程必须运行在相同的进程中。
+    只有不依赖JNI的apk，可以被同时编译成32bit和64bit。如果使能了编译预优化，在编译时将生成二进制文件。对于64bit机器，绝大多少apk默认将被编译成64bit二进制，在编译预优化完成后，为了节省空间apk的classes.dex将被删除，但是如果apk依赖native代码，并且native代码被编译成了32bit二进制，apk同样要被编译成32bit二进制。
+    问题来了，如果一个32bit apk和一个64bit apk使用共享UID，这将导致未知问题。
+    如果apk不共享UID，将不会出现问题。
+
+有三种解决方法：
+
+    对于所有共享相同UID的apk， 在编译的.mk文件中添加LOCAL_MULTILIB := both以支持两个版本的odex。
+    在.mk文件中使用LOCAL_DEX_PREOPT := nostripping以确保classes.dex文件不被删除，这将节约存储空间，但是影响启动时间。
+    创建伪link以使PackageManager运行在32bit模式，这通过将ystem/app/(appname)/lib/arm/通过符号链接到任意的32bit库。
+
+
+

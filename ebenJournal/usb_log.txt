@@ -1,0 +1,66 @@
+
+// U盘
+12-28 12:07:52.753  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/001)
+12-28 12:07:52.754  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/001 vnd:7531 prd:2 cls:9 sub:0 proto:1
+12-28 12:07:53.231  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/002)
+12-28 12:07:53.231  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/002 vnd:9129 prd:61208 cls:0 sub:0 proto:0
+12-28 12:07:53.231  8869  9446 D UsbHostManager: usb:UsbHostManager.endUsbDeviceAdded()
+12-28 12:07:53.232  8869  9446 D UsbHostManager: Added device UsbDevice[mName=/dev/bus/usb/001/002,mVendorId=9129,mProductId=61208,mClass=0,mSubclass=0,mProtocol=0,mManufacturerName=AI210,mProductName=Mass Storage,mVersion=2.0,mSerialNumber=null,mConfigurations=[
+12-28 12:07:53.232  8869  9446 D UsbHostManager: UsbConfiguration[mId=1,mName=null,mAttributes=128,mMaxPower=50,mInterfaces=[
+12-28 12:07:53.232  8869  9446 D UsbHostManager: UsbInterface[mId=0,mAlternateSetting=0,mName=null,mClass=8,mSubclass=6,mProtocol=80,mEndpoints=[
+12-28 12:07:53.232  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=2,mAttributes=2,mMaxPacketSize=512,mInterval=0]
+12-28 12:07:53.232  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=130,mAttributes=2,mMaxPacketSize=512,mInterval=0]]]]
+
+//鼠标
+12-28 12:10:59.103  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/001)
+12-28 12:10:59.103  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/001 vnd:7531 prd:2 cls:9 sub:0 proto:1
+12-28 12:10:59.604  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/002)
+12-28 12:10:59.604  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/002 vnd:2362 prd:9488 cls:0 sub:0 proto:0
+12-28 12:10:59.604  8869  9446 D UsbHostManager: usb:UsbHostManager.endUsbDeviceAdded()
+12-28 12:10:59.604  8869  9446 D UsbHostManager: Added device UsbDevice[mName=/dev/bus/usb/001/002,mVendorId=2362,mProductId=9488,mClass=0,mSubclass=0,mProtocol=0,mManufacturerName=PixArt,mProductName=USB Optical Mouse,mVersion=1.16,mSerialNumber=null,mConfigurations=[
+12-28 12:10:59.604  8869  9446 D UsbHostManager: UsbConfiguration[mId=1,mName=null,mAttributes=160,mMaxPower=50,mInterfaces=[
+12-28 12:10:59.604  8869  9446 D UsbHostManager: UsbInterface[mId=0,mAlternateSetting=0,mName=null,mClass=3,mSubclass=1,mProtocol=2,mEndpoints=[
+12-28 12:10:59.604  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=129,mAttributes=3,mMaxPacketSize=4,mInterval=10]]]]
+
+
+// U盘
+12-28 12:11:41.749  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/001)
+12-28 12:11:41.750  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/001 vnd:7531 prd:2 cls:9 sub:0 proto:1
+12-28 12:11:42.237  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/002)
+12-28 12:11:42.237  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/002 vnd:9129 prd:61208 cls:0 sub:0 proto:0
+12-28 12:11:42.237  8869  9446 D UsbHostManager: usb:UsbHostManager.endUsbDeviceAdded()
+12-28 12:11:42.237  8869  9446 D UsbHostManager: Added device UsbDevice[mName=/dev/bus/usb/001/002,mVendorId=9129,mProductId=61208,mClass=0,mSubclass=0,mProtocol=0,mManufacturerName=AI210,mProductName=Mass Storage,mVersion=2.0,mSerialNumber=null,mConfigurations=[
+12-28 12:11:42.237  8869  9446 D UsbHostManager: UsbConfiguration[mId=1,mName=null,mAttributes=128,mMaxPower=50,mInterfaces=[
+12-28 12:11:42.237  8869  9446 D UsbHostManager: UsbInterface[mId=0,mAlternateSetting=0,mName=null,mClass=8,mSubclass=6,mProtocol=80,mEndpoints=[
+12-28 12:11:42.237  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=2,mAttributes=2,mMaxPacketSize=512,mInterval=0]
+12-28 12:11:42.237  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=130,mAttributes=2,mMaxPacketSize=512,mInterval=0]]]]
+
+
+
+
+// USB CARD 
+12-28 12:15:15.939  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/001)
+12-28 12:15:15.939  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/001 vnd:7531 prd:2 cls:9 sub:0 proto:1
+12-28 12:15:59.360  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/002)
+12-28 12:15:59.360  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/002 vnd:1423 prd:25446 cls:0 sub:0 proto:0
+12-28 12:15:59.360  8869  9446 D UsbHostManager: usb:UsbHostManager.endUsbDeviceAdded()
+12-28 12:15:59.360  8869  9446 D UsbHostManager: Added device UsbDevice[mName=/dev/bus/usb/001/002,mVendorId=1423,mProductId=25446,mClass=0,mSubclass=0,mProtocol=0,mManufacturerName=Generic,mProductName=Flash Card Reader/Writer,mVersion=2.0,mSerialNumber=058F63666438,mConfigurations=[
+12-28 12:15:59.360  8869  9446 D UsbHostManager: UsbConfiguration[mId=1,mName=null,mAttributes=128,mMaxPower=50,mInterfaces=[
+12-28 12:15:59.360  8869  9446 D UsbHostManager: UsbInterface[mId=0,mAlternateSetting=0,mName=null,mClass=8,mSubclass=6,mProtocol=80,mEndpoints=[
+12-28 12:15:59.360  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=1,mAttributes=2,mMaxPacketSize=512,mInterval=0]
+12-28 12:15:59.360  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=130,mAttributes=2,mMaxPacketSize=512,mInterval=0]]]]
+
+
+
+// TF card
+12-28 12:50:53.195  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/001)
+12-28 12:50:53.195  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/001 vnd:7531 prd:2 cls:9 sub:0 proto:1
+12-28 12:50:53.669  8869  9446 D UsbHostManager: usb:UsbHostManager.beginUsbDeviceAdded(/dev/bus/usb/001/002)
+12-28 12:50:53.669  8869  9446 D UsbHostManager: usb: nm:/dev/bus/usb/001/002 vnd:6408 prd:550 cls:0 sub:0 proto:0
+12-28 12:50:53.669  8869  9446 D UsbHostManager: usb:UsbHostManager.endUsbDeviceAdded()
+12-28 12:50:53.670  8869  9446 D UsbHostManager: Added device UsbDevice[mName=/dev/bus/usb/001/002,mVendorId=6408,mProductId=550,mClass=0,mSubclass=0,mProtocol=0,mManufacturerName=null,mProductName=null,mVersion=2.0,mSerialNumber=null,mConfigurations=[
+12-28 12:50:53.670  8869  9446 D UsbHostManager: UsbConfiguration[mId=1,mName=null,mAttributes=128,mMaxPower=75,mInterfaces=[
+12-28 12:50:53.670  8869  9446 D UsbHostManager: UsbInterface[mId=0,mAlternateSetting=0,mName=null,mClass=8,mSubclass=6,mProtocol=80,mEndpoints=[
+12-28 12:50:53.670  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=1,mAttributes=2,mMaxPacketSize=512,mInterval=0]
+12-28 12:50:53.670  8869  9446 D UsbHostManager: UsbEndpoint[mAddress=129,mAttributes=2,mMaxPacketSize=512,mInterval=0]]]]
+

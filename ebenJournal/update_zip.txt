@@ -1,0 +1,17 @@
+
+zip 增加文件
+zip -d update.zip custom.img 
+
+
+
+
+zip 增加文件
+zip -m update.zip custom.img 
+
+
+update.zip 签名:
+
+java -Xmx2048m -jar out/host/linux-x86/framework/signapk.jar -w build/target/product/security/testkey.x509.pem build/target/product/security/testkey.pk8 /tmp/tmpG5Xaie out/target/product/msm8952_64/msm8952_64-ota-eng.hpc.zip
+
+
+java -Xmx2048m -jar out/host/linux-x86/framework/signapk.jar -w build/target/product/security/testkey.x509.pem build/target/product/security/testkey.pk8  out/target/product/msm8952_64/msm8952_64-ota-eng.hpc.zip out/target/product/msm8952_64/update.hpc.zip

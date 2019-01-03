@@ -1,0 +1,16 @@
+
+branchA  commit-id
+
+git checkout branchA
+
+git log
+找到 commit-id.
+
+cherry-pick 在本地库中操作,需要把选程分支pull 到本地库中才可以 cherry-pick
+
+
+branchB 从branchA 导入提交
+
+git checkout branchB
+
+git cherry-pick <commit-id>

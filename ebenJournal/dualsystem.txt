@@ -1,0 +1,5 @@
+默认壁纸 
+安全系统恢复出厂默认壁纸
+
+在
+packages/apps/ManagedProvisioning/

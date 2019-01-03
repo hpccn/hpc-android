@@ -1,0 +1,14 @@
+
+图片国际化 
+
+
+       在 res 下新建 drawable-zh 文件夹，存放中文环境下的图片 
+
+	   drawable-zh-hdpi 
+	   drawable-en-ldpi 
+
+	   drawable-en-rUS-mdpi     
+
+中文（中国）：values-zh-rCN
+中文（台湾）：values-zh-rTW
+中文（香港）：values-zh-rHK

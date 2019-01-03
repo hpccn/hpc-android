@@ -1,0 +1,17 @@
+T11项目代码目前已经可以 下载并提交修改。
+ 
+T11项目继续使用T10的代码库，t11作为分支存在。
+ 
+ 
+访问方法：
+1.     在原T10目录创建新分支：
+git fetch origin t11:t11
+       git checkout t11
+2.     新建t11目录
+git clone ssh://XXX@10.10.134.54:29418/T10 -b t11 ./
+ 
+T11下拉和提交方法：
+       git pull --rebase origin t11
+git push origin HEAD:refs/for/t11
+       Gerrit页面上审核通过
+ 

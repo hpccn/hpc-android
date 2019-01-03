@@ -1,0 +1,345 @@
+--------- beginning of main
+12-28 11:00:14.475   585  3416 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0x2 of type 0 for Event 0, with Raise=0
+12-28 11:00:15.283  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:15.284  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:15.284  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+--------- beginning of system
+12-28 11:00:15.285  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:16.302  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:16.306  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:16.307  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:16.310  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:16.874  5137  5137 D stock   : setRefreshStockAlarm
+12-28 11:00:16.878  5137  5137 E ActivityThread: Failed to find provider info for com.dazhihui.android.app
+12-28 11:00:16.878  5137  5137 E NewsWidgetService: refreshTimeCursor = null
+12-28 11:00:16.878  5137  5137 D stock   : refreshTime = 0
+12-28 11:00:16.975   800   800 I MSM-irqbalance: Decided to move IRQ203 from CPU3 to CPU2
+12-28 11:00:17.251  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:17.255  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:17.325  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:17.329  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:17.330  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:17.331  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:18.344  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:18.348  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:18.349  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:18.350  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:19.364  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:19.368  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:19.369  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:19.373  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:20.262  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:20.283  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:21.398  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:21.401  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:21.402  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:21.405  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:21.895  5137  5137 D stock   : setRefreshStockAlarm
+12-28 11:00:21.898  5137  5137 E ActivityThread: Failed to find provider info for com.dazhihui.android.app
+12-28 11:00:21.898  5137  5137 E NewsWidgetService: refreshTimeCursor = null
+12-28 11:00:21.898  5137  5137 D stock   : refreshTime = 0
+12-28 11:00:21.975   800   800 I MSM-irqbalance: Decided to move IRQ178 from CPU0 to CPU2
+12-28 11:00:22.419  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:22.425  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:22.425  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:22.426  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:23.289  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:23.304  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:23.442  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:23.445  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:23.446  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:23.447  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:24.459  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:24.463  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:24.465  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:24.466  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:25.488  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:25.492  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:25.494  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:25.495  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:26.311  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:26.315  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:26.504  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:26.511  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:26.511  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:26.512  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:26.941  5137  5137 D stock   : setRefreshStockAlarm
+12-28 11:00:26.945  5137  5137 E ActivityThread: Failed to find provider info for com.dazhihui.android.app
+12-28 11:00:26.945  5137  5137 E NewsWidgetService: refreshTimeCursor = null
+12-28 11:00:26.945  5137  5137 D stock   : refreshTime = 0
+12-28 11:00:26.975   800   800 I MSM-irqbalance: Decided to move IRQ203 from CPU3 to CPU2
+12-28 11:00:29.324  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:29.342  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:29.574  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:29.579  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:29.580  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:29.582  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:30.591  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:30.594  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:30.594  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:30.594  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:31.611  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:31.616  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:31.618  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:31.618  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:31.976   800   800 I MSM-irqbalance: Decided to move IRQ200 from CPU7 [P:0] to CPU3 [P:1] (banned)
+12-28 11:00:31.987  5137  5137 D stock   : setRefreshStockAlarm
+12-28 11:00:31.991  5137  5137 E ActivityThread: Failed to find provider info for com.dazhihui.android.app
+12-28 11:00:31.991  5137  5137 E NewsWidgetService: refreshTimeCursor = null
+12-28 11:00:31.991  5137  5137 D stock   : refreshTime = 0
+12-28 11:00:32.349  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:32.369  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:32.632  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:32.635  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:32.636  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:32.637  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:33.649  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:33.653  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:33.654  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:33.655  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:34.672  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:34.674  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:34.675  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:34.679  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:35.377  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:35.397  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:35.689  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:35.694  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:35.694  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:35.696  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:36.346  1190  1211 W PackageManager: permission error:10103,android.permission.WRITE_SECURE_SETTINGS
+12-28 11:00:36.347  1190  1211 W SettingsProvider: You shouldn't keep your settings in the secure settings. This will soon become an error.
+12-28 11:00:36.708  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:36.711  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:36.711  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:36.714  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:36.974   800   800 I MSM-irqbalance: Decided to move IRQ200 from CPU3 to CPU2
+12-28 11:00:37.032  5137  5137 D stock   : setRefreshStockAlarm
+12-28 11:00:37.034  5137  5137 E ActivityThread: Failed to find provider info for com.dazhihui.android.app
+12-28 11:00:37.034  5137  5137 E NewsWidgetService: refreshTimeCursor = null
+12-28 11:00:37.035  5137  5137 D stock   : refreshTime = 0
+12-28 11:00:38.404  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:38.408  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:38.918  1190  1228 E UsbDeviceManager: host id change : 1 to 0
+12-28 11:00:38.918  1190  1228 E UsbDeviceManager: MSG_HOST_LOOP ,obj:null
+12-28 11:00:39.758  1190  3558 D UsbHostManager: Added device UsbDevice[mName=/dev/bus/usb/001/002,mVendorId=9129,mProductId=61208,mClass=0,mSubclass=0,mProtocol=0,mManufacturerName=AI210,mProductName=Mass Storage,mVersion=2.0,mSerialNumber=null,mConfigurations=[
+12-28 11:00:39.758  1190  3558 D UsbHostManager: UsbConfiguration[mId=1,mName=null,mAttributes=128,mMaxPower=50,mInterfaces=[
+12-28 11:00:39.758  1190  3558 D UsbHostManager: UsbInterface[mId=0,mAlternateSetting=0,mName=null,mClass=8,mSubclass=6,mProtocol=80,mEndpoints=[
+12-28 11:00:39.758  1190  3558 D UsbHostManager: UsbEndpoint[mAddress=2,mAttributes=2,mMaxPacketSize=512,mInterval=0]
+12-28 11:00:39.758  1190  3558 D UsbHostManager: UsbEndpoint[mAddress=130,mAttributes=2,mMaxPacketSize=512,mInterval=0]]]]
+12-28 11:00:39.759  1190  3558 W UsbSettingsManager: no meta-data for ResolveInfo{1adb89d com.estrongs.android.pop/.view.FileExplorerActivity m=0x108000}
+12-28 11:00:39.764  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:39.765  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:39.768  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:39.768  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:39.771  1190  3558 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.usb.UsbSettingsManager.deviceAttached:742 com.android.server.usb.UsbHostManager.endUsbDeviceAdded:225 com.android.server.usb.UsbHostManager.monitorUsbHostBus:-2 com.android.server.usb.UsbHostManager.access$000:40 
+12-28 11:00:39.773  1190  3558 I ActivityManager: START u0 {flg=0x10000000 cmp=com.android.systemui/.usb.UsbConfirmActivity (has extras)} from uid 1000 on display 0
+12-28 11:00:39.775  5128  5132 E ANDR-PERF-MPCTL: Invalid profile no. 0, total profiles 0 only
+12-28 11:00:39.810  3601  3601 E ActivityThread: Activity created===-1
+12-28 11:00:39.818  3601  3601 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@907e577
+12-28 11:00:39.819  3601  3601 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@15125e4
+12-28 11:00:39.823  3601  3601 E ActivityThread: Activity created===-1
+12-28 11:00:39.809  4285  4285 W Binder_9: type=1400 audit(0.0:226): avc: denied { ioctl } for path="socket:[103910]" dev="sockfs" ino=103910 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+12-28 11:00:39.809  4285  4285 W Binder_9: type=1400 audit(0.0:227): avc: denied { ioctl } for path="socket:[103910]" dev="sockfs" ino=103910 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+12-28 11:00:39.829 10022 10387 W System.err: com.estrongs.fs.impl.usb.UsbFsException: Missing permission to access device
+12-28 11:00:39.829 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.g.c(Unknown Source)
+12-28 11:00:39.829 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.g.n(Unknown Source)
+12-28 11:00:39.829 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.g.h(Unknown Source)
+12-28 11:00:39.829 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.e.m(Unknown Source)
+12-28 11:00:39.829 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.e.l(Unknown Source)
+12-28 11:00:39.829 10022 10387 W System.err: 	at com.estrongs.android.ui.c.b.g.run(Unknown Source)
+12-28 11:00:39.830 10022 10387 W System.err: com.estrongs.fs.impl.usb.UsbFsException: Missing permission to access device
+12-28 11:00:39.830 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.g.c(Unknown Source)
+12-28 11:00:39.830 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.g.n(Unknown Source)
+12-28 11:00:39.830 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.g.h(Unknown Source)
+12-28 11:00:39.830 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.e.m(Unknown Source)
+12-28 11:00:39.830 10022 10387 W System.err: 	at com.estrongs.fs.impl.usb.e.k(Unknown Source)
+12-28 11:00:39.830 10022 10387 W System.err: 	at com.estrongs.android.ui.c.b.g.run(Unknown Source)
+12-28 11:00:39.835  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:39.851  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:39.861  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:39.863  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:39.864  1190  1270 I ActivityManager: Displayed com.android.systemui/.usb.UsbConfirmActivity: +57ms
+12-28 11:00:40.760  1190  3489 D VoldConnector: RCV <- {640 disk:8,0 9}
+12-28 11:00:40.761   376   403 V vold    : /system/bin/sgdisk
+12-28 11:00:40.761   376   403 V vold    :     --android-dump
+12-28 11:00:40.761   376   403 V vold    :     /dev/block/vold/disk:8,0
+12-28 11:00:40.762  1190  3489 D VoldConnector: RCV <- {641 disk:8,0 32229130240}
+12-28 11:00:40.762  1190  3489 D VoldConnector: RCV <- {642 disk:8,0 AI      
+12-28 11:00:40.762  1190  3489 D VoldConnector: }
+12-28 11:00:40.762  1190  3489 D VoldConnector: RCV <- {644 disk:8,0 /sys//devices/platform/msm_hsusb_host/usb1/1-1/1-1:1.0/host7/target7:0:0/7:0:0:0/block/sda}
+12-28 11:00:40.763  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:40.764  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:40.764  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:40.765  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:40.782   376   403 V vold    : DISK mbr
+12-28 11:00:40.782   376   403 V vold    : PART 4 c
+12-28 11:00:40.784  1190  3489 D VoldConnector: RCV <- {650 public:8,4 0 "disk:8,0" ""}
+12-28 11:00:40.784  1190  3489 D VoldConnector: RCV <- {651 public:8,4 0}
+12-28 11:00:40.784  1190  3489 D VoldConnector: RCV <- {643 disk:8,0}
+12-28 11:00:40.785  9652  9652 W Storage : onVolumeStateChanged > VolumeInfo{public:8,4}:
+12-28 11:00:40.785  9652  9652 W Storage :     type=PUBLIC diskId=disk:8,0 partGuid=null mountFlags=0 mountUserId=-1 
+12-28 11:00:40.785  9652  9652 W Storage :     state=UNMOUNTED 
+12-28 11:00:40.785  9652  9652 W Storage :     fsType=null fsUuid=null fsLabel=null 
+12-28 11:00:40.785  9652  9652 W Storage :     path=null internalPath=null 
+12-28 11:00:40.785  9652  9652 W liweichao: onVolumeStateChanged ..vol.getPath......null
+12-28 11:00:40.785  9652  9652 W Storage : onVolumeStateChanged > VolumeInfo{public:8,4}:
+12-28 11:00:40.785  9652  9652 W Storage :     type=PUBLIC diskId=disk:8,0 partGuid=null mountFlags=0 mountUserId=-1 
+12-28 11:00:40.785  9652  9652 W Storage :     state=UNMOUNTED 
+12-28 11:00:40.785  9652  9652 W Storage :     fsType=null fsUuid=null fsLabel=null 
+12-28 11:00:40.785  9652  9652 W Storage :     path=null internalPath=null 
+12-28 11:00:40.785  9652  9652 W liweichao: onVolumeStateChanged ..vol.getPath......null
+12-28 11:00:40.785  3601  3601 D StorageNotification: Notifying about public volume: VolumeInfo{public:8,4}:
+12-28 11:00:40.785  3601  3601 D StorageNotification:     type=PUBLIC diskId=disk:8,0 partGuid=null mountFlags=0 mountUserId=-1 
+12-28 11:00:40.785  3601  3601 D StorageNotification:     state=UNMOUNTED 
+12-28 11:00:40.785  3601  3601 D StorageNotification:     fsType=null fsUuid=null fsLabel=null 
+12-28 11:00:40.785  3601  3601 D StorageNotification:     path=null internalPath=null 
+12-28 11:00:40.787  8201  8201 D ExternalStorage: After updating volumes, found 2 active roots
+12-28 11:00:40.790  8214  8214 D ExternalStorage: After updating volumes, found 1 active roots
+12-28 11:00:41.413  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:41.429  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:41.772  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:41.773  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:41.774  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:41.774  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:41.977   800   800 I MSM-irqbalance: Decided to move IRQ321 from CPU0 to CPU2
+12-28 11:00:42.078  5137  5137 D stock   : setRefreshStockAlarm
+12-28 11:00:42.082  5137  5137 E ActivityThread: Failed to find provider info for com.dazhihui.android.app
+12-28 11:00:42.082  5137  5137 E NewsWidgetService: refreshTimeCursor = null
+12-28 11:00:42.082  5137  5137 D stock   : refreshTime = 0
+12-28 11:00:42.807  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:42.811  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:42.811  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:42.812  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:43.820  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:43.824  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:43.824  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:43.826  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:43.881  5137  5137 E sy________________: 001
+12-28 11:00:43.889  5137  5137 I System.out: sy______________002com.ebensz.widgets.START_NEWS_SERVICE
+12-28 11:00:43.891  5137  5137 D loadBitmap: startAction_news
+12-28 11:00:44.141  5137  5137 D loadBitmap: loadBitmap-Service
+12-28 11:00:44.164  5137  7614 D loadBitmap: sdcard = 
+12-28 11:00:44.174  5137  7614 E BitmapFactory: Unable to decode stream: java.io.FileNotFoundException: /storage/emulated/0/Android/data/com.ebensz.widgets.pad/files/widgets_imagefile: open failed: EISDIR (Is a directory)
+12-28 11:00:44.175  5137  7614 D loadBitmap: Exception Protocol not found: 
+12-28 11:00:44.175  5137  7614 W System.err: java.net.MalformedURLException: Protocol not found: 
+12-28 11:00:44.175  5137  7614 W System.err: 	at java.net.URL.<init>(URL.java:176)
+12-28 11:00:44.175  5137  7614 W System.err: 	at java.net.URL.<init>(URL.java:125)
+12-28 11:00:44.175  5137  7614 W System.err: 	at com.ebensz.widgets.pad.tool.LoadBitmap.downloadBitmap(LoadBitmap.java:169)
+12-28 11:00:44.175  5137  7614 W System.err: 	at com.ebensz.widgets.pad.tool.LoadBitmap.downloadBitmap(LoadBitmap.java:148)
+12-28 11:00:44.175  5137  7614 W System.err: 	at com.ebensz.widgets.pad.tool.LoadBitmap.access$200(LoadBitmap.java:26)
+12-28 11:00:44.175  5137  7614 W System.err: 	at com.ebensz.widgets.pad.tool.LoadBitmap$2.run(LoadBitmap.java:80)
+12-28 11:00:44.175  5137  7614 W System.err: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:423)
+12-28 11:00:44.175  5137  7614 W System.err: 	at java.util.concurrent.FutureTask.run(FutureTask.java:237)
+12-28 11:00:44.175  5137  7614 W System.err: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1113)
+12-28 11:00:44.175  5137  7614 W System.err: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:588)
+12-28 11:00:44.176  5137  7614 W System.err: 	at java.lang.Thread.run(Thread.java:818)
+12-28 11:00:44.435  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:44.458  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:44.661  5137  5137 E BitmapFactory: Unable to decode stream: java.io.FileNotFoundException: /storage/emulated/0/Android/data/com.ebensz.widgets.pad/files/widgets_imagefile: open failed: EISDIR (Is a directory)
+12-28 11:00:44.702  5137  5137 E BitmapFactory: Unable to decode stream: java.io.FileNotFoundException: /storage/emulated/0/Android/data/com.ebensz.widgets.pad/files/widgets_imagefile: open failed: EISDIR (Is a directory)
+12-28 11:00:44.827  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:44.828  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:44.833  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:44.833  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:45.852  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:45.855  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:45.855  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:45.857  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:46.872  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:46.877  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:46.878  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:46.880  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:46.975   800   800 I MSM-irqbalance: Decided to move IRQ203 from CPU4 [P:0] to CPU0 [P:1] (banned)
+12-28 11:00:47.122  5137  5137 D stock   : setRefreshStockAlarm
+12-28 11:00:47.126  5137  5137 E ActivityThread: Failed to find provider info for com.dazhihui.android.app
+12-28 11:00:47.126  5137  5137 E NewsWidgetService: refreshTimeCursor = null
+12-28 11:00:47.126  5137  5137 D stock   : refreshTime = 0
+12-28 11:00:47.466  4042  4042 D wpa_supplicant: wlan0: Control interface command 'SIGNAL_POLL'
+12-28 11:00:47.470  4042  4042 D wpa_supplicant: CTRL-DEBUG: global_ctrl_sock-sendto: sock=11 sndbuf=212992 outq=0 send_len=49
+12-28 11:00:47.928  1190  1211 I ActivityManager: START u0 {act=android.hardware.usb.action.USB_DEVICE_ATTACHED flg=0x10000000 cmp=com.estrongs.android.pop/.app.UsbMonitorActivity (has extras)} from uid 10014 on display 0
+12-28 11:00:47.931   585  3416 D audio_hw_primary: out_set_parameters: enter: usecase(1: low-latency-playback) kvpairs: routing=2
+12-28 11:00:47.931  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:47.931   585  3416 D audio_hw_extn: audio_extn_set_anc_parameters: anc_enabled:0
+12-28 11:00:47.941  1190  4310 W InputMethodManagerService: Window already focused, ignoring focus gain of: com.android.internal.view.IInputMethodClient$Stub$Proxy@413030d attribute=null, token = android.os.BinderProxy@814d6d8
+12-28 11:00:47.942   585  3416 D audio_hw_primary: start_output_stream: enter: stream(0xf3a37000)usecase(1: low-latency-playback) devices(0x2)
+12-28 11:00:47.942   585  3416 D audio_hw_primary: select_devices: out_snd_device(2: speaker) in_snd_device(0: )
+12-28 11:00:47.942   585  3416 I msm8916_platform: platform_check_and_set_codec_backend_cfg: Usecase bitwidth 16, samplerate 48000, backend_idx 0
+12-28 11:00:47.942   585  3416 I msm8916_platform: platform_check_codec_backend_cfg Codec selected backend: 0 current bit width: 16 and sample rate: 48000
+12-28 11:00:47.942   585  3416 D msm8916_platform: platform_check_codec_backend_cfg: resetting sample_rate back to default, backend_idx: 0
+12-28 11:00:47.942   585  3416 I msm8916_platform: platform_check_codec_backend_cfg Codec selected backend: 0 updated bit width: 16 and sample rate: 48000
+12-28 11:00:47.942   585  3416 D hardware_info: hw_info_append_hw_type : device_name = speaker
+12-28 11:00:47.942   585  3416 D audio_hw_primary: enable_snd_device: snd_device(2: speaker)
+12-28 11:00:47.942   585  3416 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0x2 of type 0 for Event 1, with Raise=0
+12-28 11:00:47.956   585  3416 I audio_hw_primary: select_devices Selected apptype: 69937
+12-28 11:00:47.956   585  3416 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_id 1 of type 0 for Event 3, with Raise=0
+12-28 11:00:47.957   585  3416 I audio_hw_utils: audio_extn_utils_send_app_type_cfg app_type 69937, acdb_dev_id 14, sample_rate 48000
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> send_audio_cal, acdb_id = 14, path =  0
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> send_asm_topology
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TOPOLOGY_ID
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> send_adm_topology
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TOPOLOGY_ID
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> send_audtable
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TABLE_SIZE
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TABLE
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_CAL
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> send_audvoltable
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_GAIN_DEP_STEP_TABLE
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_VOL_CAL
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> send_audstrmtable
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TABLE_V2
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> audstrm_cal->cal_type.cal_data.cal_size = 32
+12-28 11:00:47.957   585  3416 D ACDB-LOADER: ACDB -> send_afe_topology
+12-28 11:00:47.958   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_TOPOLOGY_ID
+12-28 11:00:47.958   585  3416 D ACDB-LOADER: ACDB -> GET_AFE_TOPOLOGY_ID for adcd_id 14, Topology Id 1025e
+12-28 11:00:47.958   585  3416 D ACDB-LOADER: ACDB -> send_afe_cal
+12-28 11:00:47.958   585  3416 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_COMMON_TABLE
+12-28 11:00:47.958   585  3416 D ACDB-LOADER: ACDB -> AUDIO_SET_AFE_CAL
+12-28 11:00:47.958   585  3416 D ACDB-LOADER: ACDB -> send_hw_delay : acdb_id = 14 path = 0
+12-28 11:00:47.958   585  3416 D ACDB-LOADER: ACDB -> ACDB_AVSYNC_INFO: ACDB_CMD_GET_DEVICE_PROPERTY
+12-28 11:00:47.958   585  3416 D audio_hw_primary: enable_audio_route: apply mixer and update path: low-latency-playback
+12-28 11:00:47.961   585  3416 D audio_hw_primary: select_devices: done
+12-28 11:00:47.971   585  3416 D msm8916_platform: platform_set_channel_map mixer_ctl_name:Playback Channel Map12
+12-28 11:00:47.971   585  3416 D msm8916_platform: platform_set_channel_map: set mapping(1 2 0 0 0 0 0 0) for channel:2
+12-28 11:00:47.988  5128  5132 E ANDR-PERF-MPCTL: Invalid profile no. 0, total profiles 0 only
+12-28 11:00:48.000  1190  3659 W PackageManager: permission error:10103,android.permission.INTERACT_ACROSS_USERS_FULL
+12-28 11:00:48.000  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:48.012 10022 10022 E ActivityThread: Activity created===-1
+12-28 11:00:48.031  1190  3489 D VoldConnector: RCV <- {651 public:8,4 7}
+12-28 11:00:48.031  1190  3489 D VoldConnector: RCV <- {659 public:8,4}
+12-28 11:00:48.031  1190  4285 W PackageManager: permission error:10103,android.permission.STATUS_BAR
+12-28 11:00:48.032  1190  3489 D VoldConnector: RCV <- {649 disk:8,0}
+12-28 11:00:48.033   585  3416 D audio_hw_primary: start_output_stream: exit
+12-28 11:00:48.034  9652  9652 W Storage : onVolumeStateChanged > VolumeInfo{public:8,4}:
+12-28 11:00:48.034  9652  9652 W Storage :     type=PUBLIC diskId=disk:8,0 partGuid=null mountFlags=0 mountUserId=-1 
+12-28 11:00:48.034  9652  9652 W Storage :     state=REMOVED 
+12-28 11:00:48.034  9652  9652 W Storage :     fsType=null fsUuid=null fsLabel=null 
+12-28 11:00:48.034  9652  9652 W Storage :     path=null internalPath=null 
+12-28 11:00:48.035  9652  9652 W liweichao: onVolumeStateChanged ..vol.getPath......null
+12-28 11:00:48.035  9652  9652 W Storage : onVolumeStateChanged > VolumeInfo{public:8,4}:
+12-28 11:00:48.035  9652  9652 W Storage :     type=PUBLIC diskId=disk:8,0 partGuid=null mountFlags=0 mountUserId=-1 
+12-28 11:00:48.035  9652  9652 W Storage :     state=REMOVED 
+12-28 11:00:48.035  9652  9652 W Storage :     fsType=null fsUuid=null fsLabel=null 
+12-28 11:00:48.035  9652  9652 W Storage :     path=null internalPath=null 
+12-28 11:00:48.035  9652  9652 W liweichao: onVolumeStateChanged ..vol.getPath......null
+12-28 11:00:48.037  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:48.038  3601  4049 D OpenGLRenderer: endAllStagingAnimators on 0x7f87ed2000 (RippleDrawable) with handle 0x7f87762460
+12-28 11:00:48.043  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:48.051  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:48.060  3601  3601 D StorageNotification: Notifying about public volume: VolumeInfo{public:8,4}:
+12-28 11:00:48.060  3601  3601 D StorageNotification:     type=PUBLIC diskId=disk:8,0 partGuid=null mountFlags=0 mountUserId=-1 
+12-28 11:00:48.060  3601  3601 D StorageNotification:     state=REMOVED 
+12-28 11:00:48.060  3601  3601 D StorageNotification:     fsType=null fsUuid=null fsLabel=null 
+12-28 11:00:48.060  3601  3601 D StorageNotification:     path=null internalPath=null 
+12-28 11:00:48.111  3601  3601 I art     : Starting a blocking GC Explicit
+12-28 11:00:48.158  3601  3601 I art     : Explicit concurrent mark sweep GC freed 7899(376KB) AllocSpace objects, 0(0B) LOS objects, 34% free, 29MB/45MB, paused 321us total 47.117ms
+12-28 11:00:48.171  3601  3601 I art     : Starting a blocking GC Explicit
+12-28 11:00:48.205  3601  3601 I art     : Explicit concurrent mark sweep GC freed 1563(101KB) AllocSpace objects, 2(36KB) LOS objects, 35% free, 29MB/45MB, paused 526us total 34.023ms
+12-28 11:00:48.205  3601  3601 I art     : Starting a blocking GC Explicit
+12-28 11:00:48.237  3601  3601 I art     : Explicit concurrent mark sweep GC freed 3(96B) AllocSpace objects, 0(0B) LOS objects, 35% free, 29MB/45MB, paused 554us total 31.914ms
+12-28 11:00:48.248  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:48.266  1190  1227 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:769 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6362 com.android.server.policy.PhoneWindowManager.access$1000:154 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:720 android.os.Handler.dispatchMessage:102 
+12-28 11:00:48.941  1190  1190 D BatteryService: isScreenOn=truechargingEnable=true,level=70,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+12-28 11:00:48.946  4998  5261 D HeadsetStateMachine: Disconnected process message: 10, size: 0
+12-28 11:00:48.950  4182  4182 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+12-28 11:00:48.952  6997  6997 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED

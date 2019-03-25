@@ -1,0 +1,129 @@
+10-09 10:58:55.537  1207  4181 D ActivityManager: am_proc_start:0,11314,1000,com.westone.sdkapp,activity,com.westone.sdkapp/.BindActivity
+10-09 10:58:55.539  1207  4181 I ActivityManager: Start proc 11314:com.westone.sdkapp/1000 for activity com.westone.sdkapp/.BindActivity
+10-09 10:58:55.578 11314 11314 E ActivityThread: Activity created===-1
+10-09 10:58:55.596 11314 11314 W art     : Before Android 4.1, method android.graphics.PorterDuffColorFilter android.support.graphics.drawable.VectorDrawableCompat.updateTintFilter(android.graphics.PorterDuffColorFilter, android.content.res.ColorStateList, android.graphics.PorterDuff$Mode) would have incorrectly overridden the package-private method in android.graphics.drawable.Drawable
+10-09 10:58:55.610 11314 11314 V BoostFramework: mAcquireFunc method = public int com.qualcomm.qti.Performance.perfLockAcquire(int,int[])
+10-09 10:58:55.610 11314 11314 V BoostFramework: mReleaseFunc method = public int com.qualcomm.qti.Performance.perfLockRelease()
+10-09 10:58:55.610 11314 11314 V BoostFramework: mAcquireTouchFunc method = public int com.qualcomm.qti.Performance.perfLockAcquireTouch(android.view.MotionEvent,android.util.DisplayMetrics,int,int[])
+10-09 10:58:55.610 11314 11314 V BoostFramework: mIOPStart method = public int com.qualcomm.qti.Performance.perfIOPrefetchStart(int,java.lang.String)
+10-09 10:58:55.610 11314 11314 V BoostFramework: mIOPStop method = public int com.qualcomm.qti.Performance.perfIOPrefetchStop()
+10-09 10:58:55.612 11314 11314 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@c65b71a
+10-09 10:58:55.612 11314 11314 V BoostFramework: BoostFramework() : mPerf = com.qualcomm.qti.Performance@d35124b
+10-09 10:58:55.638 11314 11314 I HPC     : sd状态改变
+10-09 10:58:55.639 11314 11314 D HPC     : action : android.intent.action.VIEW_STATUS
+10-09 10:58:55.641 11314 11314 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:767 android.app.ActivityThread.performResumeActivity:3168 android.app.ActivityThread.handleResumeActivity:3195 android.app.ActivityThread.handleLaunchActivity:2502 android.app.ActivityThread.access$900:155 
+10-09 10:58:55.646 11314 11327 D OpenGLRenderer: Use EGL_SWAP_BEHAVIOR_PRESERVED: true
+10-09 10:58:55.701 11314 11327 I Adreno  : QUALCOMM build                   : 77e9734, I87ae58c9ee
+10-09 10:58:55.701 11314 11327 I Adreno  : Build Date                       : 10/11/17
+10-09 10:58:55.701 11314 11327 I Adreno  : OpenGL ES Shader Compiler Version: XE031.07.00.05
+10-09 10:58:55.701 11314 11327 I Adreno  : Local Branch                     : 
+10-09 10:58:55.701 11314 11327 I Adreno  : Remote Branch                    : refs/tags/AU_LINUX_ANDROID_LA.BR.1.3.5_RB1.06.00.01.261.041
+10-09 10:58:55.701 11314 11327 I Adreno  : Remote Branch                    : NONE
+10-09 10:58:55.701 11314 11327 I Adreno  : Reconstruct Branch               : NOTHING
+10-09 10:58:55.705 11314 11327 I OpenGLRenderer: Initialized EGL, version 1.4
+
+
+
+
+10-09 10:59:37.105 11314 11314 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:767 android.app.ActivityThread.performResumeActivity:3168 android.app.ActivityThread.handleResumeActivity:3195 android.app.ActivityThread$H.handleMessage:1393 android.os.Handler.dispatchMessage:102 
+10-09 10:59:37.306 11314 11314 I HPC     : action android.intent.action.MEDIA_SCANNER_STARTED
+10-09 10:59:37.306 11314 11314 I HPC     : 开始扫描...
+10-09 10:59:37.306 11314 11314 I HPC     : imagepath---null
+10-09 10:59:37.526 11314 11314 I HPC     : action android.intent.action.MEDIA_SCANNER_FINISHED
+10-09 10:59:37.526 11314 11314 I HPC     : 扫描完成...
+10-09 10:59:37.526 11314 11314 I HPC     : imagepath---null
+10-09 10:59:37.532 11314 11314 I HPC     : action android.intent.action.MEDIA_SCANNER_STARTED
+10-09 10:59:37.532 11314 11314 I HPC     : 开始扫描...
+10-09 10:59:37.532 11314 11314 I HPC     : imagepath---null
+10-09 10:59:38.076 11314 11314 I HPC     : action android.intent.action.MEDIA_SCANNER_FINISHED
+10-09 10:59:38.076 11314 11314 I HPC     : 扫描完成...
+10-09 10:59:38.076 11314 11314 I HPC     : imagepath---null
+10-09 10:59:41.095 11314 11382 E SCS     : p11_model_test p11 get sn 
+10-09 10:59:41.095 11314 11382 E SCS     : enter test_loadlibrary., libGAPIP11.so
+10-09 10:59:41.095 11314 11382 E SCS     : enter test_opendevice.
+10-09 10:59:41.095 11314 11382 E SCS     : pC_Initilize 1 0x7b973cf4
+10-09 10:59:41.095 11314 11382 E SCS     : before getsolotlist1, count=0
+10-09 10:59:41.096 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.096 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.096 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.184 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.186 11314 11382 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.205 11314 11382 I XI      : Import SD Path /sdcard return 0.
+10-09 10:59:41.205 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.205 11314 11382 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.205 11314 11382 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 10:59:41.205 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.206 11314 11382 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.208 11314 11382 I XI      : Import SD Path /storage/emulated return 0.
+10-09 10:59:41.208 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.210 11314 11382 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.386 11314 11382 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 10:59:41.401 11314 11382 I XI      : *piDevCount = 1.
+10-09 10:59:41.401 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.401 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.401 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.490 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.491 11314 11382 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.508 11314 11382 I XI      : Import SD Path /sdcard return 0.
+10-09 10:59:41.508 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.509 11314 11382 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.509 11314 11382 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 10:59:41.509 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.511 11314 11382 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.512 11314 11382 I XI      : Import SD Path /storage/emulated return 0.
+10-09 10:59:41.512 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:41.514 11314 11382 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:41.514 11314 11382 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 10:59:41.526 11314 11382 I XI      : *piDevCount = 1.
+10-09 10:59:42.503 11314 11382 E SCS     : after getsolotlist1, count=0
+10-09 10:59:42.504 11314 11382 E SCS     :  C_GetSlotList ulSlotCount=0x00000001.
+10-09 10:59:42.504 11314 11382 E SCS     : before getsolotlist2, count=0
+10-09 10:59:42.504 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.504 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.504 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.598 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.599 11314 11382 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.608 11314 11382 I XI      : Import SD Path /sdcard return 0.
+10-09 10:59:42.608 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.609 11314 11382 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.609 11314 11382 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 10:59:42.609 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.609 11314 11382 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.610 11314 11382 I XI      : Import SD Path /storage/emulated return 0.
+10-09 10:59:42.610 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.611 11314 11382 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.611 11314 11382 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 10:59:42.625 11314 11382 I XI      : *piDevCount = 1.
+10-09 10:59:42.625 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.625 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.625 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.694 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.695 11314 11382 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.708 11314 11382 I XI      : Import SD Path /sdcard return 0.
+10-09 10:59:42.708 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.708 11314 11382 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.708 11314 11382 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 10:59:42.708 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.709 11314 11382 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.710 11314 11382 I XI      : Import SD Path /storage/emulated return 0.
+10-09 10:59:42.710 11314 11382 I XI      : cc_IsAPK return 0.
+10-09 10:59:42.711 11314 11382 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 10:59:42.711 11314 11382 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 10:59:42.723 11314 11382 I XI      : *piDevCount = 1.
+10-09 10:59:42.730 11314 11382 E SCS     : after getsolotlist2, count=0
+10-09 10:59:42.737 11314 11382 E SCS     :  Slot[0] Info: slotInfo.flags=0x3.
+10-09 10:59:42.805 11314 11382 E SCS     :  Token[0] Info serialNumber=1805221379      .
+10-09 10:59:42.805 11314 11382 E SCS     :  Token[0] Info label=MyToken_1                       .
+10-09 10:59:42.805 11314 11382 E SCS     :  Token[0] Info hardwareVersion=0.0.
+10-09 10:59:42.805 11314 11382 E SCS     :  Token[0] Info firmwareVersion=0.0.
+10-09 10:59:42.805 11314 11382 E SCS     :  Token[0] Info manufacturerID=HDZB                            USB Key         1805221379    . 
+10-09 10:59:42.805 11314 11382 E SCS     :  Test the first device. 
+10-09 10:59:42.812 11314 11382 E SCS     :  free(pSlotList) 
+10-09 10:59:42.812 11314 11382 E SCS     :  free(pSlotList) ok 
+10-09 10:59:42.812 11314 11382 F libc    : stack corruption detected
+10-09 10:59:42.813 11314 11382 F libc    : Fatal signal 6 (SIGABRT), code -6 in tid 11382 (Thread-526)
+10-09 10:59:42.925   607   607 F DEBUG   : pid: 11314, tid: 11382, name: Thread-526  >>> com.westone.sdkapp <<<
+10-09 10:59:43.371   634   634 I Zygote  : Process 11314 exited due to signal (6)
+10-09 10:59:43.374  1207  4081 I ActivityManager: Process com.westone.sdkapp (pid 11314) has died
+10-09 10:59:43.374  1207  4081 D ActivityManager: cleanUpApplicationRecord -- 11314
+10-09 10:59:43.479  1207  4065 W InputMethodManagerService: Got RemoteException sending setActive(false) notification to pid 11314 uid 

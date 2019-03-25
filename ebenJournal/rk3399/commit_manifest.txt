@@ -1,0 +1,377 @@
+device/rockchip/rk3399:
+	46f2fe0d01ad62da7615fe4fef4fbe9da44a2860
+	change build for syberv
+	liujiawei liujiawei Wed Jan 9 14:52:44 2019 +0800
+	----------
+	42dfdadf0a723640973f5356ad0fe85d8d4aef75
+	change parameter
+	liujiawei liujiawei Wed Jan 9 14:52:44 2019 +0800
+	----------
+	5a45784e6975a8c8077255287943eb2ab95ffd39
+	apply rk3399 patch from 瑞芯微
+	liujiawei quanyu_sun_dev Wed Jan 9 14:52:43 2019 +0800
+	----------
+	17516e3a9599f8295f9333bfa4638258ec145188
+	移除bt和wifi的config
+	liujiawei lihao Wed Jan 9 14:52:43 2019 +0800
+	----------
+	2744243569947b53920a648db7ba00412d7adc31
+	remove eben-secure. by hpc
+	hpc hpc Wed Jan 9 10:31:54 2019 +0800
+	----------
+	97278891713fe200b1892749188478379dd9f022
+	1 copy so. 2 open bootanimation.  by hpc
+	hpc hpc Tue Jan 8 13:10:55 2019 +0800
+	----------
+	7ef4a7581d97850bfab81d536434121c3ddbb551
+	disable systembar voiceicon. by hpc
+	hpc hpc Tue Jan 8 13:08:24 2019 +0800
+	----------
+device/rockchip/common:
+	539889d6f5adfe1c33c73bc46aefb081ffdf5340
+	change make for syberv
+	liujiawei liujiawei Wed Jan 9 14:54:28 2019 +0800
+	----------
+	bab679431e204cea3198e8192f81321f422e9dfa
+	add syberlight service sepolicy
+	liujiawei liujiawei Wed Jan 9 14:54:28 2019 +0800
+	----------
+	91d8ea115a44e7e602d629e55078acdc121c5631
+	camera_whitelist 文件编译到 system.img 中
+	liujiawei LiuXianzhu Wed Jan 9 14:53:20 2019 +0800
+	----------
+	281e61ac8a7e9b1ee5f1dbc832919537c68a049f
+	从设备配置中移除WiFi和蓝牙
+	liujiawei lihao Wed Jan 9 14:53:20 2019 +0800
+	----------
+	d62638c7228a013c6982a66a0e1478a8217cae1b
+	function manager dependence. by hpc
+	hpc hpc Mon Jan 7 16:25:28 2019 +0800
+	----------
+	ac05c370e86b577a3e3f2c2782267976e712006a
+	disable navigation bar voice icon. by hpc
+	hpc hpc Mon Jan 7 16:25:28 2019 +0800
+	----------
+	88914fc4ec47ce0686d14e685e7bbea1cad5ad5f
+	add link /mydoc
+	hpc hpc Mon Jan 7 16:25:28 2019 +0800
+	----------
+	d41e9132f609cbeaad7572e13f3815d0d17f1eaf
+	add eben boot animation file. by hpc
+	hpc hpc Mon Jan 7 16:25:28 2019 +0800
+	----------
+hardware/rockchip/audio:
+hardware/rockchip/camera:
+	ed401e4f41678f5ecc7b3d0ba086911d173d1d1e
+	1.M9/M10/M11 cam_board.xml,imx258 preview size set to 4096x3072. 2. preview fps limited to 15fps.
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:10:09 2018 +0800
+	----------
+	55b4521a9d557c535e4585c53f7a9763aae1c67e
+	force 4096x3096 would cause DV issue,fix it.
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:36 2018 +0800
+	----------
+	434f448cd246744dc011d37a6a26895673efb6c6
+	modify camerahal & IMX258 driver
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:36 2018 +0800
+	----------
+	f7709c9b8d72ef7acd39bd8e3f0340e30ab911a8
+	uvnr denoise and otp apply open
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:36 2018 +0800
+	----------
+	677e02e48a9bfc5e9c81a6f8b36caa18646e6747
+	add ModuleName for m9 m11 cam_board.xml, add m10 cam_board.xml
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:01 2018 +0800
+	----------
+	e868ac22946d1f248c654518b31e54e2ddfa819f
+	modify m9 m11 cam_board.xml & isp.so
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:01 2018 +0800
+	----------
+	44799dfa26b139dd82eca40d58b27a18aee5151c
+	modify m9 m11 cam_board.xml
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:01 2018 +0800
+	----------
+	9aa34e82097a5811803457742f0ee54698873818
+	1.preview size use fullsize(4096x3096). 2.fullsiz 20fps. 3.isp buffer use six.
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:01 2018 +0800
+	----------
+	8edbcb45e7de148487f8f29e19f18ba4acc5af92
+	add m11 m9 xml
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:01 2018 +0800
+	----------
+	5d16f6184454a814c47a253808372cb643170532
+	update CameraHal1 to V2.0.0
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:09:01 2018 +0800
+	----------
+	c71438cf7d9312f9c59227c4a4b4bb2e4ec499fe
+	Add OV13855 IMX258 GC2375 Driver
+	Wu Liangqing wlq Tue Dec 25 16:08:03 2018 +0800
+hardware/rockchip/liblights:
+vendor/rockchip/common:
+	fe2f8645cfd3832e5491e1e2af8e3299b17c2084
+	remove rk app Lightning, rkApkInstaller rkExplorer... by hpc
+	hpc hpc Mon Jan 7 16:38:36 2019 +0800
+	----------
+	cd1a7f347e25dabbb2ce1f39dc3c89b54ba23220
+	add vender/3rd_app. by hpc
+	hpc hpc Mon Jan 7 16:38:36 2019 +0800
+	----------
+u-boot:
+	40dcd608bd306cfc9969ff7bb5a72cd10c504239
+	uboot pass boot argument to kernel by device tree. (from rockchip Wu Liangqing <wlq@rock-chips.com>)
+	liujiawei guofeng_sun_dev Mon Jan 7 10:23:19 2019 +0800
+	----------
+	b4399ead5b5a0622ec0106409934808e21ef955f
+	Change for SyberV. Change-Id: Icbb307a052abd4e76bd72c138c2e9f39bc02160c
+	liujiawei guofeng_sun_dev Mon Jan 7 10:23:19 2019 +0800
+	----------
+device,fugu,broadcom_pdk:
+	40dcd608bd306cfc9969ff7bb5a72cd10c504239
+	uboot pass boot argument to kernel by device tree. (from rockchip Wu Liangqing <wlq@rock-chips.com>)
+	liujiawei guofeng_sun_dev Mon Jan 7 10:23:19 2019 +0800
+	----------
+	b4399ead5b5a0622ec0106409934808e21ef955f
+	Change for SyberV. Change-Id: Icbb307a052abd4e76bd72c138c2e9f39bc02160c
+	liujiawei guofeng_sun_dev Mon Jan 7 10:23:19 2019 +0800
+	----------
+	ec43e3a4aedc6ed78972fbf3d6efa94657df6715
+	support porwoff charge
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	f055f144fca11cae518bf61059121a5f2c421147
+	update rk3399_usbplug rk3399_miniloader
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	12167d5507de5b8c20ee923c2685f934bbf82c53
+	update dsi driver
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	8286a8a178e94f575c9bda46da7f85cc7e086efe
+	change for m10 driver adaptive
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	46249cc56cd7034ec74c9ca4c17241400542ed47
+	common: rockusb: add csw response for unknown command
+	wuliangqing Frank Wang Thu Nov 15 16:11:32 2018 +0800
+	----------
+	2d2672613598057a6ee547cae1dbd0f2c3da38d8
+	rk3399: bl31: update version to 1.20
+	wuliangqing wuliangqing Mon Oct 15 15:44:17 2018 +0800
+	----------
+	b9be922f66eade3f530289b26072b9240d210b6a
+	rk3399: ddr: update version to v1.15
+	wuliangqing wuliangqing Mon Oct 15 15:44:06 2018 +0800
+pdk-cw-fs,pdk-fs:
+	40dcd608bd306cfc9969ff7bb5a72cd10c504239
+	uboot pass boot argument to kernel by device tree. (from rockchip Wu Liangqing <wlq@rock-chips.com>)
+	liujiawei guofeng_sun_dev Mon Jan 7 10:23:19 2019 +0800
+	----------
+	b4399ead5b5a0622ec0106409934808e21ef955f
+	Change for SyberV. Change-Id: Icbb307a052abd4e76bd72c138c2e9f39bc02160c
+	liujiawei guofeng_sun_dev Mon Jan 7 10:23:19 2019 +0800
+	----------
+	ec43e3a4aedc6ed78972fbf3d6efa94657df6715
+	support porwoff charge
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	f055f144fca11cae518bf61059121a5f2c421147
+	update rk3399_usbplug rk3399_miniloader
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	12167d5507de5b8c20ee923c2685f934bbf82c53
+	update dsi driver
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	8286a8a178e94f575c9bda46da7f85cc7e086efe
+	change for m10 driver adaptive
+	Wu Liangqing Wu Liangqing Tue Dec 25 16:12:40 2018 +0800
+	----------
+	46249cc56cd7034ec74c9ca4c17241400542ed47
+	common: rockusb: add csw response for unknown command
+	wuliangqing Frank Wang Thu Nov 15 16:11:32 2018 +0800
+	----------
+	2d2672613598057a6ee547cae1dbd0f2c3da38d8
+	rk3399: bl31: update version to 1.20
+	wuliangqing wuliangqing Mon Oct 15 15:44:17 2018 +0800
+	----------
+	b9be922f66eade3f530289b26072b9240d210b6a
+	rk3399: ddr: update version to v1.15
+	wuliangqing wuliangqing Mon Oct 15 15:44:06 2018 +0800
+bootable/recovery:
+build:
+	d30fcae797f2285832dc66b3e898cb4a8ebe591c
+	set default language cn.   by hpc
+	hpc hpc Tue Jan 8 13:06:51 2019 +0800
+	----------
+	19dec31cead860951b2ce73b36dfd7947db09eed
+	default language cn. by hpc
+	hpc hpc Mon Jan 7 16:20:46 2019 +0800
+	----------
+	880ccf1b145e26bc6843fe4577945ceaea7370de
+	function manager dependence. by hpc
+	hpc hpc Mon Jan 7 16:20:37 2019 +0800
+frameworks/base:
+	74e731365ff7256c74da83dfaca199ae2373fe6f
+	Replace Android default bootup logo by SyberV
+	liujiawei guofeng_sun_dev Wed Jan 9 14:55:55 2019 +0800
+	----------
+	c5707924b68e75e89eb45c6667a18b7dba010362
+	修改 camera_whitelist 文件路径
+	liujiawei LiuXianzhu Wed Jan 9 14:55:55 2019 +0800
+	----------
+	b38a008e007f65df870d1617674872c96feef629
+	重启恢复出厂设置时的标题改成“安全擦除”
+	liujiawei LiuXianzhu Wed Jan 9 14:55:55 2019 +0800
+	----------
+	32115deecf43894d9275ad23cdf24d15f338b580
+	add service syberlight (use record or camera led light)
+	liujiawei quanyu_sun_dev Wed Jan 9 14:55:55 2019 +0800
+	----------
+	f316bae8a8743682f51f8eae9c02f93c4312e99e
+	开机启动时根据白名单设置应用的相机/录音权限
+	liujiawei LiuXianzhu Wed Jan 9 14:55:55 2019 +0800
+	----------
+	a2efd198e963f4c4c4f961d0a98d06a08215d866
+	在 PackageManagerService 新增根据白名单设置相机/录音权限的方法，在 SystemServer 调用。
+	liujiawei LiuXianzhu Wed Jan 9 14:55:55 2019 +0800
+	----------
+	5da5d50cd2ddd44ac839591771a4f69561f04ed9
+	移除 wifi、bt和nfc对应的Android服务
+	liujiawei lihao Wed Jan 9 14:55:54 2019 +0800
+	----------
+	41cfa664abb97acd2c45817490995654119e0fa5
+	从下拉快捷设置中裁剪网络相关的设置项
+	liujiawei LiuXianzhu Wed Jan 9 14:55:54 2019 +0800
+	----------
+	e2ebf70bb0b56f82298aa726c6b901a1f9e8e8f9
+	disable SideButtonManagerService.  by hpc
+	hpc hpc Wed Jan 9 14:21:03 2019 +0800
+	----------
+	0f5ad76f4aac909204ede59f222e0e99cfcaac64
+	disalbe log.  by hpc
+	hpc hpc Wed Jan 9 13:41:43 2019 +0800
+	----------
+	b3707db78808f15a6e7ec3b9a1c180664c37ecef
+	rm eben-secure. by hpc
+	hpc hpc Wed Jan 9 10:34:37 2019 +0800
+	----------
+	6f3eeaa9eadd630e95ec25d11701ebf8ead1074a
+	update-api. by hpc
+	hpc hpc Wed Jan 9 10:33:12 2019 +0800
+	----------
+	2e12e011abc7b19a9290c47f1d649d94fb83db6b
+	Change default ime eben. by hpc
+	hpc hpc Mon Jan 7 16:34:57 2019 +0800
+	----------
+	dd9704acbeac4619677c8d459921f1de50ccea87
+	add eben functionmanger and dependence. by hpc
+	hpc hpc Mon Jan 7 16:34:57 2019 +0800
+	----------
+	00a2934acee350b885737c683a52434da484bcd5
+	add navgation bar eben pen & note icon. by hpc
+	hpc hpc Mon Jan 7 16:34:56 2019 +0800
+	----------
+frameworks/native:
+	7a964677140ae41e0fbb901e3b934d7819b879d6
+	移除以下模块 1、wifi 2、nfc 3、ethernet
+	liujiawei lihao Wed Jan 9 14:57:04 2019 +0800
+	----------
+	27e7b8904c8302fccac006c5bff8b834bae5e4f4
+	enable systemui register service. by hpc
+	hpc hpc Mon Jan 7 16:36:01 2019 +0800
+	----------
+hardware/libhardware_legacy:
+	d9b0171b5fdccdd4df03961639b254f99391c444
+	[提交原因] Fix compile error [详细描述] [Bug ID] [Bug 原因] [解决方法] [其它]
+	liujiawei lihao Wed Jan 9 14:57:38 2019 +0800
+hardware/ril:
+	48e6862e3f576640ec8197d331dafa2e620c1de2
+	移除modem相关rild.
+	liujiawei bing_liu_dev Wed Jan 9 14:58:18 2019 +0800
+packages/apps/Bluetooth:
+	41e45fb817fce83f27d0b82440465f864cfb1c88
+	移除蓝牙相关apk
+	liujiawei lihao Thu Dec 27 11:07:23 2018 +0800
+packages/apps/Camera2:
+packages/apps/Nfc:
+	efc04182ebf278827c9987833f207a5b979e04ac
+	移除nfc相关apk
+	liujiawei lihao Thu Dec 27 10:53:21 2018 +0800
+packages/apps/PackageInstaller:
+	040474a32a535ab1f26769609083b6fa18fb7bd8
+	修改 camera_whitelist 文件路径
+	liujiawei LiuXianzhu Wed Jan 2 10:28:43 2019 +0800
+	----------
+	f617fa358eeca8c161b6939cbfd26009b3c38ec5
+	新增根据白名单显示应用申请权限 dialog
+	liujiawei LiuXianzhu Wed Jan 2 10:28:38 2019 +0800
+	----------
+	3b90bb8bf434af27bb91cb490de0c5c4b1d3d003
+	在应用的权限页中 disable 相机/录音权限，即用户无法修改。
+	liujiawei LiuXianzhu Wed Jan 2 10:28:33 2019 +0800
+packages/apps/Provision:
+	c6e31a08a6305dec921ae5599a7ee2762867a3a1
+	init ETourist. disable ELauncher3. by hpc
+	hpc hpc Mon Jan 7 16:31:46 2019 +0800
+packages/apps/Settings:
+	05c10122a65e059dacfb4b44b28151e4a8ff13bd
+	设置中“备份与重置”改为“安全擦除”，点击后直接进入最后确认页
+	liujiawei LiuXianzhu Thu Dec 27 11:07:20 2018 +0800
+	----------
+	9d62b8a9b9e66e50289a811a8ac96f762e5d8e02
+	从 Settings 应用中裁剪无限相关的设置项和开发者选项
+	liujiawei LiuXianzhu Thu Dec 27 11:07:20 2018 +0800
+packages/services/Telecomm:
+	32f78f63b8245410d9d4c9911b5b909fe019708b
+	移除Telecomm service.
+	liujiawei bing_liu_dev Thu Dec 27 11:07:26 2018 +0800
+packages/services/Telephony:
+	ad97cdafb4fc0b02f9506c3a33a872bcf1b2093e
+	移除Telephony service
+	liujiawei bing_liu_dev Thu Dec 27 11:07:28 2018 +0800
+system/bt:
+	2ff1aa4a506d139d78e81a262790c17ccc2f732e
+	移除蓝牙协议栈
+	liujiawei lihao Thu Dec 27 11:07:22 2018 +0800
+system/core:
+	ae9779b8c61c44d5ecebdbafac6d3c0e6c62a35f
+	link /mydoc. by hpc
+	hpc hpc Mon Jan 7 16:32:38 2019 +0800
+	----------
+system/sepolicy:
+	00c6cf28ddc7bd6a0d5a51d7a64ec731b560c77a
+	funcation manager dependence. by hpc
+	hpc hpc Mon Jan 7 16:33:11 2019 +0800
+kernel:
+	a5d9c6601ac45aba139f71d6f7dc1aab29d09530
+	update logo_kernel.bmp .   by hpc
+	hpc hpc Wed Jan 9 11:45:21 2019 +0800
+	----------
+	c6eedb53825cf245b695f1d8661d08b21da0c882
+	change boot logo eben. by hpc
+	hpc hpc Wed Jan 9 11:45:20 2019 +0800
+	----------
+	5f1b54eaadfa681fc7b5d12242ce5a7b60beca08
+	modify config for vmi hash check test disable "CONFIG_JUMP_LABEL=y", avoid kenerl's code segment changed Change-Id: I244244f29d271c69b30eee352e504fd85eb404af
+	liujiawei xizhi Wed Jan 9 09:36:27 2019 +0800
+	----------
+	577f84a9ac2babb53685c572fcd18a036d2322e8
+	1.Enable cpufreq 2.Change dts to support bigger recovery.img 3.Change dts to enable thermal control 4.Change u-boot clock freq back
+	liujiawei dark_jadeite Wed Jan 9 09:36:26 2019 +0800
+	----------
+	c94e043ae047fb3df368f29d269dbcdf4b439687
+	1.add boot arguments from SyberV. 2.delete unused dts nodes. 3.open VMM config option.
+	liujiawei dark_jadeite Wed Jan 9 09:36:26 2019 +0800
+	----------
+	d3534e01b49fce1a511d3e27a983f7a10e75f29b
+	remove bt config
+	liujiawei liujiawei Wed Jan 9 09:36:26 2019 +0800
+	----------
+	020fe82b8e1ddbe177166f5ff3e12677ced34f89
+	phy/rockchip: phy-rockchip-emmc: Change EMMC calibration timeout to 500us
+	Wu Liangqing Chen Lei Tue Jan 8 17:58:49 2019 +0800
+	----------
+SyberV:
+	562571b3e9648627db974e072b0d3853974f022a
+	Add xen binary.
+	liujiawei liujiawei Mon Jan 7 10:19:44 2019 +0800
+	----------

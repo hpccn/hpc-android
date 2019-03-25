@@ -1,0 +1,14 @@
+测试  Wifi策略无效
+
+adb shell
+
+shell@EBEN 63009:/ $ getprop | grep ts.sec                                   
+[persist.sys.ts.securebt]: [0]
+[persist.sys.ts.securenfc]: [0]
+[persist.sys.ts.secureusb]: [true]
+[persist.sys.ts.securewifi]: [true]
+
+1 从设置中无法打开Wifi
+
+repo init --repo-url=ssh://git@www.rockchip.com.cn:2222/repo-release/tools/repo.git -u ssh://git@www.rockchip.com.cn:2222/Android_oreo_stable/platform/rk3399/manifests.git -m Rk3399_Android_Oreo_release.xml
+

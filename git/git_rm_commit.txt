@@ -1,0 +1,19 @@
+删除中间某次提交 
+
+commit-1
+commit-2
+commit-3
+commit-4
+commit-5
+commit-6
+
+要删除 commit 4
+
+
+
+1.git log获取commit信息
+2.git rebase -i (commit-id) commit-5
+commit-id 为要删除的commit的下一个commit号
+3.编辑文件，将要删除的commit之前的单词pick 改为drop
+4.保存文件退出大功告成
+5.git log查看

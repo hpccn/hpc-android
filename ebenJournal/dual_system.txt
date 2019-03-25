@@ -122,3 +122,8 @@ protected DualSystemManager mDualSystemManager;
 
 mDualSystemManager = new DualSystemManager(mContext);
 mDualSystemManager.sendIntentAfterSwitchSys(sbn.getUserId(), intent);
+
+
+
+
+setContainerPolicies(int mode)  getContainerPolicies()  getContainerTotalNumber() setContainerNumber(int containerNumber) getContainerNumber() isActived()

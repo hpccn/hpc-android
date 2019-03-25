@@ -1,0 +1,76 @@
+
+01-12 17:00:08.427  4777  4777 I ECG.Collect: 找到设备:ZH-ECG, 20:18:11:05:09:58
+01-12 17:00:08.441  4777  5308 I ECG.Collect: createRfcommSocketToServiceRecord
+01-12 17:00:08.444  4777  5308 I ECG.Collect: myBtSocket.connect()
+01-12 17:00:09.850  4777  5308 I ECG.Collect: myBtSocket.connected()
+01-12 17:00:09.853  4777  5309 I ECG.Collect: send & flush 发送:DEVICE+STOP
+01-12 17:00:10.064  4777  5309 I ECG.Collect: send & flush 发送:BAT+VOLTAGE?
+01-12 17:00:10.866  4777  5309 I ECG.Collect: [66, 65, 84, 43, 86, 79, 76, 84, 65, 71, 69, 58, 51, 55, 56, 52, 0], toString BAT+VOLTAGE:3784��
+01-12 17:00:10.866  4777  5309 I ECG.Collect: exit while. batVoltage 3784
+01-12 17:00:10.879  4777  5321 I ECG.Collect: send & flush 发送:DEVICE+START+E
+01-12 17:00:11.180  4777  5321 I ECG.Collect: read 1 byte-86
+01-12 17:00:11.180  4777  5321 I ECG.Collect: ECG head 0xAA55
+01-12 17:00:11.180  4777  5321 I ECG.Collect: isFindFlag true
+01-12 17:00:11.180  4777  5321 I ECG.Collect: first find head,  read 12 lead
+01-12 17:01:00.953  6128  6128 I ECG.Collect: 搜索开始
+01-12 17:01:03.731  6128  6128 I ECG.Collect: 找到设备:ZH-ECG, 20:18:11:05:09:58
+01-12 17:01:03.735  6128  6189 I ECG.Collect: createRfcommSocketToServiceRecord
+01-12 17:01:03.737  6128  6189 I ECG.Collect: myBtSocket.connect()
+01-12 17:01:05.840  6128  6189 I ECG.Collect: myBtSocket.connected()
+01-12 17:01:05.853  6128  6196 I ECG.Collect: send & flush 发送:DEVICE+STOP
+01-12 17:01:06.064  6128  6196 I ECG.Collect: send & flush 发送:BAT+VOLTAGE?
+01-12 17:01:06.866  6128  6196 I ECG.Collect: [-1, 119, -1, -1, -121, 0, -1, -86, 85, -120, 0, 0, -120, 0, 0, -120, 0], toString �w�������U�������������
+01-12 17:01:06.866  6128  6196 I ECG.Collect: [0, -120, 0, 0, -86, 85, -120, 0, 0, -120, 1, 1, -120, 1, 1, -120, 1], toString ��������U��������
+01-12 17:01:06.866  6128  6196 I ECG.Collect: [1, -86, 85, -120, 0, 0, -120, 2, 2, -120, 2, 2, -120, 2, 2, -86, 85], toString �U���������U
+01-12 17:01:06.877  6128  6196 I ECG.Collect: send & flush 发送:DEVICE+STOP
+01-12 17:01:07.088  6128  6196 I ECG.Collect: send & flush 发送:BAT+VOLTAGE?
+01-12 17:01:07.288  6128  6196 I ECG.Collect: [-120, 0, 0, -120, 2, 2, -120, 2, 2, -120, 2, 2, -86, 85, -120, 0, 0], toString ���������U�����
+01-12 17:01:07.288  6128  6196 I ECG.Collect: [-120, 2, 2, -120, 2, 2, -120, 2, 2, -86, 85, -120, 0, 0, -120, 1, 1], toString ����U������
+01-12 17:01:07.288  6128  6196 I ECG.Collect: exit while. batVoltage 4000
+01-12 17:01:07.301  6128  6198 I ECG.Collect: send & flush 发送:DEVICE+START+E
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte58
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte51
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte55
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte56
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte52
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte66
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte65
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte84
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte43
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte86
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte79
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte76
+01-12 17:01:07.402  6128  6198 I ECG.Collect: read 1 byte84
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte65
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte71
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte69
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte58
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte51
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte55
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte56
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte52
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.403  6128  6198 I ECG.Collect: read 1 byte-86
+01-12 17:01:07.403  6128  6198 I ECG.Collect: ECG head 0xAA55
+01-12 17:01:07.403  6128  6198 I ECG.Collect: isFindFlag true
+01-12 17:01:07.403  6128  6198 I ECG.Collect: first find head,  read 12 lead
+01-12 17:01:07.695  6128  6198 I ECG.Collect: read 1 byte85
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte-120
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte-120
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte-120
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte-120
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte0
+01-12 17:01:07.696  6128  6198 I ECG.Collect: read 1 byte-86
+01-12 17:01:07.696  6128  6198 I ECG.Collect: ECG head 0xAA55
+01-12 17:01:07.696  6128  6198 I ECG.Collect: isFindFlag true
+01-12 17:01:07.696  6128  6198 I ECG.Collect: first find head,  read 12 lead
+01-12 17:01:49.071  6128  6128 I ECG.Collect: send & flush 发送:DEVICE+STOP
+01-12 17:01:49.180  6128  6198 I ECG.Collect: read error socket closed

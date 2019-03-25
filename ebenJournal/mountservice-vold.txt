@@ -1,0 +1,187 @@
+mount microSD,  Udisk  readonly
+
+入口
+
+frameworks/base/services/core/java/com/android/server/MountService.java
+{
+// hpc 
+	
+	private boolean isReadOnly(){
+
+        int mode = android.provider.Settings.Global.getInt(mContext.getContentResolver(), android.os.eben.Default.ATTR_EXTERNAL_STORAGE_MODE, android.os.eben.Default.EXTERNAL_STORAGE_MODE_DEFAULT);
+		Log.w(TAG, "mode " + mode);
+
+		return 1 == mode;
+	}
+
+
+    class MountServiceHandler extends Handler {
+		// 开机
+               case H_VOLUME_MOUNT: {
+                    final VolumeInfo vol = (VolumeInfo) msg.obj;
+                    if (isMountDisallowed(vol)) {
+                        Slog.i(TAG, "Ignoring mount " + vol.getId() + " due to policy");
+                        break;
+                    }
+					// hpc
+					int mode = android.provider.Settings.Global.getInt(mContext.getContentResolver(), android.os.eben.Default.ATTR_EXTERNAL_STORAGE_MODE, android.os.eben.Default.EXTERNAL_STORAGE_MODE_DEFAULT);
+					int mountFlags = vol.mountFlags;
+					if (1 == mode){
+						mountFlags |= VolumeInfo.MOUNT_FLAG_READ_ONLY;
+					} else if (0 == mode){
+						break;
+					}
+
+
+					Log.w(TAG, "hpc  " + ", mountFlags " + mountFlags + ", vol.mountFlags " + vol.mountFlags);
+					try {
+						//mConnector.execute("volume", "mount", vol.id, vol.mountFlags, vol.mountUserId);
+						mConnector.execute("volume", "mount", vol.id, mountFlags, vol.mountUserId);
+
+
+   //                 try {
+   //                     mConnector.execute("volume", "mount", vol.id, vol.mountFlags,
+   //                             vol.mountUserId);
+                    } catch (NativeDaemonConnectorException ignored) {
+                    }
+                    break;
+                }
+
+
+
+	}
+
+    @Override
+    public void mount(String volId) {
+        enforcePermission(android.Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS);
+        waitForReady();
+
+        final VolumeInfo vol = findVolumeByIdOrThrow(volId);
+        if (isMountDisallowed(vol)) {
+            throw new SecurityException("Mounting " + volId + " restricted by policy");
+        }
+		// hpc
+        int mode = android.provider.Settings.Global.getInt(mContext.getContentResolver(), android.os.eben.Default.ATTR_EXTERNAL_STORAGE_MODE, android.os.eben.Default.EXTERNAL_STORAGE_MODE_DEFAULT);
+		int mountFlags = vol.mountFlags;
+		if (1 == mode){
+			mountFlags |= VolumeInfo.MOUNT_FLAG_READ_ONLY;
+		} else if (0 == mode){
+			unmount(volId);
+			return;
+		}
+
+
+		Log.w(TAG, "hpc  " + ", mountFlags " + mountFlags + ", vol.mountFlags " + vol.mountFlags);
+        try {
+            //mConnector.execute("volume", "mount", vol.id, vol.mountFlags, vol.mountUserId);
+            mConnector.execute("volume", "mount", vol.id, mountFlags, vol.mountUserId);
+        } catch (NativeDaemonConnectorException e) {
+            throw e.rethrowAsParcelableException();
+        }
+    }
+
+
+}
+
+// 增加只读属性
+frameworks/base/core/java/android/os/storage/VolumeInfo.java
+{
+    public static final int MOUNT_FLAG_PRIMARY = 1 << 0;
+    public static final int MOUNT_FLAG_VISIBLE = 1 << 1;
+    public static final int MOUNT_FLAG_READ_ONLY = 1 << 2; //hpc 
+
+
+
+}
+
+
+// 视别自己定义的标识
+system/vold/PublicVolume.cpp{
+
+status_t PublicVolume::doMount() {
+... ...
+	// hpc mount TF, sdcard readOnly
+	bool ro = false;
+	bool remount = false;
+
+    if (getMountFlags() & MountFlags::kReadOnly) {
+
+        LOG(VERBOSE) << getMountFlags() << " hpc readOnly";
+		ro = true;
+	}
+	LOG(VERBOSE) << "hpc mount flags " << getMountFlags() <<  ", devpath " << mDevPath << ", rawpath" << mRawPath;
+    //if (vfat::Mount(mDevPath, mRawPath, false, false, false,
+    //        AID_MEDIA_RW, AID_MEDIA_RW, 0007, true)) {
+    if (vfat::Mount(mDevPath, mRawPath, ro, remount, false,
+            AID_MEDIA_RW, AID_MEDIA_RW, 0007, true)) {
+        PLOG(ERROR) << getId() << " failed to mount " << mDevPath;
+        return -EIO;
+    }
+
+}
+
+}
+
+// MountService传过来
+
+system/vold/CommandListener.cpp{
+	int CommandListener::VolumeCmd::runCommand(SocketClient *cli,
+                                           int argc, char **argv) {
+    } else if (cmd == "mount" && argc > 2) {
+        // mount [volId] [flags] [user]
+        std::string id(argv[2]);
+        auto vol = vm->findVolume(id);
+        if (vol == nullptr) {
+            return cli->sendMsg(ResponseCode::CommandSyntaxError, "Unknown volume", false);
+        }
+
+        int mountFlags = (argc > 3) ? atoi(argv[3]) : 0;
+        userid_t mountUserId = (argc > 4) ? atoi(argv[4]) : -1;
+
+		SLOGD("hpc mountFlags %d", mountFlags);
+        vol->setMountFlags(mountFlags);
+        vol->setMountUserId(mountUserId);
+
+	}
+}
+// 增加定义
+system/vold/VolumeBase.h{
+
+    enum MountFlags {
+        /* Flag that volume is primary external storage */
+        kPrimary = 1 << 0,
+        /* Flag that volume is visible to normal apps */
+        kVisible = 1 << 1,
+		//hpc  readOnly
+        kReadOnly = 1 << 2,
+    };
+
+
+
+}
+
+services/usb/java/com/android/server/usb/UsbHostManager.java
+    private void addUsbInterface(int id, String name, int altSetting,
+            int Class, int subClass, int protocol) {
+
+        if (mNewInterface != null) {
+            mNewInterface.setEndpoints(
+                    mNewEndpoints.toArray(new UsbEndpoint[mNewEndpoints.size()]));
+            mNewEndpoints.clear();
+        }
+
+		// hpc control Udisk, 1 enable, 0 disable
+		int otg = android.os.SystemProperties.getInt("persist.sys.usb.otg", android.os.eben.Default.OTG);
+		
+        if (DEBUG) {
+            Slog.d(TAG, "usb:UsbHostManager.addUsbInterface()" + ", flag " + otg + ", protocol " + protocol);
+        }
+		// 80 storage 
+		if (0 == otg && 80 == protocol){
+			return;
+		}
+
+        mNewInterface = new UsbInterface(id, altSetting, name, Class, subClass, protocol);
+        mNewInterfaces.add(mNewInterface);
+    }
+

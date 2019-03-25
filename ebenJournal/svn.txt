@@ -1,0 +1,6 @@
+svn add aa
+svn revert --recursive aa  //反 svn add 
+
+// 全局忽略	, 不好用
+svn propedit svn:global-ignores .
+

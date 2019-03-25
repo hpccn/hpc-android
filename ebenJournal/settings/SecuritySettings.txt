@@ -1,0 +1,45 @@
+ 锁屏与认证: 
+
+
+packages/apps/Settings/res/xml/security_settings_lockscreen.xml
+
+            android:title="@string/unlock_set_unlock_launch_picker_title"
+
+    <string name="unlock_set_unlock_launch_picker_title" msgid="2084576942666016993">"屏幕锁定方式"</string>
+
+
+
+    <string name="lock_settings_picker_title" msgid="1095755849152582712">"选择屏幕锁定方式"</string>
+    <string name="lock_settings_picker_fingerprint_message" msgid="4755230324778371292">"选择您的备用屏幕锁定方式"</string>
+
+    <string name="current_screen_lock" msgid="4104091715420072219">"当前屏幕锁定设置"</string>
+
+
+
+
+packages/apps/Settings/src/com/android/settings/SecuritySettings.java:81 {
+
+
++690
+   @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+        final String key = preference.getKey();
+        if (KEY_UNLOCK_SET_OR_CHANGE.equals(key)) {
+            Utils.startWithFragment(this.getActivity(),"com.android.settings.ChooseLockGeneric$ChooseLockGenericFragment",null,null,R.string.lock_settings_picker_title,R.string.lock_settings_picker_title,null);
+            //startFragment(this, "com.android.settings.ChooseLockGeneric$ChooseLockGenericFragment",
+            //        R.string.lock_settings_picker_title, SET_OR_CHANGE_LOCK_METHOD_REQUEST, null);
+        } else if (KEY_TRUST_AGENT.equals(key)) {
+ 
+ 
+		}
+	}
+}
+
+packages/apps/Settings/src/com/android/settings/ChooseLockGeneric.java {
++73
+    public static class ChooseLockGenericFragment extends SettingsPreferenceFragment {
+
+	}
+}
+
+

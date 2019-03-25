@@ -1,0 +1,9 @@
+Android service获取调用者的真实package name
+我有一个service，别的App可以调用它。
+我的service想获取调用者的packageName，该如何做呢？
+
+实践表明：必须调用者事先写进Intent， 才能才能通过intent.getComponent().getPackageName()获取到包名。如何才能不用调用者事先写入，直接获取（即，如何防止用户伪造packageName）
+
+方法如下：
+
+String callingApp = context.getPackageManager().getNameForUid(Binder.getCallingUid());

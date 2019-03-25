@@ -1,0 +1,45 @@
+开机动画修改:
+device/qcom/common/bootanimation.zip
+
+不能压缩
+
+zip -r -0 ../bootanimation.zip ./
+
+
+高通平台开机logo的修改
+
+方法一：准备一张和LCD分辨率一样大小的png图片logo.png，在高通源码目录device/qcom/common/display/logo下面，有readme.txt文件，里面有说明生成镜像文件的方法：
+
+执行命令：python ./logo_gen.py logo.png，在当前目录下面会生成splash.img，用flash工具将splash.img刷进splash分区即可。
+若想将splash.img放进刷机包，则修改刷机包中的rawprogram_unsparse.xml文件：
+-<program SECTOR_SIZE_IN_BYTES="512" file_sector_offset="0" filename="" label="splash" num_partition_sectors="20480" physical_partition_number="0" size_in_KB="10240.0" sparse="false" start_byte_hex="0x8a82400" start_sector="283666" />
++<program SECTOR_SIZE_IN_BYTES="512" file_sector_offset="0" filename="splash.img" label="splash" num_partition_sectors="20480" physical_partition_number="0" size_in_KB="10240.0" sparse="false" start_byte_hex="0x8a82400" start_sector="283666" />
+
+
+ 将新定制的开机第一屏  splash.img 复制到 下列位值就可以直接打包进去了.无需再修改updater-scripty. 
+device/qcom/msm8952_64/splash.img
+
+
+
+-----------------
+
+
+地加自定义服务, client api 
+frameworks/base/core/java/android/os/eben/EbenSystemService.java
+
+client 服务调用, 系统服务
+frameworks/base/core/java/android/app/EbenSystemManager.java
+
+系统服务实现
+
+aidl
+frameworks/base/core/java/android/os/IEbenSystemService.aidl
+
+
+系统服务实现
+frameworks/base/services/core/java/com/android/server/EbenSystemService.java
+
+// 向zip 中增加custom.img
+zip -u msm8952_64-ota-eng.hanpengcheng.zip custom.img
+// 重签名 
+java -Xmx2048m -jar out/host/linux-x86/framework/signapk.jar -w build/target/product/security/testkey.x509.pem build/target/product/security/testkey.pk8 out/target/product/msm8952_64/msm8952_64-ota-eng.hanpengcheng.zip out/target/product/msm8952_64/update-ota-eng.hanpengcheng.zip

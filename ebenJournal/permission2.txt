@@ -1,0 +1,6 @@
+新增权限定义:
+
+frameworks/base/core/res/AndroidManifest.xml
+
+
+

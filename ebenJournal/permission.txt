@@ -1,0 +1,190 @@
+
+目标 Android 应用程序权限 
+
+1 实现权限管控  三态 ,  开启, 关闭, 询问(弹框,使用时,弹框询问,由用户处理.) 这个还在跟中科杨光沟通中, 6.0系统无询问模式.
+
+2 Android 中增加新的权限管理, 需要读Android AppOps 相关代码, 参照Android 原生的实现,增加新的条目.
+
+3 在权限使用时检查权限. 
+
+
+需要看一下PDF中这一部分, 当前实现一些对应有误.
+
+B.3 应用程序权限定义
+B.3.1 权限类型定义
+应用程序权限类型定义如表B.7所示。
+表 B.7 应用程序权限类型定义
+
+
+----------------------------------
+当前实现的部分 
+
+* 对应有误
+X 对应错了
+	
+CALL_PHONE 已匹配AppOpsManager.OP_CALL_PHONE
+	
+READ_CALLLOG 已匹配AppOpsManager.OP_READ_CALL_LOG
+	
+WRITE_CALLLOG 已匹配AppOpsManager.OP_WRITE_CALL_LOG
+	
+*  DELETE_CALLLOG 已匹配AppOpsManager.OP_WRITE_CALL_LOG
+	
+SEND_SMS 已匹配AppOpsManager.OP_SEND_SMS
+	
+READ_MSG 已匹配AppOpsManager.OP_READ_SMS
+	
+*   SEND_MMS 已匹配AppOpsManager.OP_SEND_SMS
+	
+*   READ_MMS 已匹配AppOpsManager.OP_READ_SMS
+	
+READ_CONTACTS 已匹配AppOpsManager.OP_READ_CONTACTS
+	
+WRITE_CONTACTS 已匹配AppOpsManager.OP_WRITE_CONTACTS
+	
+LOCATION 已匹配AppOpsManager.OP_GPS
+	
+RECORD_AUDIO 已匹配AppOpsManager.OP_RECORD_AUDIO
+	
+*   PHOTO 已匹配AppOpsManager.OP_CAMERA
+	
+*   VIDEO 已匹配AppOpsManager.OP_CAMERA
+	
+X   RECORD_SCREEN 已匹配AppOpsManager.OP_RECORD_AUDIO
+	
+X    REMIND 已匹配AppOpsManager.OP_SYSTEM_ALERT_WINDOW
+	
+MOTION_SENSORS 已匹配AppOpsManager.OP_BODY_SENSORS
+	
+
+
+
+			OPEN_WLAN 6.0以后api 
+AppOpsManager.OP_RUN_IN_BACKGROUND
+	
+WLAN
+	
+6.0以后api
+	
+AppOpsManager.OP_CHANGE_WIFI_STATE
+	
+RUN_BACKGROUND 6.0以后api AppOpsManager.OP_RUN_IN_BACKGROUND
+	
+OPEN_BLUETOOTH 开关蓝牙
+	
+START_ON_BOOT setting自启动管理
+		
+OPEN_MOBILENETWORK 未匹配
+		
+MOBILENETWORK setting流量开关
+		
+OPEN_NFC 未匹配
+		
+READ_INSTALLED_APP 未匹配
+
+
+----------------------------------------------------------		
+
+
+
+Android 手机中生成的文件
+
+/data/system/appops.xml
+frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java:2452:        mAppOpsService = new AppOpsService(new File(systemDir, "appops.xml"), mHandler);
+
+/data/system/users/0/package-restrictions.xml
+frameworks/base/services/core/java/com/android/server/pm/Settings.java:1198:        return new File(userDir, "package-restrictions.xml");
+
+/data/system/users/0/runtime-permissions.xml
+frameworks/base/services/core/java/com/android/server/pm/Settings.java:164:    private static final String RUNTIME_PERMISSIONS_FILE_NAME = "runtime-permissions.xml";
+
+
+
+appOps
+frameworks/base/core/java/android/app/AppOpsManager.aidl
+
+
+frameworks/base/core/java/android/app/AppOpsManager.java
+
+import android.Manifest;// 这个未找到
+
+
+
+
+int 值
+    /** @hide No operation specified. */
+    public static final int OP_NONE = -1;
+    /** @hide Access to coarse location information. */
+    public static final int OP_COARSE_LOCATION = 0;
+    /** @hide Access to fine location information. */
+    public static final int OP_FINE_LOCATION = 1;
+	... ...
+    /** @hide Turned on the screen. */
+    public static final int OP_TURN_SCREEN_ON = 61;
+    /** @hide Get device accounts. */
+    public static final int OP_GET_ACCOUNTS = 62;
+    /** @hide */
+    public static final int _NUM_OP = 63;
+系统定义了63个权限.
+
+
+名称:
+    /** Access to coarse location information. */
+    public static final String OPSTR_COARSE_LOCATION = "android:coarse_location";
+    /** Access to fine location information. */
+    public static final String OPSTR_FINE_LOCATION =
+            "android:fine_location";
+    /** Continually monitoring location data. */
+    public static final String OPSTR_MONITOR_LOCATION
+            = "android:monitor_location";
+ 
+
++558
+
+    private static String[] sOpPerms = new String[] {
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            null,
+            android.Manifest.permission.VIBRATE,
+            android.Manifest.permission.READ_CONTACTS,
+			... ... 
+	        null,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            null, // no permission for turning the screen on
+            Manifest.permission.GET_ACCOUNTS
+    };
+
+
+
+user restriction:
+
++624
+
+    /**
+     * Specifies whether an Op should be restricted by a user restriction.
+     * Each Op should be filled with a restriction string from UserManager or
+     * null to specify it is not affected by any user restriction.
+     */
+    private static String[] sOpRestrictions = new String[] {
+            UserManager.DISALLOW_SHARE_LOCATION, //COARSE_LOCATION
+            UserManager.DISALLOW_SHARE_LOCATION, //FINE_LOCATION
+            UserManager.DISALLOW_SHARE_LOCATION, //GPS
+            null, //VIBRATE
+            null, //READ_CONTACTS
+            null, //WRITE_CONTACTS
+			... ...
+	        null, // READ_EXTERNAL_STORAGE
+            null, // WRITE_EXTERNAL_STORAGE
+            null, // TURN_ON_SCREEN
+            null, // GET_ACCOUNTS
+    };
+
+
+frameworks/base/services/core/java/com/android/server/AppOpsService.java
+
+... ...
+
+
+
+

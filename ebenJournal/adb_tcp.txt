@@ -1,0 +1,9 @@
+tcp adb的方法：
+ 连接电脑 adb tcpip 5555
+
+ 拔线 手机上Settings > About Device > Status > 看ip 
+ 
+ adb connect 10.169.x.y
+
+ 断掉此连接的方法： 
+ adb disconnect 10.169.x.y 

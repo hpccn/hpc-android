@@ -1,0 +1,98 @@
+rk3399_mid:/ $ logcat 
+--------- beginning of main
+02-08 19:17:53.425   214   214 W auditd  : type=2000 audit(0.0:1): initialized
+02-08 19:17:54.606   214   214 I auditd  : type=1403 audit(0.0:2): policy loaded auid=4294967295 ses=4294967295
+02-08 19:17:54.713     1     1 I init    : type=1400 audit(0.0:3): avc: denied { getattr } for path="/sys/kernel/debug/tracing/trace_marker" dev="tracefs" ino=3120 scontext=u:r:init:s0 tcontext=u:object_r:debugfs_trace_marker:s0 tclass=file permissive=1
+02-08 19:18:16.322   222   222 I         : debuggerd: starting
+02-08 19:18:16.380   221   221 I         : debuggerd: starting
+--------- beginning of system
+02-08 19:18:16.400   223   223 I vold    : Vold 3.0 (the awakening) firing up
+02-08 19:18:16.400   223   223 V vold    : Detected support for: ext4 f2fs vfat
+02-08 19:18:16.434   223   229 D vold    : e4crypt_init_user0
+02-08 19:18:16.434   223   229 D vold    : e4crypt_prepare_user_storage for volume null, user 0, serial 0, flags 1
+02-08 19:18:16.434   223   229 D vold    : Preparing: /data/system/users/0
+02-08 19:18:16.435   223   229 D vold    : Preparing: /data/misc/profiles/cur/0
+02-08 19:18:16.435   223   229 D vold    : Preparing: /data/misc/profiles/cur/0/foreign-dex
+02-08 19:18:16.435   223   229 D vold    : Preparing: /data/system_de/0
+02-08 19:18:16.435   223   229 D vold    : Preparing: /data/misc_de/0
+02-08 19:18:16.435   223   229 D vold    : Preparing: /data/user_de/0
+02-08 19:18:16.435   223   229 D vold    : e4crypt_unlock_user_key 0 serial=0 token_present=0
+02-08 19:18:16.435   223   229 E vold    : Failed to chmod /data/system_ce/0: No such file or directory
+02-08 19:18:16.435   223   229 E vold    : Failed to chmod /data/misc_ce/0: No such file or directory
+02-08 19:18:16.435   223   229 E vold    : Failed to chmod /data/media/0: No such file or directory
+02-08 19:18:16.436     1     1 I vdc     : 200 224 Command succeeded
+02-08 19:18:16.460     1     1 I init    : type=1400 audit(0.0:4): avc: denied { create } for name="cifsmanager" scontext=u:r:init:s0 tcontext=u:object_r:cifsmanager_exec:s0 tclass=dir permissive=1
+02-08 19:18:16.460     1     1 I init    : type=1400 audit(0.0:5): avc: denied { setattr } for name="cifsmanager" dev="tmpfs" ino=9430 scontext=u:r:init:s0 tcontext=u:object_r:cifsmanager_exec:s0 tclass=dir permissive=1
+02-08 19:18:16.460   232   232 I /system/bin/tzdatacheck: tzdata file /data/misc/zoneinfo/current/tzdata does not exist. No action required.
+02-08 19:18:16.486     1     1 I init    : type=1400 audit(0.0:6): avc: denied { relabelto } for name="recovery" dev="tmpfs" ino=8860 scontext=u:r:init:s0 tcontext=u:object_r:recovery_block_device:s0 tclass=lnk_file permissive=1
+02-08 19:18:16.486     1     1 I init    : type=1400 audit(0.0:7): avc: denied { relabelto } for name="boot" dev="tmpfs" ino=8856 scontext=u:r:init:s0 tcontext=u:object_r:boot_block_device:s0 tclass=lnk_file permissive=1
+02-08 19:18:16.507   236   236 I lowmemorykiller: Using in-kernel low memory killer interface
+02-08 19:18:16.552   238   238 I SurfaceFlinger: SurfaceFlinger is starting
+02-08 19:18:16.552   238   238 I SurfaceFlinger: SurfaceFlinger's main thread ready to run. Initializing graphics H/W...
+02-08 19:18:16.613   238   238 D libEGL  : loaded /vendor/lib64/egl/libGLES_mali.so
+02-08 19:18:16.644   238   238 I mali_so : [File] : hardware/arm/maliT760/driver/product/base/src/mali_base_kbase.c; [Line] : 976; [Func] : base_context_deal_with_version_affairs_rk_ext;
+02-08 19:18:16.644   238   238 I mali_so : arm_release_ver of this mali_so is 'r14p0-01rel0', rk_so_ver is '6@0'.
+02-08 19:18:16.644   238   238 I mali_so : [File] : hardware/arm/maliT760/driver/product/base/src/mali_base_kbase.c; [Line] : 1022; [Func] : base_context_deal_with_version_affairs_rk_ext;
+02-08 19:18:16.644   238   238 I mali_so : arm_release_vers are match. to set the full mali_ver 'r14p0-01rel0-13-6@0' as value of 'sys.gmali.version'.
+02-08 19:18:16.674   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.680   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.683   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.685   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.688   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.690   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.693   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.696   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.698   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.701   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.703   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.706   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.708   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.711   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.713   238   238 I hwc-drm-plane: Could not get alpha property
+02-08 19:18:16.714   238   238 I rockchiprga: Rga built version:version:c5851cb
+02-08 19:18:16.715   238   238 E hwc-drm-display-compositor: vop_bw: Error opening /sys/class/devfreq/dmc/vop_bandwidth: No such file or directory
+02-08 19:18:16.715   238   238 E hwc-drm-display-compositor: vop_bw: Error opening /sys/class/devfreq/dmc/vop_bandwidth: No such file or directory
+02-08 19:18:16.717   238   238 E hwcomposer-drm: Open hdmi_status_fd fail in hwc_device_open
+02-08 19:18:16.718   238   238 D hwc_rk  : RK_GRAPHICS_VER=commit-id:8cc149b
+02-08 19:18:16.718   238   238 I SurfaceFlinger: Using composer version 1.4
+02-08 19:18:16.720   238   238 E hwcomposer-drm: Failed to get connector for display 1 line=1835
+02-08 19:18:16.720   238   238 I SurfaceFlinger: EGL information:
+02-08 19:18:16.720   238   238 I SurfaceFlinger: vendor    : Android
+02-08 19:18:16.720   238   238 I SurfaceFlinger: version   : 1.4 Android META-EGL
+02-08 19:18:16.720   238   238 I SurfaceFlinger: extensions: EGL_KHR_get_all_proc_addresses EGL_ANDROID_presentation_time EGL_KHR_swap_buffers_with_damage EGL_ANDROID_create_native_client_buffer EGL_ANDROID_front_buffer_auto_refresh EGL_KHR_image EGL_KHR_image_base EGL_KHR_gl_texture_2D_image EGL_KHR_gl_texture_cubemap_image EGL_KHR_gl_renderbuffer_image EGL_KHR_fence_sync EGL_KHR_create_context EGL_KHR_config_attribs EGL_KHR_surfaceless_context EGL_EXT_create_context_robustness EGL_ANDROID_image_native_buffer EGL_KHR_wait_sync EGL_ANDROID_recordable EGL_KHR_partial_update EGL_KHR_mutable_render_buffer 
+02-08 19:18:16.720   238   238 I SurfaceFlinger: Client API: OpenGL_ES
+02-08 19:18:16.720   238   238 I SurfaceFlinger: EGLSurface: 8-8-8-8, config=0x75d18f1008
+02-08 19:18:16.738   238   238 I SurfaceFlinger: OpenGL ES informations:
+02-08 19:18:16.738   238   238 I SurfaceFlinger: vendor    : ARM
+02-08 19:18:16.738   238   238 I SurfaceFlinger: renderer  : Mali-T860
+02-08 19:18:16.738   238   238 I SurfaceFlinger: version   : OpenGL ES 3.2 v1.r14p0-01rel0.da82323df2754494870753d4b41c12be
+02-08 19:18:16.738   238   238 I SurfaceFlinger: extensions: GL_EXT_debug_marker GL_ARM_rgba8 GL_ARM_mali_shader_binary GL_OES_depth24 GL_OES_depth_texture GL_OES_depth_texture_cube_map GL_OES_packed_depth_stencil GL_OES_rgb8_rgba8 GL_EXT_read_format_bgra GL_OES_compressed_paletted_texture GL_OES_compressed_ETC1_RGB8_texture GL_OES_standard_derivatives GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_EGL_image_external_essl3 GL_OES_EGL_sync GL_OES_texture_npot GL_OES_vertex_half_float GL_OES_required_internalformat GL_OES_vertex_array_object GL_OES_mapbuffer GL_EXT_texture_format_BGRA8888 GL_EXT_texture_rg GL_EXT_texture_type_2_10_10_10_REV GL_OES_fbo_render_mipmap GL_OES_element_index_uint GL_EXT_shadow_samplers GL_OES_texture_compression_astc GL_KHR_texture_compression_astc_ldr GL_KHR_texture_compression_astc_hdr GL_KHR_texture_compression_astc_sliced_3d GL_KHR_debug GL_EXT_occlusion_query_boolean GL_EXT_disjoint_timer_query GL_EXT_blend_minmax GL_EXT_discard_framebuffer GL_OES_get_program_binary GL_OES_texture_3D GL_EXT_texture_storage GL_EXT_multisamp
+02-08 19:18:16.738   238   238 I SurfaceFlinger: GL_MAX_TEXTURE_SIZE = 8192
+02-08 19:18:16.738   238   238 I SurfaceFlinger: GL_MAX_VIEWPORT_DIMS = 8192
+02-08 19:18:16.739   238   238 E BufferQueueProducer: [FramebufferSurface] connect: already connected (cur=1 req=1)
+02-08 19:18:16.739   238   238 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+02-08 19:18:17.074   238   238 D SurfaceFlinger: shader cache generated - 24 shaders in 334.794556 ms
+02-08 19:18:17.077   237   237 E ServiceManager: SELinux: hanpengcheng svc_can_register add SurfaceFlinger , uid 1000.
+02-08 19:18:17.078   237   237 E ServiceManager: SELinux: hanpengcheng svc_can_register add gpu , uid 1000.
+02-08 19:18:17.078   238   238 D SurfaceFlinger: Set power mode=2, type=0 flinger=0x75d1848000
+02-08 19:18:17.106   238   238 D GRALLOC-ROCKCHIP: RK_GRAPHICS_VER=commit-id:650771d
+02-08 19:18:17.107   238   238 D GRALLOC-ROCKCHIP: gralloc ver '1.1.7' on arm_release_ver 'r14p0-00rel0'.
+02-08 19:18:17.107   238   238 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x1a00.
+02-08 19:18:17.476   237   237 E ServiceManager: SELinux: hanpengcheng svc_can_register add batteryproperties , uid 0.
+02-08 19:18:17.788   270   270 E vpu_api : dlopen vpu lib failed
+02-08 19:18:17.895   270   270 I BootAnimation: Boot_animation_process entered now!
+02-08 19:18:17.922   238   238 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x1a00.
+02-08 19:18:17.940   270   273 D libEGL  : loaded /vendor/lib64/egl/libGLES_mali.so
+02-08 19:18:17.970   270   273 I mali_so : [File] : hardware/arm/maliT760/driver/product/base/src/mali_base_kbase.c; [Line] : 976; [Func] : base_context_deal_with_version_affairs_rk_ext;
+02-08 19:18:17.970   270   273 I mali_so : arm_release_ver of this mali_so is 'r14p0-01rel0', rk_so_ver is '6@0'.
+02-08 19:18:17.970   270   273 D mali_so : [File] : hardware/arm/maliT760/driver/product/base/src/mali_base_kbase.c; [Line] : 981; [Func] : base_context_deal_with_version_affairs_rk_ext;
+02-08 19:18:17.970   270   273 D mali_so : current process is NOT sf, to bail out.
+02-08 19:18:17.976   238   243 E BufferQueueProducer: [BootAnimation] connect: already connected (cur=1 req=1)
+02-08 19:18:17.977   270   273 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+02-08 19:18:17.982   270   273 D BootAnimation: bootvideo:No boot video animation,EXIT_VIDEO_NAME:false,bootvideo.showtime:-1
+02-08 19:18:18.162   238   243 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x2, usage : 0xb00.
+02-08 19:18:18.189   270   273 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x2, usage : 0xb00.
+02-08 19:18:18.292   238   285 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x2, usage : 0xb00.
+02-08 19:18:18.327   270   273 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x2, usage : 0xb00.
+02-08 19:18:20.615   238   285 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x2, usage : 0xb00.
+02-08 19:18:20.638   270   273 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x2, usage : 0xb00.

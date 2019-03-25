@@ -1,0 +1,41 @@
+安全系统, 点击自启
+
+03-14 11:57:31.291  7223  7223 D EbenSecureManager: addPackage id=17,userId=10,pkg=com.estrongs.android.pop,autostart=false,notification=14,alignalarm=1,bginactive=-1,bginactiveUsed=true,watchexception=0,freeze=false,unmodifiable=false
+03-14 11:57:31.292  1303  4278 I EbenSecureManagerS: addPackage id=17,userId=10,pkg=com.estrongs.android.pop,autostart=false,notification=14,alignalarm=1,bginactive=-1,bginactiveUsed=true,watchexception=0,freeze=false,unmodifiable=false,uid=1001000
+03-14 11:57:31.292  1303  4278 D EbenSecureManagerS: updateItemDatabase id=17,userId=10,pkg=com.estrongs.android.pop,autostart=false,notification=14,alignalarm=1,bginactive=-1,bginactiveUsed=true,watchexception=0,freeze=false,unmodifiable=false
+--------- beginning of system
+03-14 11:57:31.293  3925  3937 V EbenManagerProvider: update() content://eben_manager_provider/eben_secure for user 0
+03-14 11:57:31.310  3925  3938 D EbenManagerProvider: onEvent mPath=/data/user/0/com.eben.manager.providers/databases/eben_manager.db,event=2,modsInFlight=1
+03-14 11:57:31.314  3925  3937 V EbenManagerProvider: notifying for 0: content://eben_manager_provider/eben_secure
+03-14 11:57:31.314  3925  3937 V EbenManagerProvider: eben_secure: 1 row(s) <- pkgname=com.estrongs.android.pop autostart=0 alignalarm=1 bginactive=-1 notification=14 unmodifiable=0 bginactive_used=true userid=10 watchexception=0 freeze=false
+
+
+
+
+MDM
+
+
+03-14 12:00:24.714  8739  8739 I EbenPolicyManager: setAppPermission()
+03-14 12:00:24.715  8739  8739 I EbenPolicyManager: ebenSystem = android.os.IEbenSystemService$Stub$Proxy@f3a231
+03-14 12:00:24.717  1303  4827 I EbenMdmProxy: setAppPermission()
+03-14 12:00:24.717  1303  4827 I EbenMdmProxy: ebenSystem = android.os.IEbenSystemService$Stub$Proxy@d52acd
+03-14 12:00:24.721  1303  4827 D EbenSystemService: setAppPermission  com.estrongs.android.pop, android.permission.RUN_BACKGROUND, permissionName RUN_BACKGROUND, mode 1, uid 1010103, 0, 1, 3
+03-14 12:00:24.721  1303  4827 D EbenSecureManager: getPackage pkgName = com.estrongs.android.pop
+03-14 12:00:24.721  1303  4827 D EbenSecureManagerS: getPackage pkgName=com.estrongs.android.pop,userId=10
+03-14 12:00:24.721  1303  4827 D EbenSecureManager: addPackage id=17,userId=10,pkg=com.estrongs.android.pop,autostart=false,notification=14,alignalarm=1,bginactive=0,bginactiveUsed=true,watchexception=0,freeze=false,unmodifiable=false
+03-14 12:00:24.721  1303  4827 I EbenSecureManagerS: addPackage id=17,userId=10,pkg=com.estrongs.android.pop,autostart=false,notification=14,alignalarm=1,bginactive=0,bginactiveUsed=true,watchexception=0,freeze=false,unmodifiable=false,uid=1001000
+03-14 12:00:24.721  1303  4827 D EbenSecureManagerS: updateItemDatabase id=17,userId=10,pkg=com.estrongs.android.pop,autostart=false,notification=14,alignalarm=1,bginactive=0,bginactiveUsed=true,watchexception=0,freeze=false,unmodifiable=false
+03-14 12:00:24.722  3925  3939 V EbenManagerProvider: update() content://eben_manager_provider/eben_secure for user 0
+03-14 12:00:24.737  3925  3938 D EbenManagerProvider: onEvent mPath=/data/user/0/com.eben.manager.providers/databases/eben_manager.db,event=2,modsInFlight=1
+03-14 12:00:24.749  3925  3939 V EbenManagerProvider: notifying for 0: content://eben_manager_provider/eben_secure
+03-14 12:00:24.749  3925  3939 V EbenManagerProvider: eben_secure: 1 row(s) <- pkgname=com.estrongs.android.pop autostart=0 alignalarm=1 bginactive=0 notification=14 unmodifiable=0 bginactive_used=true userid=10 watchexception=0 freeze=false
+
+
+
+
+是否允许该应用拨打电话	CALL_PHONE
+是否允许该应用读取通话记录	READ_CALLLOG
+是否允许该应用修改通话记录	WRITE_CALLLOG
+是否允许该应用s删除通话记录	DELETE_CALLLOG
+是否允许该应用发送短信	SEND_SMS
+是否允许该应用读取短信	READ_MSG

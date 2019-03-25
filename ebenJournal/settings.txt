@@ -1,0 +1,99 @@
+
+
+packages/apps/Settings/src/com/android/settings/SettingsActivity.java
+{
+
+// 控制左侧显示隐藏
+
+    private void updateTilesList(List<DashboardCategory> target) {
+
+					// 屏蔽Wifi
+					
+                    if (!Utils.isManagedProfile(um)) {// 非安全系统
+                        removeTile = true;// 左侧列表不显示
+                    }
+
+
+	}
+
+
+}
+
+
+更多
+packages/apps/Settings/src/com/android/settings/WirelessSettings.java
+{
+
+    private static final String KEY_TETHER_SETTINGS = "tether_settings";// 网络热点
+
+
+    public void onCreate(Bundle savedInstanceState) {
+
+		
+		// hpc Disable bluetooth, WlanAP
+
+		final UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
+		if (!Utils.isManagedProfile(um)) {// 非安全系统
+            removePreference(KEY_TETHER_SETTINGS);
+
+		}
+		//end 
+	
+	}
+    public static final Indexable.SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+            @Override
+            public List<SearchIndexableResource> getXmlResourcesToIndex(
+                    Context context, boolean enabled) {
+                SearchIndexableResource sir = new SearchIndexableResource(context);
+                sir.xmlResId = R.xml.wireless_settings;
+                return Arrays.asList(sir);
+            }
+
+            @Override
+            public List<String> getNonIndexableKeys(Context context) {
+
+				... ...
+				// hpc Disable bluetooth, WlanAP
+
+				if (!Utils.isManagedProfile(um)) {// 非安全系统
+					//removePreference(KEY_TETHER_SETTINGS);
+                    result.add(KEY_TETHER_SETTINGS);
+				}
+
+				// end hpc
+
+
+			}
+		}
+}
+
+
+
+// WLAN
+packages/apps/Settings/src/com/android/settings/wifi/WifiSettings.java{
+
+重载
+
+	//hpc disable 
+    protected boolean isUiRestricted() {
+
+		final UserManager um = (UserManager) getSystemService(Context.USER_SERVICE);
+		return (!com.android.settings.Utils.isManagedProfile(um)); // 非安全系统
+	}
+ 
+}
+
+
+// 控制UI是否用
+packages/apps/Settings/src/com/android/settings/RestrictedSettingsFragment.java{
+
+    /**
+     * Returns whether restricted or actionable UI elements should be removed or disabled.
+     */
+    protected boolean isUiRestricted() {
+        return isRestrictedAndNotProviderProtected() || !hasChallengeSucceeded();
+    }
+}
+}
+

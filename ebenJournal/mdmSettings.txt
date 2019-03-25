@@ -1,0 +1,95 @@
+
+MDM  配制,常量,键值,默认值
+frameworks/base/core/java/android/os/eben/Default.java
+{
+//.....
+	public static int DISABLED = 0;
+	public static int ENABLED = 1;
+
+	public static int UNLOCKED = 0;
+	public static int LOCKED = 1;
+
+	/**
+	 * adb 安装,卸载
+	 */
+	public static final String ATTR_ADB_INSTALL_LOCK = "adb_install_lock";
+	public static final int ADB_INSTALL_LOCK_DEFAULT = 1;
+}
+
+
+
+
+客户端调用此接口:
+
+隔离, 公开接口, 使用者看不到具体的实现.
+frameworks/base/core/java/ga/mdm/PolicyManager.java
+{
+调用Service中的功能
+// example:
+    @Override
+    public String executeShellToSetIptables(String commandline) {
+
+        if (DEBUG) Log.i(TAG, "executeShellToSetIptables() " + commandline);
+        try {
+            return  ebenSystemService.executeShellToSetIptables(commandline);
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+
+
+}
+
+
+服务中功能实现,
+frameworks/base/services/core/java/com/android/server/EbenSystemService.java
+{
+
+//TODO: 功能的实现在这里
+
+// 功能开关的设置, 保存在Settings provider 中
+//  如果双系统全局读写, 建议使用
+android.provider.Settings.System.
+双系统全局读写用
+android.provider.Settings.Global
+
+
+// 保存
+		android.provider.Settings.Global.putInt(mContext.getContentResolver(), android.os.eben.Default.ATTR_ADB_INSTALL_LOCK, mode);
+// 读取
+		int stat = android.provider.Settings.Global.getInt(mContext.getContentResolver(), android.os.eben.Default.ATTR_ADB_INSTALL_LOCK, android.os.eben.Default.ADB_INSTALL_LOCK_DEFAULT);
+
+}
+
+
+
+接口的参数说明
+frameworks/base/core/java/ga/mdm/IEbenPolicyManager.java
+
+
+
+
+快速编译测试验证:
+修改后, 
+例:
+修改frameworks/base/services/core/java/com/android/server/EbenSystemService.java
+cd frameworks/base/services/
+mm -j16
+
+查看修改的文件, 10分钟内修改过的文件
+find out/target/product/msm8952_64/system/framework/ -mmin -10
+输出:
+out/target/product/msm8952_64/system/framework/oat/arm64/services.odex
+out/target/product/msm8952_64/system/framework/services.jar
+
+将找到的文件push 到S1
+
+adb push out/target/product/msm8952_64/system/framework/oat/arm64/services.odex /system/framework/oat/arm64
+adb push out/target/product/msm8952_64/system/framework/services.jar  /system/framework
+
+adb reboot
+
+即可测试
+

@@ -1,0 +1,164 @@
+user0 通讯 name1   13312345
+
+call_log 13312345
+call_log 13312345
+call_log 13312345
+call_log 13312345
+call_log 13312345
+call_log 13312345
+
+
+
+在user10 新建 name_for_user10  13312345
+
+user0 的记录将被全部删除.
+
+
+
+call_log provider
+frameworks/base/core/java/android/provider/CallLog.java
+{
+
+public class CallLog {
+    private static final String LOG_TAG = "CallLog";
+
+    public static final String AUTHORITY = "call_log";
+
+    /**
+     * @hide
+     */
+    public static final String MANAGER_AUTHORITY = "call_manager";
+
+    /**
+     * The content:// style URL for this provider
+     */
+    public static final Uri CONTENT_URI =
+        Uri.parse("content://" + AUTHORITY);
+
+	... ...
+	}
+}
+
+
+
+新建联系人,  此入口引发通话记录删除动作
+
+private system
+ ActivityManager: startPausingLocked jumpOtherApk = false,needFreeze = false,isFreeze = false,top = ActivityRecord{ad60127 u11 com.ebensz.contacts/.NewEditActivity t43}
+
+normal system
+D ActivityManager: startPausingLocked jumpOtherApk = false,needFreeze = false,isFreeze = false,top = ActivityRecord{51f8f45 u0 com.ebensz.contacts/.NewEditActivity t42}
+
+
+
+
+packages/apps/EbenSystemApk/EContacts/src/com/ebensz/contacts/NewEditActivity.java{
+
+	//当前日志未输出.
+	private static final boolean DBG = false;
+
+
+
+         if(DBG) Log.d(TAG, "onPause.... isFinishing=" + isFinishing());
+
+
+// 保存退出	
+    private void saveAndExit() {
+
+		...
+                combineSameAccount(list);
+		...
+	}
+	
+    private void combineSameAccount(ArrayList<DataItem> list) {
+		
+		...
+                    EditUtilities.combineSameAccount(dataItem1.getRawContactId(), dataItem2.getRawContactId());
+		...
+	}
+}
+
+
+packages/apps/EbenSystemApk/EContacts/src/com/ebensz/contacts/data/Utilities.java{
+
+
+    public static void combineSameAccount(long mainRawContactId, long itemRawContactId) {
+
+
+
+            Uri uri = ContentUris.withAppendedId(RawContacts.CONTENT_URI, itemRawContactId);
+            operations.add(ContentProviderOperation.newDelete(uri).withYieldAllowed(false).build());
+
+
+                    context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, operations);
+	}
+
+}
+
+
+
+******
+
+确认联人provider 分离, 双系统独立, :
+
+/data/user/0/com.android.providers.contacts/databases/contacts2.db
+
+/data/user/10/com.android.providers.contacts/databases/contacts2.db
+
+
+
+*******
+
+/data/user/0/com.android.providers.telephony/databases/mmssms.db
+
+短信未分离
+1 在user0 新建一条短信
+  1  选择联系人新建 短信存草稿
+
+root@EBEN 63009:/data/user/0/com.android.providers.telephony/databases # 
+ls -la
+-rw-rw---- radio    radio       57344 1970-02-05 08:30 HbpcdLookup.db
+-rw------- radio    radio        8720 1970-02-05 08:30 HbpcdLookup.db-journal
+-rw-rw---- radio    radio       16384 1970-02-05 08:30 cdmacalloption.db
+-rw------- radio    radio        8720 1970-02-05 08:30 cdmacalloption.db-journal
+-rw-rw---- radio    radio      131072 2019-01-22 16:59 mmssms.db
+-rw------- radio    radio       29240 2019-01-22 16:59 mmssms.db-journal
+-rw-rw---- radio    radio      876544 1970-02-05 08:31 telephony.db
+-rw------- radio    radio      524288 1970-02-05 08:31 telephony.db-journal
+
+2 在user10 新建 一条短信
+	2 未输入号码, 3选择联系人.
+
+root@EBEN 63009:/data/user/10/com.android.providers.telephony/databases # 
+ls -la
+-rw-rw---- u10_radio u10_radio    16384 1970-02-05 08:31 cdmacalloption.db
+-rw------- u10_radio u10_radio     8720 1970-02-05 08:31 cdmacalloption.db-journal
+
+
+
+
+sqlite3 /data/user/0/com.android.providers.telephony/databases/mmssms.db
+sqlite> select * from sms;
+1|1|13912345678||1548147551446|0||1|-1|3|||积极进取就是||0|-1|-1|0|com.ebensz.mms|1|-1|0|0|0|0|0
+2|2|丽丽||1548147614235|0||1|-1|3|||你追我||0|-1|-1|0|com.ebensz.mms|0|-1|0|1|0|0|0
+3|3|13456781234||1548147642388|0||1|-1|3|||ooo摸摸||0|-1|-1|0|com.ebensz.mms|0|-1|1|0|0|0|0
+
+
+通话记录也是分离的
+
+user0
+
+sqlite3 /data/user/0/com.android.providers.contacts/databases/contacts2.db
+sqlite> select * from calls;
+
+sqlite> select * from calls;
+1|13912345678|1|1548147360346|0||2|0||||0|-1|1|李四|2||CN|||江苏常州移动|||+8613912345678|0||||||||||0|0|1|0|2|1||||0
+
+
+--------------------
+user10
+
+sqlite3 /data/user/10/com.android.providers.contacts/databases/contacts2.db
+sqlite> select * from calls;
+1|13456781234|1|1548148090329|0||2|0||||0|-1|1|张三|2||CN|||浙江杭州移动|||+8613456781234|0||||||||||0|0|1|0|2|1||||0
+2|13456781234|1|1548148096620|0||2|0||||0|-1|1|张三|2||CN|||浙江杭州移动|||+8613456781234|0||||||||||0|0|1|0|2|1||||0

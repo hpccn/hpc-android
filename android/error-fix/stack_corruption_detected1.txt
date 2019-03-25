@@ -1,0 +1,183 @@
+
+10-09 11:55:15.003  1207  1207 D BatteryService: isScreenOn=truechargingEnable=true,level=98,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+10-09 11:55:15.006  4045  4045 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+10-09 11:55:15.007  6127  6127 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+10-09 11:55:15.296   610  3256 D audio_hw_primary: out_set_parameters: enter: usecase(1: low-latency-playback) kvpairs: routing=2
+10-09 11:55:15.296   610  3256 D audio_hw_extn: audio_extn_set_anc_parameters: anc_enabled:0
+10-09 11:55:15.296 14504 14563 E SCS     : p11_model_test p11 get sn 
+10-09 11:55:15.296 14504 14563 E SCS     : enter test_loadlibrary., libGAPIP11.so
+10-09 11:55:15.296 14504 14563 E SCS     : enter test_opendevice.
+10-09 11:55:15.296 14504 14563 E SCS     : pC_Initilize 1 0x7b973cf4
+10-09 11:55:15.296 14504 14563 E SCS     : before getsolotlist1, count=0
+10-09 11:55:15.297 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.297 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.297 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.307   610  3256 D audio_hw_primary: start_output_stream: enter: stream(0xeff37000)usecase(1: low-latency-playback) devices(0x2)
+10-09 11:55:15.307   610  3256 D audio_hw_primary: select_devices: out_snd_device(2: speaker) in_snd_device(0: )
+10-09 11:55:15.307   610  3256 I msm8916_platform: platform_check_and_set_codec_backend_cfg: Usecase bitwidth 16, samplerate 48000, backend_idx 0
+10-09 11:55:15.307   610  3256 I msm8916_platform: platform_check_codec_backend_cfg Codec selected backend: 0 current bit width: 16 and sample rate: 48000
+10-09 11:55:15.307   610  3256 D msm8916_platform: platform_check_codec_backend_cfg: resetting sample_rate back to default, backend_idx: 0
+10-09 11:55:15.307   610  3256 I msm8916_platform: platform_check_codec_backend_cfg Codec selected backend: 0 updated bit width: 16 and sample rate: 48000
+10-09 11:55:15.307   610  3256 D hardware_info: hw_info_append_hw_type : device_name = speaker
+10-09 11:55:15.307   610  3256 D audio_hw_primary: enable_snd_device: snd_device(2: speaker)
+10-09 11:55:15.307   610  3256 I soundtrigger: audio_extn_sound_trigger_update_device_status: device 0x2 of type 0 for Event 1, with Raise=0
+10-09 11:55:15.323   610  3256 I audio_hw_primary: select_devices Selected apptype: 69937
+10-09 11:55:15.323   610  3256 D soundtrigger: audio_extn_sound_trigger_update_stream_status: uc_id 1 of type 0 for Event 3, with Raise=0
+10-09 11:55:15.323   610  3256 I audio_hw_utils: audio_extn_utils_send_app_type_cfg app_type 69937, acdb_dev_id 14, sample_rate 48000
+10-09 11:55:15.323   610  3256 D ACDB-LOADER: ACDB -> send_audio_cal, acdb_id = 14, path =  0
+10-09 11:55:15.323   610  3256 D ACDB-LOADER: ACDB -> send_asm_topology
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TOPOLOGY_ID
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> send_adm_topology
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TOPOLOGY_ID
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> send_audtable
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TABLE_SIZE
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_COMMON_TABLE
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_CAL
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> send_audvoltable
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_GAIN_DEP_STEP_TABLE
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> AUDIO_SET_AUDPROC_VOL_CAL
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> send_audstrmtable
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AUDPROC_STREAM_TABLE_V2
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> audstrm_cal->cal_type.cal_data.cal_size = 32
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> send_afe_topology
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_TOPOLOGY_ID
+10-09 11:55:15.308  4149  4149 W Binder_C: type=1400 audit(0.0:456): avc: denied { ioctl } for path="socket:[149634]" dev="sockfs" ino=149634 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+10-09 11:55:15.318  4149  4149 W Binder_C: type=1400 audit(0.0:457): avc: denied { ioctl } for path="socket:[149634]" dev="sockfs" ino=149634 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> GET_AFE_TOPOLOGY_ID for adcd_id 14, Topology Id 1025e
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> send_afe_cal
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_CMD_GET_AFE_COMMON_TABLE
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> AUDIO_SET_AFE_CAL
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> send_hw_delay : acdb_id = 14 path = 0
+10-09 11:55:15.324   610  3256 D ACDB-LOADER: ACDB -> ACDB_AVSYNC_INFO: ACDB_CMD_GET_DEVICE_PROPERTY
+10-09 11:55:15.324   610  3256 D audio_hw_primary: enable_audio_route: apply mixer and update path: low-latency-playback
+10-09 11:55:15.327   610  3256 D audio_hw_primary: select_devices: done
+10-09 11:55:15.335  1207  1237 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:767 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6354 com.android.server.policy.PhoneWindowManager.access$1000:151 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:717 android.os.Handler.dispatchMessage:102 
+10-09 11:55:15.338   610  3256 D msm8916_platform: platform_set_channel_map mixer_ctl_name:Playback Channel Map12
+10-09 11:55:15.339   610  3256 D msm8916_platform: platform_set_channel_map: set mapping(1 2 0 0 0 0 0 0) for channel:2
+10-09 11:55:15.349  1207  1237 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:767 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6354 com.android.server.policy.PhoneWindowManager.access$1000:151 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:717 android.os.Handler.dispatchMessage:102 
+10-09 11:55:15.384 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.386 14504 14563 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.388   610  3256 D audio_hw_primary: start_output_stream: exit
+10-09 11:55:15.399  3991  3991 D SoftKeyboard: onStartInput
+10-09 11:55:15.388  4117  4117 W Binder_A: type=1400 audit(0.0:458): avc: denied { ioctl } for path="socket:[137148]" dev="sockfs" ino=137148 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+10-09 11:55:15.388  4117  4117 W Binder_A: type=1400 audit(0.0:459): avc: denied { ioctl } for path="socket:[137148]" dev="sockfs" ino=137148 ioctlcmd=7704 scontext=u:r:system_server:s0 tcontext=u:r:system_server:s0 tclass=unix_stream_socket permissive=0
+10-09 11:55:15.406 14504 14563 I XI      : Import SD Path /sdcard return 0.
+10-09 11:55:15.406 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.406 14504 14563 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.406 14504 14563 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 11:55:15.406 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.408 14504 14563 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.409 14504 14563 I XI      : Import SD Path /storage/emulated return 0.
+10-09 11:55:15.409 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.410  1207  1237 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:767 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6354 com.android.server.policy.PhoneWindowManager.access$1000:151 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:717 android.os.Handler.dispatchMessage:102 
+10-09 11:55:15.414 14504 14563 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.414  1207  1237 W ContextImpl: Calling a method in the system process without a qualified user: android.app.ContextImpl.sendBroadcast:767 com.android.server.policy.PhoneWindowManager.navigtionbarUpdate:6354 com.android.server.policy.PhoneWindowManager.access$1000:151 com.android.server.policy.PhoneWindowManager$PolicyHandler.handleMessage:717 android.os.Handler.dispatchMessage:102 
+10-09 11:55:15.585 14504 14563 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 11:55:15.597 14504 14563 I XI      : *piDevCount = 1.
+10-09 11:55:15.597 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.597 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.597 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.673 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.674 14504 14563 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.692 14504 14563 I XI      : Import SD Path /sdcard return 0.
+10-09 11:55:15.692 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.692 14504 14563 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.692 14504 14563 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 11:55:15.692 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.693 14504 14563 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.693 14504 14563 I XI      : Import SD Path /storage/emulated return 0.
+10-09 11:55:15.693 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:15.696 14504 14563 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:15.697 14504 14563 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 11:55:15.712 14504 14563 I XI      : *piDevCount = 1.
+10-09 11:55:16.007  1207  1207 D BatteryService: isScreenOn=truechargingEnable=true,level=98,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+10-09 11:55:16.009  6127  6127 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+10-09 11:55:16.011  4045  4045 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+10-09 11:55:16.159  6009  6082 I tnet-jni: 82 -  create new session: accscdn.m.taobao.com:443
+10-09 11:55:16.160  6009  6082 W System.err: org.android.spdy.SpdyErrorException: create session error: -1107
+10-09 11:55:16.160  6009  6082 W System.err: 	at org.android.spdy.SpdyAgent.createSession(SourceFile:448)
+10-09 11:55:16.160  6009  6082 W System.err: 	at org.android.spdy.SpdyAgent.createSession(SourceFile:331)
+10-09 11:55:16.160  6009  6082 W System.err: 	at com.taobao.accs.net.l.b(SourceFile:445)
+10-09 11:55:16.160  6009  6082 W System.err: 	at com.taobao.accs.net.l.b(SourceFile:60)
+10-09 11:55:16.160  6009  6082 W System.err: 	at com.taobao.accs.net.l$a.a(SourceFile:815)
+10-09 11:55:16.160  6009  6082 W System.err: 	at com.taobao.accs.net.l$a.run(SourceFile:881)
+10-09 11:55:16.690 14504 14563 E SCS     : after getsolotlist1, count=0
+10-09 11:55:16.691 14504 14563 E SCS     :  C_GetSlotList ulSlotCount=0x00000001.
+10-09 11:55:16.691 14504 14563 E SCS     : before getsolotlist2, count=0
+10-09 11:55:16.691 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.691 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.691 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.778 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.780 14504 14563 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.795 14504 14563 I XI      : Import SD Path /sdcard return 0.
+10-09 11:55:16.795 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.796 14504 14563 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.796 14504 14563 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 11:55:16.796 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.797 14504 14563 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.797 14504 14563 I XI      : Import SD Path /storage/emulated return 0.
+10-09 11:55:16.797 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.799 14504 14563 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.799 14504 14563 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 11:55:16.810 14504 14563 I XI      : *piDevCount = 1.
+10-09 11:55:16.810 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.810 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.810 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.884 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.885 14504 14563 I XI      : Import Full Path /sdcard/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.900 14504 14563 I XI      : Import SD Path /sdcard return 0.
+10-09 11:55:16.900 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.900 14504 14563 I XI      : Import Full Path /mnt/external_sd/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.900 14504 14563 I XI      : Import SD Path /mnt/external_sd return 0.
+10-09 11:55:16.900 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.901 14504 14563 I XI      : Import Full Path /storage/emulated/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.902 14504 14563 I XI      : Import SD Path /storage/emulated return 0.
+10-09 11:55:16.902 14504 14563 I XI      : cc_IsAPK return 0.
+10-09 11:55:16.905 14504 14563 I XI      : Import Full Path /storage/99E1-9854/Android/data/com.westone.sdkapp return 0.
+10-09 11:55:16.905 14504 14563 I XI      : Import SD Path /storage/99E1-9854 return 1.
+10-09 11:55:16.920 14504 14563 I XI      : *piDevCount = 1.
+10-09 11:55:16.927 14504 14563 E SCS     : after getsolotlist2, count=0
+10-09 11:55:16.933 14504 14563 E SCS     :  Slot[0] Info: slotInfo.flags=0x3.
+10-09 11:55:16.993 14504 14563 E SCS     :  Token[0] Info serialNumber=1805221379      .
+10-09 11:55:16.993 14504 14563 E SCS     :  Token[0] Info label=MyToken_1                       .
+10-09 11:55:16.993 14504 14563 E SCS     :  Token[0] Info hardwareVersion=0.0.
+10-09 11:55:16.993 14504 14563 E SCS     :  Token[0] Info firmwareVersion=0.0.
+10-09 11:55:16.993 14504 14563 E SCS     :  Token[0] Info manufacturerID=HDZB                            USB Key         1805221379    . 
+10-09 11:55:16.993 14504 14563 E SCS     :  Test the first device. 
+10-09 11:55:16.999 14504 14563 E SCS     :  free(pSlotList) 
+10-09 11:55:16.999 14504 14563 E SCS     :  free(pSlotList) ok 
+10-09 11:55:16.999 14504 14563 F libc    : stack corruption detected
+10-09 11:55:17.000 14504 14563 F libc    : Fatal signal 6 (SIGABRT), code -6 in tid 14563 (Thread-574)
+10-09 11:55:17.010   832   832 I MSM-irqbalance: Decided to move IRQ240 from CPU1 to CPU3
+10-09 11:55:17.018  1207  1207 D BatteryService: isScreenOn=truechargingEnable=true,level=98,status=3,mBatteryLevelLow=false,mIsStatusChangedfalse
+10-09 11:55:17.019  4045  4045 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+10-09 11:55:17.020  6127  6127 D HighTemperatureReceiver: Receive action: android.intent.action.BATTERY_CHANGED
+10-09 11:55:17.053   607   607 F DEBUG   : *** *** *** *** *** *** *** *** *** *** *** *** *** *** *** ***
+10-09 11:55:17.054   607   607 F DEBUG   : Build fingerprint: 'ErenEben/80008/80008:6.0.1/S100/0.1.215_20180713:user/test-keys'
+10-09 11:55:17.054   607   607 F DEBUG   : Revision: '0'
+10-09 11:55:17.054   607   607 F DEBUG   : ABI: 'arm64'
+10-09 11:55:17.054   607   607 F DEBUG   : pid: 14504, tid: 14563, name: Thread-574  >>> com.westone.sdkapp <<<
+10-09 11:55:17.054   607   607 F DEBUG   : signal 6 (SIGABRT), code -6 (SI_TKILL), fault addr --------
+10-09 11:55:17.082   607   607 F DEBUG   : Abort message: 'stack corruption detected'
+10-09 11:55:17.082   607   607 F DEBUG   :     x0   0000000000000000  x1   00000000000038e3  x2   0000000000000006  x3   0000000000000000
+10-09 11:55:17.082   607   607 F DEBUG   :     x4   0000000000000000  x5   0000000000000001  x6   0000000000000000  x7   0000000000000000
+10-09 11:55:17.082   607   607 F DEBUG   :     x8   0000000000000083  x9   647362647364631f  x10  7f7f7f7f7f7f7f7f  x11  0101010101010101
+10-09 11:55:17.082   607   607 F DEBUG   :     x12  0000007f805cf888  x13  a049272c0db328e7  x14  a049272c0db328e7  x15  003b986ac1ec0ce6
+10-09 11:55:17.082   607   607 F DEBUG   :     x16  0000007f805c9568  x17  0000007f8055ba5c  x18  0000007f7d461000  x19  0000007f66ebf500
+10-09 11:55:17.083   607   607 F DEBUG   :     x20  0000007f66ebf440  x21  0000000000000002  x22  0000000000000006  x23  0000007f66ebf4f0
+10-09 11:55:17.083   607   607 F DEBUG   :     x24  0000007f66ebece0  x25  0000007f66ebed30  x26  0000007f66ebed00  x27  0000007f66ebe8f0
+10-09 11:55:17.083   607   607 F DEBUG   :     x28  0000007f66ebe900  x29  0000007f66ebe6e0  x30  0000007f805591f8
+10-09 11:55:17.083   607   607 F DEBUG   :     sp   0000007f66ebe6e0  pc   0000007f8055ba64  pstate 0000000020000000
+10-09 11:55:17.088   607   607 F DEBUG   : 
+10-09 11:55:17.088   607   607 F DEBUG   : backtrace:
+10-09 11:55:17.089   607   607 F DEBUG   :     #00 pc 000000000006aa64  /system/lib64/libc.so (tgkill+8)
+10-09 11:55:17.089   607   607 F DEBUG   :     #01 pc 00000000000681f4  /system/lib64/libc.so (pthread_kill+68)
+10-09 11:55:17.089   607   607 F DEBUG   :     #02 pc 0000000000024ef4  /system/lib64/libc.so (raise+28)
+10-09 11:55:17.089   607   607 F DEBUG   :     #03 pc 000000000001e018  /system/lib64/libc.so (abort+60)
+10-09 11:55:17.089   607   607 F DEBUG   :     #04 pc 00000000000224f8  /system/lib64/libc.so (__libc_fatal+128)
+10-09 11:55:17.089   607   607 F DEBUG   :     #05 pc 00000000000699a8  /system/lib64/libc.so (__stack_chk_fail+16)
+10-09 11:55:17.089   607   607 F DEBUG   :     #06 pc 0000000000017eb4  /data/app/com.westone.sdkapp-1/lib/arm64/libnative-lib.so (_Z15test_opendevicev+1192)
+10-09 11:55:17.089   607   607 F DEBUG   :     #07 pc 000000000001fdb8  /data/app/com.westone.sdkapp-1/lib/arm64/libnative-lib.so (p11_get_sn+68)
+10-09 11:55:17.090   607   607 F DEBUG   :     #08 pc 0000000000008bc0  /data/app/com.westone.sdkapp-1/lib/arm64/libnative-lib.so (Java_com_westone_sdktestapp_WstUtil_getSN+20)
+10-09 11:55:17.090   607   607 F DEBUG   :     #09 pc 000000000051475c  /data/app/com.westone.sdkapp-1/oat/arm64/base.odex (offset 0x399000)
+10-09 11:55:17.351  1207 14632 W ActivityManager:   Force finishing activity com.westone.sdkapp/.BindActivity

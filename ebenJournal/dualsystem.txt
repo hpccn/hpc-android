@@ -1,5 +1,188 @@
 默认壁纸 
 安全系统恢复出厂默认壁纸
 
-在
+
 packages/apps/ManagedProvisioning/
+
+packages/apps/ManagedProvisioning/src/com/android/managedprovisioning/BasicDeviceAdminReceiver.java +57
+
+
+// 安全系统创建
+
+packages/apps/ManagedProvisioning/src/com/android/managedprovisioning/BasicDeviceAdminReceiver.java {
+
+    private void enableProfile(Context context) {
+        DevicePolicyManager manager =
+                (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+        ComponentName componentName = BasicDeviceAdminReceiver.getComponentName(context);
+        // This is the name for the newly created managed profile.
+        manager.setProfileName(componentName,"Sample Managed Profile");
+        // We enable the profile here.
+        manager.setProfileEnabled(componentName);
+
+        enableAllAppProfile(context);
+
+    }
+
+  private void enableAllAppProfile(Context context) {
+        LauncherApps launcherApps = (LauncherApps) context.getSystemService(Context.LAUNCHER_APPS_SERVICE);
+        UserManager mUserManager = (UserManager) context.getSystemService(Context.USER_SERVICE);
+        List<UserHandle> handles = mUserManager.getUserProfiles();
+        List<LauncherActivityInfo> actives = launcherApps.getActivityList(null, handles.get(0));
+        for (LauncherActivityInfo activity : actives) {
+            if (!isApplicationEnabled(context, activity)) {
+                setAppEnabled(context, activity, true);
+            }
+        }
+
+    }
+
+
+
+}
+
+
+packages/apps/ManagedProvisioning/src/com/android/managedprovisioning/ProfileOwnerProvisioningService.java
+
+
+部分App在系统0中禁用
+		
+ packages/apps/Settings/AndroidManifest.xml
+		<receiver android:name="ManagedProfileSetup">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.USER_INITIALIZE"/>
+                <action android:name="android.intent.action.PRE_BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+       <receiver android:name="ManagedUpdataSetup">
+            <intent-filter>
+            <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
+
+
+ packages/apps/Settings/src/com/android/settings/ManagedUpdataSetup.java 
+ packages/apps/Settings/src/com/android/settings/ManagedProfileSetup.java 
+{
+
+            IPackageManager mPm = IPackageManager.Stub.asInterface(ServiceManager.getService("package"));
+
+                int secureUserId = new DualSystemManager(context).getSecureSystemUserId();
+                int normalUserId = new DualSystemManager(context).getNormalSystemUserId();
+
+	
+// User0 禁用安全邮件,  User10 可以反向启用
+                try {
+                    mPm.setApplicationEnabledSetting("com.xdja.HDSafeEMailClient",
+                            PackageManager.COMPONENT_ENABLED_STATE_DISABLED, 0, normalUserId, null);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+ 
+}
+
+初始化安装应用 进度
+
+//packages/apps/ManagedProvisioning/src/com/android/managedprovisioning/ProfileActivity.java
+
+packages/apps/ManagedProvisioning/src/com/android/managedprovisioning/InstallService.java {
+
+
+   private static final int NONE_FILE = 0;
+    private static final String APK = ".apk";
+    public static final String TAG = "InstallServiceManaged";
+
+    public static final String NORMAL_FLAG = "/A/";
+    public static final String SECURE_FLAG = "/S/";
+
+
+    //public static final String SOURCE_PATH = Environment.getExternalStorageDirectory().getAbsolutePath()
+    //        + "/.vendor/";
+
+    public static final String SOURCE_PATH = "/system/preload-app/";
+    public static final String NORMAL_PATH = SOURCE_PATH + "A/";
+    public static final String SECURE_PATH = SOURCE_PATH + "S/";
+
+
+
+//安装列表:
+private ArrayList<String> getFileList() {     
+
+}
+
+
+// 安装App
+    private void installOnePackage(int index) {
+	}
+}
+
+
+
+
+
+
+-----------------------------------------
+
+恢复出厂设置后的日志 :
+
+adb logcat -s ManagedProvisioning InstallServiceManaged InstallActivity
+--------- beginning of system
+--------- beginning of crash
+--------- beginning of main
+02-12 16:26:34.854  6031  6031 I ManagedProvisioning: Processing non-nfc intent.
+02-12 16:26:34.868  6031  6031 D ManagedProvisioning: existingId : -1 isMaximumManagedProfilesLimitReached > false
+02-12 16:26:34.871  6031  6031 D ManagedProvisioning: startProvisioningProcess
+02-12 16:26:35.015  6031  6031 D ManagedProvisioning: Starting ProfileOwnerProvisioningService
+02-12 16:26:35.173  6031  6031 D ManagedProvisioning: Starting profile owner provisioning service1
+02-12 16:26:35.173  6031  6031 D ManagedProvisioning: Starting profile owner provisioning service2
+02-12 16:26:35.175  6031  6087 D ManagedProvisioning: Starting managed profile provisioning
+02-12 16:26:35.175  6031  6087 D ManagedProvisioning: Creating managed profile with name 工作资料
+02-12 16:26:35.809  6031  6087 D ManagedProvisioning: Deleting non required apps.
+02-12 16:26:38.452  6031  6045 I ManagedProvisioning: All non-required system apps with launcher icon, and all disallowed apps have been uninstalled.
+02-12 16:26:38.456  6031  6045 D ManagedProvisioning: Disabling Bluetooth sharing.
+02-12 16:26:38.461  6031  6045 D ManagedProvisioning: Disabling install shortcut listeners.
+02-12 16:26:39.193  6031  6045 D ManagedProvisioning: Installing mobile device management app com.android.managedprovisioning on managed profile
+02-12 16:26:39.194  6031  6045 D ManagedProvisioning: Setting package com.android.managedprovisioning as active admin.
+02-12 16:26:39.421  6031  6045 D ManagedProvisioning: Setting package com.android.managedprovisioning as managed profile owner.
+02-12 16:26:39.460  6031  6045 D ManagedProvisioning: Setting cross-profile intent filters
+02-12 16:26:39.481  6031  6045 D ManagedProvisioning: Starting user in background
+02-12 16:26:39.506  6031  6045 D ManagedProvisioning: No account to migrate to the managed profile.
+02-12 16:26:39.506  6031  6045 I ManagedProvisioning: Finishing provisioing process, status: 1
+02-12 16:26:39.511  6031  6045 D ManagedProvisioning: Provisioning complete broadcast has been sent to user 10
+02-12 16:26:39.511  6031  6045 I ManagedProvisioning: Finished provisioing process, final status: 3
+02-12 16:26:39.511  6031  6045 D ManagedProvisioning: mProvisioningStatus>3
+02-12 16:26:39.613  6031  6031 D InstallActivity: ServiceMessageReceiver ...
+02-12 16:26:39.613  6031  6031 D ManagedProvisioning: com.android.managedprovisioning.provisioning_success
+02-12 16:26:39.613  6031  6031 D ManagedProvisioning: Successfully provisioned.
+02-12 16:26:39.908  6296  6296 I ManagedProvisioning: User is initialized user owner :false isManagedProfile: true hasDeviceInitializer:false 10
+02-12 16:26:43.146  6296  6296 D ManagedProvisioning: profile provisioning complete - android.app.action.PROFILE_PROVISIONING_COMPLETE
+02-12 16:26:43.293  6031  6031 D ManagedProvisioning: ACTION_PROFILE_PROVISIONING_COMPLETE broadcast received by mdm
+02-12 16:26:43.377  6031  6031 D InstallActivity: ServiceMessageReceiver ...
+02-12 16:26:43.377  6031  6031 D ManagedProvisioning: com.android.managedprovisioning.provisioning_complete
+02-12 16:26:46.238  6674  6674 D InstallServiceManaged: listFiles dirPath=/system/preload-app/A/
+02-12 16:26:46.251  6674  6674 D InstallServiceManaged: get sub direcoty=emap
+02-12 16:26:46.251  6674  6674 D InstallServiceManaged: get sub direcoty=eneteasemusic
+02-12 16:26:46.252  6674  6674 D InstallServiceManaged: get sub direcoty=eweixin
+02-12 16:26:46.253  6674  6674 D InstallServiceManaged: get sub direcoty=ewpsoffice
+02-12 16:26:46.254  6674  6674 D InstallServiceManaged: get sub direcoty=hp_printservice
+02-12 16:26:46.256  6674  6674 D InstallServiceManaged: accept name=emap.apk
+02-12 16:26:46.260  6674  6674 D InstallServiceManaged: accept name=eneteasemusic.apk
+02-12 16:26:46.262  6674  6674 D InstallServiceManaged: accept name=eweixin.apk
+02-12 16:26:46.264  6674  6674 D InstallServiceManaged: accept name=ewpsoffice.apk
+02-12 16:26:46.265  6674  6674 D InstallServiceManaged: accept name=hp_printservice.apk
+02-12 16:26:46.266  6674  6674 D InstallServiceManaged: listFiles dirPath=/system/preload-app/S/
+02-12 16:26:46.266  6674  6674 D InstallServiceManaged: get sub direcoty=eweixinse
+02-12 16:26:46.267  6674  6674 D InstallServiceManaged: get sub direcoty=ewpsofficese
+02-12 16:26:46.267  6674  6674 D InstallServiceManaged: get sub direcoty=notepad2
+02-12 16:26:46.268  6674  6674 D InstallServiceManaged: accept name=eweixinse.apk
+02-12 16:26:46.268  6674  6674 D InstallServiceManaged: accept name=ewpsofficese.apk
+02-12 16:26:46.268  6674  6674 D InstallServiceManaged: accept name=notepad2.apk
+02-12 16:26:46.268  6674  6674 D InstallServiceManaged: accept name=oat
+02-12 16:26:46.268  6674  6674 D InstallServiceManaged: getFileList size=8
+02-12 16:26:46.680  6674  6674 D InstallServiceManaged: handleMessage:what= 0
+02-12 16:26:46.680  6674  6674 W InstallServiceManaged: installOnePackage at index=0 mFileList.size=8
+02-12 16:26:55.929  6674  6687 D InstallServiceManaged: Installed:packageName= com.autonavi.minimap returnCode 1
+02-12 16:26:55.929  6674  6674 D InstallServiceManaged: handleMessage:what= 1
+

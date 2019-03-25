@@ -1,0 +1,64 @@
+
+01-13 18:52:51.382  3970  3986 I DefContainer:  packagePath /sdcard/download/优酷视频.apk, packageFile.isDirectory()false, packageFile /sdcard/download/优酷视频.apk
+01-13 18:52:51.384  3970  3986 W DefContainer: Failed to parse package at /sdcard/download/优酷视频.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /sdcard/download/优酷视频.apk
+01-13 18:53:27.005  8276  8286 I DefContainer:  packagePath /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk, packageFile.isDirectory()false, packageFile /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-13 18:53:27.009  8276  8286 W DefContainer: Failed to parse package at /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+
+
+01-13 18:56:48.819  8276  8286 I DefContainer:  packagePath /storage/emulated/10/qqapps.apk, packageFile.isDirectory()false, packageFile /storage/emulated/10/qqapps.apk
+01-13 18:56:48.844  8276  8287 D DefContainer: Copying /storage/emulated/10/qqapps.apk to base.apk
+
+
+pm install /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+
+
+
+
+01-13 18:52:51.382  3970  3986 I DefContainer:  packagePath /sdcard/download/优酷视频.apk, packageFile.isDirectory()false, packageFile /sdcard/download/优酷视频.apk
+01-13 18:52:51.384  3970  3986 W DefContainer: Failed to parse package at /sdcard/download/优酷视频.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /sdcard/download/优酷视频.apk
+01-13 18:53:27.005  8276  8286 I DefContainer:  packagePath /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk, packageFile.isDirectory()false, packageFile /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-13 18:53:27.009  8276  8286 W DefContainer: Failed to parse package at /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+
+
+01-13 18:56:48.819  8276  8286 I DefContainer:  packagePath /storage/emulated/10/qqapps.apk, packageFile.isDirectory()false, packageFile /storage/emulated/10/qqapps.apk
+01-13 18:56:48.844  8276  8287 D DefContainer: Copying /storage/emulated/10/qqapps.apk to base.apk
+*01-13 19:16:41.282  8276  8287 I DefContainer:  packagePath /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk, packageFile.isDirectory()false, packageFile /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-13 19:16:41.282  8276  8287 W DefContainer: Failed to parse package at /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-13 19:16:47.769  8276  8286 I DefContainer:  packagePath /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk, packageFile.isDirectory()false, packageFile /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-13 19:16:47.770  8276  8286 W DefContainer: Failed to parse package at /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-13 19:19:59.471  8276  8286 I DefContainer:  packagePath /storage/emulated/0/com.speedsoftware.sqleditor_17.apk, packageFile.isDirectory()false, packageFile /storage/emulated/0/com.speedsoftware.sqleditor_17.apk
+01-13 19:19:59.489  8276  8287 D DefContainer: Copying /storage/emulated/0/com.speedsoftware.sqleditor_17.apk to base.apk
+01-14 08:20:13.148 18861 18872 I DefContainer:  packagePath /storage/emulated/0/qqapps.apk, packageFile.isDirectory()false, packageFile /storage/emulated/0/qqapps.apk
+01-14 08:20:13.177 18861 18871 D DefContainer: Copying /storage/emulated/0/qqapps.apk to base.apk
+
+
+
+
+
+
+
+
+
+
+
+
+01-14 08:21:16.103 19974 19985 I DefContainer:  packagePath /data/user/0/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk, packageFile.isDirectory()false, packageFile /data/user/0/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-14 08:21:16.135 19974 19984 D DefContainer: Copying /data/user/0/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk to base.apk
+
+
+
+
+root@80008_1:/ # getenforce                                                    
+Enforcing
+root@80008_1:/ # setenforce 0                                                  
+root@80008_1:/ # getenforce                                                    
+Permissive
+ 关闭Selinux可以正常安装
+
+01-14 08:43:48.882  8300  8312 I DefContainer:  packagePath /sdcard/download/优酷视频.apk, packageFile.isDirectory()false, packageFile /sdcard/download/优酷视频.apk
+01-14 08:43:48.884  8300  8312 W DefContainer: Failed to parse package at /sdcard/download/优酷视频.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /sdcard/download/优酷视频.apk
+01-14 08:43:56.716  8300  8311 I DefContainer:  packagePath /sdcard/download/土豆视频.apk, packageFile.isDirectory()false, packageFile /sdcard/download/土豆视频.apk
+01-14 08:43:56.717  8300  8311 W DefContainer: Failed to parse package at /sdcard/download/土豆视频.apk: android.content.pm.PackageParser$PackageParserException: Failed to parse /sdcard/download/土豆视频.apk
+01-14 08:44:12.902  8300  8312 I DefContainer:  packagePath /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk, packageFile.isDirectory()false, packageFile /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk
+01-14 08:44:12.932  8300  8311 D DefContainer: Copying /data/user/10/com.tencent.android.qqdownloader/files/tassistant/apk/com.speedsoftware.sqleditor_17.apk to base.apk
+

@@ -1,0 +1,142 @@
+JDK中生成代理对象的API
+
+代理类所在包:java.lang.reflect.Proxy
+JDK实现代理只需要使用newProxyInstance方法,但是该方法需要接收三个参数,完整的写法是:
+
+static Object newProxyInstance(ClassLoader loader, Class<?>[] interfaces,InvocationHandler h )
+
+注意该方法是在Proxy类中是静态方法,且接收的三个参数依次为:
+
+    ClassLoader loader,:指定当前目标对象使用类加载器,获取加载器的方法是固定的
+    Class<?>[] interfaces,:目标对象实现的接口的类型,使用泛型方式确认类型
+    InvocationHandler h:事件处理,执行目标对象的方法时,会触发事件处理器的方法,会把当前执行目标对象的方法作为参数传入
+
+Member.java实体类：
+
+IMemberService.java
+
+package com.dx.dynamicproxy;
+
+public interface IMemberService {
+    public String create(Member member);
+}
+
+MemberSerivceImpl.java
+
+package com.dx.dynamicproxy;
+
+public class MemberSerivceImpl implements IMemberService {
+    public String create(Member member) {
+        System.out.println("create member:" + member);
+        return "SUCCESS";
+    }
+}
+
+
+MemberServiceImplProxy.java动态代理类
+
+package com.dx.dynamicproxy;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+
+public class MemberServiceImplProxy implements InvocationHandler {
+    private Object obj;
+
+    public MemberServiceImplProxy(Object obj) {
+        this.obj = obj;
+    }
+
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        before(method);
+
+        Object resultValue = method.invoke(obj, args);// 真实的调用方法操作
+
+        after(method);
+
+        return resultValue;
+    }
+
+    private void before(Method method) {
+        System.out.println("before " + method);
+    }
+
+    private void after(Method method) {
+        System.out.println("after " + method);
+    }
+}
+
+------------------------------------------------------
+
+ProxyFactory.java 动态代理工厂（更通用）
+
+package com.dx.dynamicproxy;
+
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+/**
+ * 创建动态代理对象 动态代理不需要实现接口,但是需要指定接口类型
+ */
+public class ProxyFactory {
+    // 维护一个目标对象
+    private Object target;
+
+    public ProxyFactory(Object target) {
+        this.target = target;
+    }
+
+    /**
+     * 给目标对象生成代理对象
+     */
+    public Object getProxyInstance() {
+        ClassLoader classLoader = target.getClass().getClassLoader();
+        Class<?>[] interfaces = target.getClass().getInterfaces();
+
+        InvocationHandler invocationHandler = new InvocationHandler() {
+            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                before(method);
+                // 执行目标对象方法
+                Object returnValue = method.invoke(target, args);
+                after(method);
+
+                return returnValue;
+            }
+        };
+
+        return Proxy.newProxyInstance(classLoader, interfaces, invocationHandler);
+    }
+
+    private void before(Method method) {
+        System.out.println("before " + method);
+    }
+
+    private void after(Method method) {
+        System.out.println("after " + method);
+    }
+}
+
+Client.java 调用示例：
+
+package com.dx.dynamicproxy;
+
+public class Client {
+    public static void main(String[] args) {
+        IMemberService baseMemberService = new MemberSerivceImpl();
+        
+//        InvocationHandler handler = new MemberServiceImplProxy(baseMemberService);
+//        Class<?> classType = handler.getClass();
+//        IMemberService memberService = (IMemberService) Proxy.newProxyInstance(classType.getClassLoader(),
+//                baseMemberService.getClass().getInterfaces(), handler);
+        // 或者
+        IMemberService memberService = (IMemberService) new ProxyFactory(baseMemberService).getProxyInstance();
+
+        Member member = new Member(1, "test");
+        // 执行invoke方法
+        String result = memberService.create(member);
+
+        System.out.println(result);
+    }
+}
+

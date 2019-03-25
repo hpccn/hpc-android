@@ -1,0 +1,52 @@
+4. 通过uid获取包名，通过包名获取uid
+
+通过包名获取UID
+
+        PackageManager mPm = getPackageManager();
+        try {
+            ApplicationInfo applicationInfo = mPm.getApplicationInfo("com.tencent.mm", 0);
+            int uid = applicationInfo.uid;
+            Toast.makeText(MainActivity.this, "" + uid, Toast.LENGTH_SHORT).show();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+通过 UID 获取包名
+
+String packagename = getPackageManager().getNameForUid(uid);
+
+
+
+
+
+通过包名获取UID
+ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+ApplicationInfo appinfo = getApplicationInfo();
+List<ActivityManager.RunningAppProcessInfo> run = am.getRunningAppProcesses();
+for (ActivityManager.RunningAppProcessInfo runningProcess : run) {
+    if ((runningProcess.processName != null) && runningProcess.processName.equals(appinfo.processName)) {
+        Log.e("===========", String.valueOf(runningProcess.uid));
+        break;
+    }
+}
+
+ 
+
+Log.d("AAA", "----pid=" + android.os.Process.myPid());    //获取该进程的id
+
+Log.d("AAA", "----tid=" + android.os.Process.myTid());      //获取线程的id
+
+Log.d("AAA", "----uid=" + android.os.Process.myUid());      //获取该进程的用户id
+
+Log.d("AAA", "----http.agent=" + System.getProperty("http.agent"));    //获取User-Agent
+
+
+
+		// 自定义权限强制开关
+        final int enforce = android.os.SystemProperties.getInt("persist.sys.enforce.eben.permission", 1);
+		if (1 == enforce) {
+			// 强开
+		} else {
+			// 忽略
+		}

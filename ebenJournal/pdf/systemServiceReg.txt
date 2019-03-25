@@ -1,0 +1,268 @@
+
+Android 系统服务的两种注册方式
+
+查看 SystemServer.java 的 run() 方法，可以看到两种系统服务的注册方式，分别是：
+
+    ServiceManager.addService
+    mSystemServiceManager.startService
+
+但是，同样是系统服务，为什么他们的注册方式不同呢？下面我们带着疑问来看一下这个问题。
+一、ServiceManager.addService 方式
+
+举例：
+
+            inputManager = new InputManagerService(context);
+            ServiceManager.addService(Context.INPUT_SERVICE, inputManager);
+
+    1
+    2
+    3
+
+1.1 ServiceManager.addService
+
+ServiceManager.java
+
+    public static void addService(String name, IBinder service) {
+        try {
+            getIServiceManager().addService(name, service, false);
+        } catch (RemoteException e) {
+            Log.e(TAG, "error in addService", e);
+        }
+    }
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+
+1.1.2 ServiceManager.getIServiceManager
+
+ServiceManager.java
+
+    private static IServiceManager getIServiceManager() {
+        if (sServiceManager != null) {
+            return sServiceManager;
+        }
+
+        // Find the service manager
+        sServiceManager = ServiceManagerNative.asInterface(BinderInternal.getContextObject());
+        return sServiceManager;
+    }
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+
+实际上是通过单例模式来获取 service manager，得到的是一个 ServiceManagerProxy 对象
+1.2 ServiceManagerProxy.addService
+
+ServiceManager.java
+
+    public void addService(String name, IBinder service, boolean allowIsolated)
+            throws RemoteException {
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+        data.writeInterfaceToken(IServiceManager.descriptor);
+        data.writeString(name);
+        data.writeStrongBinder(service);
+        data.writeInt(allowIsolated ? 1 : 0);
+        mRemote.transact(ADD_SERVICE_TRANSACTION, data, reply, 0);
+        reply.recycle();
+        data.recycle();
+    }
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    11
+    12
+
+由此知，这里实际上是通过 mRemote 把 ADD_SERVICE_TRANSACTION 信息发送给 ServiceManager
+二、mSystemServiceManager.startService 方式
+
+举例：
+
+mDisplayManagerService = mSystemServiceManager.startService(DisplayManagerService.class);
+
+    1
+
+2.1 SystemServiceManager.startService
+
+SystemServiceManager.java
+
+    public <T extends SystemService> T startService(Class<T> serviceClass) {
+        final String name = serviceClass.getName();
+        Slog.i(TAG, "Starting " + name);
+        // 构建 service
+        ...
+        final T service;
+        try {
+            Constructor<T> constructor = serviceClass.getConstructor(Context.class);
+            service = constructor.newInstance(mContext);
+        } catch (...) {
+            ...
+        }
+        // 把 service 加入到 SystemServiceManager 对象的成员变量 mServices 中
+        mServices.add(service);
+
+        // Start it.
+        try {
+            service.onStart();
+        } catch (RuntimeException ex) {
+        }
+        return service;
+    }
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    11
+    12
+    13
+    14
+    15
+    16
+    17
+    18
+    19
+    20
+    21
+    22
+
+总结一下，其主要做了三件事情：
+
+    create service
+    把 service 加入到 SystemServiceManager 对象的成员变量 mServices 中
+    执行 service.onStart()
+
+下面我们来看看 service.onStart() 中做了什么，以 DisplayManagerService 为例：
+2.2 DisplayManagerService.onStart
+
+DisplayManagerService.java
+
+    @Override
+    public void onStart() {
+        // 因 service 而异
+        mHandler.sendEmptyMessage(MSG_REGISTER_DEFAULT_DISPLAY_ADAPTER);
+        // 主要动作
+        publishBinderService(Context.DISPLAY_SERVICE, new BinderService(),
+                true /*allowIsolated*/);
+        publishLocalService(DisplayManagerInternal.class, new LocalService());
+    }
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+
+2.2.2 SystemService
+
+SystemService.java
+
+    protected final void publishBinderService(String name, IBinder service,
+            boolean allowIsolated) {
+        ServiceManager.addService(name, service, allowIsolated);
+    }
+
+    1
+    2
+    3
+    4
+
+可以看到其竟然像方式一一样，执行了 ServiceManager.addService，那么方式一和方式二还有什么不同呢？对比发现：
+
+    方式二多了 mServices.add(service) 此步
+
+查找 mServices，可以发现其的作用：
+2.3 SystemServiceManager.startBootPhase
+
+SystemServiceManager.java
+
+    public void startBootPhase(final int phase) {
+        if (phase <= mCurrentPhase) {
+            throw new IllegalArgumentException("Next phase must be larger than previous");
+        }
+        mCurrentPhase = phase;
+
+        Slog.i(TAG, "Starting phase " + mCurrentPhase);
+
+        final int serviceLen = mServices.size();
+        for (int i = 0; i < serviceLen; i++) {
+            final SystemService service = mServices.get(i);
+            try {
+                // 重要步骤
+                service.onBootPhase(mCurrentPhase);
+            } catch (Exception ex) {
+                ...
+            }
+        }
+    }
+
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    11
+    12
+    13
+    14
+    15
+    16
+    17
+    18
+    19
+
+可以发现 SystemServiceManager 会回调 mServices 中注册 service 的 onBootPhase() 方法
+总结
+
+方式一：ServiceManager.addService
+
+    功能：向 ServiceManager 注册该服务
+    特点：服务往往直接或间接继承于Binder服务
+    举例：USER_SERVICE、SchedulingPolicyService、AccountManagerService、WINDOW_SERVICE、INPUT_SERVICE、INPUT_METHOD_SERVICE、ACCESSIBILITY_SERVICE …
+
+方式二：SystemServiceManager.startService
+
+    功能：
+        创建服务对象
+        回调该服务的 onStart() 方法；该方法会执行上面的 ServiceManager.addService()
+        根据启动到不同的阶段会回调 mServices 中注册 service 的 onBootPhase() 方法
+    特点：
+        service 往往自身或者内部类（如 ActivityManagerService）继承于SystemService
+        在开机过程中，service 除了注册到 ServiceManager 中，还需要做一些其他的处理，如根据系统启动阶段（phase）的不同，做一些不同的处理
+    举例：PowerManagerService、DisplayManagerService、BatteryService、JobSchedulerService、ActivityManagerService
+

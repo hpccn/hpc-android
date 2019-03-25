@@ -98,3 +98,12 @@ public abstract class PackageManager {
 
 
  }
+
+// 参考 
+https://blog.csdn.net/tcp_westwood/article/details/80989673
+
+frameworks/base/services/core/java/com/android/server/pm/PackageManagerService.java
+{
+	// adb 安装标志位
+	PackageManager.INSTALL_FROM_ADB;
+}

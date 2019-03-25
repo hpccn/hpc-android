@@ -1,0 +1,228 @@
+130|rk3399_mid:/ $ logcat                                                                                                                   
+--------- beginning of system
+01-19 10:27:17.187   620   645 I PowerManagerService: Going to sleep due to screen timeout (uid 1000)...
+01-19 10:27:17.188   620   645 I PowerManagerService: Sleeping (uid 1000)...
+--------- beginning of main
+01-19 10:27:17.199   754   754 W FingerprintManager: isFingerprintHardwareDetected(): Service not connected!
+01-19 10:27:17.205   242   752 E BufferQueueProducer: [ColorFade] connect: already connected (cur=1 req=1)
+01-19 10:27:17.206   620   645 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+01-19 10:27:17.211   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x333.
+01-19 10:27:17.211   242   247 D GRALLOC-ROCKCHIP: [File] : hardware/rockchip/libgralloc/gralloc_drm_rockchip.c; [Line] : 1315; [Func] : drm_gem_rockchip_alloc;
+01-19 10:27:17.211   242   247 D GRALLOC-ROCKCHIP: to ask for cachable buffer for CPU read, usage : 0x333
+01-19 10:27:17.237   620   645 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x333.
+01-19 10:27:17.237   620   645 D GRALLOC-ROCKCHIP: [File] : hardware/rockchip/libgralloc/gralloc_drm_rockchip.c; [Line] : 1315; [Func] : drm_gem_rockchip_alloc;
+01-19 10:27:17.237   620   645 D GRALLOC-ROCKCHIP: to ask for cachable buffer for CPU read, usage : 0x333
+01-19 10:27:17.240   242   242 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x333.
+01-19 10:27:17.240   242   242 D GRALLOC-ROCKCHIP: [File] : hardware/rockchip/libgralloc/gralloc_drm_rockchip.c; [Line] : 1315; [Func] : drm_gem_rockchip_alloc;
+01-19 10:27:17.240   242   242 D GRALLOC-ROCKCHIP: to ask for cachable buffer for CPU read, usage : 0x333
+01-19 10:27:17.261   242   249 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:17.288   620   645 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:17.301   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:17.320   620   645 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:17.335   242   249 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:17.364   620   645 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:17.795   620   645 V KeyguardServiceDelegate: onScreenTurnedOff()
+01-19 10:27:17.858   620   643 I DisplayManagerService: Display device changed state: "ÄÚÖÃÆÁÄ»", OFF
+01-19 10:27:17.859   242   242 D SurfaceFlinger: Set power mode=0, type=0 flinger=0x7ec8048000
+01-19 10:27:18.200   620   751 D SurfaceControl: Excessive delay in setPowerMode(): 341ms
+01-19 10:27:18.215   754   754 D PhoneStatusBar: disable: < expand ICONS alerts SYSTEM_INFO back HOME RECENT clock SEARCH quick_settings >
+01-19 10:27:18.216   333  2165 D AudioHardwareTiny: adev_set_parameters: kvpairs = screen_state=off
+01-19 10:27:18.220   754   754 W FingerprintManager: isFingerprintHardwareDetected(): Service not connected!
+01-19 10:27:18.224   754   754 W FingerprintManager: isFingerprintHardwareDetected(): Service not connected!
+01-19 10:27:18.229   754   754 W FingerprintManager: isFingerprintHardwareDetected(): Service not connected!
+01-19 10:27:18.270   754   754 V PhoneStatusBar: onReceive: android.intent.action.SCREEN_OFF, Intent { act=android.intent.action.SCREEN_OFF flg=0x50000010 }
+01-19 10:27:18.274   620  2008 W BroadcastQueue: Skipping deliver [foreground] BroadcastRecord{b99ff76 u-1 android.intent.action.SCREEN_OFF} to ReceiverList{1671caf 1743 com.android.launcher3/10039/u0 remote:df19c8e}: process crashing
+01-19 10:27:18.843   620   684 W TelecomManager: Telecom Service not found.
+01-19 10:27:18.844   620   684 I PowerManagerService: Waking up from sleep (uid 1000)...
+01-19 10:27:18.845   620   645 I DisplayPowerController: Blocking screen on until initial contents have been drawn.
+01-19 10:27:18.846   620   645 V KeyguardServiceDelegate: onScreenTurnedOn(showListener = com.android.server.policy.PhoneWindowManager$2@1bd451c)
+01-19 10:27:18.847   620   620 V KeyguardServiceDelegate: onStartedWakingUp()
+01-19 10:27:18.848   620   643 I DisplayManagerService: Display device changed state: "ÄÚÖÃÆÁÄ»", ON
+01-19 10:27:18.849   242   242 D SurfaceFlinger: Set power mode=2, type=0 flinger=0x7ec8048000
+01-19 10:27:18.869   333  2165 D AudioHardwareTiny: adev_set_parameters: kvpairs = screen_state=on
+01-19 10:27:18.902   620   657 V KeyguardServiceDelegate: **** SHOWN CALLED ****
+01-19 10:27:18.911   754   754 W FingerprintManager: isFingerprintHardwareDetected(): Service not connected!
+01-19 10:27:18.913   754   754 V PhoneStatusBar: onReceive: android.intent.action.SCREEN_ON, Intent { act=android.intent.action.SCREEN_ON flg=0x50000010 }
+01-19 10:27:18.954   620   645 I DisplayPowerController: Unblocked screen on after 110 ms
+01-19 10:27:18.957   620   645 V KeyguardServiceDelegate: onScreenTurnedOn()
+01-19 10:27:19.431   620   751 D SurfaceControl: Excessive delay in setPowerMode(): 583ms
+01-19 10:27:20.257   754   754 D PhoneStatusBar: disable: < expand ICONS alerts SYSTEM_INFO back HOME RECENT clock SEARCH quick_settings >
+01-19 10:27:20.275   620   636 I VrManagerService: VR mode is allowed
+01-19 10:27:20.280  1743  1743 E TAGOOD  : <<==>> Statistics Enabled: true
+01-19 10:27:20.282  1743  1743 V Launcher: onResume for state = NONEgesture type : 0, userGestureUnlock = false
+01-19 10:27:20.282  1743  1743 V Rotate3dManager: sendLauncherThumbIfNeed ...
+01-19 10:27:20.284   620   692 W ActivityManager: Unable to start service Intent { act=ebensz.intent.action.PROGRESS_SERVICE pkg=com.ebensz.appmanager } U=0: not found
+01-19 10:27:20.286   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:20.304   333   367 D AudioHardwareTiny: out_set_parameters: kvpairs = routing=2
+01-19 10:27:20.304   333   367 D AudioHardwareTiny: start_output_stream
+01-19 10:27:20.305   333   367 D alsa_route: route_info->sound_card 0, route_info->devices 0  
+01-19 10:27:20.306   333   367 D alsa_route: route_set_controls() set route 0
+01-19 10:27:20.306  1743  1871 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:20.318   754   754 D PhoneStatusBar: disable: < expand icons* alerts system_info* back HOME RECENT clock SEARCH quick_settings >
+01-19 10:27:20.337   620   636 W BroadcastQueue: Skipping deliver [background] BroadcastRecord{f1e6e4d u0 android.intent.action.USER_PRESENT} to ReceiverList{1671caf 1743 com.android.launcher3/10039/u0 remote:df19c8e}: process crashing
+01-19 10:27:20.408   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0x900.
+01-19 10:27:20.409   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0x900.
+01-19 10:27:20.410   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0x900.
+01-19 10:27:20.411   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0x900.
+01-19 10:27:20.413   242   247 E BufferQueueProducer: [NavigationBar] connect: already connected (cur=1 req=1)
+01-19 10:27:20.413   754   925 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+01-19 10:27:20.424   754   754 D PhoneStatusBar: disable: < expand icons alerts system_info back home* recent* clock search* quick_settings >
+01-19 10:27:20.446   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:20.449   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:20.461   242   298 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:20.464   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:20.657   620   885 I ActivityManager: Setting hasTopUi=false for pid=754
+01-19 10:27:20.782   242   247 E BufferQueueProducer: [StatusBar] connect: already connected (cur=1 req=1)
+01-19 10:27:20.783   754   925 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+01-19 10:27:20.785   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:20.787   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:20.793   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:20.796   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:20.815   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:20.818   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:21.312   620   869 I ActivityManager: Killing 1743:com.android.launcher3/u0a39 (adj 0): crash
+01-19 10:27:21.316   620   869 D ActivityManager: cleanUpApplicationRecord -- 1743
+01-19 10:27:21.333   333   367 D AudioHardwareTiny: out_set_parameters: kvpairs = routing=2
+01-19 10:27:21.351   620   869 I ActivityManager: Start proc 2175:com.android.launcher3/u0a39 for activity com.android.launcher3/.Launcher
+01-19 10:27:21.361  2175  2175 E art     : setrlimit(RLIMIT_CORE) failed for pid 2175: Operation not permitted
+01-19 10:27:21.406   620   683 W InputDispatcher: channel 'e1ec489 com.android.launcher3/com.android.launcher3.Launcher (server)' ~ Consumer closed input channel or an error occurred.  events=0x9
+01-19 10:27:21.406   620   683 E InputDispatcher: channel 'e1ec489 com.android.launcher3/com.android.launcher3.Launcher (server)' ~ Channel is unrecoverably broken and will be disposed!
+01-19 10:27:21.424   620   632 D GraphicsStats: Buffer count: 4
+01-19 10:27:21.424   620   885 I WindowManager: WIN DEATH: Window{e1ec489 u0 com.android.launcher3/com.android.launcher3.Launcher}
+01-19 10:27:21.424   620   885 W InputDispatcher: Attempted to unregister already unregistered input channel 'e1ec489 com.android.launcher3/com.android.launcher3.Launcher (server)'
+01-19 10:27:21.477   620   869 W ActivityManager: Slow operation: 84ms so far, now at attachApplicationLocked: after mServices.attachApplicationLocked
+01-19 10:27:21.495  2175  2175 I art     : Starting a blocking GC AddRemoveAppImageSpace
+01-19 10:27:21.497  2175  2175 W System  : ClassLoader referenced unknown path: /system/priv-app/ELauncher/lib/arm64
+01-19 10:27:21.517   620   643 W AppOps  : Finishing op nesting under-run: uid 1000 pkg android code 24 time=0 duration=0 nesting=0
+01-19 10:27:21.663  2175  2175 D Launcher: onCreate
+01-19 10:27:21.734  2175  2175 D LauncherModel: Old launcher provider: content://com.android.launcher2.settings/favorites?notify=true
+01-19 10:27:21.734  2175  2175 D LauncherModel: Old launcher provider does not exist.
+01-19 10:27:21.884  2175  2175 V Launcher.Hotseat: hotseatIcons = 7 hotseatIcon = 7 mAllAppsButtonRank = 3
+01-19 10:27:22.039  2175  2175 V Launcher.Hotseat: hotseatIcons = 7 hotseatIcon = 7 mAllAppsButtonRank = 3
+01-19 10:27:22.134  2175  2194 D LauncherModel: loadWorkspace: loading default favorites
+01-19 10:27:22.139  2175  2194 W Launcher: setApplicationContext called twice! old=android.app.Application@a76d764 new=android.app.Application@a76d764
+01-19 10:27:22.141  2175  2194 D LauncherModel: loadWorkspace start : 0
+--------- beginning of crash
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: FATAL EXCEPTION: launcher-loader
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: Process: com.android.launcher3, PID: 2175
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: java.lang.IllegalArgumentException: column 'downloadId' does not exist
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at android.database.AbstractCursor.getColumnIndexOrThrow(AbstractCursor.java:333)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at android.database.CursorWrapper.getColumnIndexOrThrow(CursorWrapper.java:87)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at com.android.launcher3.LauncherModel$LoaderTask.loadWorkspace(LauncherModel.java:2431)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at com.android.launcher3.LauncherModel$LoaderTask.loadAndBindWorkspace(LauncherModel.java:2063)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at com.android.launcher3.LauncherModel$LoaderTask.run(LauncherModel.java:2160)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:755)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:95)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:154)
+01-19 10:27:22.147  2175  2194 E AndroidRuntime: 	at android.os.HandlerThread.run(HandlerThread.java:61)
+01-19 10:27:22.150   620   885 W ActivityManager:   Force finishing activity com.android.launcher3/.Launcher
+01-19 10:27:22.179  2175  2175 E TAGOOD  : <<==>> Statistics Enabled: true
+01-19 10:27:22.180  2175  2175 V Launcher: onResume for state = NONEgesture type : 0, userGestureUnlock = false
+01-19 10:27:22.180  2175  2175 V Rotate3dManager: sendLauncherThumbIfNeed ...
+01-19 10:27:22.181   620  1022 W ActivityManager: Unable to start service Intent { act=ebensz.intent.action.PROGRESS_SERVICE pkg=com.ebensz.appmanager } U=0: not found
+01-19 10:27:22.203   620  1877 I OpenGLRenderer: Initialized EGL, version 1.4
+01-19 10:27:22.203   620  1877 D OpenGLRenderer: Swap behavior 1
+01-19 10:27:22.203   242   249 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0x900.
+01-19 10:27:22.209   242   249 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0x900.
+01-19 10:27:22.214  2175  2175 D GRALLOC-ROCKCHIP: enter, w : 960, h : 576, format : 0x1, usage : 0x100.
+01-19 10:27:22.218   242   249 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0x900.
+01-19 10:27:22.222   242   249 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0x900.
+01-19 10:27:22.228   620   692 W ActivityManager: Unbind failed: could not find connection for android.os.BinderProxy@fb4f5e3
+01-19 10:27:22.228   242   752 E BufferQueueProducer: [Application Error: com.android.launcher3] connect: already connected (cur=1 req=1)
+01-19 10:27:22.228   620  1877 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+01-19 10:27:22.229   620   692 I ActivityManager: START u0 {act=android.intent.action.MAIN cat=[android.intent.category.HOME] flg=0x10000100 cmp=com.android.launcher3/.Launcher} from uid 0 on display 0
+01-19 10:27:22.244   242   752 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0xb00.
+01-19 10:27:22.251   620  1877 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0xb00.
+01-19 10:27:22.263   242   752 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0xb00.
+01-19 10:27:22.268   620  1877 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0xb00.
+01-19 10:27:22.286   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.291  2175  2225 I mali_so : [File] : hardware/arm/maliT760/driver/product/base/src/mali_base_kbase.c; [Line] : 976; [Func] : base_context_deal_with_version_affairs_rk_ext;
+01-19 10:27:22.291  2175  2225 I mali_so : arm_release_ver of this mali_so is 'r14p0-01rel0', rk_so_ver is '6@0'.
+01-19 10:27:22.291   242   249 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0xb00.
+01-19 10:27:22.291  2175  2225 D mali_so : [File] : hardware/arm/maliT760/driver/product/base/src/mali_base_kbase.c; [Line] : 981; [Func] : base_context_deal_with_version_affairs_rk_ext;
+01-19 10:27:22.291  2175  2225 D mali_so : current process is NOT sf, to bail out.
+01-19 10:27:22.298  2175  2225 I OpenGLRenderer: Initialized EGL, version 1.4
+01-19 10:27:22.298  2175  2225 D OpenGLRenderer: Swap behavior 1
+01-19 10:27:22.298   242   247 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x933.
+01-19 10:27:22.298   620  1877 D GRALLOC-ROCKCHIP: enter, w : 1356, h : 424, format : 0x1, usage : 0xb00.
+01-19 10:27:22.299   242   247 D GRALLOC-ROCKCHIP: [File] : hardware/rockchip/libgralloc/gralloc_drm_rockchip.c; [Line] : 1315; [Func] : drm_gem_rockchip_alloc;
+01-19 10:27:22.299   242   247 D GRALLOC-ROCKCHIP: to ask for cachable buffer for CPU read, usage : 0x933
+01-19 10:27:22.312   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.320   620   643 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x933.
+01-19 10:27:22.320   620   643 D GRALLOC-ROCKCHIP: [File] : hardware/rockchip/libgralloc/gralloc_drm_rockchip.c; [Line] : 1315; [Func] : drm_gem_rockchip_alloc;
+01-19 10:27:22.320   620   643 D GRALLOC-ROCKCHIP: to ask for cachable buffer for CPU read, usage : 0x933
+01-19 10:27:22.328   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.345   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.365   242   247 E BufferQueueProducer: [com.android.launcher3/com.android.launcher3.Launcher] connect: already connected (cur=1 req=1)
+01-19 10:27:22.367  2175  2225 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+01-19 10:27:22.371  2175  2175 D Launcher: onCreate
+01-19 10:27:22.372  2175  2175 W Launcher: setApplicationContext called twice! old=android.app.Application@a76d764 new=android.app.Application@a76d764
+01-19 10:27:22.378   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:22.380   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:22.380  2175  2175 W ImageLoader: Try to initialize ImageLoader which had already been initialized before. To re-init ImageLoader with new configuration call ImageLoader.destroy() at first.
+01-19 10:27:22.393   242   298 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:22.396   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 96, format : 0x1, usage : 0xb00.
+01-19 10:27:22.397  2175  2175 V Launcher.Hotseat: hotseatIcons = 7 hotseatIcon = 7 mAllAppsButtonRank = 3
+01-19 10:27:22.464  2175  2175 V Launcher.Hotseat: hotseatIcons = 7 hotseatIcon = 7 mAllAppsButtonRank = 3
+01-19 10:27:22.559  2175  2175 E TAGOOD  : <<==>> Statistics Enabled: true
+01-19 10:27:22.560  2175  2175 V Launcher: onResume for state = NONEgesture type : 0, userGestureUnlock = false
+01-19 10:27:22.560  2175  2175 V Rotate3dManager: sendLauncherThumbIfNeed ...
+01-19 10:27:22.561   620   692 W ActivityManager: Unable to start service Intent { act=ebensz.intent.action.PROGRESS_SERVICE pkg=com.ebensz.appmanager } U=0: not found
+01-19 10:27:22.590   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.611  2175  2225 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.627   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.653  2175  2225 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.717   242   249 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.745   242   249 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.770   242   249 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.788   242   249 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0x900.
+01-19 10:27:22.802   242   247 E BufferQueueProducer: [com.android.launcher3/com.android.launcher3.Launcher] connect: already connected (cur=1 req=1)
+01-19 10:27:22.802  2175  2225 D mali_winsys: EGLint new_window_surface(egl_winsys_display*, void*, EGLSurface, EGLConfig, egl_winsys_surface**, egl_color_buffer_format*, EGLBoolean) returns 0x3000
+01-19 10:27:22.828   242   249 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.846  2175  2225 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.867   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.887  2175  2225 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 2048, format : 0x1, usage : 0xb00.
+01-19 10:27:22.981   620   643 I ActivityManager: Displayed com.android.launcher3/.Launcher: +748ms (total +1s652ms)
+01-19 10:27:23.016  2175  2175 E ActivityThread: Activity com.android.launcher3.Launcher has leaked IntentReceiver com.android.launcher3.Workspace$EventReceiver@c91d2f2 that was originally registered here. Are you missing a call to unregisterReceiver()?
+01-19 10:27:23.016  2175  2175 E ActivityThread: android.app.IntentReceiverLeaked: Activity com.android.launcher3.Launcher has leaked IntentReceiver com.android.launcher3.Workspace$EventReceiver@c91d2f2 that was originally registered here. Are you missing a call to unregisterReceiver()?
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.LoadedApk$ReceiverDispatcher.<init>(LoadedApk.java:1159)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.LoadedApk.getReceiverDispatcher(LoadedApk.java:946)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ContextImpl.registerReceiverInternal(ContextImpl.java:1302)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ContextImpl.registerReceiver(ContextImpl.java:1282)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ContextImpl.registerReceiver(ContextImpl.java:1276)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.content.ContextWrapper.registerReceiver(ContextWrapper.java:586)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at com.android.launcher3.Workspace.registerCornerInfo(Workspace.java:5663)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at com.android.launcher3.Workspace.initWorkspace(Workspace.java:495)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at com.android.launcher3.Workspace.<init>(Workspace.java:365)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at com.android.launcher3.Workspace.<init>(Workspace.java:323)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at java.lang.reflect.Constructor.newInstance0(Native Method)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at java.lang.reflect.Constructor.newInstance(Constructor.java:430)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.createView(LayoutInflater.java:645)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:787)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.createViewFromTag(LayoutInflater.java:727)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.rInflate(LayoutInflater.java:858)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.rInflateChildren(LayoutInflater.java:821)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.rInflate(LayoutInflater.java:861)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.rInflateChildren(LayoutInflater.java:821)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.rInflate(LayoutInflater.java:861)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.rInflateChildren(LayoutInflater.java:821)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.inflate(LayoutInflater.java:518)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.inflate(LayoutInflater.java:426)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.view.LayoutInflater.inflate(LayoutInflater.java:377)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at com.android.launcher3.Launcher.onCreate(Launcher.java:581)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.Activity.performCreate(Activity.java:6709)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.Instrumentation.callActivityOnCreate(Instrumentation.java:1118)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ActivityThread.performLaunchActivity(ActivityThread.java:2622)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ActivityThread.handleLaunchActivity(ActivityThread.java:2730)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ActivityThread.-wrap12(ActivityThread.java)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:1481)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.os.Looper.loop(Looper.java:154)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at android.app.ActivityThread.main(ActivityThread.java:6145)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at java.lang.reflect.Method.invoke(Native Method)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:912)
+01-19 10:27:23.016  2175  2175 E ActivityThread: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:802)
+01-19 10:27:23.193   242   752 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:23.195   754   925 D GRALLOC-ROCKCHIP: enter, w : 1536, h : 48, format : 0x1, usage : 0xb00.
+01-19 10:27:24.434   333   367 D alsa_route: route_set_controls() set route 24
+01-19 10:27:24.435   333   367 D AudioHardwareTiny: close device

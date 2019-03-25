@@ -1,0 +1,14 @@
+packages/apps/Settings/src/com/android/settings/ResetNetwork.java +114
+
+
+hanpengcheng@build:~/T10/T10_LA1.1.1_Branch/LINUX/android$ grep -rn "重置所有网络设置" packages/apps/Se
+Sensor/   Settings/ 
+hanpengcheng@build:~/T10/T10_LA1.1.1_Branch/LINUX/android$ grep -rn "重置所有网络设置" packages/apps/Settings/
+packages/apps/Settings/res/values-zh-rCN/strings.xml:1176:    <string name="reset_network_desc" msgid="581668983587311282">"此操作会重置所有网络设置，包括：\n\n"<li>"WLAN"</li>\n<li>"移动数据网络"</li>\n<li>"蓝牙"</li></string>
+packages/apps/Settings/res/values-zh-rCN/strings.xml:1178:    <string name="reset_network_final_desc" msgid="6388371121099245116">"要重置所有网络设置吗？此操作无法撤消！"</string>
+hanpengcheng@build:~/T10/T10_LA1.1.1_Branch/LINUX/android$ grep -rn "reset_network_final_desc" packages/apps/Settings/res/xml
+hanpengcheng@build:~/T10/T10_LA1.1.1_Branch/LINUX/android$ grep -rn "reset_network_final_desc" packages/apps/Settings/res/layout
+packages/apps/Settings/res/layout/reset_network_confirm.xml:28:        android:text="@string/reset_network_final_desc" />
+hanpengcheng@build:~/T10/T10_LA1.1.1_Branch/LINUX/android$ grep -rn "reset_network_confirm" packages/apps/Settings/src/
+packages/apps/Settings/src/com/android/settings/ResetNetwork.java:114:                args, R.string.reset_network_confirm_title, null, null, 0);
+packages/apps/Settings/src/com/android/settings/ResetNetworkConfirm.java:138:        mContentView = inflater.inflate(R.layout.reset_network_confirm, null);

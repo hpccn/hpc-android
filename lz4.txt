@@ -1,0 +1,67 @@
+lz4 压缩速度之快
+
+1 与tar配合压缩目录
+tar -cf - target_directory | lz4 -c > archive.tar.lz4
+or
+tar -I lz4 -cf archive.tar.lz4 target_directory
+2 tar lz 解压
+lz4 -d aa.tar.lz4 | tar -xC /data/bak
+
+3.解lz4文件:
+　　  lz4 -d 文件名
+
+// lz4 pv 代替 scp 
+time tar -c Documents | pv | lz4 -B4 | ssh 10.10.134.93 "lz4 -d | tar -xC ~/Documents/dell"
+
+
+// 对比测试
+hpc@scm-eben:/mnt/disk2T/hpc$ time zip -r gr.zip gradle/
+real	0m46.713s
+user	0m25.824s
+sys	0m2.208s
+
+
+hpc@scm-eben:/mnt/disk2T/hpc$ time tar -zcvf gr.tar.gz gradle
+real	0m25.563s
+user	0m25.084s
+sys	0m2.456s
+
+
+hpc@scm-eben:/mnt/disk2T/hpc$ time tar -I lz4 -cf  gr.tar.lz4 gradle/
+real	0m5.158s
+user	0m2.444s
+sys	0m1.944s
+
+
+-rw-rw-r--  1 hpc  hpc  432809418  3月 19 08:10 gr.tar.gz
+-rw-rw-r--  1 hpc  hpc  454109453  3月 19 08:14 gr.tar.lz4
+-rw-rw-r--  1 hpc  hpc  456172659  3月 19 08:16 gr.zip
+
+
+
+
+hpc@scm-eben:/mnt/disk2T/hpc/hpc-dev/rk/rk_eben/rockdev/Image-m10$ time zip -r update.img.zip update.img
+  adding: update.img (deflated 50%)
+
+real	1m27.860s
+user	1m20.988s
+sys	0m1.036s
+hpc@scm-eben:/mnt/disk2T/hpc/hpc-dev/rk/rk_eben/rockdev/Image-m10$ time lz4 update.img update.img.lz4
+Compressed 1671447000 bytes into 1036686135 bytes ==> 62.02%                   
+
+real	0m5.835s
+user	0m3.948s
+sys	0m1.056s
+hpc@scm-eben:/mnt/disk2T/hpc/hpc-dev/rk/rk_eben/rockdev/Image-m10$ ls -la | grep update
+-rw-rw-r-- 1 hpc hpc 1671447000  3月 19 16:49 update.img
+-rw-rw-r-- 1 hpc hpc 1036686135  3月 19 17:45 update.img.lz4
+-rw-rw-r-- 1 hpc hpc  841335368  3月 19 17:38 update.img.zip
+
+
+
+
+ time tar -I lz4 -cf rk_eben.tar.lz4 .repo/
+
+real	14m6.529s
+user	0m29.736s
+sys	1m55.156s

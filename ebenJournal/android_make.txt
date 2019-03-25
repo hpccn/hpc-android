@@ -1,0 +1,25 @@
+make installclean 这个命令，不错。
+
+1.make -jXX
+  XX表示数字，这个命令将编译Android系统并生成镜像，XX表示可以使用到的CPU核数，这在配置好的电脑上特别有用，公司的16核ubuntu服务器执行make -j16只要不到20分钟，而双核PC上需要4个小时！
+
+2.make snod
+这条命令将重新生成镜像，消耗的时间很少，类似WinCE的makeimg过程，如果你修改了一些数据文件（如音乐、视频）等文件时比较有用。
+
+3.make cts
+这条命令将编译CTS套机，编译出的结果放在out目录对应版的data/app目录下面。CTS测试时有用
+
+4.make installclean
+  这条命令清除out目录下对应板文件夹中的内容，也就是相当于make clean，通常如果改变了一些数据文件（如去掉）、最好执行以下make installclean，否则残留在out目录下的还会被打包进去。
+
+5.mm/mm -B
+  开发调试中最喜欢这条命令了，在修改了的目录下执行这条命令，就能智能地进行编译，输出的文件在通过adb推送到目标机，可以很方便地调试。
+
+6.make sdk
+  这条命令可以生成可发布的SDK，目前还没试过，据说需要JDK1.5
+
+7.make Setting
+  可以单独编译setting这个模块，目前还没试，猜想是不是可以单独编译Email、Music这些模块
+
+8.make bootimage
+  用这条命令可以生成boot.img,这个镜像文件中包含Linux Kernel，Ram disk，生成的boot.img只能通过fastboot进行烧写，这在只修改了Linux内核的时候有用

@@ -1,0 +1,37 @@
+
+服务定义
+frameworks/base/core/java/android/
+
+服务实现
+android/frameworks/base/services/
+
+
+注册系统aidl
+frameworks/base/Android.mk
+
+
+
+系统定制
+
+1 修改系统版本号:
+346899abbb7cfa3978f1befb1c4976b790b21340
+
+
+
+修改系统版本号:
+build/tools/supplier_buildinfo.mk
+
+PRODUCT_CUSTOM_NAME:=qz 
+
+
+    SUPPLIER_VERSION_EXTERNAL := $(PRODUCT_MAJOR_VERSION).$(PRODUCT_MINOR_VERSION).$(PRODUCT_POINT_VERSION).$(PRODUCT_CUSTOM_NAME)
+																											^^^^	
+device/qcom/msm8952_64/eben.prop
+
+
+
+-------------------------
+注册系统服务
+frameworks/base/core/java/android/app/SystemServiceRegistry.java +722
+
+frameworks/base/services/java/com/android/server/SystemServer.java +990

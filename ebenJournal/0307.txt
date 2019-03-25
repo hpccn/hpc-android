@@ -1,0 +1,30 @@
+
+hpc@scm-eben:/mnt/disk2T/hpc/hpc-dev/s1/ga/frameworks/base$ git diff services/java/com/android/server/SystemServer.java
+diff --git a/services/java/com/android/server/SystemServer.java b/services/java/com/android/server/SystemServer.java
+index 1f5b69a..9f3d543 100644
+--- a/services/java/com/android/server/SystemServer.java
++++ b/services/java/com/android/server/SystemServer.java
+@@ -985,13 +985,14 @@ public final class SystemServer {
+                 }
+             }
+ 
+-           try {
+-               Slog.i(TAG, "EbenSystem Service");
+-               ServiceManager.addService(Context.EBENSYSTEM_SERVICE,new EbenSystemService(context));
++                       // hpc add mdm proxy 
++                       try {
++                               Slog.i(TAG, "EbenSystem mdm proxy Service");
++                               ServiceManager.addService(Context.EBENSYSTEM_SERVICE,new EbenMdmProxy(context));
+ 
+-               }catch (Throwable e){
++                       }catch (Throwable e){
+ 
+-               }
++                       }
+
+
+
+====================
+
+增加编译打包进固件 /system/app, /system/priv-app
+device/qcom/common/base.mk

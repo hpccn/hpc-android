@@ -1,0 +1,56 @@
+之前写的那虚拟串口有点问题，只能读取，不能接收。今天再来改一下。将python的内容改为如下：
+先新建一个文档，内容如下
+
+#! /usr/bin/env python
+
+#coding=utf-8
+
+import pty
+import os
+import select
+
+def mkpty():
+    #
+    master1, slave = pty.openpty()
+    slaveName1 = os.ttyname(slave)
+    master2, slave = pty.openpty()
+    slaveName2 = os.ttyname(slave)
+    print '/nslave device names: ', slaveName1, slaveName2
+    return master1, master2
+
+if __name__ == "__main__":
+
+    master1, master2 = mkpty()
+    while True:        
+        rl, wl, el = select.select([master1,master2], [], [], 1)
+        for master in rl:
+            data = os.read(master, 128)
+            if master==master1:
+                print "read %d data:" % len(data)
+                print data
+                #os.write(master2, data)
+            else:
+                print "to write %d data:" % len(data)
+                print data.strip()
+                os.write(master1, data.strip())
+
+可以将其命名为 com.py，注意后缀。
+打开一个终端，cd到刚新建的文档目录下执行，#python com.py
+在这里插入图片描述
+18和19 就是增加的虚拟端口。我们让18号口为读入口(串口设备读入数据的口子),19号口为写出口(串口向外面写数据)
+。然后在重新打开一个终端，#cd /dev/pts/
+
+mykylin@ubuntu:~/Desktop$ cd /dev/pts/
+mykylin@ubuntu:/dev/pts$ echo 123 > 18
+在之前的那个终端就可以看到接收到的数据
+
+read 4 data:
+123
+执行echo 123 >19
+
+mykylin@ubuntu:/dev/pts$ echo 123 > 19
+得到结果
+to write 5 data:
+123
+搞定。然后在用QT写一个串口程序，这两个端口也可以用哦。。想使用完虚拟端口之后，可以直接在第一个打开的终端里面按下CTRL+C快捷键，结束这个进程。
+如果是用#python com.py & 命令运行的，则可以用ps一下，查看进程，找出python进程的PID号，然后执行#kill -9 (PID号)，OK。

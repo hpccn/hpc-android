@@ -1,0 +1,14 @@
+
+调试vim慢的原因方法：
+
+
+vim –startuptime message.txt
+
+启动后，查看message.txt中，哪个脚本最慢，再考虑能否禁用加载。在我这里，c.vim禁用后，快了非常多。
+
+ 
+
+接下来，可以正常使用vim，然后输入命令
+
+:scriptnames
+

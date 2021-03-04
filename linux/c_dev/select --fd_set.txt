@@ -1,0 +1,217 @@
+https://blog.csdn.net/scmuzi18/article/details/72900341
+
+https://blog.csdn.net/li_ning_/article/details/52165993
+
+
+Linux下I/O多路转接之select --fd_set
+
+多路：多条独立的i/o流，即读是一条流（称之为读流，比如输入流），写是一条流（称之为写流，比如输出流），异常也是一条流（称之为异常流），每条流用一个文件描述符来表示，同一个文件描述符可以同时表示读流和写流。
+
+select:系统提供select函数来实现多路复用输入/输出模型。select系统调用是⽤用来让我们的程序监视多个文件句柄的状态变化的。
+程序会停在select这里等待，直到被监视的文件句柄有一个或多个发生了状态改变。
+句柄及其对应的FILE*结构：
+0——-标准输入，stdin
+1——-标准输出，stdout
+2——-标准错误输出，stderr
+
+select接口：
+int select(int nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, struct timeval *timeout);
+•readfds，读流集合，也就是程序员希望从这些描述符中读内容
+•writefds，写流集合，也就是程序员希望向这些描述符中写内容
+•exceptfds，异常流集合，也就是中间过程发送了异常
+•nfds，上面三种事件中，最大的文件描述符+1
+•timeout，程序员的容忍度，可等待的时间
+
+struct timeval{
+　　long tv_sec;//second
+
+　　long tv_usec;//minisecond
+
+}
+
+timeout有三种取值：
+•NULL，select一直阻塞，知道readfds、writefds、exceptfds集合中至少一个文件描述符可用才唤醒
+•0，select不阻塞
+•timeout_value，select在timeout_value这个时间段内阻塞
+
+•FD_SET(fd, _fdset)，用来设置描述词组set中相关fd的位
+•FD_CLR(fd, _fdset)，用来清除描述词组set中相关fd 的位
+•FD_ISSET(fd, _fdset)，用来测试描述词组set中相关fd 的位是否为真
+•FD_ZERO(_fdset)，用来清除描述词组set的全部位
+
+函数返回值：
+执行成功则返回文件描述词状态已改变的个数；
+如果返回0代表在描述词状态改变前已超过timeout时间，没有返回；
+当有错误发生时则返回-1；
+
+select模型的特点：
+1、可监控的⽂文件描述符个数取决与sizeof(fd_set)的值。我这边服务 器上sizeof(fd_set)＝512，每bit表⽰示一个⽂文件描述符，则我服务器上⽀支持的最大文件描述符是512*8=4096。
+2、将fd加入select监控集的同时，还要再使用一个数据结构array保存放到select监控集中的fd，一是用于再select 返回后，array作为源数据和fd_set进行FD_ISSET判断。二是select返回后会把以前加入的但并无事件发生的fd清空，则每次开始 select前都要重新从array取得fd逐一加入（FD_ZERO最先），扫描array的同时取得fd最大值maxfd，用于select的第一个 参数。
+3、select模型必须在select前循环array（加fd，取maxfd），select返回后循环array（FD_ISSET判断是否有时间发生）。
+
+select缺点：
+（1）每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大
+（2）同时每次调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大
+（3）select支持的文件描述符数量太小了，默认是1024
+
+服务器端代码：
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<sys/types.h>
+#include<sys/socket.h>
+#include<sys/select.h>
+#include<arpa/inet.h>
+#include<netinet/in.h>
+#include<string.h>
+int array_fds[1024];
+static void usage(char *proc)
+{
+ printf("usage:%s [local_ip] [local_port]\n",proc);
+}
+int startup(char* _ip,int _port) 
+{
+    //create socket
+  int sock=socket(AF_INET,SOCK_STREAM,0);
+  if(sock<0)
+  {
+    perror("socket");
+    return 2;
+  }
+  //port multiplexing
+  int flg=1; 
+  setsockopt(sock,SOL_SOCKET,SO_REUSEADDR,&flg,sizeof(flg));
+  struct sockaddr_in local;
+  local.sin_family=AF_INET;
+  local.sin_addr.s_addr=inet_addr(_ip);
+  local.sin_port=htons(_port);
+  //bind
+  if(bind(sock,(struct sockaddr*)&local,sizeof(local))<0)
+  {
+    perror("bind");
+    return 3;
+  }
+  //listen
+  if(listen(sock,10)<0)
+  {
+   perror("listen");
+   return 4;
+  }
+  return sock;
+}
+int main(int argc,char *argv[])
+{
+  if(argc!=3)
+  {
+    usage(argv[0]);
+    return 1;
+  }
+  int listen_sock=startup(argv[1],atoi(argv[2]));
+  int maxfd=0;
+  fd_set rfds;
+  int array_size=sizeof(array_fds)/sizeof(array_fds[0]);
+  array_fds[0]=listen_sock;
+  int i=1;
+  for(;i<array_size;i++)
+  {
+   array_fds[i]=-1;
+  }
+  while(1)
+  {
+    struct timeval _timeout={0,0};
+    FD_ZERO(&rfds);
+    maxfd=-1;
+    for(i=0;i<array_size;i++)
+    {
+      if(array_fds[i]>0)
+      {
+        FD_SET(array_fds[i],&rfds);
+        if(array_fds[i]>maxfd)
+        {
+            maxfd=array_fds[i];
+        }
+      }
+    }
+    switch(select(maxfd+1,&rfds,NULL,NULL,&_timeout))
+    {
+      case 0:
+          printf("timeout...\n");
+          break;
+      case -1:
+          perror("select\n");
+          break;
+      default:
+        {
+          int j=0;
+          for(;j<array_size;j++)
+          {
+             if(array_fds[j]<0)
+             {
+               continue;
+             }
+             if(j==0 && FD_ISSET(array_fds[j],&rfds))
+             {
+              struct sockaddr_in client;
+              socklen_t len=sizeof(client);
+              int new_fd=accept(array_fds[j],\
+                      (struct sockaddr*)&client,&len);
+              if(new_fd<0)
+              {
+                perror("accept");
+                continue;
+              }
+              else
+              {
+               printf("get a new client:(%s  %d)\n",\
+                       inet_ntoa(client.sin_addr),\
+                       ntohs(client.sin_port));
+               int k=1;
+               for(;k<array_size;k++)
+               {
+                if(array_fds[k]<0)
+                {
+                 array_fds[k]=new_fd;
+                 break;
+                }
+               }
+               if(k==array_size)
+               {
+                close(new_fd);
+               }
+              }
+             }
+             else if(j!=0 && FD_ISSET(array_fds[j],&rfds))
+             {
+              char buf[10240];
+              ssize_t s=read(array_fds[j],buf,sizeof(buf)-1);
+              if(s>0)
+              {
+               buf[s]=0;
+               printf("client say:%s\n",buf);
+              }
+              else if(s==0)
+              {
+                printf("client quit\n");
+                close(array_fds[j]);
+                array_fds[j]=-1;
+              }
+              else
+              {
+                perror("read");
+                close(array_fds[j]);
+                array_fds[j]=-1;
+              }
+             }
+             else
+             {
+               perror("read");
+               close(array_fds[j]);
+             }
+          }
+    }
+    break;
+    }
+  }
+  return 0;
+}

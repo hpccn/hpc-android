@@ -1,0 +1,7 @@
+Ubuntu桌面汉字“复”“门”等显示不正常
+
+
+sudo vim /etc/fonts/conf.d/64-language-selector-prefer.conf 该文件配置了 Noto Sans CJK 的优先级。
+i进入编辑后，可以看到，JP 优先于 SC。
+直接将 JP 移至最后即可。
+：wq保存退出后，发现在屏幕上打字“门”“复”等已恢复正常中国字。
